@@ -54,7 +54,7 @@ from astropy import units as u
 from matplotlib import pylab as plt
 
 # Import some p2 magic 
-from . import p2api
+import p2api
 
 # Use argparse to make fcmaker user friendly ---------------------------------------------
 parser = argparse.ArgumentParser(description='''Create ESO-compliant finding charts from \

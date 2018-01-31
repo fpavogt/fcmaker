@@ -13,6 +13,9 @@ Changelog
    - find a better way to display the allowed TT area for MUSE ? 
      e.g. shaded area ?
 
+v0.2.1 January 2018, F.P.A. Vogt:
+ - fixed a bad bug with the p2api import
+
 v0.2.00 January 2018, F.P.A. Vogt:
  - remove local version of p2api in favor of pip one
  - initial Github+pypi release

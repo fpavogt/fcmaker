@@ -1,6 +1,6 @@
 
-.. |DOI_latest| image:: https://zenodo.org/badge/doi/10.5281/zenodo.53201.svg
-   :target: http://dx.doi.org/10.5281/zenodo.53201
+.. |DOI_latest| image:: https://zenodo.org/badge/119476467.svg
+   :target: https://zenodo.org/badge/latestdoi/119476467
 
 Acknowledging fcmaker
 =====================
