@@ -1,0 +1,25 @@
+
+font.family: sans-serif
+font.serif: Computer Modern Serif
+font.sans-serif: Computer Modern Sans serif
+font.size: 16 
+font.weight: 500
+font.variant: normal
+
+axes.labelweight: normal
+axes.linewidth: 1
+
+xtick.color: k
+xtick.direction: in
+xtick.major.pad:10
+ytick.color: k
+ytick.direction: in
+ytick.major.pad:10
+
+mathtext.default: regular
+mathtext.fontset: cm
+mathtext.bf: monospace:bold
+
+text.usetex: True
+text.latex.preamble: \usepackage{cmbright},\usepackage{relsize},\usepackage{upgreek},\usepackage{amsmath}
+contour.negative_linestyle: solid
