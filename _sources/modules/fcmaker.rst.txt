@@ -60,14 +60,6 @@ fcmaker\.fcmaker\_tools module
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.p2api module
----------------------
-
-.. automodule:: fcmaker.p2api
-    :members:
-    :undoc-members:
-    :show-inheritance:
-
 
 Module contents
 ---------------

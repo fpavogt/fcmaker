@@ -2,11 +2,11 @@
 Installation
 ============
 
-fcmaker is available on testpypi (for now, proper pypi down the line), which makes its 
-installation easier than ever. In a terminal, type:
+fcmaker is available on testpypi, which makes its installation easier than ever. 
+In a terminal, type:
 ::
 
-   pip install -U -i https://testpypi.python.org/pypi fcmaker
+   pip install fcmaker
 
 And that should take care of things.
 
@@ -26,6 +26,7 @@ properly:
 * astropy (2.0.1 or above)
 * astroquery (0.3.4 or above)
 * aplpy (1.1.1 or above)
+* p2api (0.9 or above)
 
 Optional (but strongly recommended): 
 

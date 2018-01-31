@@ -12,6 +12,11 @@ Changelog
      (once GAIA v2 will is out ?)   
    - find a better way to display the allowed TT area for MUSE ? 
      e.g. shaded area ?
+
+v0.2.00 January 2018, F.P.A. Vogt:
+ - remove local version of p2api in favor of pip one
+ - initial Github+pypi release
+ - fixed bug when no upload required (reply '0')
      
 v0.1.48 November 2017, F.P.A. Vogt:
  - added Gallery page to docs, to show all local setup files, and some plots

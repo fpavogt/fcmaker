@@ -1,13 +1,18 @@
 .. fcmaker documentation master file
 
-fcmaker |release| |DOI_0.8.0| |astropy|
+.. |DOI_latest| image:: https://zenodo.org/badge/doi/10.5281/zenodo.592456.svg
+   :target: http://dx.doi.org/10.5281/zenodo.592456
+
+fcmaker |release| |DOI_latest| |astropy|
 ========================================
 
 .. |astropy| image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
     :target: http://www.astropy.org/
 
-.. |DOI_latest| image:: https://zenodo.org/badge/doi/10.5281/zenodo.53201.svg
-   :target: http://dx.doi.org/10.5281/zenodo.53201
+.. warning::
+   **fcmaker is neither supported nor officially endorsed by the 
+   European Southern Observatory!**
+
 
 .. figure:: ./examples/fcm_plots/WFM_AO_starstuff_DSS2-Red.png
     :width: 750px
@@ -21,7 +26,7 @@ Instruments and modes currently supported
 -----------------------------------------
 
    * **MUSE**: WFM-NOAO, WFM-AO
-   * **HAWKI**: NOAO
+   * **HAWKI**: NOAO (experimental)
 
 Contents
 ---------
