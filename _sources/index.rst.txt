@@ -1,13 +1,17 @@
 .. fcmaker documentation master file
 
-.. |DOI_latest| image:: https://zenodo.org/badge/doi/10.5281/zenodo.592456.svg
-   :target: http://dx.doi.org/10.5281/zenodo.592456
+.. |DOI_latest| image:: https://zenodo.org/badge/119476467.svg
+   :target: https://zenodo.org/badge/latestdoi/119476467
 
-fcmaker |release| |DOI_latest| |astropy|
-========================================
+fcmaker |release| |DOI_latest| |pypi| |astropy|
+===============================================
 
 .. |astropy| image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
     :target: http://www.astropy.org/
+    
+.. |pypi| image:: https://badge.fury.io/py/fcmaker@2x.png
+    :target: https://badge.fury.io/py/fcmaker    
+    
 
 .. warning::
    **fcmaker is neither supported nor officially endorsed by the 
