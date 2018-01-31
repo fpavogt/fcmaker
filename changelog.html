@@ -1,0 +1,331 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Changelog &mdash; fcmaker 0.1.48 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="genindex.html"/>
+        <link rel="search" title="Search" href="search.html"/>
+    <link rel="top" title="fcmaker 0.1.48 documentation" href="index.html"/>
+        <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html"/>
+        <link rel="prev" title="FAQ" href="faq.html"/> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="index.html" class="icon icon-home"> fcmaker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.48
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="running.html">Usage instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/gallery.html">Gallery</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">fcmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="acknowledge.html">Acknowledging fcmaker</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">fcmaker</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Changelog</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/changelog.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="changelog">
+<span id="id1"></span><h1>Changelog<a class="headerlink" href="#changelog" title="Permalink to this headline">¶</a></h1>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<ul class="last simple">
+<li>add support for moving target (i.e. deal with ephemeris files)</li>
+<li>add support for jitter in HAWKI (showing the max jitter area with a circle)</li>
+<li>deal with proper motion in a more accurate way than in <cite>propagate_pm</cite>
+(once <code class="docutils literal"><span class="pre">astropy</span> <span class="pre">v3.0</span></code> is out ?)</li>
+<li>draw the proper motion vectors of the fastest stars in the field of view
+(once GAIA v2 will is out ?)</li>
+<li>find a better way to display the allowed TT area for MUSE ?
+e.g. shaded area ?</li>
+</ul>
+</div>
+<dl class="docutils">
+<dt>v0.1.48 November 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>added Gallery page to docs, to show all local setup files, and some plots</li>
+<li>fixed LaTeX bug when flagging bad telluric stars</li>
+<li>added validity check of user Guide Stars (too close/far away ?)</li>
+<li>added ability to export to png directly (helps with direct inclusion in docs)</li>
+</ul>
+</dd>
+<dt>v0.1.47 November 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>added basic support for HAWKI, incl. Fast Phot acquisitions</li>
+<li>added query to UCAC2 via Vizier, to show which Guide Stars are suitable</li>
+<li>added check of TTS validity for MUSE AO (distance-wise), flagging the bad ones</li>
+<li>added variable size of the right-hand-side plot, to show all offsets, even the very
+large ones</li>
+<li>add pypi badge to main page</li>
+</ul>
+</dd>
+<dt>v0.1.46 November 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>fixed a bug when the length of offsets in smaller than <code class="docutils literal"><span class="pre">noff</span></code></li>
+<li>fixed a bug when there is only one AO TTS defined.</li>
+<li>added support for <code class="docutils literal"><span class="pre">MUSE_wfm_cal_astrom</span></code> and <code class="docutils literal"><span class="pre">MUSE_wfm_cal_specphot</span></code></li>
+</ul>
+</dd>
+<dt>v0.1.45 November 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>updated doc with correct example chart</li>
+</ul>
+</dd>
+<dt>v0.1.43 November 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>added <code class="docutils literal"><span class="pre">Intended</span> <span class="pre">audience</span></code>, <code class="docutils literal"><span class="pre">Topic</span></code> and <code class="docutils literal"><span class="pre">License</span></code> flags to pypi release</li>
+<li>implemented support for DETECTOR offsets in MUSE</li>
+<li>added the <code class="docutils literal"><span class="pre">--obsdate</span></code> flag, to feed the date of the observation to fcmaker</li>
+<li>added the <code class="docutils literal"><span class="pre">--obsdate</span></code> and <code class="docutils literal"><span class="pre">__version__</span></code> to the finding charts</li>
+<li>added support of target proper motion of 1st order (assuming flat sky)</li>
+<li>updated doc</li>
+</ul>
+</dd>
+<dt>v0.1.42 November 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>in case of large blind offset, have a flexible zoom level in the left plot panel</li>
+<li>added option to save to PDF in fcmaker_plots.make_fc() and __main__.py</li>
+<li>fixed all docstrings in p2api.py</li>
+<li>handle the orientation of custom background images by rotating the N-E arrows.</li>
+<li>added a default “target” field for all MUSE WFM (AO) observations, because this is where
+the system first closes the AO loop (before applying any of the offset in the observing
+sequence). This allows the observer to check that the TTS are also valid in this position.</li>
+<li>added legend to the charts</li>
+<li>restructured the plotting to better separate instrument-specific elements from generic
+ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
+<li>added support for OBs with multiple science templates</li>
+<li>added the obId to chart</li>
+</ul>
+</dd>
+<dt>v0.1.41 November 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>propagated the PA of the acquisition frame to the Science sequence (MUSE)</li>
+<li>allowed to specify only 1 bk_image and bk_lams in automated mode</li>
+</ul>
+</dd>
+<dt>v0.1.40 October 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>included doc in pypi package</li>
+<li>updated doc</li>
+</ul>
+</dd>
+<dt>v0.1.26 October 2017, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>pre-release</li>
+<li>initial doc assembled</li>
+</ul>
+</dd>
+</dl>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="acknowledge.html" class="btn btn-neutral float-right" title="Acknowledging fcmaker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="faq.html" class="btn btn-neutral" title="FAQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Frédéric P.A. Vogt.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1.48',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

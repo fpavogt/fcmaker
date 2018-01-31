@@ -1,0 +1,2224 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>fcmaker package &mdash; fcmaker 0.1.48 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  
+  
+    <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  
+
+  
+
+  
+        <link rel="index" title="Index"
+              href="../genindex.html"/>
+        <link rel="search" title="Search" href="../search.html"/>
+    <link rel="top" title="fcmaker 0.1.48 documentation" href="../index.html"/>
+        <link rel="up" title="fcmaker" href="modules.html"/>
+        <link rel="next" title="FAQ" href="../faq.html"/>
+        <link rel="prev" title="fcmaker" href="modules.html"/> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> fcmaker
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1.48
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../index.html">Home</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../running.html">Usage instructions</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../examples/gallery.html">Gallery</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">fcmaker</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">fcmaker package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker">fcmaker.fcmaker module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_hawki">fcmaker.fcmaker_hawki module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_instrument_dispatch">fcmaker.fcmaker_instrument_dispatch module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_metadata">fcmaker.fcmaker_metadata module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_muse">fcmaker.fcmaker_muse module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_plots">fcmaker.fcmaker_plots module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_tools">fcmaker.fcmaker_tools module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.p2api">fcmaker.p2api module</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#mit-license">MIT License</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../acknowledge.html">Acknowledging fcmaker</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">fcmaker</a>
+        
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">fcmaker</a> &raquo;</li>
+        
+      <li>fcmaker package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/modules/fcmaker.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="fcmaker-package">
+<h1>fcmaker package<a class="headerlink" href="#fcmaker-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-fcmaker.fcmaker">
+<span id="fcmaker-fcmaker-module"></span><h2>fcmaker.fcmaker module<a class="headerlink" href="#module-fcmaker.fcmaker" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-fcmaker.fcmaker_hawki">
+<span id="fcmaker-fcmaker-hawki-module"></span><h2>fcmaker.fcmaker_hawki module<a class="headerlink" href="#module-fcmaker.fcmaker_hawki" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fcmaker.fcmaker_hawki.detector_to_sky">
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">detector_to_sky</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em>, <em>pa</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.detector_to_sky" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts HAWKI offsets from the DETECTOR reference frame to the SKY reference frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dx</strong> (<em>float</em>) – offset in arcsec</li>
+<li><strong>dy</strong> (<em>float</em>) – offset in arcsec</li>
+<li><strong>pa</strong> (<em>float</em>) – current position angle in degrees measured East-of-North (MUSE convention)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the (dra,ddec) offsets in SKY convention.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of floats</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">According to the MUSE User manual, “when in DETECTOR framework, if both telescope
+offsets and PA offsets are provided, the telescope offsets are sent (first) with
+respect to the current PA of the instrument, before applying the PA offset.”</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_hawki.get_fields_dict">
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_fields_dict</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_fields_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionnary with the basic info required to draw the fields, given
+certain OB parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the MUSE OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the plotting parameters for each field.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_hawki.get_localfcdata_hawki">
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_localfcdata_hawki</code><span class="sig-paren">(</span><em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_localfcdata_hawki" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given MUSE OB defined
+locally.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inpars</strong> – A dictionnary containing the OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the MUSE OB parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_hawki.get_p2fcdata_hawki">
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_p2fcdata_hawki</code><span class="sig-paren">(</span><em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_p2fcdata_hawki" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given HAWKI OB from p2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ob</strong> – an api.getOB() object</li>
+<li><strong>api</strong> – a p2api.ApiConnection() object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionnary containing the OB parameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_hawki.get_polygon">
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_polygon</code><span class="sig-paren">(</span><em>central_coord</em>, <em>pa</em>, <em>nx</em>, <em>ny</em>, <em>startx</em>, <em>starty</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the central location and position of a field, build a polygon to feed to
+matplotlib down the line.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>central_coord</strong> – an astropy.SkyCoord entry with the center of the MUSE field</li>
+<li><strong>pa</strong> – the position angle of the field (p2 convention)</li>
+<li><strong>startx</strong><strong>, </strong><strong>starty</strong> (<em>nx</em><em>,</em><em>ny</em><em>,</em>) – the Fast Phot windowing parameters</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of 2-D coordinates for each corner of the field-of-view.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="data">
+<dt id="fcmaker.fcmaker_hawki.hawki_templates">
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">hawki_templates</code><em class="property"> = ['HAWKI_img_acq_Preset', 'HAWKI_img_acq_MoveToPixel', 'HAWKI_img_acq_FastPhot', 'HAWKI_img_obs_GenericOffset', 'HAWKI_img_obs_AutoJitter']</em><a class="headerlink" href="#fcmaker.fcmaker_hawki.hawki_templates" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all the supported HAWKI observing templates (incl. Fast Phot)</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_hawki.plot_field">
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">plot_field</code><span class="sig-paren">(</span><em>ax1</em>, <em>ax2</em>, <em>fc_params</em>, <em>field</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.plot_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>The specific HAWKI function that draws a specific observation field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ax1</strong><strong>,</strong><strong>ax2</strong> – the left and right plots ‘axis’</li>
+<li><strong>fc_params</strong> – the dictionnary of parameters for the OB</li>
+<li><strong>field</strong> – the specific field list of parameters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fcmaker.fcmaker_instrument_dispatch">
+<span id="fcmaker-fcmaker-instrument-dispatch-module"></span><h2>fcmaker.fcmaker_instrument_dispatch module<a class="headerlink" href="#module-fcmaker.fcmaker_instrument_dispatch" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_bk_image">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_bk_image</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_bk_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the default SkyView survey name for all supported instruments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding chart (a dictionnary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The survey name as a string</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_chart_center">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_chart_center</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_chart_center" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the center of the right and left plots for different instruments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding charts (a dictionary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a tuple with the chart center as a SkyCoord value.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(left_center, right_center)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_chart_radius">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_chart_radius</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_chart_radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines the radius of the right and left plots for different instruments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding charts (a dictionary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a tuple with the chart radius in arcsec.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(left_radius, right_radius)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_fields_dict">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_fields_dict</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_fields_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the dictionnary of the field plotting parameters, given certain fc parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding chart (a dictionnary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary of lists.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_inner_GS_search">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_inner_GS_search</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_inner_GS_search" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to get theinner search radius for Gudie Stars, as a function of the instrument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding charts (a dictionary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the radius value, in arcsec</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">radius (float)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_localfcdata">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_localfcdata</code><span class="sig-paren">(</span><em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_localfcdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the required info for creating a finding chart from the ob and templates
+obtained from a local parameter file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inpars</strong> – a dictionnary.</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a dictionnary containing the OB parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_p2fcdata">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_p2fcdata</code><span class="sig-paren">(</span><em>obID</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_p2fcdata" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extract the required info for creating a finding chart from the ob and templates
+obtained via p2api.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obID</strong> – the OB Id, as an integer.</li>
+<li><strong>api</strong> – a p2api.ApiConnection() object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a dictionnary containing the OB parameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_pmin">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_pmin</code><span class="sig-paren">(</span><em>survey</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_pmin" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to get the pmin value for the aplpy chart, as a function of the instrument.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding charts (a dictionary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the pmin value</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">pmin (float)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_scalebar">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_scalebar</code><span class="sig-paren">(</span><em>inst</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_scalebar" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets the scalebar of the chart, as a function of the instrument</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inst</strong> (<em>string</em>) – the instrument name</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">tuple with the scalebar length (in degrees) and label</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(scl, scll)</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.plot_field">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">plot_field</code><span class="sig-paren">(</span><em>ax1</em>, <em>ax2</em>, <em>fc_params</em>, <em>field</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.plot_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>Triggers the plotting of a specific field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ax1</strong><strong>,</strong><strong>ax2</strong> – the left and right plots ‘axis’</li>
+<li><strong>fc_params</strong> – the dictionnary of parameters for the OB</li>
+<li><strong>field</strong> – the specific field list of parameters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fcmaker.fcmaker_metadata">
+<span id="fcmaker-fcmaker-metadata-module"></span><h2>fcmaker.fcmaker_metadata module<a class="headerlink" href="#module-fcmaker.fcmaker_metadata" title="Permalink to this headline">¶</a></h2>
+</div>
+<div class="section" id="module-fcmaker.fcmaker_muse">
+<span id="fcmaker-fcmaker-muse-module"></span><h2>fcmaker.fcmaker_muse module<a class="headerlink" href="#module-fcmaker.fcmaker_muse" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fcmaker.fcmaker_muse.detector_to_sky">
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">detector_to_sky</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em>, <em>pa</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.detector_to_sky" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts MUSE offsets from the DETECTOR reference frame to the SKY reference frame.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>dx</strong> (<em>float</em>) – offset in arcsec</li>
+<li><strong>dy</strong> (<em>float</em>) – offset in arcsec</li>
+<li><strong>pa</strong> (<em>float</em>) – current position angle in degrees measured East-of-North (MUSE convention)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the (dra,ddec) offsets in SKY convention.</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of floats</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">According to the MUSE User manual, “when in DETECTOR framework, if both telescope
+offsets and PA offsets are provided, the telescope offsets are sent (first) with
+respect to the current PA of the instrument, before applying the PA offset.”</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_muse.get_fields_dict">
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_fields_dict</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_fields_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionnary with the basic info required to draw the fields, given
+certain OB parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the MUSE OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the plotting parameters for each field.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_muse.get_localfcdata_muse">
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_localfcdata_muse</code><span class="sig-paren">(</span><em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_localfcdata_muse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given MUSE OB defined
+locally.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inpars</strong> – A dictionnary containing the OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the MUSE OB parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_muse.get_p2fcdata_muse">
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_p2fcdata_muse</code><span class="sig-paren">(</span><em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_p2fcdata_muse" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given MUSE OB from p2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ob</strong> – an api.getOB() object</li>
+<li><strong>api</strong> – a p2api.ApiConnection() object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionnary containing the OB parameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_muse.get_polygon">
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_polygon</code><span class="sig-paren">(</span><em>central_coord</em>, <em>pa</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the central location and position of a field, build a polygon to feed to
+matplotlib down the line.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>central_coord</strong> – an astropy.SkyCoord entry with the center of the MUSE field</li>
+<li><strong>pa</strong> – the position angle of the field (p2 convention)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of 2-D coordinates for each corner of the field-of-view.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_muse.plot_field">
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">plot_field</code><span class="sig-paren">(</span><em>ax1</em>, <em>ax2</em>, <em>fc_params</em>, <em>field</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.plot_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>The specific MUSE function that draws a specific observation field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ax1</strong><strong>,</strong><strong>ax2</strong> – the left and right plots ‘axis’</li>
+<li><strong>fc_params</strong> – the dictionnary of parameters for the OB</li>
+<li><strong>field</strong> – the specific field list of parameters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fcmaker.fcmaker_plots">
+<span id="fcmaker-fcmaker-plots-module"></span><h2>fcmaker.fcmaker_plots module<a class="headerlink" href="#module-fcmaker.fcmaker_plots" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fcmaker.fcmaker_plots.add_orient">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">add_orient</code><span class="sig-paren">(</span><em>ax</em>, <em>field_center</em>, <em>radius=&lt;Quantity 540. arcsec&gt;</em>, <em>arrow_width=&lt;Quantity 120. arcsec&gt;</em>, <em>usetex=True</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.add_orient" title="Permalink to this definition">¶</a></dt>
+<dd><p>Plot some N-E orientation arrows</p>
+<p>Rely on the show_arrow function from aplpy, which should be able to deal with
+any image orientation, even is North /= up.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ax</strong> – the aplpy ax instance to add the arrows to</li>
+<li><strong>field_center</strong> – a SkyCoord entry marking the central pointing of the chart</li>
+<li><strong>radius</strong> – the distance from the field_center to draw the arrows at, in arcsec.</li>
+<li><strong>arrow_width</strong> – the arrow size, in arcsec</li>
+<li><strong>usetex</strong> – whether a system LaTeX is used, or not</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_plots.get_bk_image">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image</code><span class="sig-paren">(</span><em>bk_image</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that fetches the background image from the web, or locally if specified
+by the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bk_image</strong> – (string) defines whethe to use a local image (FITS filename) or a SkyView
+image (survey name).</li>
+<li><strong>fc_params</strong> – the parameters of the finding chart (a dictionnary)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The absolute path of the background image (possibly after download), and the survey name.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For local images, the code excpet them to be stored in <cite>fcm_m.data_loc</cite> folger.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_plots.get_bk_image_lam">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image_lam</code><span class="sig-paren">(</span><em>fn_bk_image</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image_lam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the wavelength of the background image from the header. Assumes SkyView image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fn_bk_image</strong> – path to background image FITS file.
+fc_params: the parameters of the finding chart (a dictionnary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The image wavelength range as a string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_plots.make_fc">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">make_fc</code><span class="sig-paren">(</span><em>fc_params</em>, <em>bk_image=None</em>, <em>bk_lam=None</em>, <em>do_pdf=False</em>, <em>do_png=False</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.make_fc" title="Permalink to this definition">¶</a></dt>
+<dd><p>The finding chart master plotting function.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fc_params</strong> – a dictionnary containing the OB parameters</li>
+<li><strong>bk_image</strong> – the background image as string, either a SkyView entry, or local filename</li>
+<li><strong>bk_lam</strong> – the wavelength of the chart as a string</li>
+<li><strong>do_pdf</strong> (<em>bool</em>) – save a pdf file, in addition to jpg</li>
+<li><strong>do_png</strong> (<em>bool</em>) – save a png file, in addition to jpg</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The finding chart filename as a string</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fcmaker.fcmaker_tools">
+<span id="fcmaker-fcmaker-tools-module"></span><h2>fcmaker.fcmaker_tools module<a class="headerlink" href="#module-fcmaker.fcmaker_tools" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fcmaker.fcmaker_tools.blind_offset">
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">blind_offset</code><span class="sig-paren">(</span><em>coord_start</em>, <em>coord_end</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.blind_offset" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute the offsets between two astropy.sky_coordinate.SkyCoord positions.
+This function assumes that the sky is flat, and only really makes sense for positions
+within 15 arcmin.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coord_start</strong> – a SkyCoord object</li>
+<li><strong>coord_end</strong> – a SkyCoord object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The offsets in arcsec</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_tools.crosshair">
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">crosshair</code><span class="sig-paren">(</span><em>inner_r=1</em>, <em>pa=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.crosshair" title="Permalink to this definition">¶</a></dt>
+<dd><p>The PATH of acrosshair, useful for indicating targets without crowding the field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>inner_r</strong> – the (relative) inner radius. Default=1</li>
+<li><strong>pa</strong> – the position anglem in degrees</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A mpl.path.Path() object.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_tools.myrotmatrix">
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">myrotmatrix</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.myrotmatrix" title="Permalink to this definition">¶</a></dt>
+<dd><p>Defines a clockwise rotation matrix given a certain rotation angle. There is probably
+a smarter way to do this …</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>angle</strong> – a rotation angle in degree</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a 2D numpy array</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_tools.offset_coord">
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">offset_coord</code><span class="sig-paren">(</span><em>coord_start</em>, <em>delta_ra=&lt;Quantity 0. arcsec&gt;</em>, <em>delta_dec=&lt;Quantity 0. arcsec&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.offset_coord" title="Permalink to this definition">¶</a></dt>
+<dd><p>Compute a new SkyCoord entity given a starting location and offset. THis function
+assumes that the sky is flat!</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>coord_start</strong> – a SKyCoord object</li>
+<li><strong>delta_ra</strong> – an RA offset, in u.arcsec</li>
+<li><strong>delta_dec</strong> – an Dec offset, in u.arcsec</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">a SkyCoord object</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_tools.propagate_pm">
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">propagate_pm</code><span class="sig-paren">(</span><em>skycoord</em>, <em>epoch</em>, <em>pmRA</em>, <em>pmDec</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.propagate_pm" title="Permalink to this definition">¶</a></dt>
+<dd><p>Propagate the proper motion of a target given its epoch and obstime.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>skycoord</strong> (<em>SkyCoord</em>) – a SkyCoord item, that must include “obstime”</li>
+<li><strong>epoch</strong> (<em>float</em>) – the epoch of the SkyCoord coordinate</li>
+<li><strong>pmDec</strong> (<em>pmRa</em><em>,</em>) – the proper motions in arcsec/year</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the updated skycoord entry</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">skycoord</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition-todo admonition" id="index-0">
+<p class="first admonition-title">Todo</p>
+<p class="last">Implement a proper way of dealing with proper motion, when “velocites” are compatible
+with SkyCoord in astropy v3.0</p>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="module-fcmaker.p2api">
+<span id="fcmaker-p2api-module"></span><h2>fcmaker.p2api module<a class="headerlink" href="#module-fcmaker.p2api" title="Permalink to this headline">¶</a></h2>
+<p>This file provides an example binding to ESO’s RESTful phase 2 programmatic interface.
+The data required and returned by many of the API calls is instrument-specific.
+In order to fully understand the data and behaviour of the API please consult
+the documentation at <a class="reference external" href="https://www.eso.org/copdemo/apidoc/">https://www.eso.org/copdemo/apidoc/</a>
+The api URL specified with each API should help to locate the corresponding
+API documentation at the above URL.</p>
+<dl class="docutils">
+<dt>Unless otherwise mentioned, each API call consistently returns a tuple (data, version):</dt>
+<dd><ul class="first last simple">
+<li>data    - returned data in JSON format</li>
+<li>version - version of the data, required for future modifications (HTTP ETags are used for this versioning)</li>
+</ul>
+</dd>
+</dl>
+<div class="section" id="mit-license">
+<h3>MIT License<a class="headerlink" href="#mit-license" title="Permalink to this headline">¶</a></h3>
+<p>Copyright (c) 2018 Thomas Bierwirth, European Southern Observatory</p>
+<p>Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the “Software”), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:</p>
+<p>The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.</p>
+<p>THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.</p>
+<dl class="class">
+<dt id="fcmaker.p2api.ApiConnection">
+<em class="property">class </em><code class="descclassname">fcmaker.p2api.</code><code class="descname">ApiConnection</code><span class="sig-paren">(</span><em>environment</em>, <em>username</em>, <em>password</em>, <em>debug=False</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">object</span></code></p>
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.addFindingChart">
+<code class="descname">addFindingChart</code><span class="sig-paren">(</span><em>obId</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.addFindingChart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a new finding chart in format image/jpeg.</p>
+<p>Up to 5 finding charts can be attached to a single OB.
+The maximum file size is 1MB (2^20 bytes).</p>
+<p>The OB must have the latest ipVersion.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api    : POST /obsBlocks/{obId}/findingCharts</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">addFindingChart</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">filename</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createCB">
+<code class="descname">createCB</code><span class="sig-paren">(</span><em>containerId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createCB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Calibration Block.</p>
+<p>api  : POST /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">cb</span><span class="p">,</span> <span class="n">cbVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createCB</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;OliCB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createConcatenation">
+<code class="descname">createConcatenation</code><span class="sig-paren">(</span><em>containerId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createConcatenation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Concatenation.</p>
+<p>api  : POST /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">con</span><span class="p">,</span> <span class="n">conVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createConcatenation</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;OliConcatenation&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createFolder">
+<code class="descname">createFolder</code><span class="sig-paren">(</span><em>containerId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Folder.</p>
+<p>api  : POST /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">fld</span><span class="p">,</span> <span class="n">fldVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createFolder</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;OliFolder&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createGroup">
+<code class="descname">createGroup</code><span class="sig-paren">(</span><em>containerId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Group.</p>
+<p>api  : POST /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">grp</span><span class="p">,</span> <span class="n">grpVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createGroup</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;OliGroup&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createItem">
+<code class="descname">createItem</code><span class="sig-paren">(</span><em>itemType</em>, <em>containerId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new OB, CB, Folder, Group, Concatenation or TimeLink
+at the end of the given container.</p>
+<p>The initial values for the observing constraints of a new OB are those
+specified during phase 1, or the instrument defaults.</p>
+<p>Visitor Mode: Groups, Concatenations and TimeLinks cannot be created.</p>
+<p>Service Mode: Groups, Concatenations and TimeLinks cannot contain other
+containers, only OBs and CBs.</p>
+<p>See also wrappers below to create specific items by name.</p>
+<p>api  : POST /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createItem</span><span class="p">(</span><span class="s1">&#39;OB&#39;</span><span class="p">,</span> <span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;OliOB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createOB">
+<code class="descname">createOB</code><span class="sig-paren">(</span><em>containerId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new Observing Block.</p>
+<p>api  : POST /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createOB</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;OliOB&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createTemplate">
+<code class="descname">createTemplate</code><span class="sig-paren">(</span><em>obId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Attach a new template.</p>
+<p>An OB can have only one acquisition template. Attempting to add a
+second one will result in an error.</p>
+<p>The OB must have the latest ipVersion.</p>
+<p>Visitor Mode: The OB can be changed in any status.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api  : POST /obsBlocks/{obId}/templates</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">tpl</span><span class="p">,</span> <span class="n">tplVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createTemplate</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;UVES_blue_acq_slit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.createTimeLink">
+<code class="descname">createTimeLink</code><span class="sig-paren">(</span><em>containerId</em>, <em>name</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.createTimeLink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a new TimeLink</p>
+<p>api  : POST /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">tl</span><span class="p">,</span> <span class="n">tlVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createTimeLink</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;OliTimeLink&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.delete">
+<code class="descname">delete</code><span class="sig-paren">(</span><em>url</em>, <em>etag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.delete" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.deleteContainer">
+<code class="descname">deleteContainer</code><span class="sig-paren">(</span><em>containerId</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.deleteContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete container. The container must be empty.</p>
+<p>api: DELETE /containers/{containerId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">container</span><span class="p">,</span> <span class="n">containerVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getContainer</span><span class="p">(</span><span class="n">container</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">deleteContainer</span><span class="p">(</span><span class="n">container</span><span class="p">[</span><span class="s1">&#39;containerId&#39;</span><span class="p">],</span> <span class="n">containerVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.deleteEphemerisFile">
+<code class="descname">deleteEphemerisFile</code><span class="sig-paren">(</span><em>obId</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.deleteEphemerisFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete the ephemeris file of this OB.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api  : DELETE /obsBlocks/{obId}/ephemeris</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">ephVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getEphemerisFile</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;delete_me.txt&#39;</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">deleteEphemerisFile</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">ephVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.deleteFindingChart">
+<code class="descname">deleteFindingChart</code><span class="sig-paren">(</span><em>obId</em>, <em>index</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.deleteFindingChart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete finding chart.</p>
+<p>The finding chart at the given index is deleted.
+Finding charts with a higher index ‘slide down’,
+i.e. finding charts are always numbered consecutively
+starting with 1.</p>
+<p>The OB must have the latest ipVersion.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api  : DELETE /obsBlocks/{obId}/findingCharts/{index}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">deleteFindingChart</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.deleteOB">
+<code class="descname">deleteOB</code><span class="sig-paren">(</span><em>obId</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.deleteOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete existing OB or CB.</p>
+<p>Visitor Mode: The OB must have never been executed.</p>
+<p>Service Mode: The OB must have status (-), (P) or (D) and must have never been executed.</p>
+<p>api  : DELETE /obsBlocks/{obId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getOB</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">deleteOB</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.deleteTemplate">
+<code class="descname">deleteTemplate</code><span class="sig-paren">(</span><em>obId</em>, <em>templateId</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.deleteTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Delete existing template.</p>
+<p>The OB must have the latest ipVersion.</p>
+<p>Visitor Mode: The OB can be changed in any status.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api  : DELETE /obsBlocks/{obId}/templates/{templateId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">tplVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getTemplate</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">deleteTemplate</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">,</span> <span class="n">tplVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.downloadBinaryFile">
+<code class="descname">downloadBinaryFile</code><span class="sig-paren">(</span><em>url</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.downloadBinaryFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.downloadTextFile">
+<code class="descname">downloadTextFile</code><span class="sig-paren">(</span><em>url</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.downloadTextFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.duplicateFindingChart">
+<code class="descname">duplicateFindingChart</code><span class="sig-paren">(</span><em>obId</em>, <em>index</em>, <em>destinationObId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.duplicateFindingChart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicate this finding chart to another OB.</p>
+<p>Attach this finding chart to a different OB.
+The finding chart is appended at the end of the target OB’s
+finding chart list.</p>
+<blockquote>
+<div><p>The target OB must have the latest ipVersion.</p>
+<p>Visitor Mode: The target OB can have any status.</p>
+<p>Service Mode: The target OB must have status (-) or (P).</p>
+<p>api  : POST /obsBlocks/{obId}/findingCharts/{index}/duplicate</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">duplicateFindingChart</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">destinationObId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.duplicateOB">
+<code class="descname">duplicateOB</code><span class="sig-paren">(</span><em>obId</em>, <em>containerId=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.duplicateOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicate OB.</p>
+<p>Create a new OB or CB identical to this one in the same or a different
+container. The new OB is appended at the end of the container. The
+destination may be in a different observing run of the same instrument.</p>
+<p>api  : POST /obsBlocks/{obId}/duplicate</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">duplicatedOB</span><span class="p">,</span> <span class="n">duplicatedOBVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">duplicateOB</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="n">duplicatedOB</span><span class="p">,</span> <span class="n">duplicatedOBVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">duplicateOB</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.duplicateTemplate">
+<code class="descname">duplicateTemplate</code><span class="sig-paren">(</span><em>obId</em>, <em>templateId</em>, <em>destinationObId=0</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.duplicateTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Duplicate this template.</p>
+<p>Create a new template identical to this one in this or a different OB.
+The new template is appended at the end of the target OB’s template list.</p>
+<p>The new template will have a new templateId. All other fields, including
+any file and paramfile parameters, will be the same as in the original template.</p>
+<p>An OB can have only one acquisition template. Attempting to add a second
+one will result in an error.</p>
+<p>api  : POST /obsBlocks/{obId}/templates/{templateId}/duplicate</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">duplicatedTemplate</span><span class="p">,</span> <span class="n">duplicatedTemplateVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">duplicateTemplate</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">)</span>
+<span class="n">duplicatedTemplate</span><span class="p">,</span> <span class="n">duplicatedTemplateVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">duplicateTemplate</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">,</span> <span class="n">destinationObId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.exportContainer">
+<code class="descname">exportContainer</code><span class="sig-paren">(</span><em>containerId</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.exportContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export this container into a ZIP file.</p>
+<p>api  : GET /containers/{containerId}/export</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">exportContainer</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="s1">&#39;myContainer.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.exportOB">
+<code class="descname">exportOB</code><span class="sig-paren">(</span><em>obId</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.exportOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Export this OB into a ZIP file.</p>
+<p>api  : GET /obsBlocks/{obId}/export</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">exportOB</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;myOB.zip&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.get">
+<code class="descname">get</code><span class="sig-paren">(</span><em>url</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.get" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getAbsoluteTimeConstraints">
+<code class="descname">getAbsoluteTimeConstraints</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getAbsoluteTimeConstraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of absolute time constraints.</p>
+<p>The list is sorted in ascending order by from.
+Date and time are in ISO-8601 format for the UTC timezone.
+A CB does not have absolute time constraints and returns an empty list.</p>
+<p>api  : GET /obsBlocks/{obId}/timeConstraints/absolute</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">absTCs</span><span class="p">,</span> <span class="n">atcVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getAbsoluteTimeConstraints</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getBlockedTimes">
+<code class="descname">getBlockedTimes</code><span class="sig-paren">(</span><em>runId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getBlockedTimes" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve a list of blocked times on the telescope in the
+scheduled period of this observing run.</p>
+<p>api  : GET /obsRuns/{runId}/phase1/blockedTimes</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">targets</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getBlockedTimes</span><span class="p">(</span><span class="n">runId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getContainer">
+<code class="descname">getContainer</code><span class="sig-paren">(</span><em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get container information.</p>
+<p>api: GET /containers/{containerId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">container</span><span class="p">,</span> <span class="n">containerVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getContainer</span><span class="p">(</span><span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getEphemerisFile">
+<code class="descname">getEphemerisFile</code><span class="sig-paren">(</span><em>obId</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getEphemerisFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get the ephemeris file of this OB and save it into the given filename.</p>
+<p>If the ephemeris file was never saved, or was deleted, an empty file
+is returned.</p>
+<p>api  : GET /obsBlocks/{obId}/ephemeris</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">ephVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getEphemerisFile</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;ephem.txt&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getExecutionSequence">
+<code class="descname">getExecutionSequence</code><span class="sig-paren">(</span><em>instrument</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getExecutionSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the personal execution sequence for an instrument.</p>
+<p>api  : GET /executionSequences/{instrument}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">executionSequence</span><span class="p">,</span> <span class="n">esVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getExecutionSequence</span><span class="p">(</span><span class="s1">&#39;UVES&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getFileParam">
+<code class="descname">getFileParam</code><span class="sig-paren">(</span><em>obId</em>, <em>templateId</em>, <em>param</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getFileParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get value of a template parameter of type “file” or “paramfile”.</p>
+<p>api  : GET /obsBlocks/{obId}/templates/{templateId}/{fileParameter}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getFileParam</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">,</span> <span class="s1">&#39;SEQ.REF.FILE1&#39;</span><span class="p">,</span> <span class="n">myFile</span><span class="o">.</span><span class="n">paf</span><span class="s1">&#39;)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getFindingChart">
+<code class="descname">getFindingChart</code><span class="sig-paren">(</span><em>obId</em>, <em>index</em>, <em>filename</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getFindingChart" title="Permalink to this definition">¶</a></dt>
+<dd><p>Download finding chart save it into the given filename.</p>
+<p>api  : GET /obsBlocks/{obId}/findingCharts/{index}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">getFindingChart</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">&#39;fc1.jpg&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getFindingChartNames">
+<code class="descname">getFindingChartNames</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getFindingChartNames" title="Permalink to this definition">¶</a></dt>
+<dd><p>List attached finding charts.</p>
+<p>Returns the list of names of the attached finding charts in the order
+of their index. If no finding charts are attached, an empty list will
+be returned.</p>
+<p>api  : GET /obsBlocks/{obId}/findingCharts</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">fcNames</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getFindingChartNames</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getInstrumentConstraints">
+<code class="descname">getInstrumentConstraints</code><span class="sig-paren">(</span><em>instrument</em>, <em>ipVersion</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getInstrumentConstraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all observing constraints that OBs using this instrument package
+must define.</p>
+<p>The information returned is useful for building a user interface and
+also contains allowed values or ranges.</p>
+<p>api  : GET /instrumentPackages/{instrument}/{ipVersion}/instrumentConstraints</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">insConstraints</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getInstrumentConstraints</span><span class="p">(</span><span class="s1">&#39;UVES&#39;</span><span class="p">,</span> <span class="s1">&#39;98.09&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getInstrumentPackageVersions">
+<code class="descname">getInstrumentPackageVersions</code><span class="sig-paren">(</span><em>instrument</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getInstrumentPackageVersions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of instrument package versions.</p>
+<p>api  : GET /instrumentPackages/{instrument}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">ipVersions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getInstrumentPackageVersions</span><span class="p">(</span><span class="s1">&#39;UVES&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getItems">
+<code class="descname">getItems</code><span class="sig-paren">(</span><em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get ordered list of OBs and containers inside a container.</p>
+<p>api: GET /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">items</span><span class="p">,</span> <span class="n">itemsVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getItems</span><span class="p">(</span><span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getOB">
+<code class="descname">getOB</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get existing OB or CB.</p>
+<p>api  : GET /obsBlocks/{obId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getOB</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getOBCompletelyFilledIn">
+<code class="descname">getOBCompletelyFilledIn</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getOBCompletelyFilledIn" title="Permalink to this definition">¶</a></dt>
+<dd><p>Check that the OB’s templates are completely filled in.</p>
+<p>Performs a quick check that there are neither missing templates
+nor missing parameters on this OB.</p>
+<p>This is not a full validation.</p>
+<p>api  : GET /obsBlocks/{obId}/templates/completelyFilledIn</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">response</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getOBCompletelyFilledIn</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;OB complete:&#39;</span><span class="p">,</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;complete&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getOBExecutions">
+<code class="descname">getOBExecutions</code><span class="sig-paren">(</span><em>obId</em>, <em>night</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getOBExecutions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get executions during a given night.</p>
+<p>api   : GET /obsBlocks/{obId}/executions</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">obExecutions</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">getOBExecutions</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;2018-01-01&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getOBSchedulingInfo">
+<code class="descname">getOBSchedulingInfo</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getOBSchedulingInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get OB scheduling information.</p>
+<p>api   : GET /obsBlocks/{obId}/schedule</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">obInfo</span><span class="p">,</span> <span class="n">obInfoVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getOBSchedulingInfo</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getOBSummary">
+<code class="descname">getOBSummary</code><span class="sig-paren">(</span><em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getOBSummary" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get more detailed summary of all OBs in a container</p>
+<p>api  : GET /containers/{containerId}/items/summary</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">getOBSummary</span><span class="p">(</span><span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getPhase1Targets">
+<code class="descname">getPhase1Targets</code><span class="sig-paren">(</span><em>runId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getPhase1Targets" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the list of targets defined in phase 1.</p>
+<p>api  : GET /obsRuns/{runId}/phase1/targets</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">targets</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getPhase1Targets</span><span class="p">(</span><span class="n">runId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getReadme">
+<code class="descname">getReadme</code><span class="sig-paren">(</span><em>runId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getReadme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the ReadMe file of this observing run.</p>
+<p>api  : GET /obsRuns/{runId}/readme</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">readme</span><span class="p">,</span> <span class="n">readmeVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getReadme</span><span class="p">(</span><span class="n">runId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getReadmeSchema">
+<code class="descname">getReadmeSchema</code><span class="sig-paren">(</span><em>runId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getReadmeSchema" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve the schema definition for the ReadMe file of this observing run.</p>
+<p>api  : GET /obsRuns/{runId}/readme/schema</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">readmeSchema</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getReadmeSchema</span><span class="p">(</span><span class="n">runId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getRun">
+<code class="descname">getRun</code><span class="sig-paren">(</span><em>runId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getRun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a single observing run.</p>
+<p>api  : GET /obsRuns/{runId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">run</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getRun</span><span class="p">(</span><span class="n">runId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getRuns">
+<code class="descname">getRuns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getRuns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Retrieve observing runs owned by or delegated to logged-in user.</p>
+<p>api  : GET /obsRuns</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">runs</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getRuns</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getSiderealTimeConstraints">
+<code class="descname">getSiderealTimeConstraints</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getSiderealTimeConstraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get list of sidereal time constraints.</p>
+<p>The list is sorted in ascending order by from.
+A CB does not have sidereal time constraints and returns an empty list.</p>
+<p>api  : GET /obsBlocks/{obId}/timeConstraints/sidereal</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">sidTCs</span><span class="p">,</span> <span class="n">stcVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getSiderealTimeConstraints</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getTemplate">
+<code class="descname">getTemplate</code><span class="sig-paren">(</span><em>obId</em>, <em>templateId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get existing template.</p>
+<p>A parameter value may be null if there is no default value and a
+value was never set.</p>
+<p>For parameters of type ‘paramfile’ or ‘file’ a string is returned.
+For a ‘paramfile’ this is the value of PAF.NAME in the PAF header;
+for a ‘file’ the first few characters are returned.
+File parameters are set with a separate call.</p>
+<p>api  : GET /obsBlocks/{obId}/templates/{templateId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">tpl</span><span class="p">,</span> <span class="n">tplVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getTemplate</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getTemplateSignature">
+<code class="descname">getTemplateSignature</code><span class="sig-paren">(</span><em>instrument</em>, <em>ipVersion</em>, <em>templateName</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getTemplateSignature" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get a specific template signature.</p>
+<p>api  : GET /instrumentPackages/{instrument}/{ipVersion}/templateSignatures/{templateName}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">tplSignature</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getTemplateSignature</span><span class="p">(</span><span class="s1">&#39;UVES&#39;</span><span class="p">,</span> <span class="s1">&#39;98.08&#39;</span><span class="p">,</span> <span class="s1">&#39;UVES_blue_acq_slit&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getTemplateSignatures">
+<code class="descname">getTemplateSignatures</code><span class="sig-paren">(</span><em>instrument</em>, <em>ipVersion</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getTemplateSignatures" title="Permalink to this definition">¶</a></dt>
+<dd><p>List all template signatures that can be attached to OBs using this
+instrument package.</p>
+<p>api  : GET /instrumentPackages/{instrument}/{ipVersion}/templateSignatures</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">tplSignatures</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getTemplateSignatures</span><span class="p">(</span><span class="s1">&#39;UVES&#39;</span><span class="p">,</span> <span class="s1">&#39;98.09&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getTemplates">
+<code class="descname">getTemplates</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getTemplates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get all attached templates.</p>
+<p>api  : GET /obsBlocks/{obId}/templates</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">templates</span><span class="p">,</span> <span class="n">templatesVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getTemplates</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">templates</span><span class="p">:</span>
+   <span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;template found:&#39;</span><span class="p">,</span> <span class="n">t</span><span class="p">[</span><span class="s1">&#39;templateName&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.getUser">
+<code class="descname">getUser</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.getUser" title="Permalink to this definition">¶</a></dt>
+<dd><p>Get information about the logged-in user.</p>
+<p>api  : GET /authenticatedUser</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">user</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getUser</span><span class="p">()</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.migrateOB">
+<code class="descname">migrateOB</code><span class="sig-paren">(</span><em>obId</em>, <em>dryRun</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.migrateOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Migrate OB to latest instrument package.</p>
+<p>api  : POST /obsBlocks/{obId}/migrate</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">migrateOB</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">false</span><span class="p">)</span>
+<span class="n">result</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">migrateOB</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">true</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.moveCB">
+<code class="descname">moveCB</code><span class="sig-paren">(</span><em>obId</em>, <em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.moveCB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move existing CB into destination container.</p>
+<p>api  : POST /containers/{containerId}/items/append</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">moveCB</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.moveConcatenation">
+<code class="descname">moveConcatenation</code><span class="sig-paren">(</span><em>concatenationId</em>, <em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.moveConcatenation" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move existing concatenation into destination container.</p>
+<p>api  : POST /containers/{containerId}/items/append</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">moveConcatenation</span><span class="p">(</span><span class="n">concatenationId</span><span class="p">,</span> <span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.moveFolder">
+<code class="descname">moveFolder</code><span class="sig-paren">(</span><em>folderId</em>, <em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.moveFolder" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move existing folder into destination container.</p>
+<p>api  : POST /containers/{containerId}/items/append</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">moveFolder</span><span class="p">(</span><span class="n">folderId</span><span class="p">,</span> <span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.moveGroup">
+<code class="descname">moveGroup</code><span class="sig-paren">(</span><em>groupId</em>, <em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.moveGroup" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move existing group into destination container.</p>
+<p>api  : POST /containers/{containerId}/items/append</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">moveGroup</span><span class="p">(</span><span class="n">groupId</span><span class="p">,</span> <span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.moveOB">
+<code class="descname">moveOB</code><span class="sig-paren">(</span><em>obId</em>, <em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.moveOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move existing OB into destination container.</p>
+<p>api  : POST /containers/{containerId}/items/append</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">moveOB</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.moveTimeLink">
+<code class="descname">moveTimeLink</code><span class="sig-paren">(</span><em>timeLinkId</em>, <em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.moveTimeLink" title="Permalink to this definition">¶</a></dt>
+<dd><p>Move existing timelink into destination container.</p>
+<p>api  : POST /containers/{containerId}/items/append</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">moveTimeLink</span><span class="p">(</span><span class="n">folderId</span><span class="p">,</span> <span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.post">
+<code class="descname">post</code><span class="sig-paren">(</span><em>url</em>, <em>data=None</em>, <em>etag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.post" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.put">
+<code class="descname">put</code><span class="sig-paren">(</span><em>url</em>, <em>data</em>, <em>etag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.put" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.reorderItems">
+<code class="descname">reorderItems</code><span class="sig-paren">(</span><em>containerId</em>, <em>items</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.reorderItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change order of OBs and containers inside a container.</p>
+<p>api: PUT /containers/{containerId}/items</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">items</span><span class="p">,</span> <span class="n">itemsVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getItems</span><span class="p">(</span><span class="n">containerId</span><span class="p">)</span>
+<span class="c1"># modify items order ...</span>
+<span class="c1"># save changes</span>
+<span class="n">items</span><span class="p">,</span> <span class="n">itemsVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">reorderItems</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="n">items</span><span class="p">,</span> <span class="n">itemsVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.reorderTemplates">
+<code class="descname">reorderTemplates</code><span class="sig-paren">(</span><em>obId</em>, <em>templates</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.reorderTemplates" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change order of attached templates.</p>
+<p>The list must contain the same items as in the previous GET request.
+Only the order can be changed. Templates must be explicitly added
+with a POST request or deleted with a DELETE request. If there is
+an acquisition template, it must be the first in the list.</p>
+<p>The OB must have the latest ipVersion.</p>
+<p>Visitor Mode: The OB can be changed in any status.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api  : PUT /obsBlocks/{obId}/templates</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">tpls</span><span class="p">,</span> <span class="n">tplsVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getTemplates</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="c1"># change order of tpls ...</span>
+<span class="n">tpls</span><span class="p">,</span> <span class="n">tplsVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">reorderTemplates</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">tpls</span><span class="p">,</span> <span class="n">tplsVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.request">
+<code class="descname">request</code><span class="sig-paren">(</span><em>method</em>, <em>url</em>, <em>data=None</em>, <em>etag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.request" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.reviseContainer">
+<code class="descname">reviseContainer</code><span class="sig-paren">(</span><em>containerId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.reviseContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Open Group/Concatenation/TimeLink for further changes.</p>
+<p>Change the container status back to “P”.
+This is the counterpart to verification with submission.</p>
+<p>api  : POST /containers/{containerId}/revise</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">reviseContainer</span><span class="p">(</span><span class="n">containerId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.reviseOB">
+<code class="descname">reviseOB</code><span class="sig-paren">(</span><em>obId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.reviseOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Back to the drawing board.</p>
+<p>Change the OB status back to “P”, i.e. mark it as not observable.
+This is the counterpart to verification with submission.</p>
+<p>A visitor mode OB can be in any status. The status is changed to “P”.
+The OB will be removed from any visitor execution sequences because
+it is no longer in an observable status; this changes the ETag of
+the affected visitor execution sequences.</p>
+<p>A service mode OB can only be revised in status “D”. The status is
+changed to “P”. If the OB is a member of a Group, Concatenation or
+TimeLink with container status other than “-” or “P”, the container
+status will be changed to “P”.</p>
+<p>This call invalidates the ETag of the OB, and possibly of the parent
+container, if the container status was changed.</p>
+<p>api  : POST /obsBlocks/{obId}/revise</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">pi</span><span class="o">.</span><span class="n">reviseOB</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveAbsoluteTimeConstraints">
+<code class="descname">saveAbsoluteTimeConstraints</code><span class="sig-paren">(</span><em>obId</em>, <em>timeConstraints</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveAbsoluteTimeConstraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set list of absolute time constraints.</p>
+<p>Date and time are in ISO-8601 format and must use UTC timezone.
+Time intervals must not overlap and from must be earlier than to.</p>
+<p>api  : PUT /obsBlocks/{obId}/timeConstraints/absolute</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">absTCs</span><span class="p">,</span> <span class="n">atcVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getAbsoluteTimeConstraints</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">saveAbsoluteTimeConstraints</span><span class="p">(</span><span class="n">obId</span><span class="p">,[</span>
+  <span class="p">{</span>
+      <span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;2017-09-01T00:00&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;to&#39;</span><span class="p">:</span> <span class="s1">&#39;2017-09-30T23:59&#39;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+      <span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;2017-11-01T00:00&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;to&#39;</span><span class="p">:</span> <span class="s1">&#39;2017-11-30T23:59&#39;</span>
+  <span class="p">}</span>
+<span class="p">],</span> <span class="n">atcVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveContainer">
+<code class="descname">saveContainer</code><span class="sig-paren">(</span><em>container</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update container information.</p>
+<p>api: PUT /containers/{containerId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">container</span><span class="p">,</span> <span class="n">containerVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getContainer</span><span class="p">(</span><span class="n">containerId</span><span class="p">)</span>
+<span class="c1"># modify some container properties ...</span>
+<span class="n">container</span><span class="p">[</span><span class="s1">&#39;userPriority&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="c1"># save changes</span>
+<span class="n">container</span><span class="p">,</span> <span class="n">containerVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">saveContainer</span><span class="p">(</span><span class="n">container</span><span class="p">,</span> <span class="n">containerVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveEphemerisFile">
+<code class="descname">saveEphemerisFile</code><span class="sig-paren">(</span><em>obId</em>, <em>filename</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveEphemerisFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Save the ephemeris file of this OB.</p>
+<p>A CB cannot have an ephemeris file.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api  : PUT /obsBlocks/{obId}/ephemeris</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">ephVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getEphemerisFile</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;delete_me.txt&#39;</span><span class="p">)</span>
+<span class="n">_</span><span class="p">,</span> <span class="n">ephVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">saveEphemerisFile</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;ephem.txt&#39;</span><span class="p">,</span> <span class="n">ephVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveExecutionSequence">
+<code class="descname">saveExecutionSequence</code><span class="sig-paren">(</span><em>instrument</em>, <em>executionSequence</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveExecutionSequence" title="Permalink to this definition">¶</a></dt>
+<dd><p>Change personal visitor execution sequence for an instrument.</p>
+<p>The list should contain objects with an obId in the desired execution
+order and may also contain OBs from delegated observing runs. Only
+visitor mode OBs in status ‘+’, ‘A’, ‘X’ or ‘S’ can be included.</p>
+<p>The obId is the only required field in each list member, but all fields
+sent by a GET request can be included unchanged.</p>
+<p>api  : PUT /executionSequences/{instrument}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">executionSequence</span><span class="p">,</span> <span class="n">esVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getExecutionSequence</span><span class="p">(</span><span class="s1">&#39;UVES&#39;</span><span class="p">)</span>
+<span class="n">executionSequence</span><span class="p">,</span> <span class="n">esVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">saveExecutionSequence</span><span class="p">(</span><span class="s1">&#39;UVES&#39;</span><span class="p">,</span>
+   <span class="p">[{</span> <span class="s1">&#39;obId&#39;</span><span class="p">:</span> <span class="n">ob1</span> <span class="p">},</span> <span class="p">{</span> <span class="s1">&#39;obId&#39;</span><span class="p">:</span> <span class="n">ob2</span> <span class="p">}],</span> <span class="n">esVersion</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;OBs in UVES execution sequence&#39;</span><span class="p">,</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">e</span><span class="p">[</span><span class="s1">&#39;obId&#39;</span><span class="p">])</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">executionSequence</span><span class="p">))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveFileParam">
+<code class="descname">saveFileParam</code><span class="sig-paren">(</span><em>obId</em>, <em>templateId</em>, <em>param</em>, <em>filename</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveFileParam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set value of a parameter of type “file” or “paramfile”.</p>
+<p>api  : PUT /obsBlocks/{obId}/templates/{templateId}/{fileParameter}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">_</span><span class="p">,</span> <span class="n">version</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getFileParam</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">,</span> <span class="s1">&#39;SEQ.REF.FILE1&#39;</span><span class="p">,</span> <span class="n">myFile</span><span class="o">.</span><span class="n">paf</span><span class="s1">&#39;)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">saveFileParam</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">templateId</span><span class="p">,</span> <span class="s1">&#39;SEQ.REF.FILE1&#39;</span><span class="p">,</span> <span class="n">newFile</span><span class="o">.</span><span class="n">paf</span><span class="s1">&#39;, version)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveOB">
+<code class="descname">saveOB</code><span class="sig-paren">(</span><em>ob</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update existing OB or CB.</p>
+<p>The format of an OB is instrument-specific and differs for OBs and CBs.
+The instrument defines the applicable observingConstraints.
+A CB does not have a target. The properties itemType, obId, obStatus,
+ipVersion, exposureTime and executionTime cannot be changed.
+The OB must have the latest ipVersion. Refer to the API spec
+for further updating constraints.</p>
+<p>api  : PUT /obsBlocks/{obId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getOB</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="c1"># modify some OB properties ...</span>
+<span class="n">ob</span><span class="p">[</span><span class="s1">&#39;userPriority&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mi">42</span>
+<span class="n">ob</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>         <span class="o">=</span> <span class="s1">&#39;M 32 -- Interacting Galaxies&#39;</span>
+<span class="n">ob</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">][</span><span class="s1">&#39;ra&#39;</span><span class="p">]</span>           <span class="o">=</span> <span class="s1">&#39;00:42:41.825&#39;</span>
+<span class="n">ob</span><span class="p">[</span><span class="s1">&#39;target&#39;</span><span class="p">][</span><span class="s1">&#39;dec&#39;</span><span class="p">]</span>          <span class="o">=</span> <span class="s1">&#39;-60:51:54.610&#39;</span>
+<span class="n">ob</span><span class="p">[</span><span class="s1">&#39;constraints&#39;</span><span class="p">][</span><span class="s1">&#39;name&#39;</span><span class="p">]</span>    <span class="o">=</span> <span class="s1">&#39;My hardest constraints ever&#39;</span>
+<span class="n">ob</span><span class="p">[</span><span class="s1">&#39;constraints&#39;</span><span class="p">][</span><span class="s1">&#39;airmass&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="mf">1.3</span>
+<span class="c1"># save changes</span>
+<span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">saveOB</span><span class="p">(</span><span class="n">ob</span><span class="p">,</span> <span class="n">obVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveOBSchedulingInfo">
+<code class="descname">saveOBSchedulingInfo</code><span class="sig-paren">(</span><em>obId</em>, <em>obInfo</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveOBSchedulingInfo" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update OB scheduling information.</p>
+<p>api  : PUT /obsBlocks/{obId}/schedule</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">obInfo</span><span class="p">,</span> <span class="n">obInfoVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getOBSchedulingInfo</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="c1"># change something</span>
+<span class="n">obInfo</span><span class="p">[</span><span class="s1">&#39;targetName&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="s1">&#39;My Best Target&#39;</span>
+<span class="n">api</span><span class="o">.</span><span class="n">saveOBSchedulingInfo</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">obInfo</span><span class="p">,</span> <span class="n">obInfoVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveReadme">
+<code class="descname">saveReadme</code><span class="sig-paren">(</span><em>runId</em>, <em>readme</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveReadme" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update the ReadMe file.</p>
+<p>See PUT /obsRuns/{runId}/readme.</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">readme</span><span class="p">,</span> <span class="n">readmeVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">saveReadme</span><span class="p">(</span><span class="n">runId</span><span class="p">,</span> <span class="n">readme</span><span class="p">,</span> <span class="n">version</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveSiderealTimeConstraints">
+<code class="descname">saveSiderealTimeConstraints</code><span class="sig-paren">(</span><em>obId</em>, <em>timeConstraints</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveSiderealTimeConstraints" title="Permalink to this definition">¶</a></dt>
+<dd><p>Set list of sidereal time constraints.</p>
+<p>Time intervals must not overlap. A time interval ending at the starting time
+of another is considered an overlap; avoid this by combining the intervals
+into a single one.</p>
+<p>There can be a single time interval ending at 24:00; it will not overlap
+a time interval starting at 0:00. An interval ending at 24:00 and one
+starting at 00:00 will be combined into a single interval.</p>
+<p>24:00 cannot be used as starting time, and 00:00 cannot be used
+as ending time.</p>
+<p>api  : PUT /obsBlocks/{obId}/timeConstraints/sidereal</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">sidTCs</span><span class="p">,</span> <span class="n">stcVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">getSiderealTimeConstraints</span><span class="p">(</span><span class="n">obId</span><span class="p">)</span>
+<span class="n">api</span><span class="o">.</span><span class="n">saveSiderealTimeConstraints</span><span class="p">(</span><span class="n">obId</span><span class="p">,[</span>
+  <span class="p">{</span>
+      <span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;00:00&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;to&#39;</span><span class="p">:</span> <span class="s1">&#39;01:00&#39;</span>
+  <span class="p">},</span>
+  <span class="p">{</span>
+      <span class="s1">&#39;from&#39;</span><span class="p">:</span> <span class="s1">&#39;03:00&#39;</span><span class="p">,</span>
+      <span class="s1">&#39;to&#39;</span><span class="p">:</span> <span class="s1">&#39;05:00&#39;</span>
+  <span class="p">}</span>
+<span class="p">],</span> <span class="n">stcVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.saveTemplate">
+<code class="descname">saveTemplate</code><span class="sig-paren">(</span><em>obId</em>, <em>template</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.saveTemplate" title="Permalink to this definition">¶</a></dt>
+<dd><p>Update existing template.</p>
+<p>The templateId, templateName and type cannot be changed.</p>
+<p>When GET returns a value of null, it can be changed to a proper value
+(or left at null). But a proper value cannot be unset to null.</p>
+<p>File parameters must be set with a separate call; the string value
+returned from GET cannot be changed.</p>
+<p>The OB must have the latest ipVersion.</p>
+<p>Visitor Mode: The OB can be changed in any status.</p>
+<p>Service Mode: The OB must have status (-) or (P).</p>
+<p>api  : PUT /obsBlocks/{obId}/templates/{templateId}</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">It</span> <span class="ow">is</span> <span class="n">recommended</span> <span class="n">to</span> <span class="n">use</span> <span class="n">setTemplateParams</span><span class="p">()</span> <span class="n">instead</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.setTemplateParams">
+<code class="descname">setTemplateParams</code><span class="sig-paren">(</span><em>obId</em>, <em>template</em>, <em>params</em>, <em>version</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.setTemplateParams" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="docutils">
+<dt>Helper API to make it easier to update template parameters.</dt>
+<dd>Uses saveTemplate() under the hood.</dd>
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">tpl</span><span class="p">,</span> <span class="n">tplVersion</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">createTemplate</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;UVES_blue_acq_slit&#39;</span><span class="p">)</span>
+<span class="n">tpl</span><span class="p">,</span> <span class="n">tplVersion</span>  <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">setTemplateParams</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="n">tpl</span><span class="p">,</span> <span class="p">{</span>
+  <span class="s1">&#39;TEL.GS1.ALPHA&#39;</span><span class="p">:</span> <span class="s1">&#39;11:22:33.000&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;INS.COLL.NAID&#39;</span><span class="p">:</span> <span class="s1">&#39;COLL_SR+7&#39;</span><span class="p">,</span>
+  <span class="s1">&#39;INS.DPOL.MODE&#39;</span><span class="p">:</span> <span class="s1">&#39;ON&#39;</span>
+<span class="p">},</span> <span class="n">tplVersion</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.submitRun">
+<code class="descname">submitRun</code><span class="sig-paren">(</span><em>runId</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.submitRun" title="Permalink to this definition">¶</a></dt>
+<dd><p>Submit the observing run to ESO for review.</p>
+<p>api  : POST /obsRuns/{runId}/submit</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">api</span><span class="o">.</span><span class="n">submitRun</span><span class="p">(</span><span class="n">runId</span><span class="p">)</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.uploadFile">
+<code class="descname">uploadFile</code><span class="sig-paren">(</span><em>method</em>, <em>url</em>, <em>filename</em>, <em>contentType</em>, <em>etag=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.uploadFile" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.verifyContainer">
+<code class="descname">verifyContainer</code><span class="sig-paren">(</span><em>containerId</em>, <em>submit</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.verifyContainer" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify a Group, Concatenation or TimeLink.</p>
+<p>If submit is false, a Group, Concatenation, or TimeLink can be verified
+in any container status. If submit is true, the container must have
+container status “-” or “P”.</p>
+<p>OBs inside the container must be verified first, i.e. they have a status
+of “D” or later.</p>
+<p>The instrument-specific verification scripts for a container are executed.
+If submit is true and verification is successful, the container status
+is changed to “D”.</p>
+<p>A change of the container status will invalidate the ETag of the container.</p>
+<p>api  : POST /containers/{containerId}/verify</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">response</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">verifyContainer</span><span class="p">(</span><span class="n">containerId</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;observable&#39;</span><span class="p">]:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Your container is observable!&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Your container is &gt;&gt;not observable&lt;&lt;. See messages below.&#39;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="fcmaker.p2api.ApiConnection.verifyOB">
+<code class="descname">verifyOB</code><span class="sig-paren">(</span><em>obId</em>, <em>submit</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.p2api.ApiConnection.verifyOB" title="Permalink to this definition">¶</a></dt>
+<dd><p>Verify OB and submit it for observation.</p>
+<p>If submit is false, an OB can be verified in any status. If submit is
+true, a loose service mode OB must be in status “P” or “-” and a visitor
+mode OB must be in a status other than “S”, “A”, “X”, or “+”.</p>
+<p>api  : POST /obsBlocks/{obId}/verify</p>
+<dl class="docutils">
+<dt>usage:</dt>
+<dd><div class="first last highlight-default"><div class="highlight"><pre><span></span><span class="n">response</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">api</span><span class="o">.</span><span class="n">verifyOB</span><span class="p">(</span><span class="n">obId</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
+<span class="k">if</span> <span class="n">response</span><span class="p">[</span><span class="s1">&#39;observable&#39;</span><span class="p">]:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Your OB&#39;</span> <span class="p">,</span> <span class="n">obId</span><span class="p">,</span> <span class="n">ob</span><span class="p">[</span><span class="s1">&#39;name&#39;</span><span class="p">],</span> <span class="s1">&#39;is observable!&#39;</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;OB&#39;</span><span class="p">,</span> <span class="n">obId</span><span class="p">,</span> <span class="s1">&#39;is &gt;&gt;not observable&lt;&lt;. See messages below.&#39;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">)</span>
+   <span class="nb">print</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">response</span><span class="p">[</span><span class="s1">&#39;messages&#39;</span><span class="p">]))</span>
+</pre></div>
+</div>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="exception">
+<dt id="fcmaker.p2api.P2Error">
+<em class="property">exception </em><code class="descclassname">fcmaker.p2api.</code><code class="descname">P2Error</code><a class="headerlink" href="#fcmaker.p2api.P2Error" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal"><span class="pre">Exception</span></code></p>
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-fcmaker">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-fcmaker" title="Permalink to this headline">¶</a></h2>
+</div>
+</div>
+
+
+           </div>
+           <div class="articleComments">
+            
+           </div>
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="../faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="fcmaker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2017, Frédéric P.A. Vogt.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1.48',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+
+  
+
+  
+  
+    <script type="text/javascript" src="../_static/js/theme.js"></script>
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
