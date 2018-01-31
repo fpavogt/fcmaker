@@ -1,7 +1,10 @@
 .. _changelog:
 
-Changelog
-==========
+.. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
+   :target: https://github.com/fpavogt/fcmaker
+
+Changelog |last-commit|
+=======================
 
 .. todo:: 
    - add support for moving target (i.e. deal with ephemeris files)

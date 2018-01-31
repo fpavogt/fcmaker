@@ -6,14 +6,19 @@
 fcmaker |release|
 ===============================================
 
-|DOI_latest| |pypi| |astropy|
+|DOI_latest| |pypi| |astropy| |last-commit| |issues|
 
 .. |astropy| image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
     :target: http://www.astropy.org/
     
-.. |pypi| image:: https://badge.fury.io/py/fcmaker.svg
-    :target: https://badge.fury.io/py/fcmaker
+.. |pypi| image:: https://img.shields.io/pypi/v/fcmaker.svg?colorB=<brightgreen>
+    :target: https://pypi.python.org/pypi/fcmaker/
 
+.. |issues| image:: https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e   
+   :target: https://github.com/fpavogt/fcmaker/issues
+
+.. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
+   :target: https://github.com/fpavogt/fcmaker
 
 .. figure:: ./examples/fcm_plots/WFM_AO_starstuff_DSS2-Red.png
     :width: 750px
@@ -41,6 +46,7 @@ Contents
    Home <self>
    installation
    running
+   troubleshooting
    examples/gallery
    modules/modules
    faq

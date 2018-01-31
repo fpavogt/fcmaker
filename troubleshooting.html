@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Installation &mdash; fcmaker 0.2.1 documentation</title>
+  <title>Troubleshooting &mdash; fcmaker 0.2.1 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
     <link rel="top" title="fcmaker 0.2.1 documentation" href="index.html"/>
-        <link rel="next" title="Usage instructions" href="running.html"/>
-        <link rel="prev" title="fcmaker 0.2.1" href="index.html"/> 
+        <link rel="next" title="Gallery" href="examples/gallery.html"/>
+        <link rel="prev" title="Usage instructions" href="running.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -92,13 +92,9 @@
             
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="index.html">Home</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Installation</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#requirements">Requirements</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#testing-the-installation">Testing the installation</a></li>
-</ul>
-</li>
+<li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="running.html">Usage instructions</a></li>
-<li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/gallery.html">Gallery</a></li>
 <li class="toctree-l1"><a class="reference internal" href="modules/modules.html">fcmaker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
@@ -148,13 +144,13 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Installation</li>
+      <li>Troubleshooting</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/installation.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/troubleshooting.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -167,47 +163,28 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="installation">
-<h1>Installation<a class="headerlink" href="#installation" title="Permalink to this headline">¶</a></h1>
-<p>fcmaker is available on testpypi, which makes its installation easier than ever.
-In a terminal, type:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">fcmaker</span>
-</pre></div>
-</div>
-<p>And that should take care of things.</p>
-<p>The most recent release of fcmaker is also available for download from its <a class="reference external" href="https://github.com/fpavogt/fcmaker/releases/latest/">Github repository</a>.
-Interested users can fork the fcmaker repository if they want to get access to the
-latest updates not yet released. <em>Push requests</em> for bug fixes and new features are
-welcome and will be examined in detail.</p>
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>fcmaker is written in Python 3.6. The following packages are required for it to work
-properly:</p>
-<ul class="simple">
-<li>numpy (1.13.1 or or above)</li>
-<li>scipy (0.19.0 or above)</li>
-<li>matplotlib (2.0.2 or above)</li>
-<li>astropy (2.0.1 or above)</li>
-<li>astroquery (0.3.4 or above)</li>
-<li>aplpy (1.1.1 or above)</li>
-<li>p2api (0.9 or above)</li>
-</ul>
-<p>Optional (but strongly recommended):</p>
-<ul class="simple">
-<li>Montage and montage-wrapper (0.9.9 or above)</li>
-<li>Proper LateX installation</li>
-</ul>
-<p>The Montage package is required to rotate the finding charts North, even if the underlying
-FITS file isn’t. A system-wide LaTeX installation allows for a slick(-er) looking font for
-the various labels.</p>
-</div>
-<div class="section" id="testing-the-installation">
-<h2>Testing the installation<a class="headerlink" href="#testing-the-installation" title="Permalink to this headline">¶</a></h2>
-<p>In a terminal shell, try to access the basic help of fcmaker:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span><span class="n">help</span>
-</pre></div>
-</div>
-<p>If that works, chances are, you will probably be fine.</p>
+  <span class="target" id="troubleshooting"></span><div class="section" id="id1">
+<h1>Troubleshooting<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h1>
+<p>1.
+If you encounter errors when running fcmaker, first ensure that your numpy, scipy,
+matplotlib, aplpy, and astropy packages are up-to-date, then try again.</p>
+<p>2.
+If you still encounter errors after doing that, check the <a class="reference internal" href="faq.html#faq"><span class="std std-ref">FAQ</span></a>.</p>
+<p>3.
+Check if this is one of the known <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues"><img alt="issues" src="https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e" /></a></p>
+<p>4.
+If you still can’t figure out what’s wrong, please <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues">submit a new issue on the Github
+repository of the project</a>. Provide as much
+detail as possible (error message, minimal example able to reproduce the error,
+operating system, Python version, etc …).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Submitting a Github issue is the best way for you to get help rapidly, for us to keep
+track of the problems that need solving, and for future users to see what changes have
+been made over time (and look for existing solutions to their problem which may be the
+same as yours). Submitting a new issue on Github is rapid and easy, but if you are
+really against doing it (why would you ?), you can always email
+<a class="reference external" href="mailto:frederic&#46;vogt&#37;&#52;&#48;alumni&#46;anu&#46;edu&#46;au">frederic<span>&#46;</span>vogt<span>&#64;</span>alumni<span>&#46;</span>anu<span>&#46;</span>edu<span>&#46;</span>au</a> for help.</p>
 </div>
 </div>
 
@@ -221,10 +198,10 @@ the various labels.</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="running.html" class="btn btn-neutral float-right" title="Usage instructions" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="examples/gallery.html" class="btn btn-neutral float-right" title="Gallery" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="index.html" class="btn btn-neutral" title="fcmaker 0.2.1" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="running.html" class="btn btn-neutral" title="Usage instructions" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
