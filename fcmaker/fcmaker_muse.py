@@ -4,9 +4,9 @@
 import numpy as np
 from astropy.coordinates.sky_coordinate import SkyCoord
 import astropy.units as u
+from astropy.time import Time
 import warnings
 import copy
-
 
 import matplotlib.lines as mlines
 
@@ -22,16 +22,19 @@ Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 
-# ---------------- Define the MUSE WFM field of view -------------------------------------
-# From the MUSE manual, march 2014
-muse_in = np.array([[0.0086683878,   0.0084439565],
+# ---------------- Define the MUSE field of views -------------------------------------
+# From the MUSE manual, March 2014
+muse_wfm = np.array([[0.0086683878,   0.0084439565],
                     [359.99128-360., 0.008499508],
                     [359.99172-360.,-0.0082782215],
                     [0.0080579666,  -0.008389310]])
-muse_in *= 3600 # make it in arcsec
+muse_wfm *= 3600 # make it in arcsec
 
-muse_out = np.zeros((16,2))
-muse_out = np.array([[0.012835385,0.0085544861],
+muse_nfm = muse_wfm/8. # For now, just scale the field to 7.5 arces ... until I know better
+
+
+muse_sgs = np.zeros((16,2))
+muse_sgs = np.array([[0.012835385,0.0085544861],
                     [0.0085551081,0.012277302],
                     [0.00027758977,0.012],
                     [359.99189-360.,0.012277352],
@@ -48,7 +51,7 @@ muse_out = np.array([[0.012835385,0.0085544861],
                     [0.0060015071,-0.010611345],
                     [0.0090006082,-0.010444971],
                     [0.012444522,-0.0095565611]])
-muse_out *= 3600 # make it in arcsec
+muse_sgs *= 3600 # make it in arcsec
 
 # ----------------------------------------------------------------------------------------
 
@@ -57,7 +60,17 @@ bk_image = 'DSS2 Red'
 
 # The radius of the charts
 right_radius = 720. # in arcsec
-left_radius = 120. # default, will be increased in case of large offsets
+
+def left_radius(ins_mode):
+   ''' A function that sets the defaut size of the left window depending on the mode.'''
+
+   if ins_mode[:3] == 'WFM':
+      return 110
+   elif ins_mode[:3] == 'NFM':
+      return 15
+   else:
+      raise Exception('Mode undefined.')
+      
 inner_GS_search = 120. # inner limit to find Guide Stars
 
 # TTS validity area
@@ -76,6 +89,9 @@ muse_templates = [# WFM-NOAO
                   # WFM_cal
                   'MUSE_wfm_cal_specphot',
                   'MUSE_wfm_cal_astrom',
+                  #NFM
+                  'MUSE_nfm-ao_acq_LGS',
+                  'MUSE_nfm-ao_obs_genericoffsetLGS',
                   ]
 
 # The acquisition parameters that matter for the finding charts. Only one dictionary for
@@ -90,6 +106,7 @@ muse_acq_params = {'ins_mode': None, # Instrument mode
                    'is_tts':False,   # TTS provided ?
                    'tts1': None,     # tts1 coord as SkyCoord
                    'tts2': None,     # tts2 coord as SkyCoord
+                   'oatt':None,      # on-axis TTS for NFM
                   }
          
 muse_sci_params = {'noff': 1,        # Number of offsets
@@ -131,7 +148,7 @@ def detector_to_sky(dx,dy,pa):
    return (dra, ddec)
 
 # ----------------------------------------------------------------------------------------
-def get_p2fcdata_muse(ob, api):
+def get_p2fcdata_muse(fc_params, ob, api):
    '''
    Extracts all the important info to build a finding chart from a given MUSE OB from p2.
    
@@ -146,31 +163,6 @@ def get_p2fcdata_muse(ob, api):
    
    # Fetch all the associated templates
    templates, templatesVersion = api.getTemplates(obId)
-   
-   # Start filling my own dictionary of useful fc parameters
-   fc_params = {}
-   
-   fc_params['inst'] = ob['instrument']
-   fc_params['ob_name'] = ob['name']
-   
-   fc_params['obId'] = obId
-   
-   # Get the PI name and progId
-   runId = ob['runId']
-   run, _ = api.getRun(runId)
-   fc_params['pi'] = run['pi']['lastName']
-   fc_params['progId'] = run['progId']
-   
-   # Store the target coordinates, incl. proper motions
-   fc_params['target'] = fcm_t.propagate_pm(SkyCoord(ob['target']['ra'],
-                                               ob['target']['dec'], 
-                                               obstime = fcm_m.obsdate, 
-                                               equinox = ob['target']['equinox'], 
-                                               frame = 'icrs',unit=(u.hourangle, u.deg)), 
-                                               ob['target']['epoch'],
-                                               ob['target']['properMotionRa'],
-                                               ob['target']['properMotionDec'],
-                                               )
    
    fc_params['n_sci'] = 0 # The number of Science template in the OB 
    
@@ -249,7 +241,14 @@ def get_p2fcdata_muse(ob, api):
                tts2_ra = param['value']   
             if param['name'] == 'TEL.TTS2.DELTA':             
                tts2_dec = param['value']  
-         
+            
+            # NFM TTS
+            if param['name'] == 'SEQ.NGS.ALPHA':             
+               oatt_ra = param['value']   
+            if param['name'] == 'SEQ.NGS.DELTA':             
+               oatt_dec = param['value']
+            
+            
          # Store the GS and TTS as SkyCoords
          if fc_params['acq']['is_gs']:
             fc_params['acq']['gs'] = SkyCoord(gs_ra, gs_dec, 
@@ -266,6 +265,14 @@ def get_p2fcdata_muse(ob, api):
                                          obstime = fcm_m.obsdate, 
                                          #equinox=ob['target']['equinox'], 
                                          frame='icrs',unit=(u.hourangle, u.deg))
+      
+         # Also for the NFM case
+         if 'NFM-AO' in fc_params['ins_mode']:
+            fc_params['acq']['oatt'] = SkyCoord(oatt_ra,oatt_dec, 
+                                         obstime = fcm_m.obsdate, 
+                                         #equinox=ob['target']['equinox'], 
+                                         frame='icrs',unit=(u.hourangle, u.deg))
+      
       
       elif t['type'] in ['science','calib']:
          
@@ -299,7 +306,7 @@ def get_p2fcdata_muse(ob, api):
    return fc_params
 
 # ------------------------------------------------------------------------------
-def get_localfcdata_muse(inpars):
+def get_localfcdata_muse(fc_params,inpars):
    '''
    Extracts all the important info to build a finding chart from a given MUSE OB defined
    locally.
@@ -310,53 +317,76 @@ def get_localfcdata_muse(inpars):
        A dictionnary containing the MUSE OB parameters
    ''' 
   
-   fc_params = {}
-   fc_params['ob_name'] = inpars['obname']
+   #fc_params = {}
+   fc_params['ob_name'] = inpars['ob_name']
    
-   if type(inpars['obId']) == int:
-      fc_params['obId'] = inpars['obId']
+   if type(inpars['ob_id']) == int:
+      fc_params['ob_id'] = inpars['ob_id']
    else:
-      fc_params['obId'] = 0000000
+      fc_params['ob_id'] = -1
       
    fc_params['pi'] = inpars['pi']
-   fc_params['progId'] = inpars['progId']
+   fc_params['prog_id'] = inpars['prog_id']
    fc_params['inst'] = inpars['inst']
    fc_params['ins_mode'] = inpars['ins_mode']
    
    # Get the target, and propagate the proper motion
-   fc_params['target'] = fcm_t.propagate_pm(SkyCoord(inpars['ra'],
-                                               inpars['dec'], 
-                                               obstime = fcm_m.obsdate, 
-                                               equinox = inpars['equinox'], 
-                                               frame = 'icrs',
-                                               unit=(u.hourangle, u.deg)), 
-                                               inpars['epoch'],
-                                               inpars['pmra'],
-                                               inpars['pmdec'],
-                                               )
-                                               
+   #fc_params['target'] = fcm_t.propagate_pm(SkyCoord(inpars['ra'],
+   #                                            inpars['dec'], 
+   #                                            obstime = fcm_m.obsdate, 
+   #                                            equinox = inpars['equinox'], 
+   #                                            frame = 'icrs',
+   #                                            unit=(u.hourangle, u.deg)), 
+   #                                            inpars['epoch'],
+   #                                            inpars['pmra'],
+   #                                            inpars['pmdec'],
+   #                                            )
+   
+   tc = SkyCoord( ra = inpars['ra'],
+                  dec = inpars['dec'], 
+                  obstime = Time(inpars['epoch'],format='decimalyear'),
+                  equinox = inpars['equinox'], 
+                  frame = 'icrs',unit=(u.hourangle, u.deg), 
+                  pm_ra_cosdec = inpars['pmra']*u.arcsec/u.yr,
+                  pm_dec = inpars['pmdec']*u.arcsec/u.yr,
+                  # I must specify a generic distance to the target,
+                  # if I want to later on propagate the proper motions
+                  distance=100*u.pc,  
+                  )
+                  
+   # Propagate the proper motion using astropy v3.0
+   fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate))                                         
          
    # Acquisition
    fc_params['acq'] = copy.deepcopy(muse_acq_params)
    fc_params['acq']['is_tts'] = inpars['is_tts']
    # Override the user input if clash with instrument mode
-   if 'NOAO' in inpars['ins_mode']:
+   if 'WFM-NOAO' in inpars['ins_mode']:
       inpars['is_tts'] = False   
    fc_params['acq']['bos_ra'] = inpars['bos_ra']
    fc_params['acq']['bos_dec'] = inpars['bos_dec']
    fc_params['acq']['is_gs'] = inpars['is_gs']
    fc_params['acq']['gs'] = SkyCoord(inpars['gs_ra'],inpars['gs_dec'], 
                                      frame = 'icrs', 
-                                     obstime = fcm_m.obsdate,
+                                     obstime = Time(fcm_m.obsdate),
                                      equinox = 'J2000')
-   fc_params['acq']['tts1'] = SkyCoord(inpars['tts1_ra'],inpars['tts1_dec'], 
-                                       frame = 'icrs',
-                                       obstime = fcm_m.obsdate,
-                                       equinox = 'J2000')
-   fc_params['acq']['tts2'] = SkyCoord(inpars['tts2_ra'],inpars['tts2_dec'], 
-                                       frame='icrs', 
-                                       obstime = fcm_m.obsdate,
-                                       equinox='J2000')
+   if 'WFM-AO' in inpars['ins_mode']:
+   
+      fc_params['acq']['tts1'] = SkyCoord(inpars['tts1_ra'],inpars['tts1_dec'], 
+                                          frame = 'icrs',
+                                          obstime = Time(fcm_m.obsdate),
+                                          equinox = 'J2000')
+      fc_params['acq']['tts2'] = SkyCoord(inpars['tts2_ra'],inpars['tts2_dec'], 
+                                          frame='icrs', 
+                                          obstime = Time(fcm_m.obsdate),
+                                          equinox='J2000')
+   
+   if 'NFM' in inpars['ins_mode']:
+      fc_params['acq']['oatt'] = SkyCoord(inpars['oatt_ra'],inpars['oatt_dec'], 
+                                          frame='icrs', 
+                                          obstime = Time(fcm_m.obsdate),
+                                          equinox='J2000')
+                                                               
    fc_params['acq']['acq_pa'] = inpars['acq_pa']
 
    # Observation
@@ -364,7 +394,7 @@ def get_localfcdata_muse(inpars):
    fc_params['sci1'] = copy.deepcopy(muse_sci_params)
    fc_params['sci1']['noff'] = inpars['noff']
    fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split(' ')]
-   fc_params['sci1']['posang'] = [float(i) for i in inpars['posang'][0].split(' ')]
+   fc_params['sci1']['posang'] = [float(i) for i in str(inpars['posang'][0]).split(' ')]
    fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split(' ')]
    fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split(' ')]
    fc_params['sci1']['return'] = inpars['return']
@@ -438,7 +468,6 @@ def get_fields_dict(fc_params):
       obstype = fc_params[temp_name]['obstype']
       coordtype = fc_params[temp_name]['coordtype']
       
-      
       # If any sequence is too short, loop it as required
       all_offs = [off1, off2, posang, obstype]
       for (s,seq) in enumerate(all_offs):
@@ -495,7 +524,7 @@ def get_fields_dict(fc_params):
    return fields
    
 # ------------------------------------------------------------------------------
-def get_polygon(central_coord, pa):
+def get_polygon(central_coord, pa, mode):
    '''
    Given the central location and position of a field, build a polygon to feed to 
    matplotlib down the line.
@@ -503,6 +532,7 @@ def get_polygon(central_coord, pa):
    Args:
       central_coord: an astropy.SkyCoord entry with the center of the MUSE field
       pa: the position angle of the field (p2 convention)
+      mode: the instrument mode, either 'WFM' or 'NFM'
    Returns:
       A list of 2-D coordinates for each corner of the field-of-view.
    '''
@@ -510,9 +540,15 @@ def get_polygon(central_coord, pa):
    # Very well, having done this, I will also build a list of polygons for each field, 
    # that I can feed directly to matplotlib
    polygon = [] #it's a list
-
-   corners = np.zeros_like(muse_in) + muse_in
-    
+   
+   
+   if mode == 'WFM':
+      corners = copy.deepcopy(muse_wfm)
+   elif mode == 'NFM':
+      corners = copy.deepcopy(muse_nfm)
+   else:
+      raise Exception('Mode unknown.')
+       
    # Rotate the different corners by the correct amount
    for (j,corner) in enumerate(corners):    
       corners[j] = np.dot(corners[j],fcm_t.myrotmatrix(pa))
@@ -572,7 +608,7 @@ def plot_field(ax1, ax2, fc_params, field):
       # instrument footprint, except for the "target", where the AO loops are closed, but
       # no data is taken
       #if field[4] != 'Target':
-      ax.show_polygons(get_polygon(field[2],field[3]), 
+      ax.show_polygons(get_polygon(field[2],field[3],field[1][:3]), 
                            edgecolor = skins[field[4]]['c'],
                            linewidth = skins[field[4]]['lw'],
                            zorder = skins[field[4]]['zorder'],
@@ -597,7 +633,19 @@ def plot_field(ax1, ax2, fc_params, field):
                          ],
                          color='k', lw=0.5, linestyle= '-')             
                   
-      # Show the TT stars
+      # Show the NFM TT star
+      if 'NFM' in fc_params['ins_mode']:
+         tts = fc_params['acq']['oatt']  
+            
+         # Skip if it is not defined (0,0 is the default)
+         if tts.ra == 0 and tts.dec == 0:
+            continue
+                          
+         ax.show_markers(tts.ra, tts.dec, marker=fcm_t.crosshair(pa=0), edgecolor='tomato',
+                           s=500, linewidth=1.5)
+            
+      
+      # Show the WFM-AO TT stars 
       if fc_params['acq']['is_tts']:
          for (t,tts) in enumerate([fc_params['acq']['tts1'],fc_params['acq']['tts2']]):  
             
@@ -635,7 +683,8 @@ def plot_field(ax1, ax2, fc_params, field):
                             verticalalignment='center', 
                             horizontalalignment='center',size=12,color='tomato',
                             bbox=dict(boxstyle="circle,pad=0.17", facecolor='w',ec='tomato', alpha=1)) 
-            
+      
+          
                    
       # Show the Guide Star (if there is an acq template present)
       if (fc_params['acq']['is_gs']) and (field[4] == 'Acq'):

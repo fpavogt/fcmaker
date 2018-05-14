@@ -14,8 +14,8 @@ Acknowledging fcmaker
 -----
    
 2) If you use fcmaker for your observations (and remember that you did so by the time you
-   reach the publication stage!), I would very much welcome a friendly nudge along the 
-   following blurb::
+   reach the publication stage!), a friendly nudge along the following blurb will be 
+   greatly appreciated::
    
     This research has made use of \textsc{fcmaker}, a Python module to create 
     ESO-compliant finding charts automatically. \textsc{fcmaker} relies on 
@@ -27,10 +27,18 @@ Acknowledging fcmaker
     Computation Technologies Project, under Cooperative Agreement Number NCC5-626 between
     NASA and the California Institute of Technology. \textsc{fcmaker} uses the VizieR 
     catalogue access tool, CDS, Strasbourg, France. The original description of the VizieR 
-    service was published in Ochsenbein (2000).
+    service was published in Ochsenbein (2000). \textsc{fcmaker} also makes use of data 
+    from the European Space Agency (ESA) mission Gaia (https://www.cosmos.esa.int/gaia), 
+    processed by the Gaia Data Processing and Analysis Consortium (DPAC, https://www.cosmos.esa.int/web/gaia/dpac/consortium). Funding for the DPAC has been 
+    provided by national institutions, in particular the institutions participating in the 
+    Gaia Multilateral Agreement. In particular, \textsc{fcmaker} uses data from the Gaia 
+    (Gaia Collaboration et al., 2016) Data Release 2 (Gaia Collaboration et al., 2018).
+
    
     
 - `Astropy Collaboration et al. (2013) <http://cdsads.u-strasbg.fr/abs/2013A%26A...558A..33A>`_  
 - `Hunter (2007) <http://cdsads.u-strasbg.fr/abs/2007CSE.....9...90H>`_  
 - `Ochsenbein (2000) <http://cdsads.u-strasbg.fr/abs/2000A%26AS..143...23O>`_  
 - `Robitaille (2012) <http://adsabs.harvard.edu/abs/2012ascl.soft08017R>`_
+- `Gaia Collaboration et al. (2016) <http://adsabs.harvard.edu/abs/2016A%26A...595A...1G>`_
+- `Gaia Collaboration et al. (2018) <TBD>`_

@@ -82,7 +82,7 @@ def blind_offset(coord_start, coord_end):
    """
 
    delta_dec = coord_end.dec-coord_start.dec
-   delta_ra = (coord_end.ra-coord_start.ra)*np.cos(target.dec.radian)
+   delta_ra = (coord_end.ra-coord_start.ra)*np.cos(start.dec.radian)
    
    if (delta_ra.arcsec > 900*u.arcsec) or (delta_dec.arcsec > 900*u.arcsec):
       warnings.warn('blind_offset: with offsets that large, the sky is no flat anymore!')
@@ -92,7 +92,7 @@ def blind_offset(coord_start, coord_end):
 # ----------------------------------------------------------------------------------------
 def offset_coord(coord_start, delta_ra=0*u.arcsec, delta_dec=0*u.arcsec):
    """
-   Compute a new SkyCoord entity given a starting location and offset. THis function 
+   Compute a new SkyCoord entity given a starting location and offset. This function 
    assumes that the sky is flat!
    
    Args:
@@ -116,45 +116,48 @@ def offset_coord(coord_start, delta_ra=0*u.arcsec, delta_dec=0*u.arcsec):
                    )
 
 # ----------------------------------------------------------------------------------------
-def propagate_pm(skycoord, epoch, pmRA, pmDec):
-   '''
-   Propagate the proper motion of a target given its epoch and obstime.
-   
-   Args:
-      skycoord (SkyCoord): a SkyCoord item, that must include "obstime"
-      epoch (float): the epoch of the SkyCoord coordinate 
-      pmRa, pmDec (floats): the proper motions in arcsec/year
-   
-   Returns:
-      skycoord: the updated skycoord entry
-      
-   Todo:
-      Implement a proper way of dealing with proper motion, when "velocites" are compatible
-      with SkyCoord in astropy v3.0
-   '''
-   
-   # Convert the epoch (a float) into a datetime entry
-   # https://stackoverflow.com/questions/20911015/decimal-years-to-datetime-in-python
-   epoch_year = int(epoch)
-   rem = epoch - epoch_year
-   
-   base = datetime(epoch_year, 1, 1)
-   epoch = base + rem * timedelta(seconds=(base.replace(year=base.year + 1) - base).total_seconds())
-   
-   # Then compute the time difference bewteen the epoch and the obstime, in year
-   time_dt = skycoord.obstime.value - epoch
-   time_dt = time_dt.total_seconds()/u.year.to(u.s)
-   
-   # Now propagate this into the coordinates
-   # This is still quick and dirty, and assumes that the sky is flat ... sigh! 
-   # Maybe better with astropy v3.0 and SkyCoord ???
-   
-   new_skycoord = offset_coord(skycoord, 
-                               delta_ra = pmRA * time_dt*u.arcsec, 
-                               delta_dec = pmDec * time_dt*u.arcsec)
-   
-   return new_skycoord
-
+# ------------ Obsolete after the advent of astropy v3.0 ! -------------------------------
+# ----------------------------------------------------------------------------------------
+#def propagate_pm(skycoord, epoch, pmRA, pmDec):
+#   '''
+#   Propagate the proper motion of a target given its epoch and obstime.
+#   
+#   Args:
+#      skycoord (SkyCoord): a SkyCoord item, that must include "obstime"
+#      epoch (float): the epoch of the SkyCoord coordinate 
+#      pmRa, pmDec (floats): the proper motions in arcsec/year
+#   
+#   Returns:
+#      skycoord: the updated skycoord entry
+#      
+#   Todo:
+#      Implement a proper way of dealing with proper motion, when "velocites" are compatible
+#      with SkyCoord in astropy v3.0
+#   '''
+#   
+#   # Convert the epoch (a float) into a datetime entry
+#   # https://stackoverflow.com/questions/20911015/decimal-years-to-datetime-in-python
+#   epoch_year = int(epoch)
+#   rem = epoch - epoch_year
+#   
+#   base = datetime(epoch_year, 1, 1)
+#   epoch = base + rem * timedelta(seconds=(base.replace(year=base.year + 1) - base).total_seconds())
+#   
+#   # Then compute the time difference bewteen the epoch and the obstime, in year
+#   time_dt = skycoord.obstime.to_datetime() - epoch
+#   time_dt = time_dt.total_seconds()/u.year.to(u.s)
+#   
+#   # Now propagate this into the coordinates
+#   # This is still quick and dirty, and assumes that the sky is flat ... sigh! 
+#   # Maybe better with astropy v3.0 and SkyCoord ???
+#   
+#   new_skycoord = offset_coord(skycoord, 
+#                               delta_ra = pmRA * time_dt*u.arcsec, 
+#                               delta_dec = pmDec * time_dt*u.arcsec)
+#   
+#   
+#   return new_skycoord
+#
 # ---------------------------------------------------------------------------------------- 
 def myrotmatrix(angle):
    """

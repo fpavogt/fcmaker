@@ -1,8 +1,8 @@
 # A list of basic OB parameters to generate a MUSE finding chart from scratch, locally
-obname:   WFM_AO_starstuff
-obId:     12345678
-pi:       jdoe
-progId:   0100.Z-9999
+ob_name:   WFM_AO_starstuff
+ob_id:      
+pi:       
+prog_id:   
 inst:     MUSE
 ins_mode: WFM-AO-N
 
@@ -37,8 +37,8 @@ off2:     [0 -70 +70.2 -70.4 +70]
 return:   True
 
 # Finding chart parameters
-bk_images: DSS2 Red     # None, Bk images to download from SkyView, or local fits file
-bk_lams:   None         # None, or else overrides SkyView default.
+bk_image: DSS2 Red     # None, bk_images to download from SkyView, or local fits file
+bk_lam:   None         # None, or else overrides SkyView default.
 data_loc: fcm_data      # Relative path to the bk images 
 plot_loc: fcm_plots     # Relative path to store the finding charts 
                     

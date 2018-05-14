@@ -3,14 +3,11 @@
 FAQ 
 ====
 
-**Q: I don't have/don't want to install Montage. Can I still run fcmaker ?**
 
-   A: Yes, simply use the ``--no-montage`` flag when calling fcmaker. But we still strongly recommend using Montage to have all the charts rotated North. 
-         
-**Q: I don't have/don't want to use my system-wide Latex. Can I still run fcmaker ?**
+**Q: If fcmaker is not an official ESO tool, will the fcmaker charts still be accepted in Phase 2?**
 
-   **A**: Yes, simply use the ``--no-systemtex`` flag when calling fcmaker. But we still strongly recommend using a proper LaTeX setup to generate good-looking charts. 
-
-
+   **A**: fcmaker is developed by an ESO Fellow with duties on UT4 at the VLT, but it is *not* an official ESO tool. Still, the fcmaker charts match all the official ESO requirements for finding charts, and were fine-tuned to meet the specific needs of the telescope operators and night astronomers during operations. The hope is that the inclusion of fcmaker finding charts in OBs will thus remain tolerated.
+   
+   
 
    

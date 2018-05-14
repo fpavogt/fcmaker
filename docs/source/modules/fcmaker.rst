@@ -60,6 +60,14 @@ fcmaker\.fcmaker\_tools module
     :undoc-members:
     :show-inheritance:
 
+fcmaker\.fcmaker\_xshooter module
+---------------------------------
+
+.. automodule:: fcmaker.fcmaker_xshooter
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

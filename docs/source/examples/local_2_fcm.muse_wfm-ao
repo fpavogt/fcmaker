@@ -1,10 +1,10 @@
 # A list of basic OB parameters to generate a MUSE finding chart from scratch, locally
-obname:   WFM_AO_starstuff
-obId:     12345678
-pi:       jdoe
-progId:   0100.Z-9999
-inst:     MUSE
-ins_mode: WFM-AO-N
+ob_name:   WFM_AO_starstuff
+ob_id:     12345678
+pi:        jdoe
+prog_id:   0100.Z-9999
+inst:      MUSE
+ins_mode:  WFM-AO-N
 
 # Target
 equinox:  J2000
@@ -17,7 +17,7 @@ pmdec:    0.0000          # proper motion in arcsec/year
 # Acquisition
 bos_ra:   34.6108         # Blind-offset (RA)
 bos_dec:  42.562          # Blind offset (Dec)
-acq_pa:   0               # Acquisiton Position Angle (degrees)
+acq_pa:   0               # Acquisition Position Angle (degrees)
 is_gs:    True            # User-defined Guide Star ?
 gs_ra:    21h49m22.147s
 gs_dec:   +00d27m53.336s
@@ -26,6 +26,8 @@ tts1_ra:  21h49m04.085s
 tts1_dec: +00d27m44.457s
 tts2_ra:  21h49m14.054s
 tts2_dec: +00d28m48.509s
+oatt_ra:  None
+oatt_dec: None
 
 # Observation
 noff:     5
@@ -37,8 +39,8 @@ off2:     [0 -70 +70.8 -70.8 +70]
 return:   True
 
 # Finding chart parameters
-bk_images: DSS2 Red     # None, Bk images to download from SkyView, or local fits file
-bk_lams:   None         # None, or else overrides SkyView default.
+bk_image: DSS2 Red     # None, Bk images to download from SkyView, or local fits file
+bk_lam:   None         # None, or else overrides SkyView default.
 data_loc: fcm_data      # Relative path to the bk images 
 plot_loc: fcm_plots     # Relative path to store the finding charts 
                     

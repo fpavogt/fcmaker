@@ -4,6 +4,7 @@
 import numpy as np
 from astropy.coordinates.sky_coordinate import SkyCoord
 import astropy.units as u
+from astropy.time import Time
 import warnings
 import copy
 
@@ -139,32 +140,6 @@ def get_p2fcdata_hawki(ob, api):
    # Fetch all the associated templates
    templates, templatesVersion = api.getTemplates(obId)
    
-   # Start filling my own dictionary of useful fc parameters
-   fc_params = {}
-   
-   fc_params['inst'] = ob['instrument']
-   fc_params['ob_name'] = ob['name']
-   
-   fc_params['obId'] = obId
-   
-   # Get the PI name and progId
-   runId = ob['runId']
-   run, _ = api.getRun(runId)
-   fc_params['pi'] = run['pi']['lastName']
-   fc_params['progId'] = run['progId']
-   
-   # Store the target coordinates, incl. proper motions
-   fc_params['target'] = fcm_t.propagate_pm(SkyCoord(ob['target']['ra'],
-                                                     ob['target']['dec'], 
-                                                     obstime = fcm_m.obsdate, 
-                                                     equinox = ob['target']['equinox'], 
-                                                     frame = 'icrs',
-                                                     unit=(u.hourangle, u.deg)), 
-                                                     ob['target']['epoch'],
-                                                     ob['target']['properMotionRa'],
-                                                     ob['target']['properMotionDec'],
-                                                     )
-   
    fc_params['n_sci'] = 0 # The number of Science template in the OB 
    
    # First of all, check if I have an acquisition template - required to set the 
@@ -291,7 +266,7 @@ def get_p2fcdata_hawki(ob, api):
    return fc_params
 
 # ------------------------------------------------------------------------------
-def get_localfcdata_hawki(inpars):
+def get_localfcdata_hawki(fc_params, inpars):
    '''
    Extracts all the important info to build a finding chart from a given MUSE OB defined
    locally.
@@ -302,29 +277,44 @@ def get_localfcdata_hawki(inpars):
        A dictionnary containing the MUSE OB parameters
    ''' 
   
-   fc_params = {}
-   fc_params['ob_name'] = inpars['obname']
+   #fc_params = {}
+   fc_params['ob_name'] = inpars['ob_name']
    
-   if type(inpars['obId']) == int:
-      fc_params['obId'] = inpars['obId']
+   if type(inpars['ob_id']) == int:
+      fc_params['ob_id'] = inpars['ob_id']
    else:
-      fc_params['obId'] = 0000000
+      fc_params['ob_id'] = -1
       
    fc_params['pi'] = inpars['pi']
-   fc_params['progId'] = inpars['progId']
+   fc_params['prog_id'] = inpars['prog_id']
    fc_params['inst'] = inpars['inst']
    
    # Get the target, and propagate the proper motion
-   fc_params['target'] = fcm_t.propagate_pm(SkyCoord(inpars['ra'],
-                                               inpars['dec'], 
-                                               obstime = fcm_m.obsdate, 
-                                               equinox = inpars['equinox'], 
-                                               frame = 'icrs',
-                                               unit=(u.hourangle, u.deg)), 
-                                               inpars['epoch'],
-                                               inpars['pmra'],
-                                               inpars['pmdec'],
-                                               )
+   #fc_params['target'] = fcm_t.propagate_pm(SkyCoord(inpars['ra'],
+   #                                            inpars['dec'], 
+   #                                            obstime = fcm_m.obsdate, 
+   #                                            equinox = inpars['equinox'], 
+   #                                            frame = 'icrs',
+   #                                            unit=(u.hourangle, u.deg)), 
+   #                                            inpars['epoch'],
+   #                                            inpars['pmra'],
+   #                                            inpars['pmdec'],
+   #                                            )
+   
+   tc = SkyCoord( ra = inpars['ra'],
+                  dec = inpars['dec'], 
+                  obstime = Time(inpars['epoch'],format='decimalyear'),
+                  equinox = inpars['equinox'], 
+                  frame = 'icrs',unit=(u.hourangle, u.deg), 
+                  pm_ra_cosdec = inpars['pmra']*u.arcsec/u.yr,
+                  pm_dec = inpars['pmdec']*u.arcsec/u.yr,
+                  # I must specify a generic distance to the target,
+                  # if I want to later on propagate the proper motions
+                  distance=100*u.pc,  
+                  )
+                  
+   # Propagate the proper motion using astropy v3.0
+   fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate)) 
                                                
          
    # Acquisition
@@ -335,21 +325,22 @@ def get_localfcdata_hawki(inpars):
    fc_params['acq']['is_gs'] = inpars['is_gs']
    fc_params['acq']['gs'] = SkyCoord(inpars['gs_ra'],inpars['gs_dec'], 
                                      frame = 'icrs', 
-                                     obstime = fcm_m.obsdate,
+                                     obstime = Time(fcm_m.obsdate),
                                      equinox = 'J2000')
    fc_params['acq']['acq_pa'] = inpars['acq_pa']
    fc_params['acq']['is_fph'] = inpars['is_fph']
-   fc_params['acq']['nx'] = inpars['nx']
    
-   # For now, take the easy way out if nx != 128
-   if fc_params['acq']['nx'] != 128:
-      raise Exception('Ouch! In Fast Phot, nx=128 is required!') 
+   if inpars['is_fph']:
+      fc_params['acq']['nx'] = inpars['nx']
+   
+      # For now, take the easy way out if nx != 128
+      if fc_params['acq']['nx'] != 128:
+         raise Exception('Ouch! In Fast Phot, nx=128 is required!') 
       
-   fc_params['acq']['ny'] = inpars['ny']
-   fc_params['acq']['startx'] = inpars['startx']
-   fc_params['acq']['starty'] = inpars['starty']
+      fc_params['acq']['ny'] = inpars['ny']
+      fc_params['acq']['startx'] = inpars['startx']
+      fc_params['acq']['starty'] = inpars['starty']
    
-
    # Observation
    fc_params['n_sci'] = 1
    fc_params['sci1'] = copy.deepcopy(hawki_sci_params)

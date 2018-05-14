@@ -1,17 +1,31 @@
 .. _changelog:
 
-Changelog
-==========
+.. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
+   :target: https://github.com/fpavogt/fcmaker
+
+Changelog |last-commit|
+=======================
 
 .. todo:: 
-   - add support for moving target (i.e. deal with ephemeris files)
-   - add support for jitter in HAWKI (showing the max jitter area with a circle)
-   - deal with proper motion in a more accurate way than in `propagate_pm`
-     (once ``astropy v3.0`` is out ?)
-   - draw the proper motion vectors of the fastest stars in the field of view
-     (once GAIA v2 will is out ?)   
-   - find a better way to display the allowed TT area for MUSE ? 
-     e.g. shaded area ?
+   - add support for moving target (i.e. deal with ephemeris files) locally
+   - add support for jitter in HAWKI (showing the max jitter area with a circle?) 
+   - find a better way to display the allowed TT area for MUSE ? e.g. shaded area ?
+   - implement support for HAWKI GRAAL
+   - formalize support for MUSE NFM
+   - update Gaia DR2 article link
+   
+
+v0.3.0 May 2018, F.P.A. Vogt:
+- added 2 functions to run fcmaker from within a Python shell (make_fc and make fc_local), and ...
+- restructured _main_.py and fcmaker.py as a result.
+- replaced 'propagate_pm' with new 'SkyCoord.apply_space_motion()' function from Astropy 3.0
+- draw the proper motion vectors of the fastest stars in the field of view, using GAIA DR2.
+- if OBS-DATE is in the fits header, then plot the pm line between obstime and then. Else, plot as long as fcm_m.pm_track_time
+- started working on support for XSHOOTER
+- when DSS2 Red is not used for the zoomed-in view, still use it for the right-hand-side image
+- when reading a local file, only read the keywords that matter
+- made the use of python-Latex and No-montage the default (safer for new users)
+- added support for moving targets with ephemeris files (on P2)
 
 v0.2.1 January 2018, F.P.A. Vogt:
  - fixed a bad bug with the p2api import

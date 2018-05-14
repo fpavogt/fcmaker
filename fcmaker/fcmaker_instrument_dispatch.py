@@ -1,12 +1,18 @@
 # -*- coding: utf-8 -*-
 # ----------------------------------------------------------------------------------------
 
+import os
 import numpy as np
 import warnings
 
 from astropy.coordinates.sky_coordinate import SkyCoord
 from astropy import units as u
+from astropy.time import Time
 import copy
+
+from datetime import datetime
+from datetime import timedelta
+from dateutil import parser as dup
 
 from . import fcmaker_metadata as fcm_m
 from . import fcmaker_tools as fcm_t
@@ -131,10 +137,14 @@ def get_chart_radius(fc_params):
       # Ok, I want to have a "zoom-in version of the plot on the left. 
       # In case of big offsets, this can be a problem. So let's make this a bit larger
       # in those cases
-      left_radius = np.max([fcm_muse.left_radius,
+      '''
+      left_radius = np.max([fcm_muse.left_radius(fc_params['ins_mode']),
                             np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
                                      (fc_params['acq']['bos_dec']/2.)**2)+35.])
-   
+      '''
+      left_radius = fcm_muse.left_radius(fc_params['ins_mode']) + 0.5* np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
+                                     (fc_params['acq']['bos_dec']/2.)**2)
+      
    elif fc_params['inst'] == 'HAWKI':
       
       # For the right-hand side, adjust the radius to fit in the largest offsests
@@ -204,7 +214,7 @@ def get_scalebar(inst):
    '''
    
    if inst == 'MUSE':
-      return (30./3600, '30$^{\prime\prime}$')
+      return (20./3600, '20$^{\prime\prime}$')
    elif inst == 'HAWKI':
       return (60./3600, '1$^{\prime}$')
       
@@ -249,7 +259,7 @@ def get_inner_GS_search(fc_params):
       raise Exception('Ouch! Instrument unknown ...')
       
 # ----------------------------------------------------------------------------------------
-def get_p2fcdata(obID,api):
+def get_p2fcdata(obID, api):
    ''' 
    Extract the required info for creating a finding chart from the ob and templates
    obtained via p2api.
@@ -264,14 +274,141 @@ def get_p2fcdata(obID,api):
    
    # Fetch the OB
    ob, obVersion = api.getOB(obID)
-   inst = ob['instrument']
-    
-   # Extract the acquisition and observations parameters for the support instruments
-   if inst == 'MUSE':
-      return fcm_muse.get_p2fcdata_muse(ob, api)
+   
+   # Check for an ephemeris file ...
+   # This will download a file, even if there is no ephemeris file upload by the user
+   ephem_fn = os.path.join(fcm_m.data_loc,'ephem_%i.txt'%(obID))
+   api.getEphemerisFile(obID, ephem_fn)
+   
+   # I have no choice but to open it, check what's inside ...
+   f = open(ephem_fn)
+   ephemeris = f.readlines()
+   f.close()
+   
+   if len(ephemeris) == 0:
+   # Ok, there's no ephemeris file attached to the OB ... clean-up my mess
+      os.remove(ephem_fn)
+      ephem_fn = None
+   else:
+      print('   I found an ephemeris file, and stored it: %s' % ephem_fn)
+   
+   # Start filling my own dictionary of useful finding chart parameters
+   fc_params = {}
+   
+   fc_params['inst'] = ob['instrument']
+   fc_params['ob_name'] = ob['name']
+   
+   fc_params['ob_id'] = obID
+   
+   # Get the PI name and progId
+   runId = ob['runId']
+   run, _ = api.getRun(runId)
+   fc_params['pi'] = run['pi']['lastName']
+   fc_params['prog_id'] = run['progId']
+   
+   
+   # Need to deal with the target coordinates. Ephemeris file, or not ?
+   if ephem_fn is None:
+   
+      # Ok, just a normal target ... extract the required info
+      tc = SkyCoord(ra = ob['target']['ra'],
+                    dec = ob['target']['dec'], 
+                    obstime = Time(ob['target']['epoch'],format='decimalyear'),
+                    equinox = ob['target']['equinox'], 
+                    frame = 'icrs',unit=(u.hourangle, u.deg), 
+                    pm_ra_cosdec = ob['target']['properMotionRa']*u.arcsec/u.yr,
+                    pm_dec = ob['target']['properMotionDec']*u.arcsec/u.yr,
+                    # I must specify a generic distance to the target,
+                    # if I want to later on propagate the proper motions
+                    distance=100*u.pc,  
+                    )
+                                  
+      # Propagate the proper motion using astropy v3.0
+      fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate))  
       
-   elif inst == 'HAWKI':
-      return fcm_hawki.get_p2fcdata_hawki(ob, api)
+      fc_params['ephem_points_past'] = []                               
+      fc_params['ephem_points_future'] = []                               
+      
+   else:
+   
+      #Ok, I get an ephemeris file, and thus need to deal with it
+     
+      # First, extract all the ephemeris points, store them in a list
+      # Time, Ra, Dec, pmra, pmdec
+      # This VERY MUCH ASSUMES a PAF file !!!
+      ephem = [list( line.split('"')[1].split(',')[i] for i in [0,2,3,4,5]) 
+               for line in ephemeris if line[:16]=='INS.EPHEM.RECORD'] 
+      
+      # Extract all the times, convert them to datetime values. UTC = PAF default!
+      times = [ dup.parse(point[0]+' UTC') for point in ephem]
+      
+      # Here, let's do some sanity check:
+      if (fcm_m.obsdate>times[-1]) or (fcm_m.obsdate<times[0]):
+         raise Exception('Ouch! Specified obstime outside of Ephemeris range: %s - %s' % (times[0].strftime('%Y-%m-%d %H:%M:%S %Z'),times[-1].strftime('%Y-%m-%d %H:%M:%S %Z'))) 
+      
+      # Find the index of the closest ephemeris point
+      closest = np.argmin(np.abs(np.array(times)-fcm_m.obsdate))
+      
+      # Check if I will be accurate (or not)
+      if np.abs(times[closest]-fcm_m.obsdate) > timedelta(minutes=30):
+         warnings.warn('Observing time %.1f away from closest ephemeris point' % 
+                        (np.abs(times[closest]-fcm_m.obsdate).total_seconds()/60. ))
+      
+      closest_target = SkyCoord(ra=ephem[closest][1], dec=ephem[closest][2], 
+                            unit=(u.hourangle, u.degree),
+                            pm_ra_cosdec = float(ephem[closest][3]) *u.arcsec/u.second,
+                            pm_dec = float(ephem[closest][3])*u.arcsec/u.second, 
+                            obstime= Time(times[closest]),
+                            distance=fcm_m.ephem_d,
+                            )
+      # Derive the target by propagating proper motions from 
+      fc_params['target'] = closest_target.apply_space_motion(new_obstime = Time(fcm_m.obsdate))
+      
+      # Now, I also ant to show all the points in the ephemeris file with a fcm_m.ephem_range time interval
+      # Find the index and associated times of all the near-by ephemeris entries
+      # The advantage, for these, is that I make now errors by assuming a distance
+      close = np.abs(np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value)
+      
+      close_past = (timedelta(seconds=0) <= -(np.array(times)-fcm_m.obsdate)) * (-(np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value))
+      
+      
+      close_future = (timedelta(seconds=0) <= (np.array(times)-fcm_m.obsdate)) * ((np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value))
+      
+      fc_params['ephem_points_past'] = [SkyCoord(ra=item[1], dec=item[2], 
+                                        unit=(u.hourangle, u.degree),
+                                        pm_ra_cosdec = float(item[3]) *u.arcsec/u.second,
+                                        pm_dec = float(item[3])*u.arcsec/u.second, 
+                                        obstime= Time(dup.parse(item[0]+' UTC')),
+                                        distance=fcm_m.ephem_d,
+                                        )  for item in list(np.array(ephem)[close_past])]
+      past_times = np.array(times)[close_past]                                  
+      fc_params['ephem_past_delta'] = np.median(past_times[1:]-past_times[:-1]) 
+       
+                                       
+      fc_params['ephem_points_future'] = [SkyCoord(ra=item[1], dec=item[2], 
+                                        unit=(u.hourangle, u.degree),
+                                        pm_ra_cosdec = float(item[3]) *u.arcsec/u.second,
+                                        pm_dec = float(item[3])*u.arcsec/u.second, 
+                                        obstime= Time(dup.parse(item[0]+' UTC')),
+                                        distance=fcm_m.ephem_d,
+                                        )  for item in list(np.array(ephem)[close_future])]
+      
+      future_times = np.array(times)[close_future]                                  
+      fc_params['ephem_future_delta'] = np.median(future_times[1:]-future_times[:-1]) 
+      
+      # Also store the median time delta between points, for later use.
+      # Sort of assumes that it is a constant steps.                        
+      #close_times = np.array(times)[close]
+      #fc_params['ephem_delta_time'] = np.median(close_times[1:]-close_times[:-1])
+
+     
+     
+   # Extract the acquisition and observations parameters for the support instruments
+   if ob['instrument'] == 'MUSE':
+      return fcm_muse.get_p2fcdata_muse(fc_params, ob, api)
+      
+   elif ob['instrument'] == 'HAWKI':
+      return fcm_hawki.get_p2fcdata_hawki(fc_params, ob, api)
       
    else:
       raise Exception('%s finding charts not (yet?) supported.' % (inst))
@@ -289,11 +426,19 @@ def get_localfcdata(inpars):
       a dictionnary containing the OB parameters
    '''
 
+   # Deal with the ephemeris ...
+   fc_params = {}
+
+   # Some other day ...
+   fc_params['ephem_points_past'] = []                               
+   fc_params['ephem_points_future'] = [] 
+
+
    # Extract the acquisition and observations parameters for the support instruments
    if inpars['inst'] == 'MUSE':
-      return fcm_muse.get_localfcdata_muse(inpars)
+      return fcm_muse.get_localfcdata_muse(fc_params, inpars)
    elif inpars['inst'] == 'HAWKI':
-      return fcm_hawki.get_localfcdata_hawki(inpars)  
+      return fcm_hawki.get_localfcdata_hawki(fc_params, inpars)  
    else:
       raise Exception('%s finding charts not (yet?) supported.' % (inst))
      

@@ -1,44 +1,44 @@
 # A list of basic OB parameters to generate a HAWKI finding chart from scratch, locally
-obname:   HAWKI_NOAO_starstuff
-obId:     12345678
+ob_name:   HAWKI_Touchstone
+ob_id:     12345678
 pi:       jdoe
-progId:   0100.Z-9999
+prog_id:   0100.Z-9999
 inst:     HAWKI
 
 # Target
 equinox:  J2000
 epoch:    2000.0
-ra:       21h49m07.290s
-dec:      +00d26m55.000s
+ra:       5h57m16.0s
+dec:      +00d18m08.000s
 pmra:     0.0000            # proper motion in arcsec/year
 pmdec:    0.0000            # proper motion in arcsec/year
 
 # Acquisition
 acq_filter:   Ks
-acq_pa:   30                # Acquisition Position Angle ?
-bos_ra:   34.6108           # Alpha offset to target
-bos_dec:  42.562            # Delta offset to target
-is_gs:    True             # User defined Guide Star ?
+acq_pa:   0                # Acquisition Position Angle ?
+bos_ra:   0           # Alpha offset to target
+bos_dec:  0            # Delta offset to target
+is_gs:    False             # User defined Guide Star ?
 gs_ra:    21h49m22.147s
 gs_dec:   +00d27m53.336s
-is_fph:   False             # Is this a Fast Phot OB ?
+is_fph:   False              # Is this a Fast Phot OB ?
 nx:       128               # Window size (x)
-ny:       2048              # Window size (y)
+ny:       128               # Window size (y)
 startx:   1                 # First column
-starty:   1                 # First row
+starty:   1005               # First row
 
 # Observation
-noff:     5
-filter:   J
-obstype:  [O S O S O]
+noff:     4
+filter:   Ks
+obstype:  [O O O O]
 coordtype:   SKY
-off1:     [0 480 -485 480 -475]
-off2:     [0 -200 205 -200 190]
+off1:     [0 10 0 -10]
+off2:     [0 0 10 0]
 return:   True
 
 # Finding chart parameters
-bk_images: None     # Bk images to download from SkyView, or local fits files
-bk_lams:   None         # None, or else overrides SkyView default.
+bk_image: None     # Bk images to download from SkyView, or local fits files
+bk_lam:   None         # None, or else overrides SkyView default.
 data_loc: fcm_data      # Relative path to the bk images 
 plot_loc: fcm_plots     # Relative path to store the finding charts 
                     

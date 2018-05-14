@@ -6,10 +6,14 @@ import numpy as np
 
 import warnings # for aplpy displaying nasty packages
 from datetime import datetime
+#from dateutil import parser as dup
+import pytz
+import copy
 
 # Import plotting packages
 from matplotlib import pylab as plt
 import matplotlib.gridspec as gridspec
+import matplotlib.lines as mlines
 
 with warnings.catch_warnings():
    warnings.simplefilter("ignore")
@@ -20,8 +24,10 @@ from astropy.coordinates.sky_coordinate import SkyCoord
 from astropy import units as u
 import astropy.io.fits as fits
 from astropy.constants import c
+from astropy.time import Time
 from astroquery.skyview import SkyView
 from astroquery.vizier import Vizier
+from astroquery.gaia import Gaia
 
 # My own mess
 from . import fcmaker_metadata as fcm_m
@@ -87,21 +93,22 @@ def add_orient(ax, field_center,
 
 
 # ----------------------------------------------------------------------------------------
-def get_bk_image(bk_image, fc_params):
+def get_bk_image(bk_image, bk_lam, fc_params):
    ''' 
    A function that fetches the background image from the web, or locally if specified
    by the user.
    
    Args:
-      bk_image: (string) defines whethe to use a local image (FITS filename) or a SkyView 
+      bk_image: (string) defines whether to use a local image (FITS filename) or a SkyView 
                 image (survey name). 
+      bk_lam: (string)
       fc_params: the parameters of the finding chart (a dictionnary)
    Returns:
       The absolute path of the background image (possibly after download), and the survey name.
    
    .. note::
      
-      For local images, the code excpet them to be stored in `fcm_m.data_loc` folger.
+      For local images, the code expect them to be stored in `fcm_m.data_loc` folder.
       
    '''
    
@@ -134,7 +141,7 @@ def get_bk_image(bk_image, fc_params):
    
       # Specify FITS filename
       fn_bk_image = os.path.join(fcm_m.data_loc, fc_params['ob_name'].replace(' ','_')+'_' + 
-                                 fcm_id.get_bk_image(fc_params).replace(' ','-') + 
+                                 survey.replace(' ','-') + 
                                  '.fits')
   
       # Use SkyView to get the image 
@@ -150,8 +157,11 @@ def get_bk_image(bk_image, fc_params):
       outfits = fits.HDUList([path[0][0]])
       outfits.writeto(fn_bk_image, output_verify='fix', overwrite=True)
 
+   if bk_lam in [None,'None']:
+      bk_lam = get_bk_image_lam(fn_bk_image, fc_params)
+
      
-   return (fn_bk_image, survey)
+   return (fn_bk_image, survey, bk_lam)
    
    # --------------------------------- BKGD ---------------------------------
 
@@ -175,12 +185,12 @@ def get_bk_image_lam(fn_bk_image, fc_params):
    freqs = [l.split(' ')[-2].split('-') for l in header['COMMENT'] if 'Bandpass' in l][0]
    # WARNING HERE: I assume the bandpass is in THz in all cases !!!!!
    freqs = [np.int(c.value/(np.int(freq)*1.e12)*1.e9) for freq in freqs]
-   bk_lam = r'%i - %i nm (%s)' % (freqs[1],freqs[0],fcm_id.get_bk_image(fc_params))
+   bk_lam = r'%i - %i nm' % (freqs[1],freqs[0])
 
    return bk_lam
 
 # ----------------------------------------------------------------------------------------
-def make_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = False):
+def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = False):
    ''' 
    The finding chart master plotting function.
    
@@ -198,22 +208,25 @@ def make_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    fields = fcm_id.get_fields_dict(fc_params)
    
    # Get the background image in place
-   (fn_bk_image, survey) = get_bk_image(bk_image, fc_params)
+   (fn_bk_image_L, survey_L, bk_lam_L) = get_bk_image(bk_image, bk_lam, fc_params)
    
-   if bk_lam is None:
-      bk_lam = get_bk_image_lam(fn_bk_image, fc_params)
+   # If this is not the DSS2 Red, then download this as well for the right-hand-side plot
+   if not(survey_L == 'DSS2 Red'):
+      (fn_bk_image_R, survey_R, bk_lam_R) = get_bk_image('DSS2 Red', None, fc_params)
+   else: 
+      (fn_bk_image_R, survey_R, bk_lam_R) = copy.deepcopy((fn_bk_image_L, survey_L, bk_lam_L))
    
    # Start the plotting
    plt.close(1)
    fig1 = plt.figure(1, figsize=(14.17,7)) #14.17 inches, at 50% = 1 full page plot in A&A. 
 
-   ax1 = aplpy.FITSFigure(fn_bk_image, figure=fig1, north=fcm_m.set_North,
-                          subplot=[0.12,0.12,0.35,0.72])
-   ax1.show_grayscale(invert = True, stretch='linear', pmin = fcm_id.get_pmin(survey))
+   ax1 = aplpy.FITSFigure(fn_bk_image_L, figure=fig1, north=fcm_m.set_North,
+                          subplot=[0.12,0.12,0.35,0.76])
+   ax1.show_grayscale(invert = True, stretch='linear', pmin = fcm_id.get_pmin(survey_L))
 
-   ax2 = aplpy.FITSFigure(fn_bk_image, figure=fig1, north=fcm_m.set_North, 
+   ax2 = aplpy.FITSFigure(fn_bk_image_R, figure=fig1, north=fcm_m.set_North, 
                           subplot=[0.59,0.12,0.38,0.8])
-   ax2.show_grayscale(invert = True, stretch='linear', pmin = fcm_id.get_pmin(survey))
+   ax2.show_grayscale(invert = True, stretch='linear', pmin = fcm_id.get_pmin(survey_R))
  
    # Get the radius and center of the charts
    (left_radius, right_radius) = fcm_id.get_chart_radius(fc_params)
@@ -222,8 +235,77 @@ def make_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    ax1.recenter(left_center.ra,left_center.dec,radius=left_radius/3600.)
    ax2.recenter(right_center.ra,right_center.dec,radius=right_radius/3600.) 
    
-   # Query UCAC2 via Vizier over the finding chart area, to look for suitable Guide Stars
+   # I will be adding stuff to the left-hand-side plot ... start collecting them
+   ax1_legend_items = []
    
+   # Do I have the epoch of observation for the background image ?
+   try:
+      bk_obsdate = fits.getval(fn_bk_image, 'DATE-OBS')
+      
+      # If not specified, assume UTC time zone for bk image   
+      if bk_obsdate.tzinfo is None:
+      #   #warnings.warn(' "--obsdate" timezone not specified. Assuming UTC.')
+         bk_obsdate = bk_obsdate.replace(tzinfo=pytz.utc)
+      
+      nowm_time = Time(bk_obsdate)
+      pm_track_time = (fcm_obsdate - bk_obsdate).total_seconds()*u.s
+      
+   except:
+      # If not, just shows the default length set in fcmaker_metadata
+      nowm_time = Time(fcm_m.obsdate) - fcm_m.pm_track_time
+      pm_track_time = fcm_m.pm_track_time
+   
+   # If yes, then let's show where are the fastest stars moved from/to.
+   #if do_GAIA_pm and (fcm_m.min_abs_GAIA_pm >=0):
+   if (fcm_m.min_abs_GAIA_pm >=0):
+         
+      # Query GAIA
+      print('   Querying GAIA DR2 to look for high proper motion stars in the area ...')
+   
+      # Make it a sync search, because I don't think I need more than 2000 targets ...
+      j = Gaia.cone_search(left_center, 3*left_radius*u.arcsec, verbose=False)
+      r = j.get_results()
+   
+      selected = np.sqrt(r['pmra']**2+r['pmdec']**2)*u.mas/u.yr > fcm_m.min_abs_GAIA_pm
+   
+      # Show the fastest stars
+      past_tracks = []
+      future_tracks = []
+      
+      # Need to propagate their coords to the fc epoch and the obstime
+      for s in range(len(r['ra'][selected])):
+      
+         star = SkyCoord(ra=r['ra'][selected][s], dec=r['dec'][selected][s], 
+                         obstime=Time(r['ref_epoch'][selected][s], format='decimalyear'),
+                         frame = 'icrs', unit=(u.deg, u.deg), 
+                         pm_ra_cosdec = r['pmra'][selected][s]*u.mas/u.yr,
+                         pm_dec = r['pmdec'][selected][s]*u.mas/u.yr,
+                         # I must specify a generic distance to the target,
+                         # if I want to later on propagate the proper motions
+                         distance=100*u.pc,  
+                         )
+      
+         now = star.apply_space_motion(new_obstime = Time(fcm_m.obsdate))    
+         nowm = star.apply_space_motion(new_obstime = nowm_time)
+      
+         past_tracks += [np.array([[nowm.ra.deg,now.ra.deg],[nowm.dec.deg,now.dec.deg]])]
+         
+         ax1.show_markers([now.ra.deg],[now.dec.deg],marker='.',color='crimson', 
+                           facecolor='crimson', edgecolor='crimson')
+         
+         # Prepare a dedicated legend entry
+         ax1_legend_items += [mlines.Line2D([], [],color='crimson',
+                               markerfacecolor='crimson',
+                               markeredgecolor='crimson', 
+                               linestyle='-',
+                               linewidth=0.75,
+                               marker='.',
+                               #markersize=10, 
+                               label='PM* (track$=-$%.1f yr)' % (pm_track_time.to(u.yr).value)) ]
+      
+      ax1.show_lines(past_tracks,color='crimson',linewidth=0.75, linestyle = '-')
+   
+   # Query UCAC2 via Vizier over the finding chart area, to look for suitable Guide Stars
    print('   Querying UCAC2 via Vizier to look for possible Guide Stars ...')
    Vizier.ROW_LIMIT = 10000
    gs_table = Vizier.query_region(right_center, radius=right_radius*u.arcsec,
@@ -233,15 +315,52 @@ def make_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    
    # Turn the table into a list of SkyCoord, that I can clean as I go.
    # Only select guide stars in the nominal GS mag range
-   gs_list = [fcm_t.propagate_pm(SkyCoord(ra=line['RAJ2000'],
-                                          dec=line['DEJ2000'],
-                                          obstime = fcm_m.obsdate, 
-                                          equinox = 'J2000', 
-                                          frame = 'icrs',
-                                          unit=(u.deg, u.deg)), 
-                                 2000., line['pmRA']/1000., line['pmDE']/1000.,) 
+   gs_list = [SkyCoord( ra=line['RAJ2000'], dec=line['DEJ2000'], obstime = Time('J2000'), 
+                        equinox = 'J2000', frame = 'icrs', unit=(u.deg, u.deg), 
+                        pm_ra_cosdec = line['pmRA']/1000.*u.mas/u.yr, pm_dec = line['pmDE']/1000.*u.mas/u.yr,
+                        # Assume a fixed distance, so that I can then propagate proper motions
+                        distance = 100.*u.pc).apply_space_motion(new_obstime = Time(fcm_m.obsdate))
               for line in gs_table if fcm_m.gs_mag[0] <= line['UCmag'] <= fcm_m.gs_mag[1]]
    
+   
+   # Here, I will show all the ephemeris points I have prepared, ahead of the 
+   # observations (If I have any)
+   
+   if len(fc_params['ephem_points_past']) > 0:
+      ax1.show_markers([item.ra.deg for item in fc_params['ephem_points_past']],
+                       [item.dec.deg for item in fc_params['ephem_points_past']], 
+                       marker='*', color='crimson', s=100,
+                       facecolor='none', edgecolor='crimson')
+      
+      # Prepare a dedicated legend entry
+      ax1_legend_items += [mlines.Line2D([], [],color='crimson',
+                               markerfacecolor='none',
+                               markeredgecolor='crimson', 
+                               linestyle='',
+                               #linewidth=0.75,
+                               marker='*',
+                               #markersize=10, 
+                               label='Target ($\Delta T=-%.0f$ min)' % 
+                                     (fc_params['ephem_past_delta'].total_seconds()/60.))]
+                                     
+   
+   if len(fc_params['ephem_points_future']) > 0: 
+      ax1.show_markers([item.ra.deg for item in fc_params['ephem_points_future']],
+                       [item.dec.deg for item in fc_params['ephem_points_future']], 
+                       marker='*', color='crimson', s=100,
+                       facecolor='crimson', edgecolor='crimson')                 
+      
+      # Prepare a dedicated legend entry
+      ax1_legend_items += [mlines.Line2D([], [],color='crimson',
+                               markerfacecolor='crimson',
+                               markeredgecolor='crimson', 
+                               linestyle='',
+                               #linewidth=0.75,
+                               marker='*',
+                               #markersize=10, 
+                               label='Target ($\Delta T=+%.0f$ min)' % 
+                                     (fc_params['ephem_future_delta'].total_seconds()/60.))]
+             
    # Show the observation footprint
    for f in fields:
       
@@ -271,8 +390,8 @@ def make_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    (scl,scll) = fcm_id.get_scalebar(fc_params['inst'])
    
    ax1.add_scalebar(scl) # Length in degrees
-   ax1.scalebar.show(scl, label=scll, corner = 'bottom left', 
-                     color = 'k', frame=1)
+   ax1.scalebar.show(scl, label=scll, corner = 'bottom right', 
+                     color = 'k', frame=1, fontsize=12)
    ax1.scalebar.set_linewidth(2)
 
    # Fine tune things a bit further, just because I can ...
@@ -290,7 +409,7 @@ def make_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
 
    # Add the required OB information to comply with ESO requirements ...
    # ... and make the life of the night astronomer a lot easier !
-   ax1.add_label(0.0,1.18, 'Run ID: '+fc_params['progId']+' | '+fc_params['pi'], 
+   ax1.add_label(0.0,1.12, 'Run ID: '+fc_params['prog_id']+' | '+fc_params['pi'], 
                  relative=True, horizontalalignment='left', size=16)
    
    # Fix some bugs for anyone not using LaTeX ... sigh ...
@@ -298,27 +417,42 @@ def make_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       lab = fc_params['ob_name'].replace('_','\_')
    else:
       lab = fc_params['ob_name']             
-                
-   ax1.add_label(0.0,1.13, 'OB: %i | %s' % (fc_params['obId'],lab), relative=True, 
+    
+          
+   ax1.add_label(0.0,1.07, 'OB: %i | %s' % (fc_params['ob_id'],lab), relative=True, 
                  horizontalalignment='left')
-   ax1.add_label(0.0,1.08, r'$\lambda_{fc}$: '+bk_lam, relative=True, 
-                 horizontalalignment='left')
+   #ax1.add_label(0.0,1.08, r'$\lambda_{fc}$: %s (%s)' % (bk_lam_L, survey_L), relative=True, 
+   #              horizontalalignment='left')
+   
+   # Display the Wavelength of the plots     
+   ax1.add_label(0.02,0.965, r'%s (%s)' % (bk_lam_L, survey_L), relative=True, fontsize=12,
+                 horizontalalignment='left',verticalalignment='center', bbox=dict(edgecolor='w', facecolor='w', alpha=0.85))
+   ax2.add_label(0.02,0.965, r'%s (%s)' % (bk_lam_R, survey_R), relative=True, fontsize=12,
+                 horizontalalignment='left',verticalalignment='center', bbox=dict(edgecolor='w', facecolor='w', alpha=0.85))
+   
+   
+   # Add a legend (if warranted) for the left plot
+   if len(ax1_legend_items) >0:
+      ax1._ax1.legend(handles=ax1_legend_items, loc='lower left',
+                     bbox_to_anchor=(0.0255, 0.025, 0.4, .1), 
+                     ncol=1, #mode="expand", 
+                     borderaxespad=0., fontsize=10, borderpad=0.3, 
+                     handletextpad=0., handlelength=2.0)
    
    # Display the observing date              
-   #ax1.add_label(1.0,1.02, r'@ '+datetime.strftime(fcm_m.obsdate, '%d-%m-%Y %H:%M UTC%z'), relative=True, 
-   #              horizontalalignment='right', fontsize=12)
-   ax1.add_label(1.0,1.02, r'Obs. date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d'), relative=True, 
+   ax1.add_label(1.0,1.02, r'Obs. date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d %H:%M %Z'), 
+                 relative=True, 
                  horizontalalignment='right', fontsize=12)
    
    #Finally include the version of fcmaker in there
-   ax1.add_label(1.02,0.02, r'Created with fcmaker v%s'%(fcm_m.__version__), 
+   ax1.add_label(1.01,0.02, r'Created with fcmaker v%s'%(fcm_m.__version__), 
                  relative=True, 
                  horizontalalignment='left',verticalalignment='bottom',
                  fontsize=10, rotation=90)          
 
    # Save it all, both jpg for upload to p2, and pdf for nice quality.
    fn_out = os.path.join(fcm_m.plot_loc,fc_params['ob_name'].replace(' ','_')+'_'+ 
-                         survey.replace(' ','-'))
+                         survey_L.replace(' ','-'))
                                        
    fig1.savefig(fn_out+'.jpg')
    if do_pdf:

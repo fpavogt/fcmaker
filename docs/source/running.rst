@@ -13,8 +13,7 @@ OB Id. To do so, simply type in a  terminal::
    python -m fcmaker
 
 or from within a Python shell::
-
-   
+ 
    >>> run -m fcmaker
    
 You will be prompted for your `p2 <http://www.eso.org/p2>`_ username, password, and the 
@@ -59,12 +58,12 @@ Case 3: targets with proper motions
 -----------------------------------
 
 In case of large proper motions of the target, one can provide the expected year, (month, 
-day ...!) of the observation to create an accurate finding chart, using the ``--obsdate`` 
-flag. For example::
+day, ...!) of the observation to create an accurate finding chart, using the ``--obsdate`` 
+flag. This also works for OBs that have Ephemeris files. For example::
 
    python -m fcmaker -f randomfilename --obsdate 2018
    python -m fcmaker -f randomfilename --obsdate 2018-05
-   python -m fcmaker -f randomfilename --obsdate 2018-05-17
+   python -m fcmaker -f randomfilename --obsdate 2018-05-17 14:34:57 UTC
    
    
 Case 4: creation of finding charts locally (without p2)
@@ -95,8 +94,8 @@ A series of flags allow to fine-tune the way fcmaker works. They are:
  
  * ``--help,-h`` : prints the basic help
  * ``--version`` : prints the fcmaker version
- * ``--no-montage`` : will by-pass the use of Montage. Finding charts will rotated according to the input FITS file. [no encouraged]
- * ``--no-systemtex`` : will use the matplotib LaTeX, rather than the system-wide LaTeX installation. Finding charts will be less pretty.
+ * ``--montage`` : will use Montage, to force the finding charts to be rotated North.
+ * ``--systemtex`` : will use the matplotib LaTeX, rather than the system-wide LaTeX installation. Finding charts will be prettier. [encouraged]
  * ``--no-upload`` : tell fcmaker never to try to upload the finding chart(s) to p2.
  * ``--do-pdf`` : tell fcmaker to save a .pdf version of the finding chart (in addition to the jpg one).
  * ``--do-png`` : tell fcmaker to save a .png version of the finding chart (in addition to the jpg one).
@@ -124,4 +123,12 @@ The default background survey images for the instruments supported by fcmaker ar
    From an operational perspective, when using Skyview images, I would strongly recommend 
    to only use ``DSS2 Red`` or ``SDSSr`` for optical instruments, and ``2MASS-J``, 
    ``2MASS-H`` or ``2MASS-K`` for IR instruments.
+
+
+Running fcmaker from Python scripts
+------------------------------------
+
+fcmaker can evidently also be called from within Python scripts, via the functions 
+``fcmaker.make_fc()`` and ``fcmaker.make_fc_local``. These two functions, accessible with
+an ``import fcmaker``, take as parameters all the flags described above.
 

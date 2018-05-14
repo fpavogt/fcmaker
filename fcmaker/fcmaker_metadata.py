@@ -15,7 +15,7 @@ Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 # Define the version of fcmaker
-__version__ = '0.2.1'
+__version__ = '0.3.0'
 
 # Where are we located ?
 fcm_dir = os.path.dirname(__file__)
@@ -44,6 +44,23 @@ set_North = True
 obsdate = dup.parse("2018 07 01 00:00:00 UTC")
 
 # VLT Guide star nominal magnitude range (in UCAC2 UCmag system)
-gs_mag = [11.,15.]
+gs_mag = [10.,14.]
 # Maximum search radius for GS.
 outer_GS_search = 11. * 60. # in arcsec
+
+# minimum value of the GAIA propermotion stars to display
+# set to -1 to never do this
+min_abs_GAIA_pm = 100*u.mas/u.yr # in mas/yr
+
+# The length of the tracks for high PM stars 
+# Ideally, I would track it between the date of the finding chart and today ...
+# But stupid SkyView does not return the exact DATE-OBS coming from the fits file ...
+pm_track_time = 10 * u.yr
+
+# For moving target, what time interval (+-) to show on the plot ?
+ephem_range = 2*u.hour
+
+# For moving targets, I need to assume a distance to propagate the proper motions between
+# the closest ephemeris point and the actual observing time.
+# Default should do a "reasonable job most of the times ..."
+ephem_d = 1*u.au # Default 10 AU, because moving targets are likely to be in the Solar system
