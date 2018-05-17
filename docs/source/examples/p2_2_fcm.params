@@ -1,7 +1,7 @@
-p2uid:                  # p2 username (will ask at prompt if left blank)
-pswd:                    # p2 password (will ask at prompt if left blank)
-obids: [1848649,1848655] # List of Ob IDs to chart
-bk_images: [SDSSr, None] # SkyView survey, None for default, or local FITS filename
-bk_lams: [None,None]     # Lambda of the chart (SkyView will override), None for default
-data_loc: fcm_data       # Relative path to the background images (local FITS file or SkyView images) 
-plot_loc: fcm_plots      # Relative path to store the finding charts 
+p2uid:                       # p2 username (will ask at prompt if left blank)
+pswd:                        # p2 password (will ask at prompt if left blank)
+obids:     [1848649,1848655] # List of Ob IDs to chart
+bk_images: [SDSSr, None]     # SkyView survey, None for default, or local FITS filename
+bk_lams:   [None,None]       # Lambda of the chart (SkyView will override), None for default
+data_loc:  fcm_data          # Relative path to the background images (local FITS file or SkyView images) 
+plot_loc:  fcm_plots         # Relative path to store the finding charts 

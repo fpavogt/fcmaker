@@ -26,18 +26,18 @@ properly:
 * astropy (3.0 or above)
 * aplpy (1.1.1 or above)
 * astroquery (0.3.4 or above)
+* astroplan
 * p2api (0.9 or above)
 * PyYAML (3.12 or above)
 * pytz (2018 or above)
 
 Optional: 
 
-* Montage and montage-wrapper (0.9.9 or above, until the next release of aplpy)
-* Proper LateX installation
+* Montage and montage-wrapper (0.9.9 or above, only until the next release of aplpy)
+* Proper system-wide LateX installation  (allows for prettier plots)
 
 The Montage package is required to rotate the finding charts North, even if the underlying
-FITS file isn't. A system-wide LaTeX installation allows for a slick(-er) looking font for
-the various labels.
+FITS file isn't. It won't be required once aplpy gets upgraded.
 
 Testing the installation
 ------------------------

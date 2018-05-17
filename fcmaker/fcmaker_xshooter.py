@@ -4,9 +4,10 @@
 import numpy as np
 from astropy.coordinates.sky_coordinate import SkyCoord
 import astropy.units as u
+from astropy.time import Time
+from astroplan import Observer
 import warnings
 import copy
-
 
 import matplotlib.lines as mlines
 
@@ -15,43 +16,21 @@ from . import fcmaker_metadata as fcm_m
 
 '''
 fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
-Copyright (C) 2018,  F.P.A. Vogt
+Copyright (C) 2017,  F.P.A. Vogt
 --- oOo ---
-This file contains tools related to the XSHOOTER instrument.
-Created May 2018, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
+This file contains tools related to the MUSE instrument.
+Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 
 # ---------------- Define the XSHOOTER field of views -------------------------------------
-# From the MUSE manual, March 2014
-muse_wfm = np.array([[0.0086683878,   0.0084439565],
-                    [359.99128-360., 0.008499508],
-                    [359.99172-360.,-0.0082782215],
-                    [0.0080579666,  -0.008389310]])
-muse_wfm *= 3600 # make it in arcsec
+# From the XSHOOTER manual
 
-muse_nfm = muse_wfm/8. # For now, just scale the field to 7.5 arces ... until I know better
+xshooter_slt_length = 11*u.arcsec
 
+xshooter_ifu = [1.8*u.arcsec,4*u.arcsec]
 
-muse_sgs = np.zeros((16,2))
-muse_sgs = np.array([[0.012835385,0.0085544861],
-                    [0.0085551081,0.012277302],
-                    [0.00027758977,0.012],
-                    [359.99189-360.,0.012277352],
-                    [359.98778-360.,0.0091101444],
-                    [359.98739-360.,-0.0091121412],
-                    [359.98955-360.,-0.010111818],
-                    [359.99417-360.,-0.01050022],
-                    [359.99422-360.,-0.011722438],
-                    [359.99611-360.,-0.01172232],
-                    [359.99622-360.,-0.012166759],
-                    [0.004002035,-0.012222326],
-                    [0.0040555527,-0.011777885],
-                    [0.0060549064,-0.011833571],
-                    [0.0060015071,-0.010611345],
-                    [0.0090006082,-0.010444971],
-                    [0.012444522,-0.0095565611]])
-muse_sgs *= 3600 # make it in arcsec
+xshooter_acqcam = [1.5*u.arcmin, 1.5*u.arcmin]
 
 # ----------------------------------------------------------------------------------------
 
@@ -61,60 +40,64 @@ bk_image = 'DSS2 Red'
 # The radius of the charts
 right_radius = 720. # in arcsec
 
-def left_radius(ins_mode):
-   ''' A function that sets the defaut size of the left window depending on the mode.'''
-
-   if ins_mode[:3] == 'WFM':
-      return 120
-   elif ins_mode[:3] == 'NFM':
-      return 15
-   else:
-      raise Exception('Mode undefined.')
+left_radius = 65. # in arcsec
       
-inner_GS_search = 120. # inner limit to find Guide Stars
-
-# TTS validity area
-inner_TTS_search = 1.725/2.*60 # in arcsec
-outer_TTS_search = 3.590/2.*60 # in arcsec
-
-
+inner_GS_search = 120. # inner limit to find Guide Stars # TO BE VALIDATED!
 # List the supported MUSE observing templates
-xshooter_templates = [# WFM-NOAO
-                  'MUSE_wfm-noao_acq_preset',
-                  'MUSE_wfm-noao_acq_movetopixel',
-                  'MUSE_wfm-noao_obs_genericoffset',
-                  # WFM-AO
-                  'MUSE_wfm-ao_acq_movetopixelLGS',
-                  'MUSE_wfm-ao_obs_genericoffsetLGS',
-                  # WFM_cal
-                  'MUSE_wfm_cal_specphot',
-                  'MUSE_wfm_cal_astrom',
-                  #NFM
-                  'MUSE_nfm-ao_acq_LGS',
-                  'MUSE_nfm-ao_obs_genericoffsetLGS',
-                  ]
+xshooter_templates = [# SLT
+                      'XSHOOTER_slt_acq',
+                      'XSHOOTER_slt_acq_rrm',
+                      'XSHOOTER_slt_obs_Stare',
+                      'XSHOOTER_slt_obs_StareSynchro',
+                      'XSHOOTER_slt_obs_AutoNodOnSlit',
+                      'XSHOOTER_slt_obs_FixedSkyOffset',
+                      'XSHOOTER_slt_obs_GenericOffset',
+                      'XSHOOTER_slt_obs_Mapping',   
+                      'XSHOOTER_slt_cal_SpecphotStdNodding',
+                      'XSHOOTER_slt_cal_SpecphotStdOffset',
+                      'XSHOOTER_slt_cal_SpecphotStdStare',
+                      'XSHOOTER_slt_cal_TelluricStdNod',
+                      #'XSHOOTER_slt_cal_TelluricStdOffset', non-existent ???
+                      'XSHOOTER_slt_cal_TelluricStdStare',
+                      # IFU
+                      'XSHOOTER_ifu_acq',
+                      'XSHOOTER_ifu_acq_rrm',
+                      'XSHOOTER_ifu_obs_GenericOffset',
+                      'XSHOOTER_ifu_obs_FixedSkyOffset',
+                      'XSHOOTER_slt_obs_Mapping', 
+                      'XSHOOTER_ifu_cal_SpecphotStdOffset',
+                      'XSHOOTER_ifu_cal_SpecphotStdStare',
+                      'XSHOOTER_ifu_cal_TelluricStdOffset',
+                      'XSHOOTER_ifu_cal_TelluricStdStare',
+                      # IMG
+                      'XSHOOTER_img_acq',
+                      'XSHOOTER_img_acq_FlatSky',
+                      'XSHOOTER_img_obs',
+                      'XSHOOTER_img_obs_GenericOffset', 
+                      ]
 
-# The acquisition parameters that matter for the finding charts. Only one dictionary for
-# AO and NOAO - we then update only the parameters that matter.
+# The acquisition and science parameters that matter for the finding charts.
 
-xshooter_acq_params = {'ins_mode': None, # Instrument mode
-                       'bos_ra': 0,      # blind offset RA
+xshooter_acq_params = {'bos_ra': 0,      # blind offset RA
                        'bos_dec': 0,     # blind offset Dec
                        'acq_pa': 0,      # PA
                        'is_gs': False,   # Guide star defined by user ?
                        'gs': None,       # gs coord as SkyCoord
-                       'is_tts':False,   # TTS provided ?
-                       'tts1': None,     # tts1 coord as SkyCoord
-                       'tts2': None,     # tts2 coord as SkyCoord
-                       'oatt':None,      # on-axis TTS for NFM
-                      }
+                  }    
          
-xshooter_sci_params = {'noff': 1,        # Number of offsets
+xshooter_sci_params = {'ins_mode': None, # Can be 'slt','ifu','img' depending on template
+                       'uvb_slt': 0*u.arcsec,
+                       'vis_slt': 0*u.arcsec,
+                       'nir_slt': 0*u.arcsec,
+                       'slt_throw': 0*u.arcsec,
+                       'noff': 1,        # Number of offsets
                        'obstype': ['O'], # Observation type (S,O)
-                       'coordtype': 'SKY', # Offset type (SKY, DETECTOR)
-                       'posang': [0],    # Position angles
+                       'coordtype': 'SKY', # Offset type (SKY, DETECTOR) 
+                       # NOTE: XSHOOTER allows for SLIT too, but I just call this DETECTOR as well
                        'off1': [0],      # RA offsets
                        'off2': [0],      # DEC offsets
+                       'fixoff1': None,  # Fixed RA offsets to sky
+                       'fixoff2': None,  # Fixed RA offsets to sky
                        'return': True,   # return to origin ?
                        }
                
@@ -122,20 +105,16 @@ xshooter_sci_params = {'noff': 1,        # Number of offsets
 # ----------------------------------------------------------------------------------------
 def detector_to_sky(dx,dy,pa):
    '''
-   Converts MUSE offsets from the DETECTOR reference frame to the SKY reference frame.
+   Converts XSHOOTER offsets from the DETECTOR reference frame to the SKY reference frame.
    
    Args:
       dx (float): offset in arcsec
       dy (float): offset in arcsec
-      pa (float): current position angle in degrees measured East-of-North (MUSE convention)
+      pa (float): current position angle in degrees measured East-of-North (XSHOOTER convention)
         
    Returns:
       tuple of floats: the (dra,ddec) offsets in SKY convention.
       
-   Note:
-      According to the MUSE User manual, "when in DETECTOR framework, if both telescope
-      offsets and PA offsets are provided, the telescope offsets are sent (first) with 
-      respect to the current PA of the instrument, before applying the PA offset."
    '''
    
    # Rotate the offsets in the Ra-Dec frame
@@ -146,11 +125,11 @@ def detector_to_sky(dx,dy,pa):
    dra *= -1.
    
    return (dra, ddec)
-   
+
 # ----------------------------------------------------------------------------------------
-def get_p2fcdata_xshooter(ob, api):
+def get_p2fcdata_xshooter(fc_params, ob, api):
    '''
-   Extracts all the important info to build a finding chart from a given MUSE OB from p2.
+   Extracts all the important info to build a finding chart from a given XSHOOTER OB from p2.
    
    Args:
       ob: an api.getOB() object
@@ -181,8 +160,8 @@ def get_p2fcdata_xshooter(ob, api):
    # First, let us loop through all the templates in the OB, to see which ones are supported
    for (n,t) in enumerate(templates):
       # If this is a weird template, issue a warning, and continue
-      if not(t['templateName'] in muse_templates):
-         warnings.warn('Template %s is not supported by fcmaker.' % (t['templateName']))
+      if not(t['templateName'] in xshooter_templates):
+         warnings.warn('Template %s is not supported by fcmaker. Skipping it.' % (t['templateName']))
          continue
 
       # Ok, this is a template I know about. Let's check which it is.
@@ -199,15 +178,11 @@ def get_p2fcdata_xshooter(ob, api):
             raise Exception('Ouch! There can only be one acquisition template per OB!')
             
          # Fill the acq parameters
-         fc_params['acq'] = copy.deepcopy(muse_acq_params)
+         fc_params['acq'] = copy.deepcopy(xshooter_acq_params)
          
          tpl,tplVersion = api.getTemplate(obId, t['templateId'])
          for param in tpl['parameters']:
-               
-            # Instrument mode
-            if param['name'] == 'INS.MODE':
-               fc_params['ins_mode'] = param['value'] # The mode is set in the acquisition
-                  
+                      
             # Guide Star
             if param['name'] == 'TEL.AG.GUIDESTAR':
                if param['value'] in ['NONE','CATALOGUE']:              
@@ -227,27 +202,8 @@ def get_p2fcdata_xshooter(ob, api):
                fc_params['acq']['bos_dec'] = param['value']
                
             # Position Angle
-            if param['name'] == 'INS.DROT.POSANG':             
+            if param['name'] == 'TEL.ROT.OFFANGLE':      
                fc_params['acq']['acq_pa'] = param['value']    
-         
-            # TTSs
-            if param['name'] == 'SEQ.AOF.TTS':             
-               fc_params['acq']['is_tts'] = param['value']
-            if param['name'] == 'TEL.TTS1.ALPHA':             
-               tts1_ra = param['value']   
-            if param['name'] == 'TEL.TTS1.DELTA':             
-               tts1_dec = param['value']
-            if param['name'] == 'TEL.TTS2.ALPHA':             
-               tts2_ra = param['value']   
-            if param['name'] == 'TEL.TTS2.DELTA':             
-               tts2_dec = param['value']  
-            
-            # NFM TTS
-            if param['name'] == 'SEQ.NGS.ALPHA':             
-               oatt_ra = param['value']   
-            if param['name'] == 'SEQ.NGS.DELTA':             
-               oatt_dec = param['value']
-            
             
          # Store the GS and TTS as SkyCoords
          if fc_params['acq']['is_gs']:
@@ -255,24 +211,19 @@ def get_p2fcdata_xshooter(ob, api):
                                        obstime = fcm_m.obsdate, 
                                        #equinox=ob['target']['equinox'], 
                                        frame='icrs',unit=(u.hourangle, u.deg))
-                                       
-         if fc_params['acq']['is_tts']:
-            fc_params['acq']['tts1'] = SkyCoord(tts1_ra,tts1_dec, 
-                                         obstime = fcm_m.obsdate, 
-                                         #equinox=ob['target']['equinox'], 
-                                         frame='icrs',unit=(u.hourangle, u.deg))
-            fc_params['acq']['tts2'] = SkyCoord(tts2_ra,tts2_dec, 
-                                         obstime = fcm_m.obsdate, 
-                                         #equinox=ob['target']['equinox'], 
-                                         frame='icrs',unit=(u.hourangle, u.deg))
       
-         # Also for the NFM case
-         if 'NFM-AO' in fc_params['ins_mode']:
-            fc_params['acq']['oatt'] = SkyCoord(oatt_ra,oatt_dec, 
-                                         obstime = fcm_m.obsdate, 
-                                         #equinox=ob['target']['equinox'], 
-                                         frame='icrs',unit=(u.hourangle, u.deg))
+         # Deal with the blind offset by definition, the "target" in the OB is the 
+         # Acq. location, to which we "add" the blind offset to go to the real Target
+         fc_params['target'] = fcm_t.offset_coord(fc_params['target'], 
+                                                  delta_ra=fc_params['acq']['bos_ra']*u.arcsec, 
+                                                  delta_dec=fc_params['acq']['bos_dec']*u.arcsec)
       
+         if fc_params['acq']['acq_pa'] == 9999:
+         # Ok, I need to compute the parallactic angle !
+            # Use astroplan to do that
+            UT2 = Observer(location=fcm_m.UT2_loc)
+            fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
+            fc_params['time_dependant'] = True
       
       elif t['type'] in ['science','calib']:
          
@@ -282,118 +233,144 @@ def get_p2fcdata_xshooter(ob, api):
          temp_name = 'sci%i' %(fc_params['n_sci'])
          
          # Store all the relevant parameters in a dictionary
-         fc_params[temp_name] = copy.deepcopy(muse_sci_params)
+         fc_params[temp_name] = copy.deepcopy(xshooter_sci_params)
          
          tpl,tplVersion = api.getTemplate(obId, t['templateId'])
+         
+         # Set my own instrument mode, so I know what I am looking at later on.
+         if 'ifu' in t['templateName']:
+            fc_params[temp_name]['ins_mode'] = 'ifu'
+         elif 'slt' in t['templateName']:
+            fc_params[temp_name]['ins_mode'] = 'slt'
+         elif 'img' in t['templateName']:
+            fc_params[temp_name]['ins_mode'] = 'img'
+         else:
+            raise Exception('Ouch! This error is impossible!')
+            
          for param in tpl['parameters']:
-               
-            if param['name'] == 'SEQ.NOFF':             
+
+            if param['name'] == 'INS.OPTI3.NAME':             
+               fc_params[temp_name]['uvb_slt'] = float(param['value'].split('x')[0])*u.arcsec
+            if param['name'] == 'INS.OPTI4.NAME':             
+               fc_params[temp_name]['vis_slt'] = float(param['value'].split('x')[0])*u.arcsec
+            if param['name'] == 'INS.OPTI5.NAME':             
+               fc_params[temp_name]['nir_slt'] = float(param['value'].split('x')[0])*u.arcsec 
+            if param['name'] == 'SEQ.NOD.THROW':
+               fc_params[temp_name]['slt_throw'] = param['value']*u.arcsec 
+            if param['name'] == 'SEQ.NOFFSET':             
                fc_params[temp_name]['noff'] = param['value']
-            if param['name'] == 'SEQ.OBSTYPE.LIST':             
-               fc_params[temp_name]['obstype'] = param['value']
-            if param['name'] == 'SEQ.OFFSET.COORDS':             
-               fc_params[temp_name]['coordtype'] = param['value']      
-            if param['name'] == 'SEQ.OFFSET.POSANG.LIST':             
-               fc_params[temp_name]['posang'] = param['value']  
-            if param['name'] == 'SEQ.OFFSET1.LIST':             
+            if param['name'] == 'SEQ.OBS.TYPE':             
+               # Warning, here, XSHOOTER differs from MUSE !!!
+               fc_params[temp_name]['obstype'] = [i for i in param['value'].split(' ')]
+            if param['name'] == 'SEQ.OFFSET.COORDS':
+               # NOTE: XSHOOTER allows for SLIT too, but I just call this DETECTOR as well           
+               if param['value'] =='SLIT':
+                  fc_params[temp_name]['coordtype'] = 'DETECTOR'
+               else: 
+                  fc_params[temp_name]['coordtype'] = param['value'] 
+                
+            if param['name'] == 'SEQ.RELOFF1':               
                fc_params[temp_name]['off1'] = param['value']
-            if param['name'] == 'SEQ.OFFSET2.LIST':             
+            if param['name'] == 'SEQ.RELOFF2':             
                fc_params[temp_name]['off2'] = param['value']
-            if param['name'] == 'SEQ.RETURN':
+            if param['name'] == 'SEQ.OFFSET.ZERO':
                fc_params[temp_name]['return'] = param['value']
-   
-                          
+            if param['name'] == 'SEQ.FIXOFF.RA':
+               fc_params[temp_name]['fixoff1'] = param['value']
+            if param['name'] == 'SEQ.FIXOFF.DEC':
+               fc_params[temp_name]['fixoff2'] = param['value']
+            
+         
+         # Deal with the AutoNodOnSlit template
+         # Pretend the nodding are regular offsets. Ignore any jittering.
+         if fc_params[temp_name]['slt_throw'].value >0:
+            fc_params[temp_name]['noff'] = 2
+            fc_params[temp_name]['obstype'] = ['O','O']
+            fc_params[temp_name]['coordtype'] = 'DETECTOR'
+            fc_params[temp_name]['off1'] = [0,0]
+            fc_params[temp_name]['off2'] = [-fc_params[temp_name]['slt_throw'].to(u.arcsec).value/2.,    
+                                            +fc_params[temp_name]['slt_throw'].to(u.arcsec).value]
+         
+         # Now, deal with the FixedSkyOffset templates.
+         # Basically "converts them to a normal GenericOffset, and ignore any jitter
+         if not(fc_params[temp_name]['fixoff1'] is None) and not(fc_params[temp_name]['fixoff2'] is None):
+            fc_params[temp_name]['noff'] = 2
+            fc_params[temp_name]['obstype'] = ['O','S']
+            fc_params[temp_name]['coordtype'] = 'SKY'
+            fc_params[temp_name]['off1'] = [0,fc_params[temp_name]['fixoff1']]
+            fc_params[temp_name]['off2'] = [0,fc_params[temp_name]['fixoff2']]
+                      
    return fc_params
 
 # ------------------------------------------------------------------------------
-def get_localfcdata_muse(fc_params,inpars):
+def get_localfcdata_xshooter(fc_params,inpars):
    '''
-   Extracts all the important info to build a finding chart from a given MUSE OB defined
+   Extracts all the important info to build a finding chart from a given XSHOOTER OB defined
    locally.
    
    Args:
       inpars: A dictionnary containing the OB parameters
    Returns:
        A dictionnary containing the MUSE OB parameters
-   ''' 
-  
-   #fc_params = {}
-   fc_params['ob_name'] = inpars['ob_name']
-   
-   if type(inpars['obId']) == int:
-      fc_params['ob_id'] = inpars['ob_id']
-   else:
-      fc_params['ob_id'] = -1
-      
-   fc_params['pi'] = inpars['pi']
-   fc_params['prog_id'] = inpars['prog_id']
-   fc_params['inst'] = inpars['inst']
-   fc_params['ins_mode'] = inpars['ins_mode']
-   
-   # Get the target, and propagate the proper motion
-   #fc_params['target'] = fcm_t.propagate_pm(SkyCoord(inpars['ra'],
-   #                                            inpars['dec'], 
-   #                                            obstime = fcm_m.obsdate, 
-   #                                            equinox = inpars['equinox'], 
-   #                                            frame = 'icrs',
-   #                                            unit=(u.hourangle, u.deg)), 
-   #                                            inpars['epoch'],
-   #                                            inpars['pmra'],
-   #                                            inpars['pmdec'],
-   #                                            )
-                                               
-   tc = SkyCoord( ra = inpars['ra'],
-                  dec = inpars['dec'], 
-                  obstime = Time(inpars['epoch'],format='decimalyear'),
-                  equinox = inpars['equinox'], 
-                  frame = 'icrs',unit=(u.hourangle, u.deg), 
-                  pm_ra_cosdec = inpars['pmra']*u.mas/u.yr,
-                  pm_dec = inpars['pmdec']*u.mas/u.yr,
-                  # I must specify a generic distance to the target,
-                  # if I want to later on propagate the proper motions
-                  distance=100*u.pc,  
-                  )
-                  
-   # Propagate the proper motion using astropy v3.0
-   fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate)) 
+   '''                                    
          
    # Acquisition
-   fc_params['acq'] = copy.deepcopy(muse_acq_params)
-   fc_params['acq']['is_tts'] = inpars['is_tts']
-   # Override the user input if clash with instrument mode
-   if 'NOAO' in inpars['ins_mode']:
-      inpars['is_tts'] = False   
+   fc_params['acq'] = copy.deepcopy(xshooter_acq_params)
+   # Override the user input if clash with instrument mode  
    fc_params['acq']['bos_ra'] = inpars['bos_ra']
    fc_params['acq']['bos_dec'] = inpars['bos_dec']
    fc_params['acq']['is_gs'] = inpars['is_gs']
    fc_params['acq']['gs'] = SkyCoord(inpars['gs_ra'],inpars['gs_dec'], 
                                      frame = 'icrs', 
-                                     obstime = fcm_m.obsdate,
+                                     obstime = Time(fcm_m.obsdate),
                                      equinox = 'J2000')
-   fc_params['acq']['tts1'] = SkyCoord(inpars['tts1_ra'],inpars['tts1_dec'], 
-                                       frame = 'icrs',
-                                       obstime = fcm_m.obsdate,
-                                       equinox = 'J2000')
-   fc_params['acq']['tts2'] = SkyCoord(inpars['tts2_ra'],inpars['tts2_dec'], 
-                                       frame='icrs', 
-                                       obstime = fcm_m.obsdate,
-                                       equinox='J2000')
-   fc_params['acq']['oatt'] = SkyCoord(inpars['oatt_ra'],inpars['oatt_dec'], 
-                                       frame='icrs', 
-                                       obstime = fcm_m.obsdate,
-                                       equinox='J2000')
+                                                               
    fc_params['acq']['acq_pa'] = inpars['acq_pa']
+   
+   
+   # Deal with the blind offset by definition, the "target" in the OB is the 
+   # Acq. location, to which we "add" the blind offset to go to the real Target
+   fc_params['target'] = fcm_t.offset_coord(fc_params['target'], 
+                                             delta_ra=fc_params['acq']['bos_ra']*u.arcsec, 
+                                             delta_dec=fc_params['acq']['bos_dec']*u.arcsec)
+   
+   
+   if fc_params['acq']['acq_pa'] == 9999:
+      # Ok, I need to compute the parallactic angle !
+      # Use astroplan to do that
+      UT2 = Observer(location=fcm_m.UT2_loc)
+      fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
+      fc_params['time_dependant'] = True
+      
 
    # Observation
    fc_params['n_sci'] = 1
-   fc_params['sci1'] = copy.deepcopy(muse_sci_params)
+   fc_params['sci1'] = copy.deepcopy(xshooter_sci_params)
    fc_params['sci1']['noff'] = inpars['noff']
+   fc_params['sci1']['ins_mode'] = inpars['ins_mode']
    fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split(' ')]
-   fc_params['sci1']['posang'] = [float(i) for i in inpars['posang'][0].split(' ')]
    fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split(' ')]
    fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split(' ')]
    fc_params['sci1']['return'] = inpars['return']
-   fc_params['sci1']['coordtype'] = inpars['coordtype']
+   if inpars['coordtype'] == 'SLIT':
+      fc_params['sci1']['coordtype'] = 'DETECTOR' # In fcmaker, SLIT = DETECTOR
+   else:
+      fc_params['sci1']['coordtype'] = inpars['coordtype']
+
+   fc_params['sci1']['uvb_slt'] = inpars['uvb_slt']*u.arcsec
+   fc_params['sci1']['vis_slt'] = inpars['vis_slt']*u.arcsec
+   fc_params['sci1']['nir_slt'] = inpars['nir_slt']*u.arcsec
+   fc_params['sci1']['slt_throw'] = inpars['slt_throw']*u.arcsec
+   
+   # Deal with the AutoNodOnSlit template
+   # Pretend the nodding are regular offsets. Ignore any jittering.
+   if fc_params['sci1']['slt_throw'].value >0:
+      fc_params['sci1']['noff'] = 2
+      fc_params['sci1']['obstype'] = ['O','O']
+      fc_params['sci1']['coordtype'] = 'DETECTOR'
+      fc_params['sci1']['off1'] = [0,0]
+      fc_params['sci1']['off2'] = [-fc_params['sci1']['slt_throw'].to(u.arcsec).value/2.,    
+                                            +fc_params['sci1']['slt_throw'].to(u.arcsec).value]
 
    return fc_params
 
@@ -413,7 +390,6 @@ def get_fields_dict(fc_params):
    # Some values to keep track of the ra, dec and pa offsets over the course of the OB.
    delta_ra = 0
    delta_dec = 0
-   delta_pa = 0
 
    # Define the center of the finding chart to be on the acquisition field.
    target = fc_params['target']  
@@ -424,30 +400,27 @@ def get_fields_dict(fc_params):
    # First, the acquisiton frame 
    counter = 1
    acq_field =  fcm_t.offset_coord(target, 
-                                   delta_ra=fc_params['acq']['bos_ra']*u.arcsec, 
-                                   delta_dec=fc_params['acq']['bos_dec']*u.arcsec)
+                                   delta_ra=-fc_params['acq']['bos_ra']*u.arcsec, 
+                                   delta_dec=-fc_params['acq']['bos_dec']*u.arcsec)
+   # NOTE: I go here from Target to acq, the reverse of the OB convention, hence the '-'
    
    # Start filling the dictionary of fields
    fields[1] = [fc_params['inst'], # Instrument first
-                fc_params['ins_mode'], # Instrument mode
+                'img', # The instrument mode
                 acq_field, # Field central coordinates
                 fc_params['acq']['acq_pa'], # Position Angle
                 'Acq', # Nature of the field ('Acq', 'Target', 'O', 'S')
+                xshooter_acqcam, # The size of the FoV 
                 ]
       
-   # Store the PA of the acquisition
-   delta_pa = fc_params['acq']['acq_pa']
-      
-   # If we are in MUSE WFM AO, the system will close the loop on the target. 
-   # So here, I add it as one field, EVEN IF the user then applies offsets in the 
-   # observation templates. This allows to check that the TTS will be ok, when we will 
-   # first close the loop.
+   # Include the Target as a "field"
    counter+=1
    fields[counter] = [fc_params['inst'], # Instrument first
-                      fc_params['ins_mode'], # Instrument mode
+                      None,
                       target, # Field central coordinates
                       fc_params['acq']['acq_pa'], # Position Angle
                       'Target', # Nature of the field ('Acq', 'Target', 'O', 'S')
+                      None, # The ins_mode
                       ]  
 
    # Now, loop through all the Science templates I have
@@ -457,14 +430,25 @@ def get_fields_dict(fc_params):
       temp_name = 'sci%i' %(n+1)
       
       # Ok, what are the offset sequences
+      ins_mode = fc_params[temp_name]['ins_mode']
       off1 = fc_params[temp_name]['off1']
       off2 = fc_params[temp_name]['off2']
-      posang = fc_params[temp_name]['posang']
       obstype = fc_params[temp_name]['obstype']
       coordtype = fc_params[temp_name]['coordtype']
       
+      # Get the correct FoV depending on the ins_mode
+      if ins_mode == 'img':
+         fov = copy.deepcopy(xshooter_acqcam)
+      elif ins_mode == 'ifu':
+         fov = copy.deepcopy(xshooter_ifu)
+      elif ins_mode == 'slt':
+         fov = [np.max([fc_params[temp_name]['uvb_slt'].to(u.deg).value,
+                        fc_params[temp_name]['vis_slt'].to(u.deg).value,
+                        fc_params[temp_name]['nir_slt'].to(u.deg).value])*u.deg,
+                xshooter_slt_length]
+      
       # If any sequence is too short, loop it as required
-      all_offs = [off1, off2, posang, obstype]
+      all_offs = [off1, off2, obstype]
       for (s,seq) in enumerate(all_offs):
 
          if len(seq) < fc_params[temp_name]['noff']:
@@ -474,39 +458,35 @@ def get_fields_dict(fc_params):
          #elif len(seq) > fc_params[temp_name]['noff']:
          #   warnings.warn('Offset sequence larger than "NOFF". Ignoring extra bits ...')
       
-      [off1, off2, posang, obstype] = all_offs
-
+      [off1, off2, obstype] = all_offs
+      
       # Then build the OB sequence
       for o in range(fc_params[temp_name]['noff']): 
          
          counter +=1
          
-         
          if coordtype == 'SKY':
             # Sum the RA, Dec offsets
             delta_ra += off1[o]
             delta_dec += off2[o]
-            # Sum the PA offsets
-            delta_pa += posang[o]
             
          elif coordtype == 'DETECTOR':
             # Transform the dx, dy values in dra, ddec, given the current PA
-            (this_dra,this_ddec) = detector_to_sky(off1[o],off2[o],delta_pa)
+            (this_dra,this_ddec) = detector_to_sky(off1[o],off2[o],fc_params['acq']['acq_pa'])
             
             # Then sum these and apply any PA shift
             delta_ra += this_dra
             delta_dec += this_ddec
-            # Sum the PA offsets
-            delta_pa += posang[o]
             
          # Create the field entry
          fields[counter] = [fc_params['inst'],
-                            fc_params['ins_mode'],
+                            ins_mode,
                             fcm_t.offset_coord(target, 
                                                delta_ra = delta_ra*u.arcsec,
                                                delta_dec = delta_dec*u.arcsec,),
-                            delta_pa % 360,
-                            obstype[o]
+                            fc_params['acq']['acq_pa'], # Position Angle
+                            obstype[o],
+                            fov,
                            ]
    
       # Ok, I return to the origin after the end of the OB, so let's reset all the offsets
@@ -514,42 +494,35 @@ def get_fields_dict(fc_params):
       if fc_params[temp_name]['return']:
          delta_ra = 0
          delta_dec = 0
-         delta_pa = fc_params['acq']['acq_pa']
    
    return fields
    
 # ------------------------------------------------------------------------------
-def get_polygon(central_coord, pa, mode):
+def get_polygon(central_coord, pa, fov):
    '''
    Given the central location and position of a field, build a polygon to feed to 
    matplotlib down the line.
    
    Args:
-      central_coord: an astropy.SkyCoord entry with the center of the MUSE field
+      central_coord: an astropy.SkyCoord entry with the center of the XSHOOTER field
       pa: the position angle of the field (p2 convention)
-      mode: the instrument mode, either 'WFM' or 'NFM'
+      fov: length 2 list, with the size of the Field-of-View (in angular astropy.units)
    Returns:
       A list of 2-D coordinates for each corner of the field-of-view.
    '''
-       
+
    # Very well, having done this, I will also build a list of polygons for each field, 
    # that I can feed directly to matplotlib
    polygon = [] #it's a list
    
+   xw = fov[0].to(u.deg).value
+   yw = fov[1].to(u.deg).value
    
-   if mode == 'WFM':
-      corners = copy.deepcopy(muse_wfm)
-   elif mode == 'NFM':
-      corners = copy.deepcopy(muse_nfm)
-   else:
-      raise Exception('Mode unknown.')
-       
+   corners = np.array([[-xw/2,-yw/2],[-xw/2,yw/2],[xw/2,yw/2],[xw/2,-yw/2]])                       
+  
    # Rotate the different corners by the correct amount
    for (j,corner) in enumerate(corners):    
       corners[j] = np.dot(corners[j],fcm_t.myrotmatrix(pa))
-        
-   # Converts from arc sec to degrees/hours
-   corners = corners /3600.
     
    # Finds the field center
    thisalpha = central_coord.ra
@@ -565,11 +538,11 @@ def get_polygon(central_coord, pa, mode):
    polygon = [np.array(polygon)]
                      
    return polygon
-   
+
 # ----------------------------------------------------------------------------------------
 def plot_field(ax1, ax2, fc_params, field):
    '''
-   The specific MUSE function that draws a specific observation field.
+   The specific XSHOOTER function that draws a specific observation field.
    
    Args:
       ax1,ax2: the left and right plots 'axis'
@@ -582,28 +555,28 @@ def plot_field(ax1, ax2, fc_params, field):
             'Target': {'c':'None', 'lwm':1, 'zorder':5, 'marker':'D', 
                        'lw':1.5, 'ms':250, 'ls':'None', 'mc':'darkorange'},
             'O':{'c':'royalblue', 'lwm':1, 'zorder':5, 'marker':'o', 
-                 'lw':1.5, 'ms':50, 'ls':':', 'mc':'royalblue'},
+                 'lw':0.75, 'ms':50, 'ls':':', 'mc':'royalblue'},
             'S':{'c':'darkcyan', 'lwm':1, 'zorder':5, 'marker':'s', 
-                 'lw':1.5, 'ms':50, 'ls':':', 'mc':'darkcyan'},
+                 'lw':0.75, 'ms':50, 'ls':':', 'mc':'darkcyan'},
             }
    
    
    this_coords = [field[2].ra, field[2].dec]
    
-   # Show the center of the field, without obstructing it to see the blind offset star
-   ax1.show_markers(this_coords[0].deg, this_coords[1].deg, 
-                    marker=skins[field[4]]['marker'],
-                    edgecolor=skins[field[4]]['mc'],
-                    s=skins[field[4]]['ms'], 
-                    linewidth=skins[field[4]]['lwm'], 
-                    zorder=skins[field[4]]['zorder'],
-                    ) 
-   
    for ax in [ax1,ax2]:
-      # instrument footprint, except for the "target", where the AO loops are closed, but
-      # no data is taken
-      #if field[4] != 'Target':
-      ax.show_polygons(get_polygon(field[2],field[3],field[1][:3]), 
+      # Show the center of the field, without obstructing it to see the blind offset star
+      if not(field[4] in['Acq','Target']) or (ax is ax1):
+         ax.show_markers(this_coords[0].deg, this_coords[1].deg, 
+                         marker=skins[field[4]]['marker'],
+                         edgecolor=skins[field[4]]['mc'],
+                         s=skins[field[4]]['ms'], 
+                         linewidth=skins[field[4]]['lwm'], 
+                         zorder=skins[field[4]]['zorder'],
+                         ) 
+      
+      # instrument footprint, except for the "target"
+      if field[4] != 'Target':
+         ax.show_polygons(get_polygon(field[2],field[3],field[5],), 
                            edgecolor = skins[field[4]]['c'],
                            linewidth = skins[field[4]]['lw'],
                            zorder = skins[field[4]]['zorder'],
@@ -617,69 +590,6 @@ def plot_field(ax1, ax2, fc_params, field):
                        zorder=skins[field[4]]['zorder']
                      )           
                                     
-      # TTS, GS footprint for the Science only - no TT star used for the sky fields, 
-      # Only show the TT area for AO mode
-      if (field[4] in ['Target','O']) and ('WFM-AO' in fc_params['ins_mode']):
-            
-         ax.show_circles([this_coords[0].deg,this_coords[0].deg],
-                         [this_coords[1].deg,this_coords[1].deg],
-                         [((inner_TTS_search*u.arcsec).to(u.degree)).value,
-                          ((outer_TTS_search*u.arcsec).to(u.degree)).value,
-                         ],
-                         color='k', lw=0.5, linestyle= '-')             
-                  
-      # Show the NFM TT star
-      if 'NFM' in fc_params['ins_mode']:
-         tts = fc_params['acq']['oatt']  
-            
-         # Skip if it is not defined (0,0 is the default)
-         if tts.ra == 0 and tts.dec == 0:
-            continue
-                          
-         ax.show_markers(tts.ra, tts.dec, marker=fcm_t.crosshair(pa=0), edgecolor='tomato',
-                           s=500, linewidth=1.5)
-            
-      
-      # Show the WFM-AO TT stars 
-      if fc_params['acq']['is_tts']:
-         for (t,tts) in enumerate([fc_params['acq']['tts1'],fc_params['acq']['tts2']]):  
-            
-            # Skip if it is not defined (0,0 is the default)
-            if tts.ra == 0 and tts.dec == 0:
-               continue
-                          
-            ax.show_markers(tts.ra, tts.dec, marker=fcm_t.crosshair(pa=0), edgecolor='tomato',
-                               s=500, linewidth=1.5)
-   
-            # Only add their name to the zoom-in plot
-            if fcm_m.fcm_usetex:
-               lab = r'\textbf{TTS%i}'%(t+1)
-            else:
-               lab = r'TTS%i'%(t+1)
-            if ax == ax1 and (field[4] == 'Acq'):
-               ax.add_label(tts.ra.deg,tts.dec.deg+15./3600,lab, 
-                            verticalalignment='center', 
-                            horizontalalignment='center',size=12,color='k',
-                            bbox=dict(facecolor='w',ec='k', alpha=0.6)) 
-            
-            # Check if the TTS is compatible with this field. If not, flag it as such !
-            # Make sure this is a 'O' or 'Target' field as well ...
-            if ax ==ax1 and \
-               (field[4] in ['Target','O']) and \
-               ((tts.separation(field[2]) > (outer_TTS_search*u.arcsec)) or \
-                (tts.separation(field[2]) < (inner_TTS_search*u.arcsec))):
-                
-               if fcm_m.fcm_usetex:
-                  lab = r'\textbf{!}'
-               else:
-                  lab = '!'
-                  
-               ax.add_label(tts.ra.deg,tts.dec.deg,lab, 
-                            verticalalignment='center', 
-                            horizontalalignment='center',size=12,color='tomato',
-                            bbox=dict(boxstyle="circle,pad=0.17", facecolor='w',ec='tomato', alpha=1)) 
-      
-          
                    
       # Show the Guide Star (if there is an acq template present)
       if (fc_params['acq']['is_gs']) and (field[4] == 'Acq'):
@@ -722,7 +632,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                   marker=skins['Acq']['marker'],
                                   linestyle=skins['Acq']['ls'],
                                   linewidth=skins['Acq']['lw'],
-                                  markersize=10, label='Acquisition')
+                                  markersize=10, label='Acq.')
       target_legend = mlines.Line2D([], [],
                                     color=skins['Target']['c'],
                                     markerfacecolor='None', 
@@ -738,7 +648,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['O']['ls'],
                                linewidth=skins['O']['lw'],
                                marker=skins['O']['marker'],
-                               markersize=10, label='Object')                                                           
+                               markersize=10, label='O')                                                           
       S_legend = mlines.Line2D([], [], 
                                color=skins['S']['c'],
                                markerfacecolor='None',
@@ -746,7 +656,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['S']['ls'],
                                linewidth=skins['S']['lw'],
                                marker=skins['S']['marker'],
-                               markersize=10, label='Sky') 
+                               markersize=10, label='S') 
                                
       ucac2_legend = mlines.Line2D([], [],
                                     color='crimson',
@@ -756,10 +666,20 @@ def plot_field(ax1, ax2, fc_params, field):
                                     linewidth=0,
                                     marker='o',
                                     markersize=10, label='UCAC2')                         
-                                                           
-      ax2._ax1.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend],
+      
+      PM_legend =  mlines.Line2D([], [],color='crimson',
+                                 markerfacecolor='crimson',
+                                 markeredgecolor='crimson', 
+                                 linestyle='-',
+                                 linewidth=0.75,
+                                 marker='.',
+                                 #markersize=10, 
+                                 label='PM* (track:$-$%.1f yr)' % (fcm_m.pm_track_time.to(u.yr).value))
+                                                          
+      ax2._ax1.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend, PM_legend],
                  bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
-                 ncol=5, mode="expand", borderaxespad=0., fontsize=12, borderpad=0.7)          
+                 ncol=6, mode="expand", borderaxespad=0., fontsize=10, borderpad=0.7,
+                 handletextpad=0.2, handlelength=2.0)          
                     
 # ----------------------------------------------------------------------------------------                    
                     

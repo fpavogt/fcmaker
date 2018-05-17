@@ -180,11 +180,11 @@ def make_fc( p2uid = None, pswd = None,
    if not(type(obids) == list):
       raise Exception('Ouch! obids must be a list !')
    
-   # Set the generic parameters for fcmaker
-   set_fcmaker(systemtex,montage,clear_SkyView_cache, data_loc, plot_loc)
-  
    # Set the observing date (and time) 
-   set_obsdate(obsdate)  
+   set_obsdate(obsdate) 
+   
+   # Set the generic parameters for fcmaker
+   set_fcmaker(systemtex,montage,clear_SkyView_cache, data_loc, plot_loc) 
   
    # If I need to connect to p2, extract the user ID and obIDs. 
    # If no password or user ID in file, ask for it now.
@@ -296,10 +296,9 @@ def make_fc_local(f,
    The other fcmaker function, to create finding charts from a local file.
    
    Args:
-      f: an open file. _io.TextIOWrapper from open(filename)
+      f: an open file, e.g. _io.TextIOWrapper from open(filename)
       do_pdf: bool. Save a local PDF file ?
       do_png: bool. Save a local png file ?
-      no_upload: bool. Skip the upload of finding charts to p2 ?
       systemtex: bool. Use the system Latex instead of the Python latex ?
       montage: bool. Use of Montage to rotate the fields with North up ?
       clear_SkyView_cache: bool. Clear the SkyView cache ?
@@ -311,6 +310,8 @@ def make_fc_local(f,
    if not(os.path.isfile(f.name)):
       raise Exception('Ouch! unknown file: %s' % (fn))
    
+   # Set the observing date (and time)
+   set_obsdate(obsdate)
    
    # Load the parameter file
    inpars = yaml.load(f)
@@ -327,13 +328,11 @@ def make_fc_local(f,
    
    if fc_params['ob_id'] is None:
       fc_params['ob_id'] = -2
-         
+   
    # Set the generic parameters for fcmaker 
    set_fcmaker(systemtex, montage, clear_SkyView_cache, 
                inpars['data_loc'], inpars['plot_loc'])
    
-   # Set the observing date (and time)
-   set_obsdate(obsdate)
  
    # Step 2: create the finding chart
    print('Creating the finding chart from local info ...')

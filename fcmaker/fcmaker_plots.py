@@ -239,6 +239,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    ax1_legend_items = []
    
    # Do I have the epoch of observation for the background image ?
+   '''
    try:
       bk_obsdate = fits.getval(fn_bk_image, 'DATE-OBS')
       
@@ -254,6 +255,11 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       # If not, just shows the default length set in fcmaker_metadata
       nowm_time = Time(fcm_m.obsdate) - fcm_m.pm_track_time
       pm_track_time = fcm_m.pm_track_time
+   '''
+   
+   # Just keep things simple. Same lookback time for all charts.
+   nowm_time = Time(fcm_m.obsdate) - fcm_m.pm_track_time
+   #pm_track_time = fcm_m.pm_track_time
    
    # If yes, then let's show where are the fastest stars moved from/to.
    #if do_GAIA_pm and (fcm_m.min_abs_GAIA_pm >=0):
@@ -263,7 +269,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       print('   Querying GAIA DR2 to look for high proper motion stars in the area ...')
    
       # Make it a sync search, because I don't think I need more than 2000 targets ...
-      j = Gaia.cone_search(left_center, 3*left_radius*u.arcsec, verbose=False)
+      j = Gaia.cone_search(left_center, right_radius*u.arcsec, verbose=False)
       r = j.get_results()
    
       selected = np.sqrt(r['pmra']**2+r['pmdec']**2)*u.mas/u.yr > fcm_m.min_abs_GAIA_pm
@@ -282,7 +288,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
                          pm_dec = r['pmdec'][selected][s]*u.mas/u.yr,
                          # I must specify a generic distance to the target,
                          # if I want to later on propagate the proper motions
-                         distance=100*u.pc,  
+                         distance=fcm_m.default_pm_d,  
                          )
       
          now = star.apply_space_motion(new_obstime = Time(fcm_m.obsdate))    
@@ -290,20 +296,22 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       
          past_tracks += [np.array([[nowm.ra.deg,now.ra.deg],[nowm.dec.deg,now.dec.deg]])]
          
-         ax1.show_markers([now.ra.deg],[now.dec.deg],marker='.',color='crimson', 
-                           facecolor='crimson', edgecolor='crimson')
+         for ax in [ax1,ax2]:
+            ax.show_markers([now.ra.deg],[now.dec.deg],marker='.',color='crimson', 
+                             facecolor='crimson', edgecolor='crimson')
          
-         # Prepare a dedicated legend entry
-         ax1_legend_items += [mlines.Line2D([], [],color='crimson',
-                               markerfacecolor='crimson',
-                               markeredgecolor='crimson', 
-                               linestyle='-',
-                               linewidth=0.75,
-                               marker='.',
-                               #markersize=10, 
-                               label='PM* (track$=-$%.1f yr)' % (pm_track_time.to(u.yr).value)) ]
-      
-      ax1.show_lines(past_tracks,color='crimson',linewidth=0.75, linestyle = '-')
+      #if len(r['ra'][selected])>0:
+      #   # Prepare a dedicated legend entry
+      #   ax1_legend_items += [mlines.Line2D([], [],color='crimson',
+      #                         markerfacecolor='crimson',
+      #                         markeredgecolor='crimson', 
+      #                         linestyle='-',
+      #                         linewidth=0.75,
+      #                         marker='.',
+      #                         #markersize=10, 
+      #                         label='PM* (track$=-$%.1f yr)' % (pm_track_time.to(u.yr).value)) ]
+      for ax in [ax1,ax2]:
+         ax.show_lines(past_tracks,color='crimson',linewidth=0.75, linestyle = '-')
    
    # Query UCAC2 via Vizier over the finding chart area, to look for suitable Guide Stars
    print('   Querying UCAC2 via Vizier to look for possible Guide Stars ...')
@@ -439,13 +447,20 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
                      borderaxespad=0., fontsize=10, borderpad=0.3, 
                      handletextpad=0., handlelength=2.0)
    
-   # Display the observing date              
-   ax1.add_label(1.0,1.02, r'Obs. date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d %H:%M %Z'), 
-                 relative=True, 
-                 horizontalalignment='right', fontsize=12)
+   # Display the observing date  
+   if fc_params['time_dependant']:
+      date_color = 'crimson'
+      date_size = 12
+   else:
+      date_color = 'k'  
+      date_size = 8 
    
+   ax1.add_label(1.0,1.02, r'Obs. date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d %H:%M %Z'), 
+                 relative=True, color=date_color,
+                 horizontalalignment='right', fontsize=date_size) 
+
    #Finally include the version of fcmaker in there
-   ax1.add_label(1.01,0.02, r'Created with fcmaker v%s'%(fcm_m.__version__), 
+   ax1.add_label(1.01,0.00, r'Created with fcmaker v%s'%(fcm_m.__version__), 
                  relative=True, 
                  horizontalalignment='left',verticalalignment='bottom',
                  fontsize=10, rotation=90)          

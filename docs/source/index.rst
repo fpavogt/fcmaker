@@ -6,7 +6,7 @@
 fcmaker |release|
 ===============================================
 
-|DOI_latest| |pypi| |astropy| |last-commit| |issues|
+|DOI_latest| |github| |last-commit| |issues| |pypi| |astropy|
 
 .. |astropy| image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
     :target: http://www.astropy.org/
@@ -14,13 +14,16 @@ fcmaker |release|
 .. |pypi| image:: https://img.shields.io/pypi/v/fcmaker.svg?colorB=<brightgreen>
     :target: https://pypi.python.org/pypi/fcmaker/
 
+.. |github| image:: https://img.shields.io/github/release/fpavogt/fcmaker.svg
+   :target: https://github.com/fpavogt/fcmaker/
+
 .. |issues| image:: https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e   
    :target: https://github.com/fpavogt/fcmaker/issues
 
 .. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
    :target: https://github.com/fpavogt/fcmaker
 
-.. figure:: ./examples/fcm_plots/WFM_AO_starstuff_DSS2-Red.png
+.. figure:: ./examples/fcm_plots/MUSE_WFM_AO_DSS2-Red.png
     :width: 750px
     :align: center
     :alt: fcmaker finding chart example
@@ -32,8 +35,9 @@ Instruments and modes currently supported
 -----------------------------------------
 
    * **MUSE**: WFM-NOAO, WFM-AO
-   * **HAWKI**: NOAO (experimental)
-   * **XSHOOTER***: (work-in-progress)
+   * **HAWKI**: NOAO
+   * **XSHOOTER**: all modes
+   * targets with proper motions & ephemeris files
 
 .. warning::
    fcmaker is neither supported nor officially endorsed by the 

@@ -4,6 +4,7 @@
 import os
 from dateutil import parser as dup
 import astropy.units as u
+from astropy.coordinates import EarthLocation
 
 '''
 fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
@@ -15,7 +16,7 @@ Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 # Define the version of fcmaker
-__version__ = '0.3.0'
+__version__ = '0.3.1'
 
 # Where are we located ?
 fcm_dir = os.path.dirname(__file__)
@@ -55,7 +56,11 @@ min_abs_GAIA_pm = 100*u.mas/u.yr # in mas/yr
 # The length of the tracks for high PM stars 
 # Ideally, I would track it between the date of the finding chart and today ...
 # But stupid SkyView does not return the exact DATE-OBS coming from the fits file ...
-pm_track_time = 10 * u.yr
+pm_track_time = 20 * u.yr
+
+# I also need to assume a distance for these fast moving GAIA stars ...
+# For now, just keep a standard 100 pc.
+default_pm_d = 100*u.pc
 
 # For moving target, what time interval (+-) to show on the plot ?
 ephem_range = 2*u.hour
@@ -64,3 +69,14 @@ ephem_range = 2*u.hour
 # the closest ephemeris point and the actual observing time.
 # Default should do a "reasonable job most of the times ..."
 ephem_d = 1*u.au # Default 10 AU, because moving targets are likely to be in the Solar system
+
+# The GPS coordinates of the UTs
+# These are the best ones derived by ESO as part of the laser collision tool.
+
+UT1_loc = EarthLocation.from_geodetic(-70.4048946*u.deg, -24.6281319*u.deg, (2648+13.044)*u.m)
+UT2_loc = EarthLocation.from_geodetic(-70.4046496*u.deg, -24.6276730*u.deg, (2648+13.044)*u.m)
+UT3_loc = EarthLocation.from_geodetic(-70.4043530*u.deg, -24.6273509*u.deg, (2648+13.044)*u.m)
+UT4_loc = EarthLocation.from_geodetic(-70.4037764*u.deg, -24.6275511*u.deg, (2648+13.044)*u.m)
+VST_loc = EarthLocation.from_geodetic(-70.4038210*u.deg, -24.6268778*u.deg, (2648+4.5399)*u.m)
+VISTA_loc = EarthLocation.from_geodetic(-70.4025763*u.deg, -24.6148165*u.deg, (2530)*u.m) 
+

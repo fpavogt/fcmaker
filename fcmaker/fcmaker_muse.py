@@ -317,45 +317,7 @@ def get_localfcdata_muse(fc_params,inpars):
        A dictionnary containing the MUSE OB parameters
    ''' 
   
-   #fc_params = {}
-   fc_params['ob_name'] = inpars['ob_name']
-   
-   if type(inpars['ob_id']) == int:
-      fc_params['ob_id'] = inpars['ob_id']
-   else:
-      fc_params['ob_id'] = -1
-      
-   fc_params['pi'] = inpars['pi']
-   fc_params['prog_id'] = inpars['prog_id']
-   fc_params['inst'] = inpars['inst']
-   fc_params['ins_mode'] = inpars['ins_mode']
-   
-   # Get the target, and propagate the proper motion
-   #fc_params['target'] = fcm_t.propagate_pm(SkyCoord(inpars['ra'],
-   #                                            inpars['dec'], 
-   #                                            obstime = fcm_m.obsdate, 
-   #                                            equinox = inpars['equinox'], 
-   #                                            frame = 'icrs',
-   #                                            unit=(u.hourangle, u.deg)), 
-   #                                            inpars['epoch'],
-   #                                            inpars['pmra'],
-   #                                            inpars['pmdec'],
-   #                                            )
-   
-   tc = SkyCoord( ra = inpars['ra'],
-                  dec = inpars['dec'], 
-                  obstime = Time(inpars['epoch'],format='decimalyear'),
-                  equinox = inpars['equinox'], 
-                  frame = 'icrs',unit=(u.hourangle, u.deg), 
-                  pm_ra_cosdec = inpars['pmra']*u.arcsec/u.yr,
-                  pm_dec = inpars['pmdec']*u.arcsec/u.yr,
-                  # I must specify a generic distance to the target,
-                  # if I want to later on propagate the proper motions
-                  distance=100*u.pc,  
-                  )
-                  
-   # Propagate the proper motion using astropy v3.0
-   fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate))                                         
+   fc_params['ins_mode'] = inpars['ins_mode']                                     
          
    # Acquisition
    fc_params['acq'] = copy.deepcopy(muse_acq_params)
@@ -366,10 +328,11 @@ def get_localfcdata_muse(fc_params,inpars):
    fc_params['acq']['bos_ra'] = inpars['bos_ra']
    fc_params['acq']['bos_dec'] = inpars['bos_dec']
    fc_params['acq']['is_gs'] = inpars['is_gs']
-   fc_params['acq']['gs'] = SkyCoord(inpars['gs_ra'],inpars['gs_dec'], 
-                                     frame = 'icrs', 
-                                     obstime = Time(fcm_m.obsdate),
-                                     equinox = 'J2000')
+   if inpars['is_gs']:
+      fc_params['acq']['gs'] = SkyCoord(inpars['gs_ra'],inpars['gs_dec'], 
+                                        frame = 'icrs', 
+                                        obstime = Time(fcm_m.obsdate),
+                                        equinox = 'J2000')
    if 'WFM-AO' in inpars['ins_mode']:
    
       fc_params['acq']['tts1'] = SkyCoord(inpars['tts1_ra'],inpars['tts1_dec'], 
@@ -631,7 +594,9 @@ def plot_field(ax1, ax2, fc_params, field):
                          [((inner_TTS_search*u.arcsec).to(u.degree)).value,
                           ((outer_TTS_search*u.arcsec).to(u.degree)).value,
                          ],
-                         color='k', lw=0.5, linestyle= '-')             
+                         color='k', lw=0.5, linestyle= '-')  
+                         
+         # Here, also show the valid area of the TTS      
                   
       # Show the NFM TT star
       if 'NFM' in fc_params['ins_mode']:
@@ -727,7 +692,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                   marker=skins['Acq']['marker'],
                                   linestyle=skins['Acq']['ls'],
                                   linewidth=skins['Acq']['lw'],
-                                  markersize=10, label='Acquisition')
+                                  markersize=10, label='Acq.')
       target_legend = mlines.Line2D([], [],
                                     color=skins['Target']['c'],
                                     markerfacecolor='None', 
@@ -743,7 +708,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['O']['ls'],
                                linewidth=skins['O']['lw'],
                                marker=skins['O']['marker'],
-                               markersize=10, label='Object')                                                           
+                               markersize=10, label='O')                                                           
       S_legend = mlines.Line2D([], [], 
                                color=skins['S']['c'],
                                markerfacecolor='None',
@@ -751,7 +716,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['S']['ls'],
                                linewidth=skins['S']['lw'],
                                marker=skins['S']['marker'],
-                               markersize=10, label='Sky') 
+                               markersize=10, label='S') 
                                
       ucac2_legend = mlines.Line2D([], [],
                                     color='crimson',
@@ -761,10 +726,20 @@ def plot_field(ax1, ax2, fc_params, field):
                                     linewidth=0,
                                     marker='o',
                                     markersize=10, label='UCAC2')                         
-                                                           
-      ax2._ax1.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend],
+      
+      PM_legend =  mlines.Line2D([], [],color='crimson',
+                                 markerfacecolor='crimson',
+                                 markeredgecolor='crimson', 
+                                 linestyle='-',
+                                 linewidth=0.75,
+                                 marker='.',
+                                 #markersize=10, 
+                                 label='PM* (track:$-$%.1f yr)' % (fcm_m.pm_track_time.to(u.yr).value))
+                                                          
+      ax2._ax1.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend, PM_legend],
                  bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
-                 ncol=5, mode="expand", borderaxespad=0., fontsize=12, borderpad=0.7)          
+                 ncol=6, mode="expand", borderaxespad=0., fontsize=10, borderpad=0.7,
+                 handletextpad=0.2, handlelength=2.0)          
                     
 # ----------------------------------------------------------------------------------------                    
                     

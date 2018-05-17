@@ -18,6 +18,7 @@ from . import fcmaker_metadata as fcm_m
 from . import fcmaker_tools as fcm_t
 from . import fcmaker_muse as fcm_muse
 from . import fcmaker_hawki as fcm_hawki
+from . import fcmaker_xshooter as fcm_xshooter
 
 
 '''
@@ -54,7 +55,10 @@ def get_bk_image(fc_params):
          return '2MASS-'+fc_params['acq']['filter'][0]
       else:
          return fcm_hawki.bk_image
-
+         
+   elif fc_params['inst'] =='XSHOOTER':
+      return fcm_xshooter.bk_image
+   
    else:
       raise Exception('Ouch! Instrument unknown ...') 
 
@@ -74,7 +78,9 @@ def get_fields_dict(fc_params):
    
    elif fc_params['inst'] == 'HAWKI':
       return fcm_hawki.get_fields_dict(fc_params)
-    
+   
+   elif fc_params['inst'] == 'XSHOOTER':
+      return fcm_xshooter.get_fields_dict(fc_params)
       
    else:
       raise Exception('Ouch! Instrument unknown ...')   
@@ -96,11 +102,37 @@ def plot_field(ax1, ax2, fc_params, field):
    elif fc_params['inst'] == 'HAWKI':
       fcm_hawki.plot_field(ax1,ax2,fc_params,field)
       
-      
-      #return (ax1, ax2)
+   elif fc_params['inst'] == 'XSHOOTER':
+      fcm_xshooter.plot_field(ax1,ax2,fc_params,field)
       
    else:
       raise Exception('Ouch! Instrument unknown ...')   
+
+# ----------------------------------------------------------------------------------------
+def get_total_right_radius(fc_params, right_radius):
+   '''
+   A function to compute the total right radius given the offsets within the OB.
+   
+   Args:
+      fc_params: dictionnary of OB parameters
+      right_radius: default right radius
+   Return: 
+      right_radius: updated right_radius
+   '''
+   
+   # loop through all the Science template, and find the largest offset
+   for n in range(fc_params['n_sci']):
+      off1 = fc_params['sci%i'%(n+1)]['off1']
+      off2 = fc_params['sci%i'%(n+1)]['off1']
+      offs_abs = [ np.array([np.sum(off1[:i]) for i in range(len(off1))]) + fc_params['acq']['bos_ra'], 
+                   np.array([np.sum(off2[:i]) for i in range(len(off2))]) + fc_params['acq']['bos_dec'],
+                  ]
+      # Radius of all steps
+      rad_obs = np.sqrt( (offs_abs[0])**2 + (offs_abs[1])**2)
+      # Select the largets one
+      right_radius = np.max([right_radius,np.max(rad_obs)+fcm_xshooter.right_radius])
+   
+   return right_radius
 
 # ----------------------------------------------------------------------------------------
 def get_chart_radius(fc_params):
@@ -122,26 +154,9 @@ def get_chart_radius(fc_params):
       else:
          
          right_radius = copy.deepcopy(fcm_muse.right_radius)
-         # loop through all the Science template, and find the largest offset
-         for n in range(fc_params['n_sci']):
-            off1 = fc_params['sci%i'%(n+1)]['off1']
-            off2 = fc_params['sci%i'%(n+1)]['off1']
-            offs_abs = [ np.array([np.sum(off1[:i]) for i in range(len(off1))]), 
-                         np.array([np.sum(off2[:i]) for i in range(len(off2))]),
-                       ]
-            # Radius of all steps
-            rad_obs = np.sqrt( (offs_abs[0])**2 + (offs_abs[1])**2)
-            # Select the largets one
-            right_radius = np.max([right_radius,np.max(rad_obs)+60.])
-         
-      # Ok, I want to have a "zoom-in version of the plot on the left. 
-      # In case of big offsets, this can be a problem. So let's make this a bit larger
-      # in those cases
-      '''
-      left_radius = np.max([fcm_muse.left_radius(fc_params['ins_mode']),
-                            np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
-                                     (fc_params['acq']['bos_dec']/2.)**2)+35.])
-      '''
+         # Account for the OB offsets
+         right_radius = get_total_right_radius(fc_params, right_radius)
+   
       left_radius = fcm_muse.left_radius(fc_params['ins_mode']) + 0.5* np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
                                      (fc_params['acq']['bos_dec']/2.)**2)
       
@@ -152,20 +167,25 @@ def get_chart_radius(fc_params):
          right_radius = fcm_hawki.right_radius
       else:
          right_radius = copy.deepcopy(fcm_hawki.right_radius)
-         # loop through all the Science template, and find the largest offset
-         for n in range(fc_params['n_sci']):
-            off1 = fc_params['sci%i'%(n+1)]['off1']
-            off2 = fc_params['sci%i'%(n+1)]['off1']
-            offs_abs = [ np.array([np.sum(off1[:i]) for i in range(len(off1))]) + fc_params['acq']['bos_ra'], 
-                         np.array([np.sum(off2[:i]) for i in range(len(off2))]) + fc_params['acq']['bos_dec'],
-                       ]
-            # Radius of all steps
-            rad_obs = np.sqrt( (offs_abs[0])**2 + (offs_abs[1])**2)
-            # Select the largets one
-            right_radius = np.max([right_radius,np.max(rad_obs)+240.])
+         # Account for the OB offsets
+         right_radius = get_total_right_radius(fc_params, right_radius)
       
       # Keep Left hand-side focused on acq field
       left_radius = fcm_hawki.left_radius
+   
+   elif fc_params['inst'] == 'XSHOOTER':
+   
+      # For the right-hand side, adjust the radius to fit in the largest offsests
+      if fc_params['n_sci'] == 0:
+         right_radius = fcm_xshooter.right_radius
+      else:
+         right_radius = copy.deepcopy(fcm_xshooter.right_radius)
+         # Account for the OB offsets
+         right_radius = get_total_right_radius(fc_params, right_radius)
+
+      # Keep Left hand-side focused on acq field
+      left_radius = fcm_xshooter.left_radius + 0.5* np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
+                                     (fc_params['acq']['bos_dec']/2.)**2)
    
    else:
       raise Exception('Ouch! Instrument unknown ...')
@@ -197,7 +217,16 @@ def get_chart_center(fc_params):
                                   delta_ra= fc_params['acq']['bos_ra']*u.arcsec, 
                                   delta_dec= fc_params['acq']['bos_dec']*u.arcsec)
    
-      return (center, center)   
+      return (center, center) 
+   
+   elif fc_params['inst'] == 'XSHOOTER':
+      # Place the field center between the target and the acquisiton
+      # Warning, remember that with XSHOOTER, the offset are from the BOS to the target !!!
+      center = fcm_t.offset_coord(fc_params['target'], 
+                                  delta_ra=-fc_params['acq']['bos_ra']/2.*u.arcsec, 
+                                  delta_dec=-fc_params['acq']['bos_dec']/2.*u.arcsec)  
+                                  
+      return (center, center)                             
    
    else:
       raise Exception('Ouch! Instrument unknown ...')
@@ -217,7 +246,8 @@ def get_scalebar(inst):
       return (20./3600, '20$^{\prime\prime}$')
    elif inst == 'HAWKI':
       return (60./3600, '1$^{\prime}$')
-      
+   elif inst == 'XSHOOTER':
+      return (20./3600, '20$^{\prime\prime}$')
    else:
       raise Exception('Ouch! Instrument unknown ...')
 
@@ -255,8 +285,93 @@ def get_inner_GS_search(fc_params):
    elif fc_params['inst'] == 'HAWKI':
       return fcm_hawki.inner_GS_search
       
+   elif fc_params['inst'] == 'XSHOOTER':
+      return fcm_xshooter.inner_GS_search
+      
    else:
       raise Exception('Ouch! Instrument unknown ...')
+# ----------------------------------------------------------------------------------------
+def get_target_from_ephem(fc_params, ephemeris):
+   '''
+   A function to extract the target coordinates and other useful stuff from a PAF
+   ephemeris file.
+    
+   Args:
+      fc_params: the parameters of the finding charts (a dictionary)
+      ephemeris: the content of a PAF files as a list of strings from readlines()
+   Returns:
+      fc_params: the updated parameters of the finding charts (a dictionary)
+    
+    '''
+   # First, extract all the ephemeris points, store them in a list
+   # Time, Ra, Dec, pmra, pmdec
+   # This VERY MUCH ASSUMES a PAF file !!!
+   ephem = [list( line.split('"')[1].split(',')[i] for i in [0,2,3,4,5]) 
+            for line in ephemeris if line[:16]=='INS.EPHEM.RECORD'] 
+      
+   # Extract all the times, convert them to datetime values. UTC = PAF default!
+   times = [ dup.parse(point[0]+' UTC') for point in ephem]
+      
+   # Here, let's do some sanity check:
+   if (fcm_m.obsdate>times[-1]) or (fcm_m.obsdate<times[0]):
+      raise Exception('Ouch! Specified obstime outside of Ephemeris range: %s - %s' % 
+                       (times[0].strftime('%Y-%m-%d %H:%M:%S %Z'),
+                        times[-1].strftime('%Y-%m-%d %H:%M:%S %Z'))) 
+      
+   # Find the index of the closest ephemeris point
+   closest = np.argmin(np.abs(np.array(times)-fcm_m.obsdate))
+      
+   # Check if I will be accurate (or not)
+   if np.abs(times[closest]-fcm_m.obsdate) > timedelta(minutes=30):
+      warnings.warn('Observing time %.1f away from closest ephemeris point' % 
+                     (np.abs(times[closest]-fcm_m.obsdate).total_seconds()/60. ))
+      
+   closest_target = SkyCoord(ra=ephem[closest][1], dec=ephem[closest][2], 
+                            unit=(u.hourangle, u.degree),
+                            pm_ra_cosdec = float(ephem[closest][3]) *u.arcsec/u.second,
+                            pm_dec = float(ephem[closest][3])*u.arcsec/u.second, 
+                            obstime= Time(times[closest]),
+                            distance=fcm_m.ephem_d,
+                            )
+   # Derive the target by propagating proper motions from 
+   fc_params['target'] = closest_target.apply_space_motion(new_obstime = Time(fcm_m.obsdate))
+      
+   # Now, I also want to show all the points in the ephemeris file with a fcm_m.ephem_range time interval
+   # Find the index and associated times of all the near-by ephemeris entries
+   # The advantage, for these, is that I make no errors by assuming a distance
+
+   # For plotting purposes, deal with past and future ephemeris entry points separately   
+   close_past = (timedelta(seconds=0) <= -(np.array(times)-fcm_m.obsdate)) * (-(np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value))
+      
+   close_future = (timedelta(seconds=0) <= (np.array(times)-fcm_m.obsdate)) * ((np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value))
+    
+   # Now store the points as proper SkyCoord entries  
+   fc_params['ephem_points_past'] = [SkyCoord(ra=item[1], dec=item[2], 
+                                        unit=(u.hourangle, u.degree),
+                                        pm_ra_cosdec = float(item[3]) *u.arcsec/u.second,
+                                        pm_dec = float(item[3])*u.arcsec/u.second, 
+                                        obstime= Time(dup.parse(item[0]+' UTC')),
+                                        distance=fcm_m.ephem_d,
+                                        )  for item in list(np.array(ephem)[close_past])]
+   past_times = np.array(times)[close_past] 
+   # Also store the time delta, for legend purposes.                                 
+   fc_params['ephem_past_delta'] = np.median(past_times[1:]-past_times[:-1]) 
+       
+   # Idem for the future points.                                  
+   fc_params['ephem_points_future'] = [SkyCoord(ra=item[1], dec=item[2], 
+                                        unit=(u.hourangle, u.degree),
+                                        pm_ra_cosdec = float(item[3]) *u.arcsec/u.second,
+                                        pm_dec = float(item[3])*u.arcsec/u.second, 
+                                        obstime= Time(dup.parse(item[0]+' UTC')),
+                                        distance=fcm_m.ephem_d,
+                                        )  for item in list(np.array(ephem)[close_future])]
+      
+   future_times = np.array(times)[close_future]    
+   # For legend purposes.                              
+   fc_params['ephem_future_delta'] = np.median(future_times[1:]-future_times[:-1]) 
+   
+   return fc_params
+
       
 # ----------------------------------------------------------------------------------------
 def get_p2fcdata(obID, api):
@@ -327,81 +442,20 @@ def get_p2fcdata(obID, api):
       fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate))  
       
       fc_params['ephem_points_past'] = []                               
-      fc_params['ephem_points_future'] = []                               
+      fc_params['ephem_points_future'] = []
+      # keep track of whether the chart will be time dependant, or not
+      # Flag it as time dependant if the target is moving faster than 0.1 arcsec per year  
+      if np.sqrt(ob['target']['properMotionRa']**2 + ob['target']['properMotionDec']**2) > 1.0:
+         fc_params['time_dependant'] = True
+      else:
+         fc_params['time_dependant'] = False                             
       
    else:
    
-      #Ok, I get an ephemeris file, and thus need to deal with it
-     
-      # First, extract all the ephemeris points, store them in a list
-      # Time, Ra, Dec, pmra, pmdec
-      # This VERY MUCH ASSUMES a PAF file !!!
-      ephem = [list( line.split('"')[1].split(',')[i] for i in [0,2,3,4,5]) 
-               for line in ephemeris if line[:16]=='INS.EPHEM.RECORD'] 
-      
-      # Extract all the times, convert them to datetime values. UTC = PAF default!
-      times = [ dup.parse(point[0]+' UTC') for point in ephem]
-      
-      # Here, let's do some sanity check:
-      if (fcm_m.obsdate>times[-1]) or (fcm_m.obsdate<times[0]):
-         raise Exception('Ouch! Specified obstime outside of Ephemeris range: %s - %s' % (times[0].strftime('%Y-%m-%d %H:%M:%S %Z'),times[-1].strftime('%Y-%m-%d %H:%M:%S %Z'))) 
-      
-      # Find the index of the closest ephemeris point
-      closest = np.argmin(np.abs(np.array(times)-fcm_m.obsdate))
-      
-      # Check if I will be accurate (or not)
-      if np.abs(times[closest]-fcm_m.obsdate) > timedelta(minutes=30):
-         warnings.warn('Observing time %.1f away from closest ephemeris point' % 
-                        (np.abs(times[closest]-fcm_m.obsdate).total_seconds()/60. ))
-      
-      closest_target = SkyCoord(ra=ephem[closest][1], dec=ephem[closest][2], 
-                            unit=(u.hourangle, u.degree),
-                            pm_ra_cosdec = float(ephem[closest][3]) *u.arcsec/u.second,
-                            pm_dec = float(ephem[closest][3])*u.arcsec/u.second, 
-                            obstime= Time(times[closest]),
-                            distance=fcm_m.ephem_d,
-                            )
-      # Derive the target by propagating proper motions from 
-      fc_params['target'] = closest_target.apply_space_motion(new_obstime = Time(fcm_m.obsdate))
-      
-      # Now, I also ant to show all the points in the ephemeris file with a fcm_m.ephem_range time interval
-      # Find the index and associated times of all the near-by ephemeris entries
-      # The advantage, for these, is that I make now errors by assuming a distance
-      close = np.abs(np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value)
-      
-      close_past = (timedelta(seconds=0) <= -(np.array(times)-fcm_m.obsdate)) * (-(np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value))
-      
-      
-      close_future = (timedelta(seconds=0) <= (np.array(times)-fcm_m.obsdate)) * ((np.array(times)-fcm_m.obsdate) <= timedelta(seconds = fcm_m.ephem_range.to(u.second).value))
-      
-      fc_params['ephem_points_past'] = [SkyCoord(ra=item[1], dec=item[2], 
-                                        unit=(u.hourangle, u.degree),
-                                        pm_ra_cosdec = float(item[3]) *u.arcsec/u.second,
-                                        pm_dec = float(item[3])*u.arcsec/u.second, 
-                                        obstime= Time(dup.parse(item[0]+' UTC')),
-                                        distance=fcm_m.ephem_d,
-                                        )  for item in list(np.array(ephem)[close_past])]
-      past_times = np.array(times)[close_past]                                  
-      fc_params['ephem_past_delta'] = np.median(past_times[1:]-past_times[:-1]) 
-       
-                                       
-      fc_params['ephem_points_future'] = [SkyCoord(ra=item[1], dec=item[2], 
-                                        unit=(u.hourangle, u.degree),
-                                        pm_ra_cosdec = float(item[3]) *u.arcsec/u.second,
-                                        pm_dec = float(item[3])*u.arcsec/u.second, 
-                                        obstime= Time(dup.parse(item[0]+' UTC')),
-                                        distance=fcm_m.ephem_d,
-                                        )  for item in list(np.array(ephem)[close_future])]
-      
-      future_times = np.array(times)[close_future]                                  
-      fc_params['ephem_future_delta'] = np.median(future_times[1:]-future_times[:-1]) 
-      
-      # Also store the median time delta between points, for later use.
-      # Sort of assumes that it is a constant steps.                        
-      #close_times = np.array(times)[close]
-      #fc_params['ephem_delta_time'] = np.median(close_times[1:]-close_times[:-1])
-
-     
+      # Now deal with this ephemeris file
+      fc_params = get_target_from_ephem(fc_params, ephemeris)
+      fc_params['time_dependant'] = True
+   
      
    # Extract the acquisition and observations parameters for the support instruments
    if ob['instrument'] == 'MUSE':
@@ -409,6 +463,9 @@ def get_p2fcdata(obID, api):
       
    elif ob['instrument'] == 'HAWKI':
       return fcm_hawki.get_p2fcdata_hawki(fc_params, ob, api)
+   
+   elif ob['instrument'] == 'XSHOOTER':
+      return fcm_xshooter.get_p2fcdata_xshooter(fc_params, ob, api)
       
    else:
       raise Exception('%s finding charts not (yet?) supported.' % (inst))
@@ -429,18 +486,72 @@ def get_localfcdata(inpars):
    # Deal with the ephemeris ...
    fc_params = {}
 
+   #fc_params = {}
+   fc_params['ob_name'] = inpars['ob_name']
+   
+   if type(inpars['ob_id']) == int:
+      fc_params['ob_id'] = inpars['ob_id']
+   else:
+      fc_params['ob_id'] = -1
+      
+   fc_params['pi'] = inpars['pi']
+   fc_params['prog_id'] = inpars['prog_id']
+   fc_params['inst'] = inpars['inst']
+
    # Some other day ...
-   fc_params['ephem_points_past'] = []                               
-   fc_params['ephem_points_future'] = [] 
-
-
+   #fc_params['ephem_points_past'] = []                               
+   #fc_params['ephem_points_future'] = [] 
+   
+   if inpars['ephemeris'] is None:
+      # Ok, just a normal target ... extract the required info
+      tc = SkyCoord( ra = inpars['ra'],
+                     dec = inpars['dec'], 
+                     obstime = Time(inpars['epoch'],format='decimalyear'),
+                     equinox = inpars['equinox'], 
+                     frame = 'icrs',unit=(u.hourangle, u.deg), 
+                     pm_ra_cosdec = inpars['pmra']*u.arcsec/u.yr,
+                     pm_dec = inpars['pmdec']*u.arcsec/u.yr,
+                     # I must specify a generic distance to the target,
+                     # if I want to later on propagate the proper motions
+                     distance=fcm_m.default_pm_d,  
+                     )
+                                  
+      # Propagate the proper motion using astropy v3.0
+      fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate))  
+      # keep track of whether the chart will be time dependant, or not
+      # Flag it as time dependant if the target is moving faster than 0.1 arcsec per year  
+      if np.sqrt(inpars['pmra']**2 + inpars['pmdec']**2) > 1.0:
+         fc_params['time_dependant'] = True
+      else:
+         fc_params['time_dependant'] = False   
+                                   
+      fc_params['ephem_points_past'] = []                               
+      fc_params['ephem_points_future'] = []   
+      
+   else:
+      ephem_fn = os.path.join('.',inpars['ephemeris'])
+      
+      if not(os.path.isfile(ephem_fn)):
+         raise Exception('Ouch! No ephemeris file found at: %s'% (ephem_fn))
+      
+      # Ope the ephemeris file
+      f = open(ephem_fn)
+      ephemeris = f.readlines()
+      f.close()
+   
+      # Now deal with this ephemeris file
+      fc_params = get_target_from_ephem(fc_params, ephemeris)
+      fc_params['time_dependant'] = True
+      
    # Extract the acquisition and observations parameters for the support instruments
    if inpars['inst'] == 'MUSE':
       return fcm_muse.get_localfcdata_muse(fc_params, inpars)
    elif inpars['inst'] == 'HAWKI':
-      return fcm_hawki.get_localfcdata_hawki(fc_params, inpars)  
+      return fcm_hawki.get_localfcdata_hawki(fc_params, inpars) 
+   elif inpars['inst'] == 'XSHOOTER':
+      return fcm_xshooter.get_localfcdata_xshooter(fc_params, inpars)
    else:
-      raise Exception('%s finding charts not (yet?) supported.' % (inst))
+      raise Exception('%s finding charts not (yet?) supported.' % (inpars['inst']))
      
 # ------------------------------------------------------------------------------
       

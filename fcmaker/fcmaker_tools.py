@@ -6,6 +6,7 @@ import warnings
 
 from astropy.coordinates.sky_coordinate import SkyCoord
 from astropy import units as u
+from astropy.time import Time
 
 import matplotlib as mpl
 
@@ -177,5 +178,32 @@ def myrotmatrix(angle):
    rotmatrix[1,0] =  np.sin(np.radians(angle))
    rotmatrix[1,1] =  np.cos(np.radians(angle))
    return rotmatrix
+
+# ---------------------------------------------------------------------------------------- 
+
+def get_parallactic(target, obsdate,location):
+   '''
+   A function to compute the parallactic angle, given the observing time and telescope.
+   
+   Args:
+      obsdate: a dateime object
+      location: an EarthLocation object
+   Return:
+      The parallactic angle, in degrees
+      
+   Note:
+      Inspired by astroplan's parallactic_angle() function.
+       
+   '''
+
+   # Eqn (14.1) of Meeus' Astronomical Algorithms
+   LST = Time(obsdate).sidereal_time('mean', longitude=location.lon)
+   H = (LST - target.ra).radian
+   q = np.arctan(np.sin(H) / (np.tan(self.location.lat.radian) * 
+       np.cos(coordinate.dec.radian) - np.sin(coordinate.dec.radian)*np.cos(H)))*u.rad
+       
+   return Angle(q)
+
+
 
 # ----------------------------------------------------------------------------------------

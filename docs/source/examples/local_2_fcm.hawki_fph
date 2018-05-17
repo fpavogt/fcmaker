@@ -1,44 +1,48 @@
-# A list of basic OB parameters to generate a HAWKI finding chart from scratch, locally
-ob_name:   HAWKI_NOAO_starstuff
-ob_id:     12345678
-pi:       jdoe
-prog_id:   0100.Z-9999
-inst:     HAWKI
+#
+# A list of basic OB parameters to generate a HAWKI finding chart from scratch
+#
+##### OB Info #####
+ob_name:     HAWKI_NOAO_FPH # OB name, required to name the output files!
+ob_id:       123456789     # optional
+pi:          jdoe          # optional
+prog_id:     0100.Z-9999   # optional
+inst:        HAWKI         # Required !
 
-# Target
-equinox:  J2000
-epoch:    2000.0
-ra:       21h49m07.290s
-dec:      +00d26m55.000s
-pmra:     0.0000            # proper motion in arcsec/year
-pmdec:    0.0000            # proper motion in arcsec/year
+##### Target #####
+equinox:    J2000          #
+epoch:      2000.0         #
+ra:         21h49m07.290s  #
+dec:        +00d26m55.000s #
+pmra:       0.0000         # proper motion in arcsec/year
+pmdec:      0.0000         # proper motion in arcsec/year
+ephemeris:                 # relative path+filename of an ephemeris file, optional
 
-# Acquisition
-acq_filter:   Ks
-acq_pa:   30                # Acquisition Position Angle ?
-bos_ra:   34.6108           # Alpha offset to target
-bos_dec:  42.562            # Delta offset to target
-is_gs:    True              # User defined Guide Star ?
-gs_ra:    21h49m22.147s
-gs_dec:   +00d27m53.336s
-is_fph:   True              # Is this a Fast Phot OB ?
-nx:       128               # Window size (x)
-ny:       64                # Window size (y)
-startx:   1                 # First column
-starty:   1000              # First row
+##### Acquisition ##### 
+acq_filter: Ks             #
+acq_pa:     30             # Acquisition Position Angle ?
+bos_ra:     34.6108        # Alpha offset to target
+bos_dec:    42.562         # Delta offset to target
+is_gs:      True           # User defined Guide Star ?
+gs_ra:      21h49m22.147s  #
+gs_dec:     +00d27m53.336s #
+is_fph:     True           # Is this a Fast Phot OB ?
+nx:         128            # Window size (x)
+ny:         64             # Window size (y)
+startx:     1              # First column for fast phot window
+starty:     1000           # First row for fats phot window
+                            
+##### Observation #####    
+noff:       1              #
+filter:     J              #
+obstype:    [O]            #
+coordtype:  SKY            #
+off1:       [0]            #
+off2:       [0]            #
+return:     True           #
 
-# Observation
-noff:     5
-filter:   J
-obstype:  [O S O S O]
-coordtype:   SKY
-off1:     [0 480 -485 480 -475]
-off2:     [0 -200 205 -200 190]
-return:   True
-
-# Finding chart parameters
-bk_image: None     # Bk images to download from SkyView, or local fits files
-bk_lam:   None         # None, or else overrides SkyView default.
-data_loc: fcm_data      # Relative path to the bk images 
-plot_loc: fcm_plots     # Relative path to store the finding charts 
+##### Other params #####
+bk_image:   None           # Bk images to download from SkyView, or local fits files
+bk_lam:     None           # None, or else overrides SkyView default.
+data_loc:   fcm_data       # Relative path to the bk images (local FITS file or SkyView images)
+plot_loc:   fcm_plots      # Relative path to store the finding charts 
                     
