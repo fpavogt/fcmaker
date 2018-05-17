@@ -1,8 +1,8 @@
 # A list of basic OB parameters to generate a MUSE finding chart from scratch, locally
-obname:   WFM_NOAO_starstuff
-obId:     12345678
-pi:       jdoe
-progId:   0100.Z-9999
+ob_name:   MUSE_WFM_NOAO
+ob_id:     12345678
+pi:        jdoe
+prog_id:   0100.Z-9999
 inst:     MUSE
 ins_mode: WFM-NOAO-N
 
@@ -13,6 +13,7 @@ ra:       21h49m07.290s
 dec:      +00d26m55.000s
 pmra:     0.0000          # proper motion in arcsec/year
 pmdec:    0.0000          # proper motion in arcsec/year
+ephemeris:                # relative path+ filename of an ephemeris file
 
 # Acquisition
 bos_ra:   34.6108         # Blind-offset (RA)
@@ -26,19 +27,21 @@ tts1_ra:  21h49m04.085s
 tts1_dec: +00d27m44.457s
 tts2_ra:  21h49m14.054s
 tts2_dec: +00d28m48.509s
+oatt_ra:  None
+oatt_dec: None
 
 # Observation
 noff:     5
 obstype:  [O S O S O]
 coordtype:   SKY
 posang:   [0 0 90 0 90]
-off1:     [0 -75 +75.2 -75.4 +75]
-off2:     [0 -70 +70.2 -70.4 +70]
+off1:     [0 -75 +75.8 -75.8 +75]
+off2:     [0 -70 +70.8 -70.8 +70]
 return:   True
 
 # Finding chart parameters
-bk_images: DSS2 Red     # None, Bk images to download from SkyView, or local fits file
-bk_lams:   None         # None, or else overrides SkyView default.
+bk_image: DSS2 Red     # None, Bk images to download from SkyView, or local fits file
+bk_lam:   None         # None, or else overrides SkyView default.
 data_loc: fcm_data      # Relative path to the bk images 
 plot_loc: fcm_plots     # Relative path to store the finding charts 
                     

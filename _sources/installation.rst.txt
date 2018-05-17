@@ -2,7 +2,7 @@
 Installation
 ============
 
-fcmaker is available on testpypi, which makes its installation easier than ever. 
+fcmaker is available on pypi, which makes its installation easier than ever. 
 In a terminal, type:
 ::
 
@@ -23,19 +23,21 @@ properly:
 * numpy (1.13.1 or or above)
 * scipy (0.19.0 or above)
 * matplotlib (2.0.2 or above)
-* astropy (2.0.1 or above)
-* astroquery (0.3.4 or above)
+* astropy (3.0 or above)
 * aplpy (1.1.1 or above)
+* astroquery (0.3.4 or above)
+* astroplan
 * p2api (0.9 or above)
+* PyYAML (3.12 or above)
+* pytz (2018 or above)
 
-Optional (but strongly recommended): 
+Optional: 
 
-* Montage and montage-wrapper (0.9.9 or above)
-* Proper LateX installation
+* Montage and montage-wrapper (0.9.9 or above, only until the next release of aplpy)
+* Proper system-wide LateX installation  (allows for prettier plots)
 
 The Montage package is required to rotate the finding charts North, even if the underlying
-FITS file isn't. A system-wide LaTeX installation allows for a slick(-er) looking font for
-the various labels.
+FITS file isn't. It won't be required once aplpy gets upgraded.
 
 Testing the installation
 ------------------------
@@ -44,6 +46,7 @@ In a terminal shell, try to access the basic help of fcmaker::
  
    python -m fcmaker --help
  
-If that works, chances are, you will probably be fine.
+If that works, chances are, you will probably be fine. Note that fcmaker requires a 
+connection to the internet to work (even in local mode!).
 
  

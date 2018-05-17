@@ -1,0 +1,50 @@
+#
+# A list of basic OB parameters to generate a MUSE finding chart from scratch
+#
+##### OB Info #####
+ob_name:   MUSE_OB         # OB name, required to name the output files!
+ob_id:                     # optional
+pi:                        # optional
+prog_id:                   # optional
+inst:      MUSE            # optional
+ins_mode:  WFM-AO          # MUSE mode, i.e. WFM-AO-N, WFM-NOAO, NFM
+
+##### Target #####
+equinox:   J2000           #
+epoch:     2000.0          #
+ra:        21h49m07.290s   #
+dec:       +00d26m55.000s  #
+pmra:      0.0000          # proper motion in arcsec/year
+pmdec:     0.0000          # proper motion in arcsec/year
+ephemeris:                 # relative path+filename of an ephemeris file, optional
+
+###### Acquisition #####
+bos_ra:    34.6108         # Blind-offset (RA), MUSE convention!
+bos_dec:   42.562          # Blind offset (Dec), MUSE convention!
+acq_pa:    0               # Acquisition Position Angle (degrees), MUSE convention!
+is_gs:     True            # User-defined Guide Star ?
+gs_ra:     21h49m22.147s   #
+gs_dec:    +00d27m53.336s  #
+is_tts:    True            # User-defined tip-tilt stars ?
+tts1_ra:   21h49m04.085s   #
+tts1_dec:  +00d27m44.457s  #
+tts2_ra:   21h49m14.054s   #
+tts2_dec:  +00d28m48.509s  #
+oatt_ra:                   # On-axis TT star, for NFM.
+oatt_dec:                  #
+
+###### Observation #####
+noff:      3               #
+obstype:   [O S O]         #
+coordtype: SKY             # DETECTOR, or SKY
+posang:    [0 0 90]        #
+off1:      [0 -75 +75.2]   #
+off2:      [0 -70 +70.2]   #
+return:    True
+
+##### Other params #####
+bk_image:  DSS2 Red        # None, bk_images to download from SkyView, or local fits file
+bk_lam:    None            # None, or else overrides SkyView default.
+data_loc:  fcm_data        # Relative path to the background images (local FITS file or SkyView images)
+plot_loc:  fcm_plots       # Relative path to store the finding charts 
+                    

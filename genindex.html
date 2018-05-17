@@ -9,7 +9,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Index &mdash; fcmaker 0.2.1 documentation</title>
+  <title>Index &mdash; fcmaker 0.3.1 documentation</title>
   
 
   
@@ -36,7 +36,7 @@
         <link rel="index" title="Index"
               href="#"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.2.1 documentation" href="index.html"/> 
+    <link rel="top" title="fcmaker 0.3.1 documentation" href="index.html"/> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -65,7 +65,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.3.1
               </div>
             
           
@@ -95,7 +95,7 @@
 <li class="toctree-l1"><a class="reference internal" href="running.html">Usage instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/gallery.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">fcmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">The functions of fcmaker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog </a></li>
 <li class="toctree-l1"><a class="reference internal" href="acknowledge.html">Acknowledging fcmaker</a></li>
@@ -171,9 +171,11 @@
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
+ | <a href="#L"><strong>L</strong></a>
  | <a href="#M"><strong>M</strong></a>
  | <a href="#O"><strong>O</strong></a>
  | <a href="#P"><strong>P</strong></a>
+ | <a href="#S"><strong>S</strong></a>
  
 </div>
 <h2 id="A">A</h2>
@@ -208,7 +210,13 @@
       <ul>
         <li><a href="modules/fcmaker.html#fcmaker.fcmaker_muse.detector_to_sky">(in module fcmaker.fcmaker_muse)</a>
 </li>
+        <li><a href="modules/fcmaker.html#fcmaker.fcmaker_xshooter.detector_to_sky">(in module fcmaker.fcmaker_xshooter)</a>
+</li>
       </ul></li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_plots.draw_fc">draw_fc() (in module fcmaker.fcmaker_plots)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -232,6 +240,8 @@
       <li><a href="modules/fcmaker.html#module-fcmaker.fcmaker_plots">fcmaker.fcmaker_plots (module)</a>
 </li>
       <li><a href="modules/fcmaker.html#module-fcmaker.fcmaker_tools">fcmaker.fcmaker_tools (module)</a>
+</li>
+      <li><a href="modules/fcmaker.html#module-fcmaker.fcmaker_xshooter">fcmaker.fcmaker_xshooter (module)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -258,22 +268,30 @@
 </li>
         <li><a href="modules/fcmaker.html#fcmaker.fcmaker_muse.get_fields_dict">(in module fcmaker.fcmaker_muse)</a>
 </li>
+        <li><a href="modules/fcmaker.html#fcmaker.fcmaker_xshooter.get_fields_dict">(in module fcmaker.fcmaker_xshooter)</a>
+</li>
       </ul></li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_instrument_dispatch.get_inner_GS_search">get_inner_GS_search() (in module fcmaker.fcmaker_instrument_dispatch)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_instrument_dispatch.get_localfcdata">get_localfcdata() (in module fcmaker.fcmaker_instrument_dispatch)</a>
 </li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_hawki.get_localfcdata_hawki">get_localfcdata_hawki() (in module fcmaker.fcmaker_hawki)</a>
 </li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_muse.get_localfcdata_muse">get_localfcdata_muse() (in module fcmaker.fcmaker_muse)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_xshooter.get_localfcdata_xshooter">get_localfcdata_xshooter() (in module fcmaker.fcmaker_xshooter)</a>
+</li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_instrument_dispatch.get_p2fcdata">get_p2fcdata() (in module fcmaker.fcmaker_instrument_dispatch)</a>
 </li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_hawki.get_p2fcdata_hawki">get_p2fcdata_hawki() (in module fcmaker.fcmaker_hawki)</a>
 </li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_muse.get_p2fcdata_muse">get_p2fcdata_muse() (in module fcmaker.fcmaker_muse)</a>
+</li>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_xshooter.get_p2fcdata_xshooter">get_p2fcdata_xshooter() (in module fcmaker.fcmaker_xshooter)</a>
+</li>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_tools.get_parallactic">get_parallactic() (in module fcmaker.fcmaker_tools)</a>
 </li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_instrument_dispatch.get_pmin">get_pmin() (in module fcmaker.fcmaker_instrument_dispatch)</a>
 </li>
@@ -282,8 +300,14 @@
       <ul>
         <li><a href="modules/fcmaker.html#fcmaker.fcmaker_muse.get_polygon">(in module fcmaker.fcmaker_muse)</a>
 </li>
+        <li><a href="modules/fcmaker.html#fcmaker.fcmaker_xshooter.get_polygon">(in module fcmaker.fcmaker_xshooter)</a>
+</li>
       </ul></li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_instrument_dispatch.get_scalebar">get_scalebar() (in module fcmaker.fcmaker_instrument_dispatch)</a>
+</li>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_instrument_dispatch.get_target_from_ephem">get_target_from_ephem() (in module fcmaker.fcmaker_instrument_dispatch)</a>
+</li>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_instrument_dispatch.get_total_right_radius">get_total_right_radius() (in module fcmaker.fcmaker_instrument_dispatch)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -296,13 +320,23 @@
   </ul></td>
 </tr></table>
 
+<h2 id="L">L</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_muse.left_radius">left_radius() (in module fcmaker.fcmaker_muse)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="M">M</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_plots.make_fc">make_fc() (in module fcmaker.fcmaker_plots)</a>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker.make_fc">make_fc() (in module fcmaker.fcmaker)</a>
 </li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker.make_fc_local">make_fc_local() (in module fcmaker.fcmaker)</a>
+</li>
       <li><a href="modules/fcmaker.html#fcmaker.fcmaker_tools.myrotmatrix">myrotmatrix() (in module fcmaker.fcmaker_tools)</a>
 </li>
   </ul></td>
@@ -326,10 +360,22 @@
 </li>
         <li><a href="modules/fcmaker.html#fcmaker.fcmaker_muse.plot_field">(in module fcmaker.fcmaker_muse)</a>
 </li>
+        <li><a href="modules/fcmaker.html#fcmaker.fcmaker_xshooter.plot_field">(in module fcmaker.fcmaker_xshooter)</a>
+</li>
       </ul></li>
   </ul></td>
+</tr></table>
+
+<h2 id="S">S</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="modules/fcmaker.html#fcmaker.fcmaker_tools.propagate_pm">propagate_pm() (in module fcmaker.fcmaker_tools)</a>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker.set_fcmaker">set_fcmaker() (in module fcmaker.fcmaker)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker.set_obsdate">set_obsdate() (in module fcmaker.fcmaker)</a>
+</li>
+      <li><a href="modules/fcmaker.html#fcmaker.fcmaker.set_systemtex">set_systemtex() (in module fcmaker.fcmaker)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -370,7 +416,7 @@
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2.1',
+            VERSION:'0.3.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

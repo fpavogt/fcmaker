@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage instructions &mdash; fcmaker 0.2.1 documentation</title>
+  <title>Usage instructions &mdash; fcmaker 0.3.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.2.1 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 0.3.1 documentation" href="index.html"/>
         <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.3.1
               </div>
             
           
@@ -105,7 +105,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/gallery.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">fcmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">The functions of fcmaker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="changelog.html">Changelog </a></li>
 <li class="toctree-l1"><a class="reference internal" href="acknowledge.html">Acknowledging fcmaker</a></li>
@@ -174,6 +174,25 @@
             
   <div class="section" id="usage-instructions">
 <h1>Usage instructions<a class="headerlink" href="#usage-instructions" title="Permalink to this headline">¶</a></h1>
+<p>There are two main ways to use fcmaker. You can either execute the module as a script, i.e.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span>
+</pre></div>
+</div>
+<p>or you can import the module and execute it within a script, i.e.:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fcmaker</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">fcmaker</span><span class="o">.</span><span class="n">make_fc</span><span class="p">(</span> <span class="o">...</span> <span class="p">)</span> <span class="c1"># or fcmaker.make_fc_local ( ... )</span>
+</pre></div>
+</div>
+<p>When running fcmaker as a script, any arguments you feed it is pretty much sent to the
+underlying functions <code class="docutils literal"><span class="pre">make_fc()</span></code> and <code class="docutils literal"><span class="pre">make_fc_local()</span></code>. For simplicity, this page
+only discusses how to run the entire module as a script, which ought to be slightly more
+friendly to users not (yet!) familiar with Python. Still, the hope is that after reading
+this page, the use of the functions <code class="docutils literal"><span class="pre">make_fc()</span></code> and <code class="docutils literal"><span class="pre">make_fc_local()</span></code> shouldn’t be
+too mysterious. Also, don’t forget the built-in help:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">fcmaker</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">fcmaker</span><span class="o">.</span><span class="n">make_fc</span><span class="p">)</span>
+</pre></div>
+</div>
 <div class="section" id="case-1-manual-creation-of-a-finding-chart-via-p2">
 <h2>Case 1: manual creation of a finding chart via p2<a class="headerlink" href="#case-1-manual-creation-of-a-finding-chart-via-p2" title="Permalink to this headline">¶</a></h2>
 <p>In its most basic mode, fcmaker connects to <a class="reference external" href="http://www.eso.org/p2">p2</a> and creates the finding chart for a given
@@ -186,7 +205,7 @@ OB Id. To do so, simply type in a  terminal:</p>
 </pre></div>
 </div>
 <p>You will be prompted for your <a class="reference external" href="http://www.eso.org/p2">p2</a> username, password, and the
-Id of the observing block to process. fcmaker will create two folders <code class="docutils literal"><span class="pre">fcm_data</span></code> and
+ID of the observing block to process. fcmaker will create two folders <code class="docutils literal"><span class="pre">fcm_data</span></code> and
 <code class="docutils literal"><span class="pre">fcm_plots</span></code> at your current location, where it will store the background image and the
 finding charts. Once the finding charts have been generated, you can choose to attach the
 newly created finding chart to the OB on <a class="reference external" href="http://www.eso.org/p2">p2</a>, or not.</p>
@@ -195,24 +214,19 @@ newly created finding chart to the OB on <a class="reference external" href="htt
 <h2>Case 2a: semi-automatic creation of finding charts via p2 (incl. upload)<a class="headerlink" href="#case-2a-semi-automatic-creation-of-finding-charts-via-p2-incl-upload" title="Permalink to this headline">¶</a></h2>
 <p>If you have a lot of finding charts to create, fcmaker allows for a semi-batch processing.
 First, create a text file <a class="reference download internal" href="_downloads/p2_2_fcm.params" download=""><code class="xref download docutils literal"><span class="pre">p2_2_fcm.params</span></code></a> (the actual filename is flexible) with the following structure:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">userId</span><span class="p">:</span>                  <span class="c1"># p2 username (will ask at prompt if left blank)</span>
-<span class="n">pswd</span><span class="p">:</span>                    <span class="c1"># p2 password (will ask at prompt if left blank)</span>
-<span class="n">obIds</span><span class="p">:</span> <span class="p">[</span><span class="mi">1848649</span><span class="p">,</span><span class="mi">1848655</span><span class="p">]</span> <span class="c1"># List of Ob IDs to chart</span>
-<span class="n">bk_images</span><span class="p">:</span> <span class="p">[</span><span class="n">SDSSr</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span> <span class="c1"># SkyView survey, None for default, or local FITS filename</span>
-<span class="n">bk_lams</span><span class="p">:</span> <span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>     <span class="c1"># Lambda of the chart (SkyView will override), None for default</span>
-<span class="n">data_loc</span><span class="p">:</span> <span class="n">fcm_data</span>       <span class="c1"># Rel. path to the bk images (local FITS file or SkyView images) </span>
-<span class="n">plot_loc</span><span class="p">:</span> <span class="n">fcm_plots</span>      <span class="c1"># Rel. path to store the finding charts </span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">p2uid</span><span class="p">:</span>                       <span class="c1"># p2 username (will ask at prompt if left blank)</span>
+<span class="n">pswd</span><span class="p">:</span>                        <span class="c1"># p2 password (will ask at prompt if left blank)</span>
+<span class="n">obids</span><span class="p">:</span>     <span class="p">[</span><span class="mi">1848649</span><span class="p">,</span><span class="mi">1848655</span><span class="p">]</span> <span class="c1"># List of Ob IDs to chart</span>
+<span class="n">bk_images</span><span class="p">:</span> <span class="p">[</span><span class="n">SDSSr</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>     <span class="c1"># SkyView survey, None for default, or local FITS filename</span>
+<span class="n">bk_lams</span><span class="p">:</span>   <span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>       <span class="c1"># Lambda of the chart (SkyView will override), None for default</span>
+<span class="n">data_loc</span><span class="p">:</span>  <span class="n">fcm_data</span>          <span class="c1"># Relative path to the background images (local FITS file or SkyView images) </span>
+<span class="n">plot_loc</span><span class="p">:</span>  <span class="n">fcm_plots</span>         <span class="c1"># Relative path to store the finding charts </span>
 </pre></div>
 </div>
 <p>Then, feed it to fcmaker with the <code class="docutils literal"><span class="pre">-f</span></code> flag:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">f</span> <span class="n">p2_2_fcm</span><span class="o">.</span><span class="n">params</span>
 </pre></div>
 </div>
-<p>or from within a Python shell:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">run</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span> <span class="o">-</span><span class="n">f</span> <span class="n">p2_2_fcm</span><span class="o">.</span><span class="n">params</span>
-</pre></div>
-</div>
-<p><strong>Note the extra</strong> <code class="docutils literal"><span class="pre">--</span></code> <strong>before listing any of the</strong> <a class="reference internal" href="#flags">flags</a> <strong>with the</strong> <code class="docutils literal"><span class="pre">run</span></code> <strong>command!</strong></p>
 <p>In doing so, fcmaker will connect to <a class="reference external" href="http://www.eso.org/p2">p2</a> and process all the
 OBs listed. Note that for each finding chart, you will still need to manually specify
 whether you want to upload it to <a class="reference external" href="http://www.eso.org/p2">p2</a> (or not).</p>
@@ -229,30 +243,33 @@ whether you want to upload it to <a class="reference external" href="http://www.
 <div class="section" id="case-3-targets-with-proper-motions">
 <h2>Case 3: targets with proper motions<a class="headerlink" href="#case-3-targets-with-proper-motions" title="Permalink to this headline">¶</a></h2>
 <p>In case of large proper motions of the target, one can provide the expected year, (month,
-day …!) of the observation to create an accurate finding chart, using the <code class="docutils literal"><span class="pre">--obsdate</span></code>
-flag. For example:</p>
+day, …!) of the observation to create an accurate finding chart, using the <code class="docutils literal"><span class="pre">--obsdate</span></code>
+flag. This also works for OBs that have Ephemeris files. For example:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">f</span> <span class="n">randomfilename</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span>
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">f</span> <span class="n">randomfilename</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span><span class="o">-</span><span class="mo">05</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">f</span> <span class="n">randomfilename</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">17</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">f</span> <span class="n">randomfilename</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span><span class="o">-</span><span class="mo">05</span><span class="o">-</span><span class="mi">17</span> <span class="mi">14</span><span class="p">:</span><span class="mi">34</span><span class="p">:</span><span class="mi">57</span> <span class="n">UTC</span>
 </pre></div>
 </div>
 </div>
 <div class="section" id="case-4-creation-of-finding-charts-locally-without-p2">
 <h2>Case 4: creation of finding charts locally (without p2)<a class="headerlink" href="#case-4-creation-of-finding-charts-locally-without-p2" title="Permalink to this headline">¶</a></h2>
 <p>fcmaker can also create finding charts <em>locally</em>, without the need to have an OB present
-on <a class="reference external" href="http://www.eso.org/p2">p2</a> first. To do so, one first needs to specify the basic OB
-parameters in a text file <code class="docutils literal"><span class="pre">whichevername</span></code> (in essence, a stripped-down version of a
-full OBX file):</p>
+on <a class="reference external" href="http://www.eso.org/p2">p2</a> first (fcmaker will still require an internet connection,
+though!). To do so, one first needs to specify the basic OB parameters in a text file
+(in essence, a stripped-down version of a full OBX file). Here are
+templates for all supported instruments:</p>
 <blockquote>
 <div><ul class="simple">
-<li><a class="reference download internal" href="_downloads/local_2_fcm.muse_wfm-ao" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.params.muse</span></code></a></li>
-<li><a class="reference download internal" href="_downloads/local_2_fcm.hawki_noao" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.params.hawki</span></code></a></li>
+<li><a class="reference download internal" href="_downloads/local_2_fcm.muse" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.params.muse</span></code></a></li>
+<li><a class="reference download internal" href="_downloads/local_2_fcm.hawki" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.params.hawki</span></code></a></li>
+<li><a class="reference download internal" href="_downloads/local_2_fcm.xshooter" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.params.xshooter</span></code></a></li>
 </ul>
 </div></blockquote>
 <p>The file is then fed to fcmaker with the <code class="docutils literal"><span class="pre">-f</span></code> flag, together with the <code class="docutils literal"><span class="pre">--local</span></code> flag to
 indicate that it is a <em>local run</em>:</p>
-<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span><span class="n">local</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">ao</span>
-<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span><span class="n">local</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_noao</span>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span><span class="n">local</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span><span class="n">local</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span><span class="n">local</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter</span>
 </pre></div>
 </div>
 <p>fcmaker will create the associated finding chart, store it where specified, and exit.</p>
@@ -264,15 +281,20 @@ indicate that it is a <em>local run</em>:</p>
 <div><ul class="simple">
 <li><code class="docutils literal"><span class="pre">--help,-h</span></code> : prints the basic help</li>
 <li><code class="docutils literal"><span class="pre">--version</span></code> : prints the fcmaker version</li>
-<li><code class="docutils literal"><span class="pre">--no-montage</span></code> : will by-pass the use of Montage. Finding charts will rotated according to the input FITS file. [no encouraged]</li>
-<li><code class="docutils literal"><span class="pre">--no-systemtex</span></code> : will use the matplotib LaTeX, rather than the system-wide LaTeX installation. Finding charts will be less pretty.</li>
+<li><code class="docutils literal"><span class="pre">--montage</span></code> : will use Montage, to force the finding charts to be rotated North (soon to be retired).</li>
+<li><code class="docutils literal"><span class="pre">--systemtex</span></code> : will use the system-wide LaTeX, rather than the matplotlib one. Finding charts will be prettier. [encouraged!]</li>
 <li><code class="docutils literal"><span class="pre">--no-upload</span></code> : tell fcmaker never to try to upload the finding chart(s) to p2.</li>
 <li><code class="docutils literal"><span class="pre">--do-pdf</span></code> : tell fcmaker to save a .pdf version of the finding chart (in addition to the jpg one).</li>
 <li><code class="docutils literal"><span class="pre">--do-png</span></code> : tell fcmaker to save a .png version of the finding chart (in addition to the jpg one).</li>
-<li><code class="docutils literal"><span class="pre">--obsdate</span></code> : allow to specify the observing date (and time), in case of large proper motions.</li>
+<li><code class="docutils literal"><span class="pre">--obsdate</span></code> : allows to specify the observing date (and time), in case of large proper motions or moving target.</li>
 <li><code class="docutils literal"><span class="pre">--clear-SkyView-cache</span></code> : does as it says. Note that the SkyView cache is <em>not</em> the same as the <code class="docutils literal"><span class="pre">fcm_data</span></code> folder in which fcmaker stores the downloaded FITS files.</li>
 </ul>
 </div></blockquote>
+<p>For example, if you want to boost the aesthetic appeal of your finding charts with the
+exquisite Computer Modern Bright sans-serif font (why wouldn’t you?), try:</p>
+<div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">--</span><span class="n">systemtex</span>
+</pre></div>
+</div>
 </div>
 <div class="section" id="the-background-images">
 <h2>The background images<a class="headerlink" href="#the-background-images" title="Permalink to this headline">¶</a></h2>
@@ -288,6 +310,7 @@ surveys available, type in a Python shell:</p>
 <div><ul class="simple">
 <li><strong>MUSE</strong>: <code class="docutils literal"><span class="pre">DSS2</span> <span class="pre">Red</span></code></li>
 <li><strong>HAWKI</strong>: <code class="docutils literal"><span class="pre">2MASS-J</span></code>, <code class="docutils literal"><span class="pre">2MASS-H</span></code> and <code class="docutils literal"><span class="pre">2MASS-K</span></code> for filters <code class="docutils literal"><span class="pre">J</span></code>, <code class="docutils literal"><span class="pre">H</span></code>, <code class="docutils literal"><span class="pre">K</span></code>, and <code class="docutils literal"><span class="pre">2MASS-H</span></code> for all other filters</li>
+<li><strong>XSHOOTER</strong>: <code class="docutils literal"><span class="pre">DSS2</span> <span class="pre">Red</span></code></li>
 </ul>
 </div></blockquote>
 <div class="admonition note">
@@ -343,7 +366,7 @@ to only use <code class="docutils literal"><span class="pre">DSS2</span> <span c
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.2.1',
+            VERSION:'0.3.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

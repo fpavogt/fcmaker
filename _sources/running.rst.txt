@@ -4,6 +4,26 @@
 Usage instructions
 ==================
 
+There are two main ways to use fcmaker. You can either execute the module as a script, i.e.::
+
+   python -m fcmaker
+   
+or you can import the module and execute it within a script, i.e.::
+
+   >>> import fcmaker
+   >>> fcmaker.make_fc( ... ) # or fcmaker.make_fc_local ( ... )
+   
+When running fcmaker as a script, any arguments you feed it is pretty much sent to the 
+underlying functions ``make_fc()`` and ``make_fc_local()``. For simplicity, this page
+only discusses how to run the entire module as a script, which ought to be slightly more 
+friendly to users not (yet!) familiar with Python. Still, the hope is that after reading 
+this page, the use of the functions ``make_fc()`` and ``make_fc_local()`` shouldn't be
+too mysterious. Also, don't forget the built-in help::
+
+   >>> import fcmaker
+   >>> help(fcmaker.make_fc)
+   
+
 Case 1: manual creation of a finding chart via p2
 -----------------------------------------------------
 
@@ -13,12 +33,11 @@ OB Id. To do so, simply type in a  terminal::
    python -m fcmaker
 
 or from within a Python shell::
-
-   
+ 
    >>> run -m fcmaker
    
 You will be prompted for your `p2 <http://www.eso.org/p2>`_ username, password, and the 
-Id of the observing block to process. fcmaker will create two folders ``fcm_data`` and 
+ID of the observing block to process. fcmaker will create two folders ``fcm_data`` and 
 ``fcm_plots`` at your current location, where it will store the background image and the 
 finding charts. Once the finding charts have been generated, you can choose to attach the 
 newly created finding chart to the OB on `p2 <http://www.eso.org/p2>`_, or not.
@@ -34,13 +53,6 @@ First, create a text file :download:`p2_2_fcm.params <./examples/p2_2_fcm.params
 Then, feed it to fcmaker with the ``-f`` flag::
 
    python -m fcmaker -f p2_2_fcm.params
-
-or from within a Python shell::
-   
-   >>> run -m fcmaker -- -f p2_2_fcm.params
-   
-
-**Note the extra** ``--`` **before listing any of the** `flags`_ **with the** ``run`` **command!**
 
 In doing so, fcmaker will connect to `p2 <http://www.eso.org/p2>`_ and process all the 
 OBs listed. Note that for each finding chart, you will still need to manually specify 
@@ -59,31 +71,34 @@ Case 3: targets with proper motions
 -----------------------------------
 
 In case of large proper motions of the target, one can provide the expected year, (month, 
-day ...!) of the observation to create an accurate finding chart, using the ``--obsdate`` 
-flag. For example::
+day, ...!) of the observation to create an accurate finding chart, using the ``--obsdate`` 
+flag. This also works for OBs that have Ephemeris files. For example::
 
    python -m fcmaker -f randomfilename --obsdate 2018
    python -m fcmaker -f randomfilename --obsdate 2018-05
-   python -m fcmaker -f randomfilename --obsdate 2018-05-17
+   python -m fcmaker -f randomfilename --obsdate 2018-05-17 14:34:57 UTC
    
    
 Case 4: creation of finding charts locally (without p2)
 -------------------------------------------------------
 
 fcmaker can also create finding charts *locally*, without the need to have an OB present 
-on `p2 <http://www.eso.org/p2>`_ first. To do so, one first needs to specify the basic OB 
-parameters in a text file ``whichevername`` (in essence, a stripped-down version of a 
-full OBX file):
+on `p2 <http://www.eso.org/p2>`_ first (fcmaker will still require an internet connection, 
+though!). To do so, one first needs to specify the basic OB parameters in a text file  
+(in essence, a stripped-down version of a full OBX file). Here are
+templates for all supported instruments:
    
-   - :download:`local_2_fcm.params.muse  <./examples/local_2_fcm.muse_wfm-ao>`
-   - :download:`local_2_fcm.params.hawki <./examples/local_2_fcm.hawki_noao>`
-
+   - :download:`local_2_fcm.params.muse  <./examples/local_2_fcm.muse>`
+   - :download:`local_2_fcm.params.hawki <./examples/local_2_fcm.hawki>`
+   - :download:`local_2_fcm.params.xshooter <./examples/local_2_fcm.xshooter>`
+   
 The file is then fed to fcmaker with the ``-f`` flag, together with the ``--local`` flag to 
 indicate that it is a *local run*::
 
-   python -m fcmaker --local -f local_2_fcm.muse_wfm-ao
-   python -m fcmaker --local -f local_2_fcm.hawki_noao
-      
+   python -m fcmaker --local -f local_2_fcm.muse
+   python -m fcmaker --local -f local_2_fcm.hawki
+   python -m fcmaker --local -f local_2_fcm.xshooter
+   
 fcmaker will create the associated finding chart, store it where specified, and exit.
 
 .. _flags:
@@ -95,14 +110,18 @@ A series of flags allow to fine-tune the way fcmaker works. They are:
  
  * ``--help,-h`` : prints the basic help
  * ``--version`` : prints the fcmaker version
- * ``--no-montage`` : will by-pass the use of Montage. Finding charts will rotated according to the input FITS file. [no encouraged]
- * ``--no-systemtex`` : will use the matplotib LaTeX, rather than the system-wide LaTeX installation. Finding charts will be less pretty.
+ * ``--montage`` : will use Montage, to force the finding charts to be rotated North (soon to be retired).
+ * ``--systemtex`` : will use the system-wide LaTeX, rather than the matplotlib one. Finding charts will be prettier. [encouraged!]
  * ``--no-upload`` : tell fcmaker never to try to upload the finding chart(s) to p2.
  * ``--do-pdf`` : tell fcmaker to save a .pdf version of the finding chart (in addition to the jpg one).
  * ``--do-png`` : tell fcmaker to save a .png version of the finding chart (in addition to the jpg one).
- * ``--obsdate`` : allow to specify the observing date (and time), in case of large proper motions.
+ * ``--obsdate`` : allows to specify the observing date (and time), in case of large proper motions or moving target.
  * ``--clear-SkyView-cache`` : does as it says. Note that the SkyView cache is *not* the same as the ``fcm_data`` folder in which fcmaker stores the downloaded FITS files.
 
+For example, if you want to boost the aesthetic appeal of your finding charts with the 
+exquisite Computer Modern Bright sans-serif font (why wouldn't you?), try::
+
+   python -m fcmaker --systemtex
 
 The background images
 ----------------------
@@ -118,7 +137,8 @@ The default background survey images for the instruments supported by fcmaker ar
    
    * **MUSE**: ``DSS2 Red``
    * **HAWKI**: ``2MASS-J``, ``2MASS-H`` and ``2MASS-K`` for filters ``J``, ``H``, ``K``, and ``2MASS-H`` for all other filters
-
+   * **XSHOOTER**: ``DSS2 Red``
+   
 .. note::
    
    From an operational perspective, when using Skyview images, I would strongly recommend 

@@ -2,7 +2,7 @@
 # A list of basic OB parameters to generate a HAWKI finding chart from scratch
 #
 ##### OB Info #####
-ob_name:     HAWKI_NOAO    # OB name, required to name the output files!
+ob_name:     HAWKI_OB      # OB name, required to name the output files!
 ob_id:       123456789     # optional
 pi:          jdoe          # optional
 prog_id:     0100.Z-9999   # optional
@@ -25,11 +25,11 @@ bos_dec:    42.562         # Delta offset to target
 is_gs:      True           # User defined Guide Star ?
 gs_ra:      21h49m22.147s  #
 gs_dec:     +00d27m53.336s #
-is_fph:     False          # Is this a Fast Phot OB ?
+is_fph:     True           # Is this a Fast Phot OB ?
 nx:         128            # Window size (x)
-ny:         0              # Window size (y)
+ny:         64             # Window size (y)
 startx:     1              # First column for fast phot window
-starty:     1              # First row for fats phot window
+starty:     1000           # First row for fats phot window
                             
 ##### Observation #####    
 noff:       3              #

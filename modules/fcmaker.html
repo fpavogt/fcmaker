@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>fcmaker package &mdash; fcmaker 0.2.1 documentation</title>
+  <title>fcmaker package &mdash; fcmaker 0.3.1 documentation</title>
   
 
   
@@ -35,10 +35,10 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="fcmaker 0.2.1 documentation" href="../index.html"/>
-        <link rel="up" title="fcmaker" href="modules.html"/>
+    <link rel="top" title="fcmaker 0.3.1 documentation" href="../index.html"/>
+        <link rel="up" title="The functions of fcmaker" href="modules.html"/>
         <link rel="next" title="FAQ" href="../faq.html"/>
-        <link rel="prev" title="fcmaker" href="modules.html"/> 
+        <link rel="prev" title="The functions of fcmaker" href="modules.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.3.1
               </div>
             
           
@@ -97,7 +97,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../running.html">Usage instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/gallery.html">Gallery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">fcmaker</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">The functions of fcmaker</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">fcmaker package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker">fcmaker.fcmaker module</a></li>
@@ -107,6 +107,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_muse">fcmaker.fcmaker_muse module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_plots">fcmaker.fcmaker_plots module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_tools">fcmaker.fcmaker_tools module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_xshooter">fcmaker.fcmaker_xshooter module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker">Module contents</a></li>
 </ul>
 </li>
@@ -159,7 +160,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">fcmaker</a> &raquo;</li>
+          <li><a href="modules.html">The functions of fcmaker</a> &raquo;</li>
         
       <li>fcmaker package</li>
     
@@ -187,6 +188,106 @@
 </div>
 <div class="section" id="module-fcmaker.fcmaker">
 <span id="fcmaker-fcmaker-module"></span><h2>fcmaker.fcmaker module<a class="headerlink" href="#module-fcmaker.fcmaker" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fcmaker.fcmaker.make_fc">
+<code class="descclassname">fcmaker.fcmaker.</code><code class="descname">make_fc</code><span class="sig-paren">(</span><em>p2uid=None</em>, <em>pswd=None</em>, <em>obids=[]</em>, <em>bk_images=[]</em>, <em>bk_lams=[]</em>, <em>data_loc='./fcm_data'</em>, <em>plot_loc='./fcm_plots'</em>, <em>do_pdf=True</em>, <em>do_png=False</em>, <em>no_upload=False</em>, <em>systemtex=False</em>, <em>montage=False</em>, <em>clear_SkyView_cache=False</em>, <em>obsdate=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker.make_fc" title="Permalink to this definition">¶</a></dt>
+<dd><p>The main fcmaker function, to create finding charts from p2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>p2uid</strong> – string. P2 user ID (will prompt if is None)</li>
+<li><strong>pswd</strong> – string. P2 user password (will prompt if is None)</li>
+<li><strong>obids</strong> – list of int. List of the P2 OB ID for which to generate finding charts</li>
+<li><strong>bk_images</strong> – list of string. Specify the FC background: SkyView survey name, None for default, or local FITS filename</li>
+<li><strong>bk_lams</strong> – list of string. Specify the wavelength of the background charts. None to read from FITS header.</li>
+<li><strong>data_loc</strong> – string. Relative path to the background images (local FITS files or SkyView images).</li>
+<li><strong>plot_loc</strong> – string. Relative path to the background images (local FITS files or SkyView images).</li>
+<li><strong>do_pdf</strong> – bool. Save a local PDF file ?</li>
+<li><strong>do_png</strong> – bool. Save a local png file ?</li>
+<li><strong>no_upload</strong> – bool. Skip the upload of finding charts to p2 ?</li>
+<li><strong>systemtex</strong> – bool. Use the system Latex instead of the Python latex ?</li>
+<li><strong>montage</strong> – bool. Use of Montage to rotate the fields with North up ?</li>
+<li><strong>clear_SkyView_cache</strong> – bool. Clear the SkyView cache ?</li>
+<li><strong>obsdate</strong> – string. Year (Month, Day, Hour, Minute, …) of the observation</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker.make_fc_local">
+<code class="descclassname">fcmaker.fcmaker.</code><code class="descname">make_fc_local</code><span class="sig-paren">(</span><em>f</em>, <em>do_pdf=True</em>, <em>do_png=False</em>, <em>systemtex=False</em>, <em>montage=True</em>, <em>clear_SkyView_cache=False</em>, <em>obsdate=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker.make_fc_local" title="Permalink to this definition">¶</a></dt>
+<dd><p>The other fcmaker function, to create finding charts from a local file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>f</strong> – an open file, e.g. _io.TextIOWrapper from open(filename)</li>
+<li><strong>do_pdf</strong> – bool. Save a local PDF file ?</li>
+<li><strong>do_png</strong> – bool. Save a local png file ?</li>
+<li><strong>systemtex</strong> – bool. Use the system Latex instead of the Python latex ?</li>
+<li><strong>montage</strong> – bool. Use of Montage to rotate the fields with North up ?</li>
+<li><strong>clear_SkyView_cache</strong> – bool. Clear the SkyView cache ?</li>
+<li><strong>obsdate</strong> – string. Year (Month, Day, Hour, Minute, …) of the observation</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker.set_fcmaker">
+<code class="descclassname">fcmaker.fcmaker.</code><code class="descname">set_fcmaker</code><span class="sig-paren">(</span><em>systemtex</em>, <em>montage</em>, <em>clear_SkyView_cache</em>, <em>data_loc</em>, <em>plot_loc</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker.set_fcmaker" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that sets the generic options of fcmaker.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>no_systemtex</strong> – bool. True = use Python LaTex. False = System LaTeX.</li>
+<li><strong>no_montage</strong> – bool. True = do NOT use Montage.</li>
+<li><strong>clear_SkyView_cache</strong> – bool. True = clear the cache.</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker.set_obsdate">
+<code class="descclassname">fcmaker.fcmaker.</code><code class="descname">set_obsdate</code><span class="sig-paren">(</span><em>obsdate</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker.set_obsdate" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that sets the obsdate parameter inside fcmaker.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>obsdate</strong> – string. The observing time (and date) for the OB. Should be parsable by dateutils.parser.parse(). None = now.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker.set_systemtex">
+<code class="descclassname">fcmaker.fcmaker.</code><code class="descname">set_systemtex</code><span class="sig-paren">(</span><em>systemtex</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker.set_systemtex" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that sets whether fcmaker uses the default system LateX, or not.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>no_systemtex</strong> – bool. True = use Python LaTex. False = System LaTeX.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
 </div>
 <div class="section" id="module-fcmaker.fcmaker_hawki">
 <span id="fcmaker-fcmaker-hawki-module"></span><h2>fcmaker.fcmaker_hawki module<a class="headerlink" href="#module-fcmaker.fcmaker_hawki" title="Permalink to this headline">¶</a></h2>
@@ -240,7 +341,7 @@ certain OB parameters.</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_hawki.get_localfcdata_hawki">
-<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_localfcdata_hawki</code><span class="sig-paren">(</span><em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_localfcdata_hawki" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_localfcdata_hawki</code><span class="sig-paren">(</span><em>fc_params</em>, <em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_localfcdata_hawki" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts all the important info to build a finding chart from a given MUSE OB defined
 locally.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -373,7 +474,7 @@ matplotlib down the line.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a tuple with the chart radius in arcsec.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(left_radius, right_radius)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference internal" href="#fcmaker.fcmaker_muse.left_radius" title="fcmaker.fcmaker_muse.left_radius">left_radius</a>, right_radius)</td>
 </tr>
 </tbody>
 </table>
@@ -489,6 +590,55 @@ obtained via p2api.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_target_from_ephem">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_target_from_ephem</code><span class="sig-paren">(</span><em>fc_params</em>, <em>ephemeris</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_target_from_ephem" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to extract the target coordinates and other useful stuff from a PAF
+ephemeris file.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fc_params</strong> – the parameters of the finding charts (a dictionary)</li>
+<li><strong>ephemeris</strong> – the content of a PAF files as a list of strings from readlines()</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the updated parameters of the finding charts (a dictionary)</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">fc_params</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_total_right_radius">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_total_right_radius</code><span class="sig-paren">(</span><em>fc_params</em>, <em>right_radius</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_total_right_radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to compute the total right radius given the offsets within the OB.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fc_params</strong> – dictionnary of OB parameters</li>
+<li><strong>right_radius</strong> – default right radius</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">updated right_radius</p>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">right_radius</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="fcmaker.fcmaker_instrument_dispatch.plot_field">
 <code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">plot_field</code><span class="sig-paren">(</span><em>ax1</em>, <em>ax2</em>, <em>fc_params</em>, <em>field</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.plot_field" title="Permalink to this definition">¶</a></dt>
 <dd><p>Triggers the plotting of a specific field.</p>
@@ -563,7 +713,7 @@ certain OB parameters.</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_muse.get_localfcdata_muse">
-<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_localfcdata_muse</code><span class="sig-paren">(</span><em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_localfcdata_muse" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_localfcdata_muse</code><span class="sig-paren">(</span><em>fc_params</em>, <em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_localfcdata_muse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts all the important info to build a finding chart from a given MUSE OB defined
 locally.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -580,7 +730,7 @@ locally.</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_muse.get_p2fcdata_muse">
-<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_p2fcdata_muse</code><span class="sig-paren">(</span><em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_p2fcdata_muse" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_p2fcdata_muse</code><span class="sig-paren">(</span><em>fc_params</em>, <em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_p2fcdata_muse" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts all the important info to build a finding chart from a given MUSE OB from p2.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -601,7 +751,7 @@ locally.</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_muse.get_polygon">
-<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_polygon</code><span class="sig-paren">(</span><em>central_coord</em>, <em>pa</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_polygon" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">get_polygon</code><span class="sig-paren">(</span><em>central_coord</em>, <em>pa</em>, <em>mode</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.get_polygon" title="Permalink to this definition">¶</a></dt>
 <dd><p>Given the central location and position of a field, build a polygon to feed to
 matplotlib down the line.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -611,6 +761,7 @@ matplotlib down the line.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>central_coord</strong> – an astropy.SkyCoord entry with the center of the MUSE field</li>
 <li><strong>pa</strong> – the position angle of the field (p2 convention)</li>
+<li><strong>mode</strong> – the instrument mode, either ‘WFM’ or ‘NFM’</li>
 </ul>
 </td>
 </tr>
@@ -619,6 +770,12 @@ matplotlib down the line.</p>
 </tr>
 </tbody>
 </table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_muse.left_radius">
+<code class="descclassname">fcmaker.fcmaker_muse.</code><code class="descname">left_radius</code><span class="sig-paren">(</span><em>ins_mode</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_muse.left_radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that sets the defaut size of the left window depending on the mode.</p>
 </dd></dl>
 
 <dl class="function">
@@ -667,52 +824,8 @@ any image orientation, even is North /= up.</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="fcmaker.fcmaker_plots.get_bk_image">
-<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image</code><span class="sig-paren">(</span><em>bk_image</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image" title="Permalink to this definition">¶</a></dt>
-<dd><p>A function that fetches the background image from the web, or locally if specified
-by the user.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>bk_image</strong> – (string) defines whethe to use a local image (FITS filename) or a SkyView
-image (survey name).</li>
-<li><strong>fc_params</strong> – the parameters of the finding chart (a dictionnary)</li>
-</ul>
-</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The absolute path of the background image (possibly after download), and the survey name.</p>
-</td>
-</tr>
-</tbody>
-</table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">For local images, the code excpet them to be stored in <cite>fcm_m.data_loc</cite> folger.</p>
-</div>
-</dd></dl>
-
-<dl class="function">
-<dt id="fcmaker.fcmaker_plots.get_bk_image_lam">
-<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image_lam</code><span class="sig-paren">(</span><em>fn_bk_image</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image_lam" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads the wavelength of the background image from the header. Assumes SkyView image.</p>
-<table class="docutils field-list" frame="void" rules="none">
-<col class="field-name" />
-<col class="field-body" />
-<tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fn_bk_image</strong> – path to background image FITS file.
-fc_params: the parameters of the finding chart (a dictionnary)</td>
-</tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The image wavelength range as a string.</td>
-</tr>
-</tbody>
-</table>
-</dd></dl>
-
-<dl class="function">
-<dt id="fcmaker.fcmaker_plots.make_fc">
-<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">make_fc</code><span class="sig-paren">(</span><em>fc_params</em>, <em>bk_image=None</em>, <em>bk_lam=None</em>, <em>do_pdf=False</em>, <em>do_png=False</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.make_fc" title="Permalink to this definition">¶</a></dt>
+<dt id="fcmaker.fcmaker_plots.draw_fc">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">draw_fc</code><span class="sig-paren">(</span><em>fc_params</em>, <em>bk_image=None</em>, <em>bk_lam=None</em>, <em>do_pdf=False</em>, <em>do_png=False</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.draw_fc" title="Permalink to this definition">¶</a></dt>
 <dd><p>The finding chart master plotting function.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -729,6 +842,51 @@ fc_params: the parameters of the finding chart (a dictionnary)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The finding chart filename as a string</p>
 </td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_plots.get_bk_image">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image</code><span class="sig-paren">(</span><em>bk_image</em>, <em>bk_lam</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that fetches the background image from the web, or locally if specified
+by the user.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>bk_image</strong> – (string) defines whether to use a local image (FITS filename) or a SkyView
+image (survey name).</li>
+<li><strong>bk_lam</strong> – (string)</li>
+<li><strong>fc_params</strong> – the parameters of the finding chart (a dictionnary)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The absolute path of the background image (possibly after download), and the survey name.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">For local images, the code expect them to be stored in <cite>fcm_m.data_loc</cite> folder.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_plots.get_bk_image_lam">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image_lam</code><span class="sig-paren">(</span><em>fn_bk_image</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image_lam" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads the wavelength of the background image from the header. Assumes SkyView image.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fn_bk_image</strong> – path to background image FITS file.
+fc_params: the parameters of the finding chart (a dictionnary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The image wavelength range as a string.</td>
 </tr>
 </tbody>
 </table>
@@ -782,6 +940,31 @@ within 15 arcmin.</p>
 </dd></dl>
 
 <dl class="function">
+<dt id="fcmaker.fcmaker_tools.get_parallactic">
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">get_parallactic</code><span class="sig-paren">(</span><em>target</em>, <em>obsdate</em>, <em>location</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.get_parallactic" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function to compute the parallactic angle, given the observing time and telescope.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>obsdate</strong> – a dateime object</li>
+<li><strong>location</strong> – an EarthLocation object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The parallactic angle, in degrees</p>
+</td>
+</tr>
+</tbody>
+</table>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Inspired by astroplan’s parallactic_angle() function.</p>
+</div>
+</dd></dl>
+
+<dl class="function">
 <dt id="fcmaker.fcmaker_tools.myrotmatrix">
 <code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">myrotmatrix</code><span class="sig-paren">(</span><em>angle</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.myrotmatrix" title="Permalink to this definition">¶</a></dt>
 <dd><p>Defines a clockwise rotation matrix given a certain rotation angle. There is probably
@@ -801,7 +984,7 @@ a smarter way to do this …</p>
 <dl class="function">
 <dt id="fcmaker.fcmaker_tools.offset_coord">
 <code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">offset_coord</code><span class="sig-paren">(</span><em>coord_start</em>, <em>delta_ra=&lt;Quantity 0. arcsec&gt;</em>, <em>delta_dec=&lt;Quantity 0. arcsec&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.offset_coord" title="Permalink to this definition">¶</a></dt>
-<dd><p>Compute a new SkyCoord entity given a starting location and offset. THis function
+<dd><p>Compute a new SkyCoord entity given a starting location and offset. This function
 assumes that the sky is flat!</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -821,34 +1004,129 @@ assumes that the sky is flat!</p>
 </table>
 </dd></dl>
 
+</div>
+<div class="section" id="module-fcmaker.fcmaker_xshooter">
+<span id="fcmaker-fcmaker-xshooter-module"></span><h2>fcmaker.fcmaker_xshooter module<a class="headerlink" href="#module-fcmaker.fcmaker_xshooter" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
-<dt id="fcmaker.fcmaker_tools.propagate_pm">
-<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">propagate_pm</code><span class="sig-paren">(</span><em>skycoord</em>, <em>epoch</em>, <em>pmRA</em>, <em>pmDec</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.propagate_pm" title="Permalink to this definition">¶</a></dt>
-<dd><p>Propagate the proper motion of a target given its epoch and obstime.</p>
+<dt id="fcmaker.fcmaker_xshooter.detector_to_sky">
+<code class="descclassname">fcmaker.fcmaker_xshooter.</code><code class="descname">detector_to_sky</code><span class="sig-paren">(</span><em>dx</em>, <em>dy</em>, <em>pa</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_xshooter.detector_to_sky" title="Permalink to this definition">¶</a></dt>
+<dd><p>Converts XSHOOTER offsets from the DETECTOR reference frame to the SKY reference frame.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>skycoord</strong> (<em>SkyCoord</em>) – a SkyCoord item, that must include “obstime”</li>
-<li><strong>epoch</strong> (<em>float</em>) – the epoch of the SkyCoord coordinate</li>
-<li><strong>pmDec</strong> (<em>pmRa</em><em>,</em>) – the proper motions in arcsec/year</li>
+<li><strong>dx</strong> (<em>float</em>) – offset in arcsec</li>
+<li><strong>dy</strong> (<em>float</em>) – offset in arcsec</li>
+<li><strong>pa</strong> (<em>float</em>) – current position angle in degrees measured East-of-North (XSHOOTER convention)</li>
 </ul>
 </td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the updated skycoord entry</p>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">the (dra,ddec) offsets in SKY convention.</p>
 </td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">skycoord</p>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><p class="first last">tuple of floats</p>
 </td>
 </tr>
 </tbody>
 </table>
-<div class="admonition-todo admonition" id="index-0">
-<p class="first admonition-title">Todo</p>
-<p class="last">Implement a proper way of dealing with proper motion, when “velocites” are compatible
-with SkyCoord in astropy v3.0</p>
-</div>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_xshooter.get_fields_dict">
+<code class="descclassname">fcmaker.fcmaker_xshooter.</code><code class="descname">get_fields_dict</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_xshooter.get_fields_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionnary with the basic info required to draw the fields, given
+certain OB parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the MUSE OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the plotting parameters for each field.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_xshooter.get_localfcdata_xshooter">
+<code class="descclassname">fcmaker.fcmaker_xshooter.</code><code class="descname">get_localfcdata_xshooter</code><span class="sig-paren">(</span><em>fc_params</em>, <em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_xshooter.get_localfcdata_xshooter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given XSHOOTER OB defined
+locally.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inpars</strong> – A dictionnary containing the OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the MUSE OB parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_xshooter.get_p2fcdata_xshooter">
+<code class="descclassname">fcmaker.fcmaker_xshooter.</code><code class="descname">get_p2fcdata_xshooter</code><span class="sig-paren">(</span><em>fc_params</em>, <em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_xshooter.get_p2fcdata_xshooter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given XSHOOTER OB from p2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>ob</strong> – an api.getOB() object</li>
+<li><strong>api</strong> – a p2api.ApiConnection() object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionnary containing the OB parameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_xshooter.get_polygon">
+<code class="descclassname">fcmaker.fcmaker_xshooter.</code><code class="descname">get_polygon</code><span class="sig-paren">(</span><em>central_coord</em>, <em>pa</em>, <em>fov</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_xshooter.get_polygon" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given the central location and position of a field, build a polygon to feed to
+matplotlib down the line.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>central_coord</strong> – an astropy.SkyCoord entry with the center of the XSHOOTER field</li>
+<li><strong>pa</strong> – the position angle of the field (p2 convention)</li>
+<li><strong>fov</strong> – length 2 list, with the size of the Field-of-View (in angular astropy.units)</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A list of 2-D coordinates for each corner of the field-of-view.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_xshooter.plot_field">
+<code class="descclassname">fcmaker.fcmaker_xshooter.</code><code class="descname">plot_field</code><span class="sig-paren">(</span><em>ax1</em>, <em>ax2</em>, <em>fc_params</em>, <em>field</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_xshooter.plot_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>The specific XSHOOTER function that draws a specific observation field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ax1</strong><strong>,</strong><strong>ax2</strong> – the left and right plots ‘axis’</li>
+<li><strong>fc_params</strong> – the dictionnary of parameters for the OB</li>
+<li><strong>field</strong> – the specific field list of parameters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
 </dd></dl>
 
 </div>
@@ -870,7 +1148,7 @@ with SkyCoord in astropy v3.0</p>
         <a href="../faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="modules.html" class="btn btn-neutral" title="fcmaker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral" title="The functions of fcmaker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -901,7 +1179,7 @@ with SkyCoord in astropy v3.0</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.2.1',
+            VERSION:'0.3.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
