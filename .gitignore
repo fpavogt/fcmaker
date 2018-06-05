@@ -3,6 +3,8 @@
 *.fits
 *.pdf
 *.jpg
+docs/source/examples/fcm_data
+docs/source/examples/fcm_plots
 _pycache_/
 .DS_Store
 build/
