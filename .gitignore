@@ -1,6 +1,6 @@
 *.pyc
 *.ipynb_checkpoints
-*.fits
+docs/source/examples/fcm_data/*.fits
 *.pdf
 *.jpg
 _pycache_/
