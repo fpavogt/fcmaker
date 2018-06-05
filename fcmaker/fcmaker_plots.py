@@ -150,6 +150,11 @@ def get_bk_image(bk_image, bk_lam, fc_params):
                                 radius=fcm_m.bk_radius,
                                 pixels='%i' %((fcm_m.bk_radius/fcm_m.bk_pix).to(u.arcsec/u.arcsec).value),
                                 )
+      # Use a direct download link for DSS2
+      # use urllib and urlretrieve
+      # https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_ir&r=0+0+0+&d=-0+0+1&e=J2000&h=15.0&w=15.0&f=gif&c=none&fov=NONE&v3=
+      # https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_ir&r=0+0+0+&d=0+0+0&e=J2000&h=15.0&w=15.0&f=fits&c=none&fov=NONE&v3=                          
+                              
       if len(path)==0:
          raise Exception('No image downloaded via SkyView.get_images!')
       
@@ -417,8 +422,8 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
 
    # Add the required OB information to comply with ESO requirements ...
    # ... and make the life of the night astronomer a lot easier !
-   ax1.add_label(0.0,1.12, 'Run ID: '+fc_params['prog_id']+' | '+fc_params['pi'], 
-                 relative=True, horizontalalignment='left', size=16)
+   ax1.add_label(0.0,1.13, 'Run ID: '+fc_params['prog_id']+' | '+fc_params['pi'], 
+                 relative=True, horizontalalignment='left', size=14)
    
    # Fix some bugs for anyone not using LaTeX ... sigh ...
    if fcm_m.fcm_usetex:
@@ -427,8 +432,8 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       lab = fc_params['ob_name']             
     
           
-   ax1.add_label(0.0,1.07, 'OB: %i | %s' % (fc_params['ob_id'],lab), relative=True, 
-                 horizontalalignment='left')
+   ax1.add_label(0.0,1.08, 'OB: %i | %s' % (fc_params['ob_id'],lab), relative=True, 
+                 horizontalalignment='left', size=14)
    #ax1.add_label(0.0,1.08, r'$\lambda_{fc}$: %s (%s)' % (bk_lam_L, survey_L), relative=True, 
    #              horizontalalignment='left')
    
@@ -447,19 +452,29 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
                      borderaxespad=0., fontsize=10, borderpad=0.3, 
                      handletextpad=0., handlelength=2.0)
    
-   # Display the observing date  
-   if fc_params['time_dependant']:
-      date_color = 'crimson'
-      date_size = 12
-   else:
-      date_color = 'k'  
-      date_size = 8 
+   # Start keeping track of any tags I need to show
+   tag_string = r' '
    
+   # Show the obsdate
    ax1.add_label(1.0,1.02, r'Obs. date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d %H:%M %Z'), 
-                 relative=True, color=date_color,
-                 horizontalalignment='right', fontsize=date_size) 
+                 relative=True, color='k',
+                 horizontalalignment='right', fontsize=12) 
 
-   #Finally include the version of fcmaker in there
+   # Show the OB tags
+   if 'moving_target' in fc_params['tags']:
+      tag_string += '$\leadsto$ '
+      
+   if 'parallactic_angle' in fc_params['tags']:
+      tag_string += '$\measuredangle$ '
+   
+   ax1.add_label(-0.18,1.08, tag_string, 
+                 relative=True, color='k',
+                 horizontalalignment='center', verticalalignment='center', fontsize=30, 
+                 bbox=dict(edgecolor='k', facecolor='lightsalmon', alpha=1, linewidth=1, 
+                           boxstyle="sawtooth,pad=0.2,tooth_size=0.075"),
+                 ) 
+
+   # Finally include the version of fcmaker in there
    ax1.add_label(1.01,0.00, r'Created with fcmaker v%s'%(fcm_m.__version__), 
                  relative=True, 
                  horizontalalignment='left',verticalalignment='bottom',

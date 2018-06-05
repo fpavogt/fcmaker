@@ -49,15 +49,24 @@ inner_GS_search = 4. * 60. # inner limit to find Guide Stars
 #: List all the supported HAWKI observing templates (incl. Fast Phot)
 hawki_templates = [# NOAO
                   'HAWKI_img_acq_Preset',
+                  'HAWKI_img_acq_PresetRRM',
                   'HAWKI_img_acq_MoveToPixel',
                   'HAWKI_img_acq_FastPhot',
+                  'HAWKI_img_acq_FastPhotRRM',
                   'HAWKI_img_obs_GenericOffset',
                   'HAWKI_img_obs_AutoJitter',
+                  # AO
+                  'HAWKI_img_acq_LGS_Preset',
+                  'HAWKI_img_acq_LGS_PresetRRM',
+                  'HAWKI_img_acq_LGS_MoveToPixel',
+                  'HAWKI_img_acq_LGS_FastPhot',
                   # cal
                   ]
                   
 # List of FastPhot templates only                   
-hawki_fph_templates = ['HAWKI_img_acq_FastPhot',]
+# Not needed as long as the string 'FastPhot' is common to all these.
+#hawki_fph_templates = ['HAWKI_img_acq_FastPhot',
+#                       'HAWKI_img_acq_FastPhotRRM',]
 
 # The acquisition parameters that matter for the finding charts. Only one dictionary for
 # AO and NOAO - we then update only the parameters that matter.
@@ -178,7 +187,8 @@ def get_p2fcdata_hawki(ob, api):
          fc_params['acq'] = copy.deepcopy(hawki_acq_params)
          
          # If this is a FastPhot OB, take note of it.
-         if t['templateName'] in hawki_fph_templates:
+         #if t['templateName'] in hawki_fph_templates:
+         if 'FastPhot' in t['templateName']:
             fc_params['acq']['is_fph'] = True
          
          tpl,tplVersion = api.getTemplate(obId, t['templateId'])
@@ -421,6 +431,9 @@ def get_fields_dict(fc_params):
             delta_dec += this_ddec
             # Sum the PA offsets
             #delta_pa += posang[o]
+         
+         else:
+            raise Exception('Ouch! coordtype unknwown: %s' % (coordtype))
             
          # Create the field entry - am I getting the sign of the offsets right ?
          fields[counter] = [fc_params['inst'],

@@ -91,7 +91,10 @@ parser.add_argument('--do-png', action='store_true',
 parser.add_argument('--obsdate', action='store', metavar='obsdate', nargs='+', 
                     default=[datetime.strftime(datetime.utcnow(), '%Y-%m-%d %H:%M:%S') + ' UTC'],
                     help='Date of the observations (for targets with proper motions)')                       
-                                                             
+
+parser.add_argument('--do-parang', action='store_true',
+                    help='If a parallactic angle is requested, print the instrument field-of-view') 
+                                                        
 # An input parameter file - force to use only 1 file at a time                                      
 parser.add_argument('-f', action='store', metavar='filename', nargs=1, 
                     type=open, help='parameter filename')
@@ -102,7 +105,7 @@ if __name__ == "__main__":
 
    # What did the user type in ?
    args = parser.parse_args()
-   
+
    # Ok, do I need to deal with a local OB file ?
    if args.local:
    # Yes! 
@@ -119,6 +122,7 @@ if __name__ == "__main__":
                         montage = args.montage,
                         clear_SkyView_cache = args.clear_SkyView_cache,  
                         obsdate = ' '.join(args.obsdate),
+                        do_parang = args.do_parang,
                         )
    
    else:
@@ -169,6 +173,7 @@ if __name__ == "__main__":
                   montage = args.montage,
                   clear_SkyView_cache = args.clear_SkyView_cache,  
                   obsdate = ' '.join(args.obsdate),
+                  do_parang = args.do_parang,
                   )
             
    

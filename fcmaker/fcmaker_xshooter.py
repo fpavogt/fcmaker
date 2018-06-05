@@ -219,11 +219,13 @@ def get_p2fcdata_xshooter(fc_params, ob, api):
                                                   delta_dec=fc_params['acq']['bos_dec']*u.arcsec)
       
          if fc_params['acq']['acq_pa'] == 9999:
-         # Ok, I need to compute the parallactic angle !
-            # Use astroplan to do that
-            UT2 = Observer(location=fcm_m.UT2_loc)
-            fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
-            fc_params['time_dependant'] = True
+            fc_params['tags'] += ['parallactic_angle']
+      
+            if fcm_m.do_parang:
+               # Ok, I need to compute the parallactic angle !
+               # Use astroplan to do that
+               UT2 = Observer(location=fcm_m.UT2_loc)
+               fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
       
       elif t['type'] in ['science','calib']:
          
@@ -334,14 +336,17 @@ def get_localfcdata_xshooter(fc_params,inpars):
                                              delta_ra=fc_params['acq']['bos_ra']*u.arcsec, 
                                              delta_dec=fc_params['acq']['bos_dec']*u.arcsec)
    
-   
    if fc_params['acq']['acq_pa'] == 9999:
-      # Ok, I need to compute the parallactic angle !
-      # Use astroplan to do that
-      UT2 = Observer(location=fcm_m.UT2_loc)
-      fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
-      fc_params['time_dependant'] = True
+      fc_params['tags'] += ['parallactic_angle']
       
+      if fcm_m.do_parang:
+         # Ok, I need to compute the parallactic angle !
+         # Use astroplan to do that
+         UT2 = Observer(location=fcm_m.UT2_loc)
+         fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
+      
+         # Note: if I don't want to show the FoV when parang = 9999, I leave it as is, and 
+         # deal with it get_polygon().
 
    # Observation
    fc_params['n_sci'] = 1
@@ -446,6 +451,8 @@ def get_fields_dict(fc_params):
                         fc_params[temp_name]['vis_slt'].to(u.deg).value,
                         fc_params[temp_name]['nir_slt'].to(u.deg).value])*u.deg,
                 xshooter_slt_length]
+      else:
+         raise Exception('Ouch! ins_mode unknown: %s' % (ins_mode))
       
       # If any sequence is too short, loop it as required
       all_offs = [off1, off2, obstype]
@@ -477,6 +484,10 @@ def get_fields_dict(fc_params):
             # Then sum these and apply any PA shift
             delta_ra += this_dra
             delta_dec += this_ddec
+         
+         else:
+            raise Exception('Ouch! coordtype unknwown: %s' % (coordtype))
+           
             
          # Create the field entry
          fields[counter] = [fc_params['inst'],
@@ -514,6 +525,10 @@ def get_polygon(central_coord, pa, fov):
    # Very well, having done this, I will also build a list of polygons for each field, 
    # that I can feed directly to matplotlib
    polygon = [] #it's a list
+   
+   # If I got a parallactic angle, then don't show it.
+   if pa == 9999:
+      return []
    
    xw = fov[0].to(u.deg).value
    yw = fov[1].to(u.deg).value

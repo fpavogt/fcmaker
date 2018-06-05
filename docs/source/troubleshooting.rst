@@ -14,7 +14,7 @@ matplotlib, aplpy, and astropy packages are up-to-date, then try again.
 If you still encounter errors after doing that, check the :ref:`faq`.
   
 3. 
-Check if this is one of the known |issues|
+Check if this is one of the known |issues|.
   
 4. 
 If you still can't figure out what's wrong, please `submit a new issue on the Github 

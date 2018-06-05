@@ -20,7 +20,7 @@ ephemeris: ./ephem.txt    # relative path+filename of an ephemeris file, optiona
 ##### Acquisition #####   
 bos_ra:    0              # Blind-offset (RA), XSHOOTER convention!
 bos_dec:   0              # Blind offset (Dec), XSHOOTER convention!
-acq_pa:    0              # Acquisiton Position Angle (degrees), XSHOOTER convention!
+acq_pa:    -25            # Acquisiton Position Angle (degrees), XSHOOTER convention!
 is_gs:     False          # User-defined Guide Star ?
 gs_ra:     21h49m22.147s  #
 gs_dec:    +00d27m53.336s #

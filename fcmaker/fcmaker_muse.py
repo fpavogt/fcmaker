@@ -81,6 +81,7 @@ outer_TTS_search = 3.590/2.*60 # in arcsec
 # List the supported MUSE observing templates
 muse_templates = [# WFM-NOAO
                   'MUSE_wfm-noao_acq_preset',
+                  'MUSE_wfm-noao_acq_presetRRM',
                   'MUSE_wfm-noao_acq_movetopixel',
                   'MUSE_wfm-noao_obs_genericoffset',
                   # WFM-AO
@@ -466,7 +467,10 @@ def get_fields_dict(fc_params):
             delta_dec += this_ddec
             # Sum the PA offsets
             delta_pa += posang[o]
-            
+         
+         else:
+            raise Exception('Ouch! coordtype unknwown: %s' % (coordtype))
+           
          # Create the field entry
          fields[counter] = [fc_params['inst'],
                             fc_params['ins_mode'],

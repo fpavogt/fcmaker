@@ -95,7 +95,7 @@ def set_systemtex(systemtex):
       #fcm_p.reload() # I don't like this reload too much either ...
 
 # Function to setup fcmaker parameters ---------------------------------------------------   
-def set_fcmaker(systemtex,montage,clear_SkyView_cache, data_loc, plot_loc):
+def set_fcmaker(systemtex,montage,clear_SkyView_cache, data_loc, plot_loc, do_parang):
    '''
    A function that sets the generic options of fcmaker. 
    
@@ -130,7 +130,8 @@ def set_fcmaker(systemtex,montage,clear_SkyView_cache, data_loc, plot_loc):
          else:
             raise Exception('Ouch! I really wanted to create that folder!')
 
-
+   # Set whether I want to deal with parallactic angles (or not)
+   fcm_m.do_parang = do_parang
 
 # Function to create FC from p2 ----------------------------------------------------------
 def make_fc( p2uid = None, pswd = None,  
@@ -145,6 +146,7 @@ def make_fc( p2uid = None, pswd = None,
              montage = False,
              clear_SkyView_cache = False,  
              obsdate = None,
+             do_parang = False,
              ):
    '''
    The main fcmaker function, to create finding charts from p2.
@@ -164,6 +166,7 @@ def make_fc( p2uid = None, pswd = None,
       montage: bool. Use of Montage to rotate the fields with North up ?
       clear_SkyView_cache: bool. Clear the SkyView cache ?
       obsdate: string. Year (Month, Day, Hour, Minute, ...) of the observation
+      do_parang: bool. Show the instrument field-of-view when a parallactic angle is required ?
    '''
  
    starttime = datetime.now()
@@ -184,7 +187,7 @@ def make_fc( p2uid = None, pswd = None,
    set_obsdate(obsdate) 
    
    # Set the generic parameters for fcmaker
-   set_fcmaker(systemtex,montage,clear_SkyView_cache, data_loc, plot_loc) 
+   set_fcmaker(systemtex,montage,clear_SkyView_cache, data_loc, plot_loc, do_parang) 
   
    # If I need to connect to p2, extract the user ID and obIDs. 
    # If no password or user ID in file, ask for it now.
@@ -291,6 +294,7 @@ def make_fc_local(f,
                   montage = True,
                   clear_SkyView_cache = False,  
                   obsdate = None,
+                  do_parang = False,
                   ):
    '''
    The other fcmaker function, to create finding charts from a local file.
@@ -303,6 +307,7 @@ def make_fc_local(f,
       montage: bool. Use of Montage to rotate the fields with North up ?
       clear_SkyView_cache: bool. Clear the SkyView cache ?
       obsdate: string. Year (Month, Day, Hour, Minute, ...) of the observation
+      do_parang: bool. Show the instrument field-of-view when a parallactic angle is required ?
    '''
    
    starttime = datetime.now()
@@ -310,11 +315,17 @@ def make_fc_local(f,
    if not(os.path.isfile(f.name)):
       raise Exception('Ouch! unknown file: %s' % (fn))
    
+   # Load the parameter file
+   inpars = yaml.load(f)
+   
    # Set the observing date (and time)
    set_obsdate(obsdate)
    
-   # Load the parameter file
-   inpars = yaml.load(f)
+   # Set the generic parameters for fcmaker 
+   set_fcmaker(systemtex, montage, clear_SkyView_cache, 
+               inpars['data_loc'], inpars['plot_loc'], do_parang)
+   
+   # Build the fidning chart dictionnary
    fc_params = fcm_id.get_localfcdata(inpars) 
    
    if fc_params['ob_name'] is None:
@@ -328,10 +339,6 @@ def make_fc_local(f,
    
    if fc_params['ob_id'] is None:
       fc_params['ob_id'] = -2
-   
-   # Set the generic parameters for fcmaker 
-   set_fcmaker(systemtex, montage, clear_SkyView_cache, 
-               inpars['data_loc'], inpars['plot_loc'])
    
  
    # Step 2: create the finding chart

@@ -20,21 +20,22 @@ Requirements
 fcmaker is written in Python 3.6. The following packages are required for it to work 
 properly:
 
-* numpy (1.13.1 or or above)
-* scipy (0.19.0 or above)
-* matplotlib (2.0.2 or above)
-* astropy (3.0 or above)
 * aplpy (1.1.1 or above)
-* astroquery (0.3.4 or above)
 * astroplan
-* p2api (0.9 or above)
-* PyYAML (3.12 or above)
+* astropy (3.0 or above)
+* astroquery (0.3.4 or above)
+* matplotlib (2.0.2 or above)
+* numpy (1.13.1 or or above)
+* p2api (0.92 or above)
+* pillow (4.2.1 or above)
 * pytz (2018 or above)
+* PyYAML (3.12 or above)
+* scipy (0.19.0 or above)
 
 Optional: 
 
 * Montage and montage-wrapper (0.9.9 or above, only until the next release of aplpy)
-* Proper system-wide LateX installation  (allows for prettier plots)
+* Proper system-wide LateX installation (allows for prettier plots)
 
 The Montage package is required to rotate the finding charts North, even if the underlying
 FITS file isn't. It won't be required once aplpy gets upgraded.

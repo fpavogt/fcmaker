@@ -1,8 +1,5 @@
 *.pyc
 *.ipynb_checkpoints
-*.fits
-*.pdf
-*.jpg
 _pycache_/
 .DS_Store
 build/

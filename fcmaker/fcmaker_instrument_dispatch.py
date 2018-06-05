@@ -421,6 +421,9 @@ def get_p2fcdata(obID, api):
    fc_params['pi'] = run['pi']['lastName']
    fc_params['prog_id'] = run['progId']
    
+   # Also create a list where I keep track of anything special about the OB
+   # possible flag include 'moving_target', 'parallactic_angle'
+   fc_params['tags'] = []
    
    # Need to deal with the target coordinates. Ephemeris file, or not ?
    if ephem_fn is None:
@@ -443,18 +446,15 @@ def get_p2fcdata(obID, api):
       
       fc_params['ephem_points_past'] = []                               
       fc_params['ephem_points_future'] = []
-      # keep track of whether the chart will be time dependant, or not
-      # Flag it as time dependant if the target is moving faster than 0.1 arcsec per year  
-      if np.sqrt(ob['target']['properMotionRa']**2 + ob['target']['properMotionDec']**2) > 1.0:
-         fc_params['time_dependant'] = True
-      else:
-         fc_params['time_dependant'] = False                             
-      
+      # Flag it if this is a moving target 
+      if np.sqrt(ob['target']['properMotionRa']**2 + ob['target']['properMotionDec']**2) > 0.0:
+         fc_params['tags'] += ['moving_target']
+
    else:
    
       # Now deal with this ephemeris file
       fc_params = get_target_from_ephem(fc_params, ephemeris)
-      fc_params['time_dependant'] = True
+      fc_params['tags'] += ['moving_target']
    
      
    # Extract the acquisition and observations parameters for the support instruments
@@ -497,6 +497,10 @@ def get_localfcdata(inpars):
    fc_params['pi'] = inpars['pi']
    fc_params['prog_id'] = inpars['prog_id']
    fc_params['inst'] = inpars['inst']
+   
+   # Also create a list where I keep track of anything special about the OB
+   # possible flag include 'moving_target', 'parallactic_angle'
+   fc_params['tags'] = []
 
    # Some other day ...
    #fc_params['ephem_points_past'] = []                               
@@ -518,12 +522,9 @@ def get_localfcdata(inpars):
                                   
       # Propagate the proper motion using astropy v3.0
       fc_params['target'] = tc.apply_space_motion(new_obstime = Time(fcm_m.obsdate))  
-      # keep track of whether the chart will be time dependant, or not
-      # Flag it as time dependant if the target is moving faster than 0.1 arcsec per year  
-      if np.sqrt(inpars['pmra']**2 + inpars['pmdec']**2) > 1.0:
-         fc_params['time_dependant'] = True
-      else:
-         fc_params['time_dependant'] = False   
+      # Flag it as a moving target if needed 
+      if np.sqrt(inpars['pmra']**2 + inpars['pmdec']**2) > 0.0:
+         fc_params['tags'] += ['moving_target'] 
                                    
       fc_params['ephem_points_past'] = []                               
       fc_params['ephem_points_future'] = []   
@@ -541,7 +542,7 @@ def get_localfcdata(inpars):
    
       # Now deal with this ephemeris file
       fc_params = get_target_from_ephem(fc_params, ephemeris)
-      fc_params['time_dependant'] = True
+      fc_params['tags'] += ['moving_target']
       
    # Extract the acquisition and observations parameters for the support instruments
    if inpars['inst'] == 'MUSE':

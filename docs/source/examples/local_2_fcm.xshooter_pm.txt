@@ -2,25 +2,25 @@
 # A list of basic OB parameters to generate an XSHOOTER finding chart from scratch
 #
 ##### OB Info #####
-ob_name:   XSHOOTER_OB    # OB name, required to name the output files!
-ob_id:                    # optional
-pi:                       # optional
-prog_id:                  # optional
+ob_name:   XSHOOTER_OB_pm # OB name, required to name the output files!
+ob_id:     123456789      # optional
+pi:        jdoe           # optional
+prog_id:   0100.Z-9999    # optional
 inst:      XSHOOTER       # Required!
                           
 ##### Target #####        
 equinox:   J2000          #
 epoch:     2000.0         #
-ra:        15h21m00.750s  # E.g.: 21h49m07.290s
-dec:       -00:56:37.400  # E.g.: +00d26m55.000s
-pmra:      0.0            # proper motion in arcsec/year
-pmdec:     0.0            # proper motion in arcsec/year
+ra:        21h17m15.260s   # E.g.: 21h49m07.290s
+dec:       -38d52m02.400s  # E.g.: +00d26m55.000s
+pmra:      -3.26          # proper motion in arcsec/year
+pmdec:     -1.15          # proper motion in arcsec/year
 ephemeris:                # relative path+filename of an ephemeris file, optional
                           
 ##### Acquisition #####   
 bos_ra:    0              # Blind-offset (RA), XSHOOTER convention!
 bos_dec:   0              # Blind offset (Dec), XSHOOTER convention!
-acq_pa:    0              # Acquisiton Position Angle (degrees), XSHOOTER convention!
+acq_pa:    9999           # Acquisiton Position Angle (degrees), XSHOOTER convention!
 is_gs:     False          # User-defined Guide Star ?
 gs_ra:     21h49m22.147s  #
 gs_dec:    +00d27m53.336s #

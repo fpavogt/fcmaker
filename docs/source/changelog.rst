@@ -7,14 +7,29 @@ Changelog |last-commit|
 =======================
 
 .. todo:: 
-   - implement support for HAWKI GRAAL
-   - formalize support for MUSE NFM
-   - add support for jitter in HAWKI (showing the max jitter area with a circle?) 
-   - find a better way to display the allowed TT area for MUSE ? e.g. shaded area with shapley ?
-   - update Gaia DR2 article link in doc
-   - make the obsdate a fc_params rather than a global variable ?
-   - validate parallactic function
-   - validate orientation of MUSE WFM field (180 flip required ?)
+   - formalize support for MUSE NFM: create a mock bk_image from all the Gaia entries in
+     the area.
+   - (!) correct Cassegrain field-of-view
+   - (!) formally validate the parallactic function
+   - (!) validate the orientation of the MUSE WFM field (180 flip required ?)
+   - (?) add support for jitter in HAWKI (showing the max jitter area with a circle) 
+   - (?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with 
+     ``shapley``
+   - (?) make the obsdate an ``fc_params`` entry rather than a global variable
+   - (?) for time critical OBs, get the time from the OB
+
+
+v0.3.2 May 2018, F.P.A. Vogt:
+ - added \*.fits to .gitignore
+ - added Pillow to the list of required packages (for direct jpg exports)
+ - added a few more Exceptions to fool-proof stuff
+ - bumped p2api version request to 0.92, to have the fix for ephemeris files
+ - added do_parang keyword: by-default, hide the instrument field-of-view if a parallactic angle is required
+ - updated Gaia DR2 article link in doc
+ - added symbols for OBs with moving targets or parallactic angles
+ - added \*.pdf and \*.jpg to .gitignore
+ - added AO support for HAWKI
+ - added RRM templates to MUSE and HAWKI
 
 v0.3.1 May 2018, F.P.A. Vogt:
  - added XSHOOTER to the list of supported instruments

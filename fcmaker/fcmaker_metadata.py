@@ -16,7 +16,7 @@ Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 # Define the version of fcmaker
-__version__ = '0.3.1'
+__version__ = '0.3.2'
 
 # Where are we located ?
 fcm_dir = os.path.dirname(__file__)
@@ -45,7 +45,7 @@ set_North = True
 obsdate = dup.parse("2018 07 01 00:00:00 UTC")
 
 # VLT Guide star nominal magnitude range (in UCAC2 UCmag system)
-gs_mag = [10.,14.]
+gs_mag = [11.,14.]
 # Maximum search radius for GS.
 outer_GS_search = 11. * 60. # in arcsec
 
@@ -70,9 +70,12 @@ ephem_range = 2*u.hour
 # Default should do a "reasonable job most of the times ..."
 ephem_d = 1*u.au # Default 10 AU, because moving targets are likely to be in the Solar system
 
+# If the user wants a parallactic angle, should I draw the instrument field-of-view ?
+# Default = no (ESO default requirement)
+do_parang = False
+
 # The GPS coordinates of the UTs
 # These are the best ones derived by ESO as part of the laser collision tool.
-
 UT1_loc = EarthLocation.from_geodetic(-70.4048946*u.deg, -24.6281319*u.deg, (2648+13.044)*u.m)
 UT2_loc = EarthLocation.from_geodetic(-70.4046496*u.deg, -24.6276730*u.deg, (2648+13.044)*u.m)
 UT3_loc = EarthLocation.from_geodetic(-70.4043530*u.deg, -24.6273509*u.deg, (2648+13.044)*u.m)
