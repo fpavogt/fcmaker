@@ -46,26 +46,27 @@ Case 2a: semi-automatic creation of finding charts via p2 (incl. upload)
 ------------------------------------------------------------------------
 
 If you have a lot of finding charts to create, fcmaker allows for a semi-batch processing.
-First, create a text file :download:`p2_2_fcm.params <./examples/p2_2_fcm.params>` (the actual filename is flexible) with the following structure:
+First, create a text file :download:`p2_2_fcm.params.txt <./examples/p2_2_fcm.params.txt>` (the actual filename is flexible) with the following structure:
 
-.. literalinclude:: examples/p2_2_fcm.params
+.. literalinclude:: examples/p2_2_fcm.params.txt
 
 Then, feed it to fcmaker with the ``-f`` flag::
 
-   python -m fcmaker -f p2_2_fcm.params
+   python -m fcmaker -f p2_2_fcm.params.txt
 
 In doing so, fcmaker will connect to `p2 <http://www.eso.org/p2>`_ and process all the 
 OBs listed. Note that for each finding chart, you will still need to manually specify 
 whether you want to upload it to `p2 <http://www.eso.org/p2>`_ (or not). 
 
-Case 2b: fully automatic creation of finding charts from p2 (no upload)
+Case 2b: fully automatic creation of finding charts via p2 (no upload)
 -----------------------------------------------------------------------
 
 You can fully automate the creation of many finding charts if you include the 
 ``--no-upload`` flag. In that case, fcmaker will never attempt to upload anything to 
 `p2 <http://www.eso.org/p2>`_, and only save them locally::
 
-   python -m fcmaker --no-upload -f p2_2_fcm.params
+   python -m fcmaker --no-upload -f p2_2_fcm.params.txt
+
 
 Case 3: targets with proper motions
 -----------------------------------
@@ -74,10 +75,11 @@ In case of large proper motions of the target, one can provide the expected year
 day, ...!) of the observation to create an accurate finding chart, using the ``--obsdate`` 
 flag. This also works for OBs that have Ephemeris files. For example::
 
-   python -m fcmaker -f randomfilename --obsdate 2018
-   python -m fcmaker -f randomfilename --obsdate 2018-05
-   python -m fcmaker -f randomfilename --obsdate 2018-05-17 14:34:57 UTC
+   python -m fcmaker -f --obsdate 2018
+   python -m fcmaker -f --obsdate 2018-05
+   python -m fcmaker -f --obsdate 2018-05-17 14:34:57 UTC
    
+Finding charts for moving targets get automatically tagged with the symbol :math:`\leadsto`.
    
 Case 4: creation of finding charts locally (without p2)
 -------------------------------------------------------
@@ -88,16 +90,16 @@ though!). To do so, one first needs to specify the basic OB parameters in a text
 (in essence, a stripped-down version of a full OBX file). Here are
 templates for all supported instruments:
    
-   - :download:`local_2_fcm.params.muse  <./examples/local_2_fcm.muse>`
-   - :download:`local_2_fcm.params.hawki <./examples/local_2_fcm.hawki>`
-   - :download:`local_2_fcm.params.xshooter <./examples/local_2_fcm.xshooter>`
+   - :download:`local_2_fcm.muse.txt  <./examples/local_2_fcm.muse.txt>`
+   - :download:`local_2_fcm.hawki.txt <./examples/local_2_fcm.hawki.txt>`
+   - :download:`local_2_fcm.xshooter.txt <./examples/local_2_fcm.xshooter.txt>`
    
 The file is then fed to fcmaker with the ``-f`` flag, together with the ``--local`` flag to 
 indicate that it is a *local run*::
 
-   python -m fcmaker --local -f local_2_fcm.muse
-   python -m fcmaker --local -f local_2_fcm.hawki
-   python -m fcmaker --local -f local_2_fcm.xshooter
+   python -m fcmaker --local -f local_2_fcm.muse.txt
+   python -m fcmaker --local -f local_2_fcm.hawki.txt
+   python -m fcmaker --local -f local_2_fcm.xshooter.txt
    
 fcmaker will create the associated finding chart, store it where specified, and exit.
 
@@ -112,16 +114,18 @@ A series of flags allow to fine-tune the way fcmaker works. They are:
  * ``--version`` : prints the fcmaker version
  * ``--montage`` : will use Montage, to force the finding charts to be rotated North (soon to be retired).
  * ``--systemtex`` : will use the system-wide LaTeX, rather than the matplotlib one. Finding charts will be prettier. [encouraged!]
- * ``--no-upload`` : tell fcmaker never to try to upload the finding chart(s) to p2.
- * ``--do-pdf`` : tell fcmaker to save a .pdf version of the finding chart (in addition to the jpg one).
- * ``--do-png`` : tell fcmaker to save a .png version of the finding chart (in addition to the jpg one).
+ * ``--no-upload`` : tells fcmaker never to try to upload the finding chart(s) to p2.
+ * ``--do-pdf`` : tells fcmaker to save a .pdf version of the finding chart (in addition to the jpg one).
+ * ``--do-png`` : tells fcmaker to save a .png version of the finding chart (in addition to the jpg one).
  * ``--obsdate`` : allows to specify the observing date (and time), in case of large proper motions or moving target.
+ * ``--do-parang``: forces the drawing of the instrument field-of-view when a parallactic angle is set. This will be accurate, but *very* time-dependant!
  * ``--clear-SkyView-cache`` : does as it says. Note that the SkyView cache is *not* the same as the ``fcm_data`` folder in which fcmaker stores the downloaded FITS files.
 
 For example, if you want to boost the aesthetic appeal of your finding charts with the 
 exquisite Computer Modern Bright sans-serif font (why wouldn't you?), try::
 
    python -m fcmaker --systemtex
+
 
 The background images
 ----------------------

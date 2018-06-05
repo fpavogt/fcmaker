@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; fcmaker 0.3.1 documentation</title>
+  <title>Changelog &mdash; fcmaker 0.3.2 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.3.1 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 0.3.2 documentation" href="index.html"/>
         <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html"/>
         <link rel="prev" title="FAQ" href="faq.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.3.2
               </div>
             
           
@@ -168,17 +168,33 @@
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <ul class="last simple">
-<li>implement support for HAWKI GRAAL</li>
-<li>formalize support for MUSE NFM</li>
-<li>add support for jitter in HAWKI (showing the max jitter area with a circle?)</li>
-<li>find a better way to display the allowed TT area for MUSE ? e.g. shaded area with shapley ?</li>
-<li>update Gaia DR2 article link in doc</li>
-<li>make the obsdate a fc_params rather than a global variable ?</li>
-<li>validate parallactic function</li>
-<li>validate orientation of MUSE WFM field (180 flip required ?)</li>
+<li>formalize support for MUSE NFM: create a mock bk_image from all the Gaia entries in
+the area.</li>
+<li>(!) correct Cassegrain field-of-view</li>
+<li>(!) formally validate the parallactic function</li>
+<li>(!) validate the orientation of the MUSE WFM field (180 flip required ?)</li>
+<li>(?) add support for jitter in HAWKI (showing the max jitter area with a circle)</li>
+<li>(?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with
+<code class="docutils literal"><span class="pre">shapley</span></code></li>
+<li>(?) make the obsdate an <code class="docutils literal"><span class="pre">fc_params</span></code> entry rather than a global variable</li>
+<li>(?) for time critical OBs, get the time from the OB</li>
 </ul>
 </div>
 <dl class="docutils">
+<dt>v0.3.2 May 2018, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>added *.fits to .gitignore</li>
+<li>added Pillow to the list of required packages (for direct jpg exports)</li>
+<li>added a few more Exceptions to fool-proof stuff</li>
+<li>bumped p2api version request to 0.92, to have the fix for ephemeris files</li>
+<li>added do_parang keyword: by-default, hide the instrument field-of-view if a parallactic angle is required</li>
+<li>updated Gaia DR2 article link in doc</li>
+<li>added symbols for OBs with moving targets or parallactic angles</li>
+<li>added *.pdf and *.jpg to .gitignore</li>
+<li>added AO support for HAWKI</li>
+<li>added RRM templates to MUSE and HAWKI</li>
+</ul>
+</dd>
 <dt>v0.3.1 May 2018, F.P.A. Vogt:</dt>
 <dd><ul class="first last simple">
 <li>added XSHOOTER to the list of supported instruments</li>
@@ -335,7 +351,7 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.1',
+            VERSION:'0.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Gallery &mdash; fcmaker 0.3.1 documentation</title>
+  <title>Gallery &mdash; fcmaker 0.3.2 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="fcmaker 0.3.1 documentation" href="../index.html"/>
+    <link rel="top" title="fcmaker 0.3.2 documentation" href="../index.html"/>
         <link rel="next" title="The functions of fcmaker" href="../modules/modules.html"/>
         <link rel="prev" title="Troubleshooting" href="../troubleshooting.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.3.2
               </div>
             
           
@@ -102,11 +102,12 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#hawki">HAWKI</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#hawki-noao">HAWKI NOAO</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#hawki-noao-fastphot">HAWKI NOAO FastPhot</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hawki-noao-ao">HAWKI NOAO &amp; AO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hawki-fastphot">HAWKI FastPhot</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#xshooter">XSHOOTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-fcmaker-tags">The fcmaker tags</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">The functions of fcmaker</a></li>
@@ -185,7 +186,7 @@
 <li><strong>a right panel aimed at the telescope operator:</strong> it always uses DSS2 Red images for the
 background.<ul>
 <li>Black circles, 11 arcmin in radius, mark the validity area for Guide Stars.</li>
-<li>All suitable UCAC2 stars with 11&lt;UCmag&lt;15 within are tagged with red circles: these
+<li>All suitable UCAC2 stars with 11&lt;UCmag&lt;14 are tagged with red circles: these
 stars are the ones that fit the nominal VLT GS specifications, and can be readily
 selected by the Telescope Operator during the OB acquisition. Only the UCAC2 stars
 compatible with all the OB offsets are tagged.</li>
@@ -194,26 +195,23 @@ is unsuitable for any of the offset positions.</li>
 <li>Any star with large proper motion (where large is by default greater than 100 mas/year
 according to GAIA DR2, set in <code class="docutils literal"><span class="pre">fcm_m.min_abs_GAIA_pm</span></code>) is drawn, together with a
 20 year look-back track (set in <code class="docutils literal"><span class="pre">fcm_m.pm_track_time</span></code>) derived with the
-<code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine, assuming a default
-distance of 100 pc (set in <code class="docutils literal"><span class="pre">fcm_m.default_pm_d</span></code>).</li>
+<code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine.</li>
 </ul>
 </li>
 <li><strong>a left panel aimed at the night astronomer:</strong> the background image is instrument
 dependant, and can be chosen/provided by the user.<ul>
 <li>The acquisition field is shown in bold purple.</li>
 <li>In case of moving targets (with an ephemeris file), the target position within
-2 hours (default, set in <code class="docutils literal"><span class="pre">fcm_m.ephem_range</span></code>) from the <code class="docutils literal"><span class="pre">obsdate</span></code> parameter are
+<span class="math">\(\pm\)</span> 2 hours (default, set in <code class="docutils literal"><span class="pre">fcm_m.ephem_range</span></code>) from the <code class="docutils literal"><span class="pre">obsdate</span></code> parameter are
 shown with red stars. Each time entry within the ephemeris file is shown individually.
 The target position at the chosen <code class="docutils literal"><span class="pre">obsdate</span></code> is propagated from the closest ephemeris
-point in time using the <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine,
-assuming a default distance of 1 AU (set in <code class="docutils literal"><span class="pre">fcm_m.ephem_d</span></code>). The error associated
-with this choice will remain negligible if there is an ephemeris point close-enough.</li>
+point in time using the <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine.</li>
 <li>In case of moving targets (with proper motions in arcsec/year), the target coordinates
-at <code class="docutils literal"><span class="pre">obsdate</span></code> are derived with the <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code>
-routine, assuming a default distance of 100 pc (set in <code class="docutils literal"><span class="pre">fcm_m.default_pm_d</span></code>).
-<strong>This is not how the VLT will compute the target coordinates, instead assuming that
-it moves along a Great Circle</strong>. The implied error should however remain small for in
-most cases, and even more so if the epoch of the target is recent.</li>
+at <code class="docutils literal"><span class="pre">obsdate</span></code> are also derived with the <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code>
+routine. <strong>This is not how the VLT will compute the target coordinates, instead
+assuming that it moves along a Great Circle on the sky</strong>. The implied error should
+however remain negligible for most cases, and even more so if the epoch of the target
+is recent.</li>
 </ul>
 </li>
 </ul>
@@ -228,11 +226,11 @@ along with a brief description of each chart specificities.</p>
 the acquisition field, and the subsequent O and S fields. The minimum valid radius for
 telescope Guide Stars is 120 arcsec from any offset position.</p>
 <div class="figure align-center">
-<a class="reference internal image-reference" href="../_images/MUSE_WFM_NOAO_pm_DSS2-Red.png"><img alt="MUSE NOAO" src="../_images/MUSE_WFM_NOAO_pm_DSS2-Red.png" style="width: 750px;" /></a>
+<a class="reference internal image-reference" href="../_images/MUSE_WFM_NOAO_DSS2-Red.png"><img alt="MUSE NOAO" src="../_images/MUSE_WFM_NOAO_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.muse_wfm-noao-pm" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_wfm-noao</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">noao</span><span class="o">-</span><span class="n">pm</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" href="../_downloads/local_2_fcm.muse_wfm-noao-pm.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_wfm-noao.txt</span></code></a> and run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">noao</span><span class="o">-</span><span class="n">pm</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -246,38 +244,41 @@ the offset position, it is flagged with <code class="docutils literal"><span cla
 <a class="reference internal image-reference" href="../_images/MUSE_WFM_AO_DSS2-Red.png"><img alt="MUSE NOAO" src="../_images/MUSE_WFM_AO_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.muse_wfm-ao" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_wfm-ao</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">ao</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" href="../_downloads/local_2_fcm.muse_wfm-ao.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_wfm-ao.txt</span></code></a> and run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">ao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="section" id="hawki">
 <h2>HAWKI<a class="headerlink" href="#hawki" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="hawki-noao">
-<h3>HAWKI NOAO<a class="headerlink" href="#hawki-noao" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="hawki-noao-ao">
+<h3>HAWKI NOAO &amp; AO<a class="headerlink" href="#hawki-noao-ao" title="Permalink to this headline">¶</a></h3>
 <p>The HAWKI finding charts in NOAO mode show the acquisition field, and the subsequent O and
-S fields if the <code class="docutils literal"><span class="pre">HAWKI_img_obs_GenericOffset</span></code> template is used. The minimum valid radius
-for telescope Guide Stars is 240 arcsec from any offset position.</p>
+S fields if the <code class="docutils literal"><span class="pre">HAWKI_img_obs_GenericOffset</span></code> template is used. All other templates,
+relying on unpredictable jitter offsets, will be simply ignored by fcmaker. The minimum
+valid radius for telescope Guide Stars is 240 arcsec from any offset position. HAWKI AO
+is currently offered in tip-tilt-free mode only, so that AO finding charts are
+undistinguishable from NOAO ones.</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/HAWKI_NOAO_2MASS-K.png"><img alt="HAWKI NOAO" src="../_images/HAWKI_NOAO_2MASS-K.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.hawki_noao" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.hawki_noao</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_noao</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" href="../_downloads/local_2_fcm.hawki_noao.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.hawki_noao.txt</span></code></a> and run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_noao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
-<div class="section" id="hawki-noao-fastphot">
-<h3>HAWKI NOAO FastPhot<a class="headerlink" href="#hawki-noao-fastphot" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="hawki-fastphot">
+<h3>HAWKI FastPhot<a class="headerlink" href="#hawki-fastphot" title="Permalink to this headline">¶</a></h3>
 <p>In addition to the elements of the HAWKI NOAO charts, the FastPhot charts display the
 detector windowed area.</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/HAWKI_NOAO_FPH_2MASS-K.png"><img alt="HAWKI NOAO FastPhot" src="../_images/HAWKI_NOAO_FPH_2MASS-K.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.hawki_fph" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.hawki_fph</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_fph</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" href="../_downloads/local_2_fcm.hawki_fph.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.hawki_fph.txt</span></code></a> and run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_fph</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -287,16 +288,38 @@ detector windowed area.</p>
 <p>The XSHOOTER finding charts show the field-of-view of the acquisition camera in bold purple.
 Slit, IFU or acquisition camera field-of-views are then shown for each offset position,
 according to the selected observing templates. The minimum valid radius for telescope
-Guide Stars is 120 arcsec from any offset position.  If requested in the OB, fcmaker will
-draw the XSHOOTER slit/IFU at the parallactic angle <strong>at the time specified by</strong> <code class="docutils literal"><span class="pre">obsdate</span></code>.
-In such cases when the finding charts becomes highly time-dependant, the observing time
-appears in red.</p>
+Guide Stars is 120 arcsec from any offset position. fcmaker will draw the XSHOOTER slit/IFU
+at the parallactic angle (if set as such in the OB) <strong>at the time specified by</strong> <code class="docutils literal"><span class="pre">obsdate</span></code>
+, only if requested with the <code class="docutils literal"><span class="pre">--do-parang</span></code> flag. Any finding chart associated with
+parallactic angles is tagged with the symbol <span class="math">\(\measuredangle\)</span>. The “Target” location shown by fcmaker is the “target+blind-offset” location
+derived from the OB. This means that if the OB contains blind-offsets (to use e.g. a reference
+star for the acquisition), the finding chart will show the actual target, and <strong>not</strong> the
+blind-offset star.</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/XSHOOTER_OB_EPHEM_DSS2-Red.png"><img alt="XSHOOTER EPHEM" src="../_images/XSHOOTER_OB_EPHEM_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.xshooter_ephem" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.xshooter_ephem</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_ephem</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">15</span> <span class="mi">08</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span>
+<a class="reference download internal" href="../_downloads/local_2_fcm.xshooter_ephem.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.xshooter_ephem.txt</span></code></a> and run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_ephem</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">15</span> <span class="mi">08</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="the-fcmaker-tags">
+<h2>The fcmaker tags<a class="headerlink" href="#the-fcmaker-tags" title="Permalink to this headline">¶</a></h2>
+<p>fcmaker finding charts will get automatically “tagged” to highlight specific circumstances
+associated with a given OB. The tags are included to the top left of the chart. They are:</p>
+<blockquote>
+<div><ul class="simple">
+<li><span class="math">\(\leadsto\)</span> : denotes a moving target, either because some proper motion or an ephemeris file was specified.</li>
+<li><span class="math">\(\measuredangle\)</span> : denotes an OB requesting that the observations be taken at the parallactic angle.</li>
+</ul>
+</div></blockquote>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/XSHOOTER_OB_pm_DSS2-Red.png"><img alt="XSHOOTER EPHEM" src="../_images/XSHOOTER_OB_pm_DSS2-Red.png" style="width: 750px;" /></a>
+</div>
+<p>To recreate this example finding chart, download
+<a class="reference download internal" href="../_downloads/local_2_fcm.xshooter_pm.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.xshooter_pm.txt</span></code></a> and run:</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_pm</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -346,7 +369,7 @@ appears in red.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3.1',
+            VERSION:'0.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

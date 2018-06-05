@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>FAQ &mdash; fcmaker 0.3.1 documentation</title>
+  <title>FAQ &mdash; fcmaker 0.3.2 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.3.1 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 0.3.2 documentation" href="index.html"/>
         <link rel="next" title="Changelog" href="changelog.html"/>
         <link rel="prev" title="fcmaker package" href="modules/fcmaker.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.3.2
               </div>
             
           
@@ -171,18 +171,13 @@
 fcmaker once the OB has been finalized.</div></blockquote>
 <p><strong>Q: How does fcmaker deal with proper motions?</strong></p>
 <blockquote>
-<div><p><strong>A</strong>: fcmaker relies on <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine to
+<div><strong>A</strong>: fcmaker relies on <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine to
 propagate proper motion between epochs. This routine assumes that the target is moving
-in a straight line. It also requires a distance along-the-line-of sight. In comparison,
-the VLT propagate proper motions by assuming that the target moves along a Great Circle
-on the sky, and thus does <strong>not</strong> require a line-of-sight distance.</p>
-<p>By default, fcmaker assumes a distance of 1 AU (<code class="docutils literal"><span class="pre">fcm_m.ephem_d</span></code>) for targets with an
-ephemeris files, which by-and-large are found within the Solar System. For targets with
-proper motions defined as arcsec/year (either GAIA DR2 entries or the target set by the
-user), fcmaker assumes a default distance of 100 pc (<code class="docutils literal"><span class="pre">fcm_m.default_pm_d</span></code>). The error
-associated with these choices will remain negligible in most cases, particularly if
-user-provided coordinates are at recent epochs.</p>
-</div></blockquote>
+in a straight line (in space). It also requires the distance along the-line-of sight to
+the target. In comparison, the VLT propagates proper motions by assuming that the
+target moves along a Great Circle on the sky. The error associated with this mismatch
+will be negligible in most cases, particularly if user-provided coordinates are at
+recent epochs.</div></blockquote>
 </div>
 
 
@@ -229,7 +224,7 @@ user-provided coordinates are at recent epochs.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.1',
+            VERSION:'0.3.2',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
