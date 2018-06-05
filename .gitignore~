@@ -1,7 +1,0 @@
-*.pyc
-*.ipynb_checkpoints
-_pycache_/
-.DS_Store
-build/
-dist/
-fcmaker.egg-info/
