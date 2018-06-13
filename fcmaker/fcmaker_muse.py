@@ -30,7 +30,7 @@ muse_wfm = np.array([[0.0086683878,   0.0084439565],
                     [0.0080579666,  -0.008389310]])
 muse_wfm *= 3600 # make it in arcsec
 
-muse_nfm = muse_wfm/8. # For now, just scale the field to 7.5 arces ... until I know better
+muse_nfm = muse_wfm/8. # For now, just scale the field to 7.5 arcsec ... until I know better
 
 
 muse_sgs = np.zeros((16,2))
@@ -56,7 +56,8 @@ muse_sgs *= 3600 # make it in arcsec
 # ----------------------------------------------------------------------------------------
 
 # The default background image from SkyView
-bk_image = 'DSS2 Red'
+bk_image_wfm = 'DSS2 Red'
+bk_image_nfm = 'Gaia'
 
 # The radius of the charts
 right_radius = 720. # in arcsec
@@ -67,7 +68,7 @@ def left_radius(ins_mode):
    if ins_mode[:3] == 'WFM':
       return 110
    elif ins_mode[:3] == 'NFM':
-      return 15
+      return 6
    else:
       raise Exception('Mode undefined.')
       
@@ -76,7 +77,7 @@ inner_GS_search = 120. # inner limit to find Guide Stars
 # TTS validity area
 inner_TTS_search = 1.725/2.*60 # in arcsec
 outer_TTS_search = 3.590/2.*60 # in arcsec
-
+outer_OATT_search = 3.35 # in arcsec, radius of the on-axis TT star (NFM
 
 # List the supported MUSE observing templates
 muse_templates = [# WFM-NOAO
@@ -346,6 +347,10 @@ def get_localfcdata_muse(fc_params,inpars):
                                           equinox='J2000')
    
    if 'NFM' in inpars['ins_mode']:
+      
+      if len(inpars['oatt_ra'])==0 or len(inpars['oatt_dec'])==0:
+         raise Exception('Ouch! In NFM, you *must* specify the on-axis tip-tilt (OATT) star coordinates!')
+         
       fc_params['acq']['oatt'] = SkyCoord(inpars['oatt_ra'],inpars['oatt_dec'], 
                                           frame='icrs', 
                                           obstime = Time(fcm_m.obsdate),
@@ -518,7 +523,7 @@ def get_polygon(central_coord, pa, mode):
        
    # Rotate the different corners by the correct amount
    for (j,corner) in enumerate(corners):    
-      corners[j] = np.dot(corners[j],fcm_t.myrotmatrix(pa))
+      corners[j] = np.dot(corners[j],fcm_t.myrotmatrix(pa+180))
         
    # Converts from arc sec to degrees/hours
    corners = corners /3600.
@@ -584,7 +589,7 @@ def plot_field(ax1, ax2, fc_params, field):
       # the GS validity area
       ax.show_circles([this_coords[0].deg],
                       [this_coords[1].deg],
-                      [((fcm_m.outer_GS_search*u.arcsec).to(u.degree)).value,],
+                      [((fcm_m.outer_GS_Nas*u.arcsec).to(u.degree)).value,],
                        color='k', lw=0.5, 
                        zorder=skins[field[4]]['zorder']
                      )           
@@ -600,7 +605,7 @@ def plot_field(ax1, ax2, fc_params, field):
                          ],
                          color='k', lw=0.5, linestyle= '-')  
                          
-         # Here, also show the valid area of the TTS      
+         # TODO: here, also show the valid area of the TTS      
                   
       # Show the NFM TT star
       if 'NFM' in fc_params['ins_mode']:
@@ -612,8 +617,43 @@ def plot_field(ax1, ax2, fc_params, field):
                           
          ax.show_markers(tts.ra, tts.dec, marker=fcm_t.crosshair(pa=0), edgecolor='tomato',
                            s=500, linewidth=1.5)
+         
+         # Only add their name to the zoom-in plot
+         if fcm_m.fcm_usetex:
+            lab = r'\textbf{TT}'
+         else:
+            lab = r'TT'
+         if ax == ax1 and (field[4] == 'Acq'):
+            ax.add_label(tts.ra.deg,tts.dec.deg+0.75/3600,lab, 
+                         verticalalignment='center', 
+                         horizontalalignment='center',size=10,color='k',
+                         bbox=dict(facecolor='w',ec='k', alpha=0.6)) 
             
-      
+         # Check if the TTS is compatible with this field. If not, flag it as such !
+         # Make sure this is a 'O' or 'Target' field as well ...
+         if ax ==ax1 and \
+            (field[4] in ['Target','O']) and \
+            (tts.separation(field[2]) > (outer_OATT_search*u.arcsec)):
+                
+            if fcm_m.fcm_usetex:
+               lab = r'\textbf{!}'
+            else:
+               lab = '!'
+                  
+            ax.add_label(tts.ra.deg,tts.dec.deg,lab, 
+                            verticalalignment='center', 
+                            horizontalalignment='center',size=12,color='tomato',
+                            bbox=dict(boxstyle="circle,pad=0.17", facecolor='w',ec='tomato', alpha=1))
+         
+         # Show the OATT validity area                
+         if (field[4] in ['Target','O']):
+            
+            ax.show_circles([this_coords[0].deg],
+                            [this_coords[1].deg],
+                            [((outer_OATT_search*u.arcsec).to(u.degree)).value,],
+                            color='k', lw=0.5, linestyle= '-')                 
+                           
+                           
       # Show the WFM-AO TT stars 
       if fc_params['acq']['is_tts']:
          for (t,tts) in enumerate([fc_params['acq']['tts1'],fc_params['acq']['tts2']]):  
@@ -674,7 +714,7 @@ def plot_field(ax1, ax2, fc_params, field):
                     bbox=dict(facecolor='w',ec='k', alpha=0.6))    
       
             # Check if G is compatible with GS area for this instrument
-            if ((field[2].separation(fc_params['acq']['gs']) > (fcm_m.outer_GS_search*u.arcsec)) or \
+            if ((field[2].separation(fc_params['acq']['gs']) > (fcm_m.outer_GS_Nas*u.arcsec)) or \
                 (field[2].separation(fc_params['acq']['gs']) < (inner_GS_search*u.arcsec))):
                 
                if fcm_m.fcm_usetex:

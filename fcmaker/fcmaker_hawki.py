@@ -598,7 +598,7 @@ def plot_field(ax1, ax2, fc_params, field):
       # the GS validity area
       ax.show_circles([this_coords[0].deg],
                       [this_coords[1].deg],
-                      [((10.0*u.arcmin).to(u.degree)).value,],
+                      [((fcm_m.outer_GS_Nas*u.arcsec).to(u.degree)).value,],
                        color='k', lw=0.5, 
                        zorder=skins[field[4]]['zorder']
                      ) 
@@ -623,7 +623,7 @@ def plot_field(ax1, ax2, fc_params, field):
          
          
             # Check if G is compatible with GS area for this instrument
-            if ((field[2].separation(fc_params['acq']['gs']) > (fcm_m.outer_GS_search*u.arcsec)) or \
+            if ((field[2].separation(fc_params['acq']['gs']) > (fcm_m.outer_GS_Nas*u.arcsec)) or \
                 (field[2].separation(fc_params['acq']['gs']) < (inner_GS_search*u.arcsec))):
                 
                if fcm_m.fcm_usetex:

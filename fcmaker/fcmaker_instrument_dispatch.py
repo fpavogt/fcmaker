@@ -47,7 +47,10 @@ def get_bk_image(fc_params):
    # To see all possible catalogues, type: SkyView.survey_dict['overlay_blue']
    
    if fc_params['inst'] == 'MUSE':
-      return fcm_muse.bk_image
+      if 'NFM' in fc_params['ins_mode']:
+         return fcm_muse.bk_image_nfm
+      else:
+         return fcm_muse.bk_image_wfm
       
    elif fc_params['inst'] == 'HAWKI':
       # For HAWKI, in case of J, H or K, then use the corresponding 2MASS image
@@ -193,6 +196,50 @@ def get_chart_radius(fc_params):
    return (left_radius, right_radius)
 
 # ----------------------------------------------------------------------------------------
+def get_GS_outer_radius(fc_params):
+   '''
+   Returns the outer search radius for different instruments.
+   
+   Args:
+      fc_params: the parameters of the finding charts (a dictionary)
+   Returns:
+      radius: the radius in arcsec.
+   '''
+   
+   if fc_params['inst'] in ['MUSE', 'HAWKI']:
+      return fcm_m.outer_GS_Nas
+   elif fc_params['inst'] in ['XSHOOTER']:
+      return fcm_m.outer_GS_Cas
+   else:
+      raise Exception('Ouch! Instrument unknown ...')
+
+# ----------------------------------------------------------------------------------------
+def get_gaia_image_params(fc_params):
+   '''
+   Returns the outer search radius for different instruments.
+   
+   Args:
+      fc_params: the parameters of the finding charts (a dictionary)
+   Returns:
+      (sampling,fwhm): the sampling and fwhm to build a fake Gaia image 
+   '''
+   
+   if fc_params['inst'] == 'MUSE':
+      if 'NFM' in fc_params['ins_mode']:
+         return (0.025*u.arcsec, 0.08*u.arcsec)
+      else: 
+         return (0.3*u.arcsec, 0.6*u.arcsec)
+         
+   elif fc_params['inst'] == 'HAWKI':
+      return (0.3*u.arcsec, 1.0*u.arcsec) 
+      
+   elif fc_params['inst'] == 'XSHOOTER':
+      return (0.3*u.arcsec, 1.0*u.arcsec)
+      
+   else:
+      raise Exception('Ouch! Instrument unknown ...')
+
+# ----------------------------------------------------------------------------------------
 def get_chart_center(fc_params):
    '''
    Defines the center of the right and left plots for different instruments.
@@ -232,7 +279,7 @@ def get_chart_center(fc_params):
       raise Exception('Ouch! Instrument unknown ...')
 
 # ----------------------------------------------------------------------------------------
-def get_scalebar(inst):
+def get_scalebar(inst, ins_mode = None):
    '''
    Sets the scalebar of the chart, as a function of the instrument
    
@@ -243,7 +290,12 @@ def get_scalebar(inst):
    '''
    
    if inst == 'MUSE':
-      return (20./3600, '20$^{\prime\prime}$')
+      if ins_mode is None:
+         raise Exception('Ouch! For MUSE, I need to know the mode !')
+      elif 'NFM' in ins_mode:
+         return (1./3600, '1$^{\prime\prime}$')
+      else:
+         return (20./3600, '20$^{\prime\prime}$')
    elif inst == 'HAWKI':
       return (60./3600, '1$^{\prime}$')
    elif inst == 'XSHOOTER':
@@ -411,6 +463,7 @@ def get_p2fcdata(obID, api):
    fc_params = {}
    
    fc_params['inst'] = ob['instrument']
+   fc_params['ins_mode'] = None # Create a general entry, to be tweaked later on if needed
    fc_params['ob_name'] = ob['name']
    
    fc_params['ob_id'] = obID
@@ -497,6 +550,7 @@ def get_localfcdata(inpars):
    fc_params['pi'] = inpars['pi']
    fc_params['prog_id'] = inpars['prog_id']
    fc_params['inst'] = inpars['inst']
+   fc_params['ins_mode'] = None # Create a general entry, to be tweaked later on if needed
    
    # Also create a list where I keep track of anything special about the OB
    # possible flag include 'moving_target', 'parallactic_angle'

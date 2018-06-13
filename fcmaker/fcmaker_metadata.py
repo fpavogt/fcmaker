@@ -16,7 +16,7 @@ Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 # Define the version of fcmaker
-__version__ = '0.3.2'
+__version__ = '0.3.3'
 
 # Where are we located ?
 fcm_dir = os.path.dirname(__file__)
@@ -47,7 +47,8 @@ obsdate = dup.parse("2018 07 01 00:00:00 UTC")
 # VLT Guide star nominal magnitude range (in UCAC2 UCmag system)
 gs_mag = [11.,14.]
 # Maximum search radius for GS.
-outer_GS_search = 11. * 60. # in arcsec
+outer_GS_Nas = 11. * 60. # in arcsec
+outer_GS_Cas = 7.4 * 60. # in arcsec
 
 # minimum value of the GAIA propermotion stars to display
 # set to -1 to never do this
@@ -75,11 +76,11 @@ ephem_d = 1*u.au # Default 10 AU, because moving targets are likely to be in the
 do_parang = False
 
 # The GPS coordinates of the UTs
-# These are the best ones derived by ESO as part of the laser collision tool.
-UT1_loc = EarthLocation.from_geodetic(-70.4048946*u.deg, -24.6281319*u.deg, (2648+13.044)*u.m)
-UT2_loc = EarthLocation.from_geodetic(-70.4046496*u.deg, -24.6276730*u.deg, (2648+13.044)*u.m)
-UT3_loc = EarthLocation.from_geodetic(-70.4043530*u.deg, -24.6273509*u.deg, (2648+13.044)*u.m)
-UT4_loc = EarthLocation.from_geodetic(-70.4037764*u.deg, -24.6275511*u.deg, (2648+13.044)*u.m)
-VST_loc = EarthLocation.from_geodetic(-70.4038210*u.deg, -24.6268778*u.deg, (2648+4.5399)*u.m)
-VISTA_loc = EarthLocation.from_geodetic(-70.4025763*u.deg, -24.6148165*u.deg, (2530)*u.m) 
+# https://www.eso.org/sci/facilities/paranal/astroclimate/site.html
+UT1_loc = EarthLocation.from_geodetic('-70d24m18.27s', '-24d37m39.44s', (2635.43+13.044)*u.m)
+UT2_loc = EarthLocation.from_geodetic('-70d24m17.39s', '-24d37m37.80s', (2635.43+13.044)*u.m)
+UT3_loc = EarthLocation.from_geodetic('-70d24m16.32s', '-24d37m36.64s', (2635.43+13.044)*u.m)
+UT4_loc = EarthLocation.from_geodetic('-70d24m14.25s', '-24d37m37.36s', (2635.43+13.044)*u.m)
+VST_loc = EarthLocation.from_geodetic('-70d24m14.27s', '-24d37m34.79s', (2635.43+4.5399)*u.m)
+VISTA_loc = EarthLocation.from_geodetic('-70d23m51.36s', '-24d36m56.52s', (2530)*u.m) 
 

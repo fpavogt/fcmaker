@@ -38,7 +38,7 @@ xshooter_acqcam = [1.5*u.arcmin, 1.5*u.arcmin]
 bk_image = 'DSS2 Red'
 
 # The radius of the charts
-right_radius = 720. # in arcsec
+right_radius = 540. # in arcsec
 
 left_radius = 65. # in arcsec
       
@@ -596,11 +596,11 @@ def plot_field(ax1, ax2, fc_params, field):
                            linewidth = skins[field[4]]['lw'],
                            zorder = skins[field[4]]['zorder'],
                            linestyle = skins[field[4]]['ls'],)
-            
+           
       # the GS validity area
       ax.show_circles([this_coords[0].deg],
                       [this_coords[1].deg],
-                      [((fcm_m.outer_GS_search*u.arcsec).to(u.degree)).value,],
+                      [((fcm_m.outer_GS_Cas*u.arcsec).to(u.degree)).value,],
                        color='k', lw=0.5, 
                        zorder=skins[field[4]]['zorder']
                      )           
@@ -625,7 +625,7 @@ def plot_field(ax1, ax2, fc_params, field):
                     bbox=dict(facecolor='w',ec='k', alpha=0.6))    
       
             # Check if G is compatible with GS area for this instrument
-            if ((field[2].separation(fc_params['acq']['gs']) > (fcm_m.outer_GS_search*u.arcsec)) or \
+            if ((field[2].separation(fc_params['acq']['gs']) > (fcm_m.outer_GS_Cas*u.arcsec)) or \
                 (field[2].separation(fc_params['acq']['gs']) < (inner_GS_search*u.arcsec))):
                 
                if fcm_m.fcm_usetex:
@@ -637,7 +637,21 @@ def plot_field(ax1, ax2, fc_params, field):
                             verticalalignment='center', 
                             horizontalalignment='center',size=12,color='crimson',
                             bbox=dict(boxstyle="circle,pad=0.17", facecolor='w',ec='crimson', alpha=1))
-            
+       
+      # Here, show better the orientation of the slit
+      if (field[1] == 'slt') and (field[3] != 9999):
+         #ax1.add_label(0.9,0.9, '--', relative=True, horizontalalignment='center', size=70,
+         #              verticalalignment='center', 
+         #              rotation = 90+field[3], color=skins['Acq']['mc'])
+         ax1.add_label(0.9,0.9, '--- p.a. ---', relative=True, horizontalalignment='center', size=10,
+                       verticalalignment='center', 
+                       rotation = 90+field[3], color=skins['Acq']['mc'],
+                       bbox=dict(boxstyle="round4,pad=0.05", facecolor='w',ec='w', alpha=1))
+                       
+      
+          
+       
+          
    
       # Finally, also add a legend for clarity
       acq_legend = mlines.Line2D([], [], 
@@ -695,7 +709,9 @@ def plot_field(ax1, ax2, fc_params, field):
                  bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
                  ncol=6, mode="expand", borderaxespad=0., fontsize=10, borderpad=0.7,
                  handletextpad=0.2, handlelength=2.0)          
-                    
+      
+      
+          
 # ----------------------------------------------------------------------------------------                    
                     
                     

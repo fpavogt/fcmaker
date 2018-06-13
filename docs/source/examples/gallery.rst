@@ -9,7 +9,7 @@ All the fcmaker finding charts share common elements. They are:
  - **a right panel aimed at the telescope operator:** it always uses DSS2 Red images for the 
    background. 
    
-   + Black circles, 11 arcmin in radius, mark the validity area for Guide Stars.
+   + Black circles mark the outer validity area for Guide Stars: 11 arcmin in radius for the Nasmyth focus, 7.4 arcmin in radius for the Cassegrain focus.
    + All suitable UCAC2 stars with 11<UCmag<14 are tagged with red circles: these 
      stars are the ones that fit the nominal VLT GS specifications, and can be readily 
      selected by the Telescope Operator during the OB acquisition. Only the UCAC2 stars 
@@ -55,7 +55,7 @@ telescope Guide Stars is 120 arcsec from any offset position.
 .. figure:: ./fcm_plots/MUSE_WFM_NOAO_DSS2-Red.png
     :width: 750px
     :align: center
-    :alt: MUSE NOAO
+    :alt: MUSE WFM NOAO
 
 To recreate this example finding chart, download 
 :download:`local_2_fcm.muse_wfm-noao.txt <./local_2_fcm.muse_wfm-noao-pm.txt>` and run::
@@ -74,13 +74,45 @@ the offset position, it is flagged with ``!``.
 .. figure:: ./fcm_plots/MUSE_WFM_AO_DSS2-Red.png
     :width: 750px
     :align: center
-    :alt: MUSE NOAO
+    :alt: MUSE WFM AO
 
 To recreate this example finding chart, download 
 :download:`local_2_fcm.muse_wfm-ao.txt <./local_2_fcm.muse_wfm-ao.txt>` and run::
    
    python -m fcmaker -l -f local_2_fcm.muse_wfm-ao.txt --do-png --systemtex
 
+.. _examples-NFM:
+
+MUSE NFM
+...........
+
+In addition to the elements of the MUSE WFM-NOAO charts, the NFM charts display the 
+validity area for the on-axis Tip-Tilt star for all OB offsets (incl. the target itself, 
+which is when the AO loop is first closed). If the on-axis TT star falls outside of the 
+suitable area for any of the offset position, it is flagged with ``!``. 
+
+By default, the background image for the MUSE NFM finding charts is a mock image of the sky
+reconstructed from the Gaia catalogue (see :ref:`gaia-images`). The two finding charts 
+below illustrate the benefit of this approach, in comparison with using a DSS2 Red image.
+
+.. figure:: ./fcm_plots/MUSE_NFM_Gaia.png
+    :width: 750px
+    :align: center
+    :alt: MUSE NFM
+
+.. figure:: ./fcm_plots/MUSE_NFM_DSS2-Red.png
+    :width: 750px
+    :align: center
+    :alt: MUSE NFM DSS2
+
+To recreate these example finding charts, download 
+:download:`local_2_fcm.muse_nfm-Gaia.txt <./local_2_fcm.muse_nfm-Gaia.txt>` and/or 
+:download:`local_2_fcm.muse_nfm-DSS.txt <./local_2_fcm.muse_nfm-DSS.txt>` and 
+run::
+   
+   python -m fcmaker -l -f local_2_fcm.muse_nfm-Gaia.txt --do-png --systemtex
+   python -m fcmaker -l -f local_2_fcm.muse_nfm-DSS.txt --do-png --systemtex
+   
 
 HAWKI
 -----
@@ -130,10 +162,12 @@ according to the selected observing templates. The minimum valid radius for tele
 Guide Stars is 120 arcsec from any offset position. fcmaker will draw the XSHOOTER slit/IFU 
 at the parallactic angle (if set as such in the OB) **at the time specified by** ``obsdate``
 , only if requested with the ``--do-parang`` flag. Any finding chart associated with 
-parallactic angles is tagged with the symbol :math:`\measuredangle`. The "Target" location shown by fcmaker is the "target+blind-offset" location
-derived from the OB. This means that if the OB contains blind-offsets (to use e.g. a reference
-star for the acquisition), the finding chart will show the actual target, and **not** the 
-blind-offset star.
+parallactic angles is tagged with the symbol :math:`\measuredangle`. The "Target" location 
+shown by fcmaker is the "target+blind-offset" location derived from the OB. This means that 
+if the OB contains blind-offsets (to use e.g. a reference star for the acquisition), the 
+finding chart will show the actual target, and **not** the blind-offset star. Finally,
+for slit observations, the requested position angle (p.a.) is clearly indicated in the top
+right corner of the left-hand-side plot.
 
 .. figure:: ./fcm_plots/XSHOOTER_OB_EPHEM_DSS2-Red.png
     :width: 750px

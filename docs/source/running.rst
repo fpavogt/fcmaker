@@ -130,16 +130,17 @@ exquisite Computer Modern Bright sans-serif font (why wouldn't you?), try::
 The background images
 ----------------------
 
-fcmaker relies on ``astroquery.skyview`` to download background images for the finding 
-charts (if no local FITS file is provided by the user). To display the full list of 
-surveys available, type in a Python shell::
+With the exception of MUSE NFM finding charts (see :ref:`gaia-images`), fcmaker relies on 
+``astroquery.skyview`` to download background images for the finding charts (if no local 
+FITS file is provided by the user). To display the full list of surveys available, type in 
+a Python shell::
  
    from astroquery.skyview import SkyView
    SkyView.survey_dict['overlay_blue']
 
 The default background survey images for the instruments supported by fcmaker are as follows:
    
-   * **MUSE**: ``DSS2 Red``
+   * **MUSE WFM**: ``DSS2 Red``
    * **HAWKI**: ``2MASS-J``, ``2MASS-H`` and ``2MASS-K`` for filters ``J``, ``H``, ``K``, and ``2MASS-H`` for all other filters
    * **XSHOOTER**: ``DSS2 Red``
    
@@ -148,4 +149,27 @@ The default background survey images for the instruments supported by fcmaker ar
    From an operational perspective, when using Skyview images, I would strongly recommend 
    to only use ``DSS2 Red`` or ``SDSSr`` for optical instruments, and ``2MASS-J``, 
    ``2MASS-H`` or ``2MASS-K`` for IR instruments.
+
+.. _gaia-images:
+
+Mock Gaia images for MUSE NFM
+++++++++++++++++++++++++++++++++
+
+``DSS2 Red`` background images are not well suited for MUSE NFM finding charts, given the small
+field-of-view of 7.5x7.5 square arcsec of this mode. To circumvent this issue, fcmaker 
+creates pseudo sky images from the Gaia catalogue, via the 
+``fcmaker_plots.make_gaia_image()`` function. By default, the image is created with a 
+pixel size of 25 mas (the pixel size of MUSE NFM). Each star is plotted as a 2D gaussian 
+with a FWHM of 80 mas (typical to the image quality achieved in normal operations), and 
+scaled in intensity as a function of its Gaia flux. Evidently, the position of each star 
+takes into account their measured proper motions, to provide an accurate on-sky view at the 
+time of the observation (requested by the user with the ``obsdate`` parameter). The 
+resulting image is saved as a fully-fledged FITS file in the ``data_loc`` location.  
+
+See the Gallery (:ref:`examples-NFM`) for an illustration of the benefit of these mock 
+Gaia images.
+
+
+ 
+
 

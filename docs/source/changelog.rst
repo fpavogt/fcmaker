@@ -7,17 +7,22 @@ Changelog |last-commit|
 =======================
 
 .. todo:: 
-   - formalize support for MUSE NFM: create a mock bk_image from all the Gaia entries in
-     the area.
-   - (!) correct Cassegrain field-of-view
    - (!) formally validate the parallactic function
-   - (!) validate the orientation of the MUSE WFM field (180 flip required ?)
    - (?) add support for jitter in HAWKI (showing the max jitter area with a circle) 
    - (?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with 
      ``shapley``
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
 
+v0.3.3 June 2018, F.P.A. Vogt:
+ - corrected the orientation of the MUSE WFM field (180 flip required)
+ - added correct Cassegrain field-of-view of 7.4 arcmin in radius
+ - formalized support for MUSE NFM, including ... 
+ - the creation of mock bk_images from all the Gaia entries in the area.
+ - fixed bug in radius of allowed GS displayed
+ - fixed bug with chart tags (now displayed only when required)
+ - used telescope coordinates from ESO website
+ - added clear mark for slit PA in X-shooter charts
 
 v0.3.2 May 2018, F.P.A. Vogt:
  - added \*.fits to .gitignore

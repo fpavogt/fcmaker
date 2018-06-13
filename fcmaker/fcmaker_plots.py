@@ -6,7 +6,7 @@ import numpy as np
 
 import warnings # for aplpy displaying nasty packages
 from datetime import datetime
-#from dateutil import parser as dup
+from dateutil import parser as dup
 import pytz
 import copy
 
@@ -28,6 +28,8 @@ from astropy.time import Time
 from astroquery.skyview import SkyView
 from astroquery.vizier import Vizier
 from astroquery.gaia import Gaia
+
+from astropy.wcs import WCS
 
 # My own mess
 from . import fcmaker_metadata as fcm_m
@@ -93,7 +95,7 @@ def add_orient(ax, field_center,
 
 
 # ----------------------------------------------------------------------------------------
-def get_bk_image(bk_image, bk_lam, fc_params):
+def get_bk_image(bk_image, bk_lam, center, radius, fc_params):
    ''' 
    A function that fetches the background image from the web, or locally if specified
    by the user.
@@ -102,6 +104,8 @@ def get_bk_image(bk_image, bk_lam, fc_params):
       bk_image: (string) defines whether to use a local image (FITS filename) or a SkyView 
                 image (survey name). 
       bk_lam: (string)
+      center: a SkyCoord entry defining the center of the image
+      radius: the radius of the image ... for now, only used when creating a pseudo-Gaia image
       fc_params: the parameters of the finding chart (a dictionnary)
    Returns:
       The absolute path of the background image (possibly after download), and the survey name.
@@ -112,10 +116,9 @@ def get_bk_image(bk_image, bk_lam, fc_params):
       
    '''
    
-      # --------------------------------- BKGD ---------------------------------
    if not(bk_image in [None,'None']):
       # Has the user provided his/her own FITS file ?  
-      if not(bk_image in SkyView.survey_dict['overlay_blue']):
+      if not(bk_image in SkyView.survey_dict['overlay_blue']) and not(bk_image=='Gaia'):
          # Very well, I guess I have a custom FITS file.
          fn_bk_image = os.path.join(fcm_m.data_loc, bk_image)
          survey = bk_image.split('.')[0] # assume a filename.fits ...
@@ -143,24 +146,33 @@ def get_bk_image(bk_image, bk_lam, fc_params):
       fn_bk_image = os.path.join(fcm_m.data_loc, fc_params['ob_name'].replace(' ','_')+'_' + 
                                  survey.replace(' ','-') + 
                                  '.fits')
-  
-      # Use SkyView to get the image 
-      print('   Downloading the %s background image with SkyView ...' % (survey))
-      path = SkyView.get_images(position=fc_params['target'], survey=[survey], 
-                                radius=fcm_m.bk_radius,
-                                pixels='%i' %((fcm_m.bk_radius/fcm_m.bk_pix).to(u.arcsec/u.arcsec).value),
-                                )
-      # Use a direct download link for DSS2
-      # use urllib and urlretrieve
-      # https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_ir&r=0+0+0+&d=-0+0+1&e=J2000&h=15.0&w=15.0&f=gif&c=none&fov=NONE&v3=
-      # https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_ir&r=0+0+0+&d=0+0+0&e=J2000&h=15.0&w=15.0&f=fits&c=none&fov=NONE&v3=                          
-                              
-      if len(path)==0:
-         raise Exception('No image downloaded via SkyView.get_images!')
       
-      # Save it locally for later
-      outfits = fits.HDUList([path[0][0]])
-      outfits.writeto(fn_bk_image, output_verify='fix', overwrite=True)
+      
+      if survey == 'Gaia': # Create a home-made Gaia FITS image
+         
+         (sampling,fwhm) = fcm_id.get_gaia_image_params(fc_params)
+         
+         make_gaia_image(center, 1.1*2*radius*u.arcsec, # 1.1 because plot is rectangular, 2x to get diameter
+                         sampling, fwhm, 
+                         obsdate=fcm_m.obsdate, fn = fn_bk_image)
+         
+      else: # Use SkyView to get the image 
+         print('   Downloading the %s background image with SkyView ...' % (survey))
+         path = SkyView.get_images(position=center, survey=[survey], 
+                                   radius=fcm_m.bk_radius,
+                                   pixels='%i' %((fcm_m.bk_radius/fcm_m.bk_pix).to(u.arcsec/u.arcsec).value),
+                                   )
+         # Use a direct download link for DSS2
+         # use urllib and urlretrieve
+         # https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_ir&r=0+0+0+&d=-0+0+1&e=J2000&h=15.0&w=15.0&f=gif&c=none&fov=NONE&v3=
+         # https://archive.stsci.edu/cgi-bin/dss_search?v=poss2ukstu_ir&r=0+0+0+&d=0+0+0&e=J2000&h=15.0&w=15.0&f=fits&c=none&fov=NONE&v3=                          
+                              
+         if len(path)==0:
+            raise Exception('No image downloaded via SkyView.get_images!')
+      
+         # Save it locally for later
+         outfits = fits.HDUList([path[0][0]])
+         outfits.writeto(fn_bk_image, output_verify='fix', overwrite=True)
 
    if bk_lam in [None,'None']:
       bk_lam = get_bk_image_lam(fn_bk_image, fc_params)
@@ -168,8 +180,7 @@ def get_bk_image(bk_image, bk_lam, fc_params):
      
    return (fn_bk_image, survey, bk_lam)
    
-   # --------------------------------- BKGD ---------------------------------
-
+# ----------------------------------------------------------------------------------------
 def get_bk_image_lam(fn_bk_image, fc_params):
    '''
    Reads the wavelength of the background image from the header. Assumes SkyView image.
@@ -189,10 +200,111 @@ def get_bk_image_lam(fn_bk_image, fc_params):
    # Extract the frequency range thanks to SkyView
    freqs = [l.split(' ')[-2].split('-') for l in header['COMMENT'] if 'Bandpass' in l][0]
    # WARNING HERE: I assume the bandpass is in THz in all cases !!!!!
-   freqs = [np.int(c.value/(np.int(freq)*1.e12)*1.e9) for freq in freqs]
+   freqs = [np.int(c.value/(np.float(freq)*1.e12)*1.e9) for freq in freqs]
    bk_lam = r'%i - %i nm' % (freqs[1],freqs[0])
 
    return bk_lam
+
+# ----------------------------------------------------------------------------------------
+def make_gaia_image(skycoord, fov, sampling, fwhm,
+                    obsdate = dup.parse("2018 07 01 00:00:00 UTC"), 
+                    fn = os.path.join('.','pseudo_gaia.fits')):
+   ''' 
+   Given a coordinate, use the Gaia catalogue to create a mock image of the sky.
+   
+   Args:
+      skycoord: the astropy SkyCoord of the center of the image
+      fov: size of the image to create, in astropy.units
+      sampling: pixel size of the image to create, in astropy.units
+      fwhm: fwhm of the fake stars in the image, in astropy.units
+      obsdate: date of the observation (to propagate the motion of the stars) as datetime.datetime object 
+      fn: relative path + FITS filename
+   Returns:
+      The FITS filename
+   '''
+
+   # Ok, assemble an array of the suitable size
+   nx = int(np.floor((fov/sampling).value))
+   im = np.zeros((nx,nx))
+
+   # Query GAIA
+   print('   Querying GAIA to create a pseudo-image of the sky ...')
+   # Make it a sync search, because I don't think I need more than 2000 targets ...
+   
+   j = Gaia.cone_search(skycoord, fov, verbose=False)
+   r = j.get_results()
+   nstars = len(r)
+   
+   # TODO: well, what if I do need more than 2000 targets ?
+   # Issue a warning for now ...
+   if nstars == 2000:
+      warnings.warn(' Reached query limit of 2k stars. Gaia image will not be complete.')
+
+   # Create a very basic header for the FITS file
+   hdr = fits.Header()
+   hdr.set('CRPIX1', nx/2, 'X reference pixel')
+   hdr.set('CRPIX2', nx/2, 'Y reference pixel')
+   hdr.set('CRVAL1', skycoord.ra.deg, 'Reference longitude')
+   hdr.set('CRVAL2', skycoord.dec.deg, 'Reference latitude')
+   hdr.set('CTYPE1', 'RA---TAN', 'Coordinates -- projection')
+   hdr.set('CTYPE2', 'DEC--TAN', 'Coordinates -- projection')
+   hdr.set('CDELT1', -sampling.to(u.deg).value, 'X scale')# mind the sign !
+   hdr.set('CDELT2', sampling.to(u.deg).value, 'Y scale')
+   hdr.set('RADESYS', 'ICRS', 'Coordinate system') 
+   hdr.set('EQUINOX', 2000.0, 'Epoch of the equinox')
+   hdr['COMMENT'] = 'Artificial sky image reconstructed from the Gaia catalogue.'
+   hdr['COMMENT'] = 'Number of stars: %i' % (nstars)
+   hdr['COMMENT'] = 'FWHM: %i mas' % (int(fwhm.to(u.mas).value))
+   hdr['COMMENT'] = 'Bandpass:    285.5-908 THz '
+   hdr['COMMENT'] = 'Epoch: %s' % (obsdate.strftime('%Y-%h-%d %H:%M:%S UTC'))
+   hdr['COMMENT'] = 'Created %s with fcmaker v%s' % (datetime.utcnow().strftime('%Y-%h-%d %H:%M:%S UTC'),
+                                                        fcm_m.__version__)
+   hdr['COMMENT'] = 'See http://fpavogt.github.io/fcmaker for details.'
+   
+   # Save the empty FITS file for now
+   hdu = fits.PrimaryHDU(im, header=hdr)
+   hdul = fits.HDUList([hdu])
+   hdul.writeto(fn, overwrite=True)
+   
+   # Re-extract the WCS info
+   w = WCS(fn)
+
+   # Prepare some variables  
+   x, y = np.meshgrid(np.arange(0,nx,1), np.arange(0,nx,1))
+   sigma = (fwhm/sampling).value/(2*np.sqrt(2*np.log(2)))
+
+   # For each star, add a Gaussian of the suitable size
+   for s in range(nstars):
+      # First, create a SkyCoord entry
+      star = SkyCoord(ra=r['ra'][s], dec=r['dec'][s], 
+                 obstime=Time(r['ref_epoch'][s], format='decimalyear'),
+                 frame = 'icrs', unit=(u.deg, u.deg), 
+                 pm_ra_cosdec = r['pmra'][s]*u.mas/u.yr,
+                 pm_dec = r['pmdec'][s]*u.mas/u.yr,
+                 # I must specify a generic distance to the target,
+                 # if I want to later on propagate the proper motions
+                 distance = fcm_m.default_pm_d,  
+                         )
+   
+      # Then, propagate the star at the time of the observation
+      star_now = star.apply_space_motion(new_obstime = Time(obsdate))
+      
+      # Get the image coordinate of the star
+      star_coords = w.wcs_world2pix([star_now.ra.deg],[star_now.dec.deg],0)
+      
+      # The distance of all pixels to the star
+      d = np.sqrt((x-star_coords[0])**2 + (y-star_coords[1])**2)
+      
+      # Add the star to the array ... scale it as a function of its flux
+      im += r['phot_g_mean_flux'][s]*np.exp(-( (d)**2 / ( 2.0 * (fwhm/sampling).value**2 ) ) )
+   
+   
+   # Save the final FITS file   
+   hdu = fits.PrimaryHDU(im, header=hdr)
+   hdul = fits.HDUList([hdu])
+   hdul.writeto(fn, overwrite=True)   
+   
+   return fn
 
 # ----------------------------------------------------------------------------------------
 def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = False):
@@ -212,12 +324,16 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    # Load all the fields dictionaries
    fields = fcm_id.get_fields_dict(fc_params)
    
+   # Get the radius and center of the charts
+   (left_radius, right_radius) = fcm_id.get_chart_radius(fc_params)
+   (left_center, right_center) = fcm_id.get_chart_center(fc_params)
+   
    # Get the background image in place
-   (fn_bk_image_L, survey_L, bk_lam_L) = get_bk_image(bk_image, bk_lam, fc_params)
+   (fn_bk_image_L, survey_L, bk_lam_L) = get_bk_image(bk_image, bk_lam, left_center, left_radius, fc_params)
    
    # If this is not the DSS2 Red, then download this as well for the right-hand-side plot
    if not(survey_L == 'DSS2 Red'):
-      (fn_bk_image_R, survey_R, bk_lam_R) = get_bk_image('DSS2 Red', None, fc_params)
+      (fn_bk_image_R, survey_R, bk_lam_R) = get_bk_image('DSS2 Red', None, right_center, right_radius, fc_params)
    else: 
       (fn_bk_image_R, survey_R, bk_lam_R) = copy.deepcopy((fn_bk_image_L, survey_L, bk_lam_L))
    
@@ -232,10 +348,6 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    ax2 = aplpy.FITSFigure(fn_bk_image_R, figure=fig1, north=fcm_m.set_North, 
                           subplot=[0.59,0.12,0.38,0.8])
    ax2.show_grayscale(invert = True, stretch='linear', pmin = fcm_id.get_pmin(survey_R))
- 
-   # Get the radius and center of the charts
-   (left_radius, right_radius) = fcm_id.get_chart_radius(fc_params)
-   (left_center, right_center) = fcm_id.get_chart_center(fc_params)
    
    ax1.recenter(left_center.ra,left_center.dec,radius=left_radius/3600.)
    ax2.recenter(right_center.ra,right_center.dec,radius=right_radius/3600.) 
@@ -383,7 +495,8 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       # Keep all the possible guide stars in the area.
       gs_list = [star for star in gs_list if 
                  (fields[f][2].separation(star) > (fcm_id.get_inner_GS_search(fc_params)/3600.*u.deg)) 
-                 and (fields[f][2].separation(star) < (10./60.*u.deg))]         
+                 and (fields[f][2].separation(star) < (fcm_id.get_GS_outer_radius(fc_params)/3600.*u.deg))]    
+                   
 
    # Show all the suitable Guide Star in the area
    if len(gs_list)>0:
@@ -400,7 +513,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    add_orient(ax2, right_center, radius = (right_radius*0.8)*u.arcsec, usetex = fcm_m.fcm_usetex)
     
    # Add a scale bar
-   (scl,scll) = fcm_id.get_scalebar(fc_params['inst'])
+   (scl,scll) = fcm_id.get_scalebar(fc_params['inst'], ins_mode = fc_params['ins_mode'])
    
    ax1.add_scalebar(scl) # Length in degrees
    ax1.scalebar.show(scl, label=scll, corner = 'bottom right', 
@@ -467,12 +580,13 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    if 'parallactic_angle' in fc_params['tags']:
       tag_string += '$\measuredangle$ '
    
-   ax1.add_label(-0.18,1.08, tag_string, 
-                 relative=True, color='k',
-                 horizontalalignment='center', verticalalignment='center', fontsize=30, 
-                 bbox=dict(edgecolor='k', facecolor='lightsalmon', alpha=1, linewidth=1, 
-                           boxstyle="sawtooth,pad=0.2,tooth_size=0.075"),
-                 ) 
+   if len(tag_string)>1 : # only show the tag if it has a non-zero length
+      ax1.add_label(-0.18,1.08, tag_string, 
+                    relative=True, color='k',
+                    horizontalalignment='center', verticalalignment='center', fontsize=30, 
+                    bbox=dict(edgecolor='k', facecolor='lightsalmon', alpha=1, linewidth=1, 
+                              boxstyle="sawtooth,pad=0.2,tooth_size=0.075"),
+                    ) 
 
    # Finally include the version of fcmaker in there
    ax1.add_label(1.01,0.00, r'Created with fcmaker v%s'%(fcm_m.__version__), 

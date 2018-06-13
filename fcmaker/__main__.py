@@ -63,7 +63,7 @@ parser = argparse.ArgumentParser(description='''Creates ESO-compliant finding ch
                                                 to p2 and select an obId manually. ''',
                                  epilog =' Full documentation: %s \n \n \
                                            Feedback, questions, comments: \
-                                           frederic.vogt@alumni.anu.edu.au \n' % (os.path.join(fcm_m.fcm_dir,'docs','index.html')))
+                                           frederic.vogt@alumni.anu.edu.au \n' % ('http://fpavogt.github.io/fcmaker'))
 
 parser.add_argument('--version', action='version', version=('fcmaker %s'%__version__))
 
