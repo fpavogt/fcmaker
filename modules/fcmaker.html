@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>fcmaker package &mdash; fcmaker 0.3.2 documentation</title>
+  <title>fcmaker package &mdash; fcmaker 0.3.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="fcmaker 0.3.2 documentation" href="../index.html"/>
+    <link rel="top" title="fcmaker 0.3.3 documentation" href="../index.html"/>
         <link rel="up" title="The functions of fcmaker" href="modules.html"/>
         <link rel="next" title="FAQ" href="../faq.html"/>
         <link rel="prev" title="The functions of fcmaker" href="modules.html"/> 
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.3.3
               </div>
             
           
@@ -431,6 +431,24 @@ matplotlib down the line.</p>
 <div class="section" id="module-fcmaker.fcmaker_instrument_dispatch">
 <span id="fcmaker-fcmaker-instrument-dispatch-module"></span><h2>fcmaker.fcmaker_instrument_dispatch module<a class="headerlink" href="#module-fcmaker.fcmaker_instrument_dispatch" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_GS_outer_radius">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_GS_outer_radius</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_GS_outer_radius" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the outer search radius for different instruments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding charts (a dictionary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the radius in arcsec.</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">radius</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
 <dt id="fcmaker.fcmaker_instrument_dispatch.get_bk_image">
 <code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_bk_image</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_bk_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the default SkyView survey name for all supported instruments.</p>
@@ -493,6 +511,24 @@ matplotlib down the line.</p>
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding chart (a dictionnary)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary of lists.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_instrument_dispatch.get_gaia_image_params">
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_gaia_image_params</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_gaia_image_params" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the outer search radius for different instruments.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – the parameters of the finding charts (a dictionary)</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">the sampling and fwhm to build a fake Gaia image</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(sampling,fwhm)</td>
 </tr>
 </tbody>
 </table>
@@ -575,7 +611,7 @@ obtained via p2api.</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_instrument_dispatch.get_scalebar">
-<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_scalebar</code><span class="sig-paren">(</span><em>inst</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_scalebar" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_instrument_dispatch.</code><code class="descname">get_scalebar</code><span class="sig-paren">(</span><em>inst</em>, <em>ins_mode=None</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_instrument_dispatch.get_scalebar" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets the scalebar of the chart, as a function of the instrument</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -804,7 +840,7 @@ matplotlib down the line.</p>
 <span id="fcmaker-fcmaker-plots-module"></span><h2>fcmaker.fcmaker_plots module<a class="headerlink" href="#module-fcmaker.fcmaker_plots" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="fcmaker.fcmaker_plots.add_orient">
-<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">add_orient</code><span class="sig-paren">(</span><em>ax</em>, <em>field_center</em>, <em>radius=&lt;Quantity 540. arcsec&gt;</em>, <em>arrow_width=&lt;Quantity 120. arcsec&gt;</em>, <em>usetex=True</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.add_orient" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">add_orient</code><span class="sig-paren">(</span><em>ax</em>, <em>field_center</em>, <em>radius=&lt;Quantity 540.0 arcsec&gt;</em>, <em>arrow_width=&lt;Quantity 120.0 arcsec&gt;</em>, <em>usetex=True</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.add_orient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot some N-E orientation arrows</p>
 <p>Rely on the show_arrow function from aplpy, which should be able to deal with
 any image orientation, even is North /= up.</p>
@@ -851,7 +887,7 @@ any image orientation, even is North /= up.</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_plots.get_bk_image">
-<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image</code><span class="sig-paren">(</span><em>bk_image</em>, <em>bk_lam</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">get_bk_image</code><span class="sig-paren">(</span><em>bk_image</em>, <em>bk_lam</em>, <em>center</em>, <em>radius</em>, <em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.get_bk_image" title="Permalink to this definition">¶</a></dt>
 <dd><p>A function that fetches the background image from the web, or locally if specified
 by the user.</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -862,6 +898,8 @@ by the user.</p>
 <li><strong>bk_image</strong> – (string) defines whether to use a local image (FITS filename) or a SkyView
 image (survey name).</li>
 <li><strong>bk_lam</strong> – (string)</li>
+<li><strong>center</strong> – a SkyCoord entry defining the center of the image</li>
+<li><strong>radius</strong> – the radius of the image … for now, only used when creating a pseudo-Gaia image</li>
 <li><strong>fc_params</strong> – the parameters of the finding chart (a dictionnary)</li>
 </ul>
 </td>
@@ -889,6 +927,31 @@ image (survey name).</li>
 fc_params: the parameters of the finding chart (a dictionnary)</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">The image wavelength range as a string.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_plots.make_gaia_image">
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">make_gaia_image</code><span class="sig-paren">(</span><em>skycoord</em>, <em>fov</em>, <em>sampling</em>, <em>fwhm</em>, <em>obsdate=datetime.datetime(2018</em>, <em>7</em>, <em>1</em>, <em>0</em>, <em>0</em>, <em>tzinfo=tzutc())</em>, <em>fn='./pseudo_gaia.fits'</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.make_gaia_image" title="Permalink to this definition">¶</a></dt>
+<dd><p>Given a coordinate, use the Gaia catalogue to create a mock image of the sky.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>skycoord</strong> – the astropy SkyCoord of the center of the image</li>
+<li><strong>fov</strong> – size of the image to create, in astropy.units</li>
+<li><strong>sampling</strong> – pixel size of the image to create, in astropy.units</li>
+<li><strong>fwhm</strong> – fwhm of the fake stars in the image, in astropy.units</li>
+<li><strong>obsdate</strong> – date of the observation (to propagate the motion of the stars) as datetime.datetime object</li>
+<li><strong>fn</strong> – relative path + FITS filename</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">The FITS filename</p>
+</td>
 </tr>
 </tbody>
 </table>
@@ -960,7 +1023,7 @@ a smarter way to do this …</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_tools.offset_coord">
-<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">offset_coord</code><span class="sig-paren">(</span><em>coord_start</em>, <em>delta_ra=&lt;Quantity 0. arcsec&gt;</em>, <em>delta_dec=&lt;Quantity 0. arcsec&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.offset_coord" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">offset_coord</code><span class="sig-paren">(</span><em>coord_start</em>, <em>delta_ra=&lt;Quantity 0.0 arcsec&gt;</em>, <em>delta_dec=&lt;Quantity 0.0 arcsec&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.offset_coord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute a new SkyCoord entity given a starting location and offset. This function
 assumes that the sky is flat!</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1156,7 +1219,7 @@ matplotlib down the line.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3.2',
+            VERSION:'0.3.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

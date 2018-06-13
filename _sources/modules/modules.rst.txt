@@ -1,5 +1,5 @@
 The functions of fcmaker
-========================
+=========================
 
 .. toctree::
    :maxdepth: 4

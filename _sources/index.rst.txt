@@ -40,8 +40,8 @@ fcmaker |release| |stars| |watch|
 Instruments and modes currently supported
 -----------------------------------------
 
-   * **MUSE**: WFM-NOAO, WFM-AO
-   * **HAWKI**: NOAO, AO
+   * **MUSE**: WFM NOAO, WFM AO, NFM
+   * **HAWKI**: NOAO, AO (including fast photometry)
    * **XSHOOTER**: all modes
    * targets with proper motions, ephemeris files
 

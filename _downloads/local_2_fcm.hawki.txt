@@ -41,7 +41,7 @@ off2:       [0 -200 205]   #
 return:     True           #
 
 ##### Other params #####
-bk_image:   None           # Bk images to download from SkyView, or local fits files
+bk_image:   None           # None, Bk images to download from SkyView, Gaia, or local fits files
 bk_lam:     None           # None, or else overrides SkyView default.
 data_loc:   fcm_data       # Relative path to the bk images (local FITS file or SkyView images)
 plot_loc:   fcm_plots      # Relative path to store the finding charts 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage instructions &mdash; fcmaker 0.3.2 documentation</title>
+  <title>Usage instructions &mdash; fcmaker 0.3.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.3.2 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 0.3.3 documentation" href="index.html"/>
         <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.3.3
               </div>
             
           
@@ -100,7 +100,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#case-3-targets-with-proper-motions">Case 3: targets with proper motions</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#case-4-creation-of-finding-charts-locally-without-p2">Case 4: creation of finding charts locally (without p2)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-fcmaker-flags">The fcmaker flags</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#the-background-images">The background images</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#the-background-images">The background images</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#mock-gaia-images-for-muse-nfm">Mock Gaia images for MUSE NFM</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
@@ -216,8 +219,8 @@ newly created finding chart to the OB on <a class="reference external" href="htt
 First, create a text file <a class="reference download internal" href="_downloads/p2_2_fcm.params.txt" download=""><code class="xref download docutils literal"><span class="pre">p2_2_fcm.params.txt</span></code></a> (the actual filename is flexible) with the following structure:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="n">p2uid</span><span class="p">:</span>                       <span class="c1"># p2 username (will ask at prompt if left blank)</span>
 <span class="n">pswd</span><span class="p">:</span>                        <span class="c1"># p2 password (will ask at prompt if left blank)</span>
-<span class="n">obids</span><span class="p">:</span>     <span class="p">[</span><span class="mi">1848649</span><span class="p">,</span><span class="mi">1848655</span><span class="p">]</span> <span class="c1"># List of Ob IDs to chart</span>
-<span class="n">bk_images</span><span class="p">:</span> <span class="p">[</span><span class="n">SDSSr</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>     <span class="c1"># SkyView survey, None for default, or local FITS filename</span>
+<span class="n">obids</span><span class="p">:</span>     <span class="p">[</span><span class="mi">1234567</span><span class="p">,</span><span class="mi">7654321</span><span class="p">]</span> <span class="c1"># List of Ob IDs to chart</span>
+<span class="n">bk_images</span><span class="p">:</span> <span class="p">[</span><span class="n">SDSSr</span><span class="p">,</span> <span class="bp">None</span><span class="p">]</span>     <span class="c1"># SkyView survey, None for default, Gaia, or local FITS filename</span>
 <span class="n">bk_lams</span><span class="p">:</span>   <span class="p">[</span><span class="bp">None</span><span class="p">,</span><span class="bp">None</span><span class="p">]</span>       <span class="c1"># Lambda of the chart (SkyView will override), None for default</span>
 <span class="n">data_loc</span><span class="p">:</span>  <span class="n">fcm_data</span>          <span class="c1"># Relative path to the background images (local FITS file or SkyView images) </span>
 <span class="n">plot_loc</span><span class="p">:</span>  <span class="n">fcm_plots</span>         <span class="c1"># Relative path to store the finding charts </span>
@@ -300,9 +303,10 @@ exquisite Computer Modern Bright sans-serif font (why wouldn’t you?), try:</p>
 </div>
 <div class="section" id="the-background-images">
 <h2>The background images<a class="headerlink" href="#the-background-images" title="Permalink to this headline">¶</a></h2>
-<p>fcmaker relies on <code class="docutils literal"><span class="pre">astroquery.skyview</span></code> to download background images for the finding
-charts (if no local FITS file is provided by the user). To display the full list of
-surveys available, type in a Python shell:</p>
+<p>With the exception of MUSE NFM finding charts (see <a class="reference internal" href="#gaia-images"><span class="std std-ref">Mock Gaia images for MUSE NFM</span></a>), fcmaker relies on
+<code class="docutils literal"><span class="pre">astroquery.skyview</span></code> to download background images for the finding charts (if no local
+FITS file is provided by the user). To display the full list of surveys available, type in
+a Python shell:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.skyview</span> <span class="kn">import</span> <span class="n">SkyView</span>
 <span class="n">SkyView</span><span class="o">.</span><span class="n">survey_dict</span><span class="p">[</span><span class="s1">&#39;overlay_blue&#39;</span><span class="p">]</span>
 </pre></div>
@@ -310,7 +314,7 @@ surveys available, type in a Python shell:</p>
 <p>The default background survey images for the instruments supported by fcmaker are as follows:</p>
 <blockquote>
 <div><ul class="simple">
-<li><strong>MUSE</strong>: <code class="docutils literal"><span class="pre">DSS2</span> <span class="pre">Red</span></code></li>
+<li><strong>MUSE WFM</strong>: <code class="docutils literal"><span class="pre">DSS2</span> <span class="pre">Red</span></code></li>
 <li><strong>HAWKI</strong>: <code class="docutils literal"><span class="pre">2MASS-J</span></code>, <code class="docutils literal"><span class="pre">2MASS-H</span></code> and <code class="docutils literal"><span class="pre">2MASS-K</span></code> for filters <code class="docutils literal"><span class="pre">J</span></code>, <code class="docutils literal"><span class="pre">H</span></code>, <code class="docutils literal"><span class="pre">K</span></code>, and <code class="docutils literal"><span class="pre">2MASS-H</span></code> for all other filters</li>
 <li><strong>XSHOOTER</strong>: <code class="docutils literal"><span class="pre">DSS2</span> <span class="pre">Red</span></code></li>
 </ul>
@@ -320,6 +324,21 @@ surveys available, type in a Python shell:</p>
 <p class="last">From an operational perspective, when using Skyview images, I would strongly recommend
 to only use <code class="docutils literal"><span class="pre">DSS2</span> <span class="pre">Red</span></code> or <code class="docutils literal"><span class="pre">SDSSr</span></code> for optical instruments, and <code class="docutils literal"><span class="pre">2MASS-J</span></code>,
 <code class="docutils literal"><span class="pre">2MASS-H</span></code> or <code class="docutils literal"><span class="pre">2MASS-K</span></code> for IR instruments.</p>
+</div>
+<div class="section" id="mock-gaia-images-for-muse-nfm">
+<span id="gaia-images"></span><h3>Mock Gaia images for MUSE NFM<a class="headerlink" href="#mock-gaia-images-for-muse-nfm" title="Permalink to this headline">¶</a></h3>
+<p><code class="docutils literal"><span class="pre">DSS2</span> <span class="pre">Red</span></code> background images are not well suited for MUSE NFM finding charts, given the small
+field-of-view of 7.5x7.5 square arcsec of this mode. To circumvent this issue, fcmaker
+creates pseudo sky images from the Gaia catalogue, via the
+<code class="docutils literal"><span class="pre">fcmaker_plots.make_gaia_image()</span></code> function. By default, the image is created with a
+pixel size of 25 mas (the pixel size of MUSE NFM). Each star is plotted as a 2D gaussian
+with a FWHM of 80 mas (typical to the image quality achieved in normal operations), and
+scaled in intensity as a function of its Gaia flux. Evidently, the position of each star
+takes into account their measured proper motions, to provide an accurate on-sky view at the
+time of the observation (requested by the user with the <code class="docutils literal"><span class="pre">obsdate</span></code> parameter). The
+resulting image is saved as a fully-fledged FITS file in the <code class="docutils literal"><span class="pre">data_loc</span></code> location.</p>
+<p>See the Gallery (<a class="reference internal" href="examples/gallery.html#examples-nfm"><span class="std std-ref">MUSE NFM</span></a>) for an illustration of the benefit of these mock
+Gaia images.</p>
 </div>
 </div>
 </div>
@@ -368,7 +387,7 @@ to only use <code class="docutils literal"><span class="pre">DSS2</span> <span c
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.2',
+            VERSION:'0.3.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

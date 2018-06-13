@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; fcmaker 0.3.2 documentation</title>
+  <title>Changelog &mdash; fcmaker 0.3.3 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.3.2 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 0.3.3 documentation" href="index.html"/>
         <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html"/>
         <link rel="prev" title="FAQ" href="faq.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.2
+                0.3.3
               </div>
             
           
@@ -168,11 +168,7 @@
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <ul class="last simple">
-<li>formalize support for MUSE NFM: create a mock bk_image from all the Gaia entries in
-the area.</li>
-<li>(!) correct Cassegrain field-of-view</li>
 <li>(!) formally validate the parallactic function</li>
-<li>(!) validate the orientation of the MUSE WFM field (180 flip required ?)</li>
 <li>(?) add support for jitter in HAWKI (showing the max jitter area with a circle)</li>
 <li>(?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with
 <code class="docutils literal"><span class="pre">shapley</span></code></li>
@@ -181,6 +177,18 @@ the area.</li>
 </ul>
 </div>
 <dl class="docutils">
+<dt>v0.3.3 June 2018, F.P.A. Vogt:</dt>
+<dd><ul class="first last simple">
+<li>corrected the orientation of the MUSE WFM field (180 flip required)</li>
+<li>added correct Cassegrain field-of-view of 7.4 arcmin in radius</li>
+<li>formalized support for MUSE NFM, including …</li>
+<li>the creation of mock bk_images from all the Gaia entries in the area.</li>
+<li>fixed bug in radius of allowed GS displayed</li>
+<li>fixed bug with chart tags (now displayed only when required)</li>
+<li>used telescope coordinates from ESO website</li>
+<li>added clear mark for slit PA in X-shooter charts</li>
+</ul>
+</dd>
 <dt>v0.3.2 May 2018, F.P.A. Vogt:</dt>
 <dd><ul class="first last simple">
 <li>added *.fits to .gitignore</li>
@@ -351,7 +359,7 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.2',
+            VERSION:'0.3.3',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
