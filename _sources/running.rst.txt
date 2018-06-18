@@ -131,9 +131,9 @@ The background images
 ----------------------
 
 With the exception of MUSE NFM finding charts (see :ref:`gaia-images`), fcmaker relies on 
-``astroquery.skyview`` to download background images for the finding charts (if no local 
-FITS file is provided by the user). To display the full list of surveys available, type in 
-a Python shell::
+``astroquery.skyview`` to download background images for the finding charts (unless a local 
+FITS file is provided by the user, see :ref:`local-FITS`). To display the full list of 
+surveys available, type in a Python shell::
  
    from astroquery.skyview import SkyView
    SkyView.survey_dict['overlay_blue']
@@ -149,6 +149,7 @@ The default background survey images for the instruments supported by fcmaker ar
    From an operational perspective, when using Skyview images, I would strongly recommend 
    to only use ``DSS2 Red`` or ``SDSSr`` for optical instruments, and ``2MASS-J``, 
    ``2MASS-H`` or ``2MASS-K`` for IR instruments.
+
 
 .. _gaia-images:
 
@@ -169,7 +170,18 @@ resulting image is saved as a fully-fledged FITS file in the ``data_loc`` locati
 See the Gallery (:ref:`examples-NFM`) for an illustration of the benefit of these mock 
 Gaia images.
 
+.. _local-FITS: 
 
- 
+Using local FITS files
+++++++++++++++++++++++++ 
+
+Users interested in providing their own background image can do so (for the left-hand-side plot)
+via the ``bk_images`` and ``bk_lams`` parameters. The former specifies the filename, 
+assuming that the FITS file is placed in the ``data_loc`` directory. The latter allows the
+user to specify the text to be displayed on the chart. To meet ESO's requirements, this
+text should specify the wavelength of the image. 
+
+See the Gallery (:ref:`examples-NFM`) for an illustration of this approach.
+
 
 

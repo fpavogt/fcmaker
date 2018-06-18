@@ -7,12 +7,19 @@ Changelog |last-commit|
 =======================
 
 .. todo:: 
+   - (?) include an instrument-free mode
+   - (?) add metadata to .jpg 
    - (!) formally validate the parallactic function
    - (?) add support for jitter in HAWKI (showing the max jitter area with a circle) 
    - (?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with 
      ``shapley``
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
+
+v0.3.4 June 2018, F.P.A. Vogt
+ - fixed missing relsize package in mplstyle
+ - added a check to make sure the user provides the wavelength of custom fits files
+ - added section about custom FITS file to the doc.
 
 v0.3.3 June 2018, F.P.A. Vogt:
  - corrected the orientation of the MUSE WFM field (180 flip required)

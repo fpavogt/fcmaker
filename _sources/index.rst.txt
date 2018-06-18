@@ -47,7 +47,7 @@ Instruments and modes currently supported
 
 .. warning::
    fcmaker is neither supported nor officially endorsed by the 
-   European Southern Observatory. As a rule, never blindly rely on 
+   European Southern Observatory. As a rule, never rely blindly on 
    what fcmaker does.
 
 Contents

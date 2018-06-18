@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Usage instructions &mdash; fcmaker 0.3.3 documentation</title>
+  <title>Usage instructions &mdash; fcmaker 0.3.4 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.3.3 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 0.3.4 documentation" href="index.html"/>
         <link rel="next" title="Troubleshooting" href="troubleshooting.html"/>
         <link rel="prev" title="Installation" href="installation.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.3
+                0.3.4
               </div>
             
           
@@ -102,6 +102,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#the-fcmaker-flags">The fcmaker flags</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-background-images">The background images</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#mock-gaia-images-for-muse-nfm">Mock Gaia images for MUSE NFM</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#using-local-fits-files">Using local FITS files</a></li>
 </ul>
 </li>
 </ul>
@@ -304,9 +305,9 @@ exquisite Computer Modern Bright sans-serif font (why wouldn’t you?), try:</p>
 <div class="section" id="the-background-images">
 <h2>The background images<a class="headerlink" href="#the-background-images" title="Permalink to this headline">¶</a></h2>
 <p>With the exception of MUSE NFM finding charts (see <a class="reference internal" href="#gaia-images"><span class="std std-ref">Mock Gaia images for MUSE NFM</span></a>), fcmaker relies on
-<code class="docutils literal"><span class="pre">astroquery.skyview</span></code> to download background images for the finding charts (if no local
-FITS file is provided by the user). To display the full list of surveys available, type in
-a Python shell:</p>
+<code class="docutils literal"><span class="pre">astroquery.skyview</span></code> to download background images for the finding charts (unless a local
+FITS file is provided by the user, see <a class="reference internal" href="#local-fits"><span class="std std-ref">Using local FITS files</span></a>). To display the full list of
+surveys available, type in a Python shell:</p>
 <div class="highlight-python"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">astroquery.skyview</span> <span class="kn">import</span> <span class="n">SkyView</span>
 <span class="n">SkyView</span><span class="o">.</span><span class="n">survey_dict</span><span class="p">[</span><span class="s1">&#39;overlay_blue&#39;</span><span class="p">]</span>
 </pre></div>
@@ -340,6 +341,15 @@ resulting image is saved as a fully-fledged FITS file in the <code class="docuti
 <p>See the Gallery (<a class="reference internal" href="examples/gallery.html#examples-nfm"><span class="std std-ref">MUSE NFM</span></a>) for an illustration of the benefit of these mock
 Gaia images.</p>
 </div>
+<div class="section" id="using-local-fits-files">
+<span id="local-fits"></span><h3>Using local FITS files<a class="headerlink" href="#using-local-fits-files" title="Permalink to this headline">¶</a></h3>
+<p>Users interested in providing their own background image can do so (for the left-hand-side plot)
+via the <code class="docutils literal"><span class="pre">bk_images</span></code> and <code class="docutils literal"><span class="pre">bk_lams</span></code> parameters. The former specifies the filename,
+assuming that the FITS file is placed in the <code class="docutils literal"><span class="pre">data_loc</span></code> directory. The latter allows the
+user to specify the text to be displayed on the chart. To meet ESO’s requirements, this
+text should specify the wavelength of the image.</p>
+<p>See the Gallery (<a class="reference internal" href="examples/gallery.html#examples-nfm"><span class="std std-ref">MUSE NFM</span></a>) for an illustration of this approach.</p>
+</div>
 </div>
 </div>
 
@@ -365,7 +375,7 @@ Gaia images.</p>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017, Frédéric P.A. Vogt.
+        &copy; Copyright 2017-2018, Frédéric P.A. Vogt.
 
     </p>
   </div>
@@ -387,7 +397,7 @@ Gaia images.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.3',
+            VERSION:'0.3.4',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
