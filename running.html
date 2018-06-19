@@ -281,18 +281,26 @@ indicate that it is a <em>local run</em>:</p>
 </div>
 <div class="section" id="the-fcmaker-flags">
 <span id="flags"></span><h2>The fcmaker flags<a class="headerlink" href="#the-fcmaker-flags" title="Permalink to this headline">¶</a></h2>
-<p>A series of flags allow to fine-tune the way fcmaker works. They are:</p>
+<p>Here are all the flags that allow to fine-tune the way fcmaker works. They are:</p>
 <blockquote>
 <div><ul class="simple">
 <li><code class="docutils literal"><span class="pre">--help,-h</span></code> : prints the basic help</li>
 <li><code class="docutils literal"><span class="pre">--version</span></code> : prints the fcmaker version</li>
-<li><code class="docutils literal"><span class="pre">--montage</span></code> : will use Montage, to force the finding charts to be rotated North (soon to be retired).</li>
-<li><code class="docutils literal"><span class="pre">--systemtex</span></code> : will use the system-wide LaTeX, rather than the matplotlib one. Finding charts will be prettier. [encouraged!]</li>
-<li><code class="docutils literal"><span class="pre">--no-upload</span></code> : tells fcmaker never to try to upload the finding chart(s) to p2.</li>
+<li><code class="docutils literal"><span class="pre">--p2uid</span> <span class="pre">username</span></code>: p2 user ID</li>
+<li><code class="docutils literal"><span class="pre">--obid</span> <span class="pre">12345678</span></code>: Observing Block ID on p2</li>
+<li><code class="docutils literal"><span class="pre">-f</span> <span class="pre">filename</span></code>: specify a parameter filename</li>
+<li><code class="docutils literal"><span class="pre">--obsdate</span> <span class="pre">YYYY-MM-DD</span> <span class="pre">hh:mm:ss</span> <span class="pre">TZ</span></code> : allows to specify the observing date (and time, and time zone), in case of large proper motions or moving target. Assuming UTC by default.</li>
+<li><code class="docutils literal"><span class="pre">--bk-image</span> <span class="pre">filename.fits</span></code>: a FITS filename for the background image. Must be stored in <code class="docutils literal"><span class="pre">--data-loc</span></code>.</li>
+<li><code class="docutils literal"><span class="pre">--bk-lam</span> <span class="pre">some</span> <span class="pre">text</span></code>: specifies the wavelength of the background image.</li>
 <li><code class="docutils literal"><span class="pre">--do-pdf</span></code> : tells fcmaker to save a .pdf version of the finding chart (in addition to the jpg one).</li>
 <li><code class="docutils literal"><span class="pre">--do-png</span></code> : tells fcmaker to save a .png version of the finding chart (in addition to the jpg one).</li>
-<li><code class="docutils literal"><span class="pre">--obsdate</span></code> : allows to specify the observing date (and time), in case of large proper motions or moving target.</li>
 <li><code class="docutils literal"><span class="pre">--do-parang</span></code>: forces the drawing of the instrument field-of-view when a parallactic angle is set. This will be accurate, but <em>very</em> time-dependant!</li>
+<li><code class="docutils literal"><span class="pre">--data-loc</span> <span class="pre">path/to/folder</span></code>: relative path to store the downloaded data (default: ./fcm_data)</li>
+<li><code class="docutils literal"><span class="pre">--plot-loc</span> <span class="pre">path/to/folder</span></code>: relative path to store the finding charts (default: ./fcm_plots)</li>
+<li><code class="docutils literal"><span class="pre">--no-upload</span></code> : tells fcmaker never to try to upload the finding chart(s) to p2.</li>
+<li><code class="docutils literal"><span class="pre">-l</span></code> or <code class="docutils literal"><span class="pre">--local</span></code>: flags the parameter file as a local OB definition</li>
+<li><code class="docutils literal"><span class="pre">--montage</span></code> : will use Montage, to force the finding charts to be rotated North (soon to be retired).</li>
+<li><code class="docutils literal"><span class="pre">--systemtex</span></code> : will use the system-wide LaTeX, rather than the matplotlib one. Finding charts will be prettier. [encouraged!]</li>
 <li><code class="docutils literal"><span class="pre">--clear-SkyView-cache</span></code> : does as it says. Note that the SkyView cache is <em>not</em> the same as the <code class="docutils literal"><span class="pre">fcm_data</span></code> folder in which fcmaker stores the downloaded FITS files.</li>
 </ul>
 </div></blockquote>
