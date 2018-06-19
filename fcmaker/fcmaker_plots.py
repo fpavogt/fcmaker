@@ -106,7 +106,7 @@ def get_bk_image(bk_image, bk_lam, center, radius, fc_params):
       bk_lam: (string)
       center: a SkyCoord entry defining the center of the image
       radius: the radius of the image ... for now, only used when creating a pseudo-Gaia image
-      fc_params: the parameters of the finding chart (a dictionnary)
+      fc_params: the parameters of the finding chart (a dictionary)
    Returns:
       The absolute path of the background image (possibly after download), and the survey name.
    
@@ -121,7 +121,14 @@ def get_bk_image(bk_image, bk_lam, center, radius, fc_params):
       if not(bk_image in SkyView.survey_dict['overlay_blue']) and not(bk_image=='Gaia'):
          # Very well, I guess I have a custom FITS file.
          fn_bk_image = os.path.join(fcm_m.data_loc, bk_image)
-         survey = bk_image.split('.')[0] # assume a filename.fits ...
+         
+         #survey = bk_image.split('.')[0] # assume a filename.fits ...
+         survey = 'from user'
+         # Here, make sure the user also provides the wavelength of the image
+         if bk_lam in [None,'None']:
+            raise Exception('Ouch! Please specify the wavelength of the background image '+ 
+                             'with the bk_lam parameter.')
+         
       else:
          fn_bk_image = ''
          survey = bk_image
@@ -140,6 +147,7 @@ def get_bk_image(bk_image, bk_lam, center, radius, fc_params):
          os.remove(os.path.join(cache_loc,item))
    
    # Do I already have an image ?
+   # If not, get one
    if fcm_m.clear_SkyView_cache or not(os.path.isfile(fn_bk_image)):
    
       # Specify FITS filename
@@ -535,7 +543,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
 
    # Add the required OB information to comply with ESO requirements ...
    # ... and make the life of the night astronomer a lot easier !
-   ax1.add_label(0.0,1.13, 'Run ID: '+fc_params['prog_id']+' | '+fc_params['pi'], 
+   ax1.add_label(0.0,1.11, 'Run ID: '+fc_params['prog_id']+' | '+fc_params['pi'], 
                  relative=True, horizontalalignment='left', size=14)
    
    # Fix some bugs for anyone not using LaTeX ... sigh ...
@@ -545,7 +553,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       lab = fc_params['ob_name']             
     
           
-   ax1.add_label(0.0,1.08, 'OB: %i | %s' % (fc_params['ob_id'],lab), relative=True, 
+   ax1.add_label(0.0,1.06, 'OB: %i | %s' % (fc_params['ob_id'],lab), relative=True, 
                  horizontalalignment='left', size=14)
    #ax1.add_label(0.0,1.08, r'$\lambda_{fc}$: %s (%s)' % (bk_lam_L, survey_L), relative=True, 
    #              horizontalalignment='left')
@@ -571,7 +579,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    # Show the obsdate
    ax1.add_label(1.0,1.02, r'Obs. date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d %H:%M %Z'), 
                  relative=True, color='k',
-                 horizontalalignment='right', fontsize=12) 
+                 horizontalalignment='right', fontsize=11) 
 
    # Show the OB tags
    if 'moving_target' in fc_params['tags']:

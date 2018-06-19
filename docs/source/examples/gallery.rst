@@ -95,24 +95,40 @@ By default, the background image for the MUSE NFM finding charts is a mock image
 reconstructed from the Gaia catalogue (see :ref:`gaia-images`). The two finding charts 
 below illustrate the benefit of this approach, in comparison with using a DSS2 Red image.
 
-.. figure:: ./fcm_plots/MUSE_NFM_Gaia.png
-    :width: 750px
-    :align: center
-    :alt: MUSE NFM
 
 .. figure:: ./fcm_plots/MUSE_NFM_DSS2-Red.png
     :width: 750px
     :align: center
     :alt: MUSE NFM DSS2
+    
+.. figure:: ./fcm_plots/MUSE_NFM_Gaia.png
+    :width: 750px
+    :align: center
+    :alt: MUSE NFM
 
 To recreate these example finding charts, download 
-:download:`local_2_fcm.muse_nfm-Gaia.txt <./local_2_fcm.muse_nfm-Gaia.txt>` and/or 
-:download:`local_2_fcm.muse_nfm-DSS.txt <./local_2_fcm.muse_nfm-DSS.txt>` and 
+:download:`local_2_fcm.muse_nfm-DSS.txt <./local_2_fcm.muse_nfm-DSS.txt>` and/or 
+:download:`local_2_fcm.muse_nfm-Gaia.txt <./local_2_fcm.muse_nfm-Gaia.txt>` and 
 run::
    
-   python -m fcmaker -l -f local_2_fcm.muse_nfm-Gaia.txt --do-png --systemtex
    python -m fcmaker -l -f local_2_fcm.muse_nfm-DSS.txt --do-png --systemtex
+   python -m fcmaker -l -f local_2_fcm.muse_nfm-Gaia.txt --do-png --systemtex
    
+Evidently, the best case is when a real high-resolution images of the observation area is 
+available, for example from HST ACS or WFC3. Any local fits files can be used for the 
+left-hand-side finding chart, provided that it comes with proper WCS information.
+
+.. figure:: ./fcm_plots/MUSE_NFM_from-user.png
+    :width: 750px
+    :align: center
+    :alt: MUSE NFM HST
+
+To recreate this example finding chart, download 
+:download:`local_2_fcm.muse_nfm-HST.txt <./local_2_fcm.muse_nfm-HST.txt>` and run 
+(FITS file  not included!)::
+   
+   python -m fcmaker -l -f local_2_fcm.muse_nfm-HST.txt --do-png --systemtex
+      
 
 HAWKI
 -----

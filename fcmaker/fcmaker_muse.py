@@ -209,6 +209,10 @@ def get_p2fcdata_muse(fc_params, ob, api):
             # Instrument mode
             if param['name'] == 'INS.MODE':
                fc_params['ins_mode'] = param['value'] # The mode is set in the acquisition
+            
+            # The NFM has got no 'ins_mode' anymore ... deal with it the other way
+            if 'nfm' in t['templateName']:
+               fc_params['ins_mode'] = 'NFM'
                   
             # Guide Star
             if param['name'] == 'TEL.AG.GUIDESTAR':
@@ -269,7 +273,7 @@ def get_p2fcdata_muse(fc_params, ob, api):
                                          frame='icrs',unit=(u.hourangle, u.deg))
       
          # Also for the NFM case
-         if 'NFM-AO' in fc_params['ins_mode']:
+         if 'NFM' in fc_params['ins_mode']:
             fc_params['acq']['oatt'] = SkyCoord(oatt_ra,oatt_dec, 
                                          obstime = fcm_m.obsdate, 
                                          #equinox=ob['target']['equinox'], 
@@ -567,20 +571,23 @@ def plot_field(ax1, ax2, fc_params, field):
    
    this_coords = [field[2].ra, field[2].dec]
    
-   # Show the center of the field, without obstructing it to see the blind offset star
-   ax1.show_markers(this_coords[0].deg, this_coords[1].deg, 
-                    marker=skins[field[4]]['marker'],
-                    edgecolor=skins[field[4]]['mc'],
-                    s=skins[field[4]]['ms'], 
-                    linewidth=skins[field[4]]['lwm'], 
-                    zorder=skins[field[4]]['zorder'],
-                    ) 
-   
    for ax in [ax1,ax2]:
+      
+      if (ax in [ax1]) or (fc_params['ins_mode'] == 'NFM'):
+         # Show the center of the field, without obstructing it to see the blind offset star
+         ax.show_markers(this_coords[0].deg, this_coords[1].deg, 
+                          marker=skins[field[4]]['marker'],
+                          edgecolor=skins[field[4]]['mc'],
+                          s=skins[field[4]]['ms'], 
+                          linewidth=skins[field[4]]['lwm'], 
+                          zorder=skins[field[4]]['zorder'],
+                          ) 
+   
       # instrument footprint, except for the "target", where the AO loops are closed, but
       # no data is taken
       #if field[4] != 'Target':
-      ax.show_polygons(get_polygon(field[2],field[3],field[1][:3]), 
+      if (ax in [ax1]) or (fc_params['ins_mode'] != 'NFM'):
+         ax.show_polygons(get_polygon(field[2],field[3],field[1][:3]), 
                            edgecolor = skins[field[4]]['c'],
                            linewidth = skins[field[4]]['lw'],
                            zorder = skins[field[4]]['zorder'],
@@ -728,8 +735,8 @@ def plot_field(ax1, ax2, fc_params, field):
                             bbox=dict(boxstyle="circle,pad=0.17", facecolor='w',ec='crimson', alpha=1))
             
    
-      # Finally, also add a legend for clarity
-      acq_legend = mlines.Line2D([], [], 
+   # Finally, also add a legend for clarity
+   acq_legend = mlines.Line2D([], [], 
                                   color=skins['Acq']['c'],
                                   markerfacecolor='None',
                                   markeredgecolor=skins['Acq']['mc'], 
@@ -737,7 +744,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                   linestyle=skins['Acq']['ls'],
                                   linewidth=skins['Acq']['lw'],
                                   markersize=10, label='Acq.')
-      target_legend = mlines.Line2D([], [],
+   target_legend = mlines.Line2D([], [],
                                     color=skins['Target']['c'],
                                     markerfacecolor='None', 
                                     markeredgecolor=skins['Target']['mc'], 
@@ -745,7 +752,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                     linewidth=skins['Target']['lw'],
                                     marker=skins['Target']['marker'],
                                     markersize=10, label='Target')
-      O_legend = mlines.Line2D([], [], 
+   O_legend = mlines.Line2D([], [], 
                                color=skins['O']['c'],
                                markerfacecolor='None',
                                markeredgecolor=skins['O']['mc'],
@@ -753,7 +760,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linewidth=skins['O']['lw'],
                                marker=skins['O']['marker'],
                                markersize=10, label='O')                                                           
-      S_legend = mlines.Line2D([], [], 
+   S_legend = mlines.Line2D([], [], 
                                color=skins['S']['c'],
                                markerfacecolor='None',
                                markeredgecolor=skins['S']['mc'], 
@@ -762,7 +769,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                marker=skins['S']['marker'],
                                markersize=10, label='S') 
                                
-      ucac2_legend = mlines.Line2D([], [],
+   ucac2_legend = mlines.Line2D([], [],
                                     color='crimson',
                                     markerfacecolor='None', 
                                     markeredgecolor='crimson', 
@@ -771,7 +778,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                     marker='o',
                                     markersize=10, label='UCAC2')                         
       
-      PM_legend =  mlines.Line2D([], [],color='crimson',
+   PM_legend =  mlines.Line2D([], [],color='crimson',
                                  markerfacecolor='crimson',
                                  markeredgecolor='crimson', 
                                  linestyle='-',
@@ -780,7 +787,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                  #markersize=10, 
                                  label='PM* (track:$-$%.1f yr)' % (fcm_m.pm_track_time.to(u.yr).value))
                                                           
-      ax2._ax1.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend, PM_legend],
+   ax2._ax1.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend, PM_legend],
                  bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
                  ncol=6, mode="expand", borderaxespad=0., fontsize=10, borderpad=0.7,
                  handletextpad=0.2, handlelength=2.0)          

@@ -108,18 +108,27 @@ fcmaker will create the associated finding chart, store it where specified, and 
 The fcmaker flags
 -----------------
 
-A series of flags allow to fine-tune the way fcmaker works. They are:
+Here are all the flags that allow to fine-tune the way fcmaker works. They are:
  
  * ``--help,-h`` : prints the basic help
  * ``--version`` : prints the fcmaker version
- * ``--montage`` : will use Montage, to force the finding charts to be rotated North (soon to be retired).
- * ``--systemtex`` : will use the system-wide LaTeX, rather than the matplotlib one. Finding charts will be prettier. [encouraged!]
- * ``--no-upload`` : tells fcmaker never to try to upload the finding chart(s) to p2.
+ * ``--p2uid username``: p2 user ID
+ * ``--obid 12345678``: Observing Block ID on p2
+ * ``-f filename``: specify a parameter filename
+ * ``--obsdate YYYY-MM-DD hh:mm:ss TZ`` : allows to specify the observing date (and time, and time zone), in case of large proper motions or moving target. Assuming UTC by default.
+ * ``--bk-image filename.fits``: a FITS filename for the background image. Must be stored in ``--data-loc``.
+ * ``--bk-lam some text``: specifies the wavelength of the background image.
  * ``--do-pdf`` : tells fcmaker to save a .pdf version of the finding chart (in addition to the jpg one).
  * ``--do-png`` : tells fcmaker to save a .png version of the finding chart (in addition to the jpg one).
- * ``--obsdate`` : allows to specify the observing date (and time), in case of large proper motions or moving target.
  * ``--do-parang``: forces the drawing of the instrument field-of-view when a parallactic angle is set. This will be accurate, but *very* time-dependant!
+ * ``--data-loc path/to/folder``: relative path to store the downloaded data (default: ./fcm_data)
+ * ``--plot-loc path/to/folder``: relative path to store the finding charts (default: ./fcm_plots)
+ * ``--no-upload`` : tells fcmaker never to try to upload the finding chart(s) to p2. 
+ * ``-l`` or ``--local``: flags the parameter file as a local OB definition
+ * ``--montage`` : will use Montage, to force the finding charts to be rotated North (soon to be retired).
+ * ``--systemtex`` : will use the system-wide LaTeX, rather than the matplotlib one. Finding charts will be prettier. [encouraged!]
  * ``--clear-SkyView-cache`` : does as it says. Note that the SkyView cache is *not* the same as the ``fcm_data`` folder in which fcmaker stores the downloaded FITS files.
+
 
 For example, if you want to boost the aesthetic appeal of your finding charts with the 
 exquisite Computer Modern Bright sans-serif font (why wouldn't you?), try::
@@ -131,9 +140,9 @@ The background images
 ----------------------
 
 With the exception of MUSE NFM finding charts (see :ref:`gaia-images`), fcmaker relies on 
-``astroquery.skyview`` to download background images for the finding charts (if no local 
-FITS file is provided by the user). To display the full list of surveys available, type in 
-a Python shell::
+``astroquery.skyview`` to download background images for the finding charts (unless a local 
+FITS file is provided by the user, see :ref:`local-FITS`). To display the full list of 
+surveys available, type in a Python shell::
  
    from astroquery.skyview import SkyView
    SkyView.survey_dict['overlay_blue']
@@ -149,6 +158,7 @@ The default background survey images for the instruments supported by fcmaker ar
    From an operational perspective, when using Skyview images, I would strongly recommend 
    to only use ``DSS2 Red`` or ``SDSSr`` for optical instruments, and ``2MASS-J``, 
    ``2MASS-H`` or ``2MASS-K`` for IR instruments.
+
 
 .. _gaia-images:
 
@@ -169,7 +179,18 @@ resulting image is saved as a fully-fledged FITS file in the ``data_loc`` locati
 See the Gallery (:ref:`examples-NFM`) for an illustration of the benefit of these mock 
 Gaia images.
 
+.. _local-FITS: 
 
- 
+Using local FITS files
+++++++++++++++++++++++++ 
+
+Users interested in providing their own background image can do so (for the left-hand-side plot)
+via the ``bk_images`` and ``bk_lams`` parameters. The former specifies the filename, 
+assuming that the FITS file is placed in the ``data_loc`` directory. The latter allows the
+user to specify the text to be displayed on the chart. To meet ESO's requirements, this
+text should specify the wavelength of the image. 
+
+See the Gallery (:ref:`examples-NFM`) for an illustration of this approach.
+
 
 
