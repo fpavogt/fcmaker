@@ -16,6 +16,9 @@ Changelog |last-commit|
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
 
+v0.3.5 June 2018, F.P.A. Vogt
+ - fixed bad bug when feeding no ``obid``
+
 v0.3.4 June 2018, F.P.A. Vogt
  - fixed missing relsize package in mplstyle
  - added a check to make sure the user provides the wavelength of custom fits files

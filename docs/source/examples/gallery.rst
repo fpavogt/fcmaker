@@ -58,9 +58,9 @@ telescope Guide Stars is 120 arcsec from any offset position.
     :alt: MUSE WFM NOAO
 
 To recreate this example finding chart, download 
-:download:`local_2_fcm.muse_wfm-noao.txt <./local_2_fcm.muse_wfm-noao-pm.txt>` and run::
+:download:`local_2_fcm.muse_wfm-noao.txt <./local_2_fcm.muse_wfm-noao.txt>` and run::
    
-   python -m fcmaker -l -f local_2_fcm.muse_wfm-noao-pm.txt --do-png --systemtex
+   python -m fcmaker -l -f local_2_fcm.muse_wfm-noao.txt --do-png --systemtex
 
 
 MUSE WFM-AO

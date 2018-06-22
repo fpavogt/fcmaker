@@ -72,7 +72,7 @@ parser.add_argument('--p2uid', action='store', metavar='p2uid', #nargs='+',
                     help='p2 user ID')                     
 
 parser.add_argument('--obid', action='store', metavar='obid', #nargs='+', 
-                    #default=[None],
+                    default=None,
                     help='Observing Block ID on p2')                     
 
 parser.add_argument('-f', action='store', metavar='filename', nargs=1, 
@@ -174,7 +174,10 @@ if __name__ == "__main__":
          pswd = None
 
          # What OB should we create a finding hart for ?
-         obids = [int(args.obid)]
+         if not(args.obid is None):
+            obids = [int(args.obid)]
+         else:
+            obids = []
        
          # Just use the default bk_image in manual mode
          if not(args.bk_image is None):
