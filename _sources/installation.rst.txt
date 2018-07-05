@@ -48,6 +48,6 @@ In a terminal shell, try to access the basic help of fcmaker::
    python -m fcmaker --help
  
 If that works, chances are, you will probably be fine. Note that fcmaker requires a 
-connection to the internet to work (even in local mode!).
+connection to the internet to work (even in local mode).
 
  

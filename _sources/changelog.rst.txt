@@ -3,8 +3,11 @@
 .. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
    :target: https://github.com/fpavogt/fcmaker
 
-Changelog |last-commit|
-=======================
+.. |issues| image:: https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e  
+   :target: https://github.com/fpavogt/fcmaker/issues
+
+Changelog |last-commit| |issues|
+================================
 
 .. todo:: 
    - (?) include an instrument-free mode
