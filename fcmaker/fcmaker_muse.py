@@ -75,8 +75,8 @@ def left_radius(ins_mode):
 inner_GS_search = 120. # inner limit to find Guide Stars
 
 # TTS validity area
-inner_TTS_search = 1.725/2.*60 # in arcsec
-outer_TTS_search = 3.590/2.*60 # in arcsec
+inner_TTS_search = 1.725/2.*60 # in degree
+outer_TTS_search = 3.590/2.*60 # in degree
 outer_OATT_search = 3.35 # in arcsec, radius of the on-axis TT star (NFM
 
 # List the supported MUSE observing templates
@@ -155,6 +155,7 @@ def get_p2fcdata_muse(fc_params, ob, api):
    Extracts all the important info to build a finding chart from a given MUSE OB from p2.
    
    Args:
+      fc_params: dictionnary of finding chart parameters
       ob: an api.getOB() object
       api: a p2api.ApiConnection() object 
    Returns:
@@ -662,7 +663,7 @@ def plot_field(ax1, ax2, fc_params, field):
                            
                            
       # Show the WFM-AO TT stars 
-      if fc_params['acq']['is_tts']:
+      if fc_params['acq']['is_tts'] and ('WFM-AO' in fc_params['ins_mode']):
          for (t,tts) in enumerate([fc_params['acq']['tts1'],fc_params['acq']['tts2']]):  
             
             # Skip if it is not defined (0,0 is the default)

@@ -132,6 +132,7 @@ def get_p2fcdata_xshooter(fc_params, ob, api):
    Extracts all the important info to build a finding chart from a given XSHOOTER OB from p2.
    
    Args:
+      fc_params: dictionnary of finding chart parameters
       ob: an api.getOB() object
       api: a p2api.ApiConnection() object 
    Returns:

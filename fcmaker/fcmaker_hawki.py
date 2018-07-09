@@ -133,11 +133,12 @@ def detector_to_sky(dx,dy,pa):
    return (dra, ddec)
 
 # ----------------------------------------------------------------------------------------
-def get_p2fcdata_hawki(ob, api):
+def get_p2fcdata_hawki(fc_params, ob, api):
    '''
    Extracts all the important info to build a finding chart from a given HAWKI OB from p2.
    
    Args:
+      fc_params: dictionnary of finding chart parameters
       ob: an api.getOB() object
       api: a p2api.ApiConnection() object 
    Returns:
@@ -577,7 +578,12 @@ def plot_field(ax1, ax2, fc_params, field):
                                              delta_ra = xys[j][0]*u.arcsec,
                                              delta_dec = xys[j][1]*u.arcsec)
             
-            ax.add_label(label_coord.ra.deg,label_coord.dec.deg,r'\textbf{Q%i}' % (j+1), 
+            if fcm_m.fcm_usetex:
+               lab = r'\textbf{Q%i}' % (j+1)
+            else: 
+               lab = r'Q%i' % (j+1)
+            
+            ax.add_label(label_coord.ra.deg,label_coord.dec.deg,lab, 
                          verticalalignment='center', 
                          horizontalalignment='center',size=12,color=skins[field[4]]['c'],
                          bbox=dict(facecolor='w',ec='none', alpha=0.6), zorder=2

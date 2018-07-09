@@ -2,32 +2,39 @@
 
 .. |DOI_latest| image:: https://zenodo.org/badge/119476467.svg
    :target: https://zenodo.org/badge/latestdoi/119476467
+   
+.. |ascl| image:: https://img.shields.io/badge/ascl-1806.027-blue.svg?colorB=262255
+   :target: http://ascl.net/1806.027
 
-fcmaker |release| |stars| |watch| 
-===============================================
+.. |pypi| image:: https://img.shields.io/pypi/v/fcmaker.svg?colorB=<brightgreen>
+    :target: https://pypi.python.org/pypi/fcmaker/
+    
+.. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
+   :target: https://github.com/fpavogt/fcmaker
 
-|DOI_latest| |pypi| |last-commit| |issues| |astropy|
+.. |issues| image:: https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e   
+   :target: https://github.com/fpavogt/fcmaker/issues
 
 .. |astropy| image:: http://img.shields.io/badge/powered%20by-AstroPy-orange.svg?style=flat
     :target: http://www.astropy.org/
-    
-.. |pypi| image:: https://img.shields.io/pypi/v/fcmaker.svg?colorB=<brightgreen>
-    :target: https://pypi.python.org/pypi/fcmaker/
-
-.. |github| image:: https://img.shields.io/github/release/fpavogt/fcmaker.svg
-   :target: https://github.com/fpavogt/fcmaker/releases
+   
 
 .. |stars| image:: https://img.shields.io/github/stars/fpavogt/fcmaker.svg?style=social&label=Stars
    :target: https://github.com/fpavogt/fcmaker/
 
 .. |watch| image:: https://img.shields.io/github/watchers/fpavogt/fcmaker.svg?style=social&label=Watch
    :target: https://github.com/fpavogt/fcmaker/
+   
+   
+.. |github| image:: https://img.shields.io/github/release/fpavogt/fcmaker.svg
+   :target: https://github.com/fpavogt/fcmaker/releases   
 
-.. |issues| image:: https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e   
-   :target: https://github.com/fpavogt/fcmaker/issues
 
-.. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
-   :target: https://github.com/fpavogt/fcmaker
+fcmaker |release| |stars| |watch|  
+=================================
+
+|pypi| |DOI_latest| |ascl| |astropy| |last-commit| 
+
 
 .. figure:: ./examples/fcm_plots/MUSE_WFM_AO_DSS2-Red.png
     :width: 750px
@@ -71,7 +78,7 @@ night time operations. They aim at providing a clear and accurate view of the ex
 execution of an OB, given its parameters **(i.e. without any further manual input)**. Note 
 that unlike `p2 <http://www.eso.org/p2>`_, fcmaker does **not** perform any validation 
 checks on the OB: it merely prints what they do, be it valid or not. **In essence, fcmaker 
-is intended to provide the user with the ability to visually check the content of an OB.**   
+provides the user with the ability to visually check the content of an OB.**   
 
 I expect/hope that fcmaker, despite being fully automated, will do a reasonable job for 
 most OBs of the supported instruments and modes. Should you stumble upon a case where

@@ -3,10 +3,14 @@
 .. |last-commit| image:: https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000
    :target: https://github.com/fpavogt/fcmaker
 
-Changelog |last-commit|
-=======================
+.. |issues| image:: https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e  
+   :target: https://github.com/fpavogt/fcmaker/issues
+
+Changelog |last-commit| |issues|
+================================
 
 .. todo:: 
+   - (!) figure out a way to add est OBs of test-p2 ? 
    - (?) include an instrument-free mode
    - (?) add metadata to .jpg 
    - (!) formally validate the parallactic function
@@ -15,6 +19,10 @@ Changelog |last-commit|
      ``shapley``
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
+
+v0.3.6 July 2018, Fp.P.A. Vogt
+ - fixed a `bad bug <https://github.com/fpavogt/fcmaker/issues/3>`_ for HAWKI and XSHOOTER OBs on p2
+ - for MUSE OBs on local mode, tries to display the TTS only if WFM-AO, or NFM.
 
 v0.3.5 June 2018, F.P.A. Vogt
  - fixed bad bug when feeding no ``obid``
