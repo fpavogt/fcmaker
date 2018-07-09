@@ -20,7 +20,7 @@ Acknowledging fcmaker
    reach the publication stage!), please cite:
    
     Vogt, *fcmaker: automating the creation of ESO-compliant finding charts for Observing 
-    Blocks on p2*, Astronomy & Computing, 2018, submitted.
+    Blocks on p2*, Astronomy & Computing, 2018, submitted. `ADS entry <http://adsabs.harvard.edu/abs/2018arXiv180702114V>`_
    
    In fact, a friendly nudge along the following blurb will give due credits to all those
    that made fcmaker possible in the first place::
@@ -68,6 +68,6 @@ Acknowledging fcmaker
 - `Morris et al. (2018) <http://adsabs.harvard.edu/abs/2018AJ....155..128M>`_
 - `Ochsenbein (2000) <http://cdsads.u-strasbg.fr/abs/2000A%26AS..143...23O>`_  
 - `Robitaille (2012) <http://adsabs.harvard.edu/abs/2012ascl.soft08017R>`_
-- `Vogt (2018a) < >`_
+- `Vogt (2018a) <http://adsabs.harvard.edu/abs/2018arXiv180702114V>`_
 - `Vogt (2018b) < >`_
 

@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>fcmaker package &mdash; fcmaker 0.3.5 documentation</title>
+  <title>fcmaker package &mdash; fcmaker 0.3.6 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="fcmaker 0.3.5 documentation" href="../index.html"/>
+    <link rel="top" title="fcmaker 0.3.6 documentation" href="../index.html"/>
         <link rel="up" title="The functions of fcmaker" href="modules.html"/>
         <link rel="next" title="FAQ" href="../faq.html"/>
         <link rel="prev" title="The functions of fcmaker" href="modules.html"/> 
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.3.5
+                0.3.6
               </div>
             
           
@@ -360,13 +360,14 @@ locally.</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_hawki.get_p2fcdata_hawki">
-<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_p2fcdata_hawki</code><span class="sig-paren">(</span><em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_p2fcdata_hawki" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_p2fcdata_hawki</code><span class="sig-paren">(</span><em>fc_params</em>, <em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_p2fcdata_hawki" title="Permalink to this definition">¶</a></dt>
 <dd><p>Extracts all the important info to build a finding chart from a given HAWKI OB from p2.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fc_params</strong> – dictionnary of finding chart parameters</li>
 <li><strong>ob</strong> – an api.getOB() object</li>
 <li><strong>api</strong> – a p2api.ApiConnection() object</li>
 </ul>
@@ -775,6 +776,7 @@ locally.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fc_params</strong> – dictionnary of finding chart parameters</li>
 <li><strong>ob</strong> – an api.getOB() object</li>
 <li><strong>api</strong> – a p2api.ApiConnection() object</li>
 </ul>
@@ -1115,6 +1117,7 @@ locally.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fc_params</strong> – dictionnary of finding chart parameters</li>
 <li><strong>ob</strong> – an api.getOB() object</li>
 <li><strong>api</strong> – a p2api.ApiConnection() object</li>
 </ul>
@@ -1219,7 +1222,7 @@ matplotlib down the line.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3.5',
+            VERSION:'0.3.6',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
