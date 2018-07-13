@@ -39,8 +39,10 @@ or from within a Python shell::
 You will be prompted for your `p2 <http://www.eso.org/p2>`_ username, password, and the 
 ID of the observing block to process. fcmaker will create two folders ``fcm_data`` and 
 ``fcm_plots`` at your current location, where it will store the background image and the 
-finding charts. Once the finding charts have been generated, you can choose to attach the 
-newly created finding chart to the OB on `p2 <http://www.eso.org/p2>`_, or not.
+finding chart. Once the finding chart has been generated, it will either be attached to 
+the OB directly (if the OB contains no pre-existing chart), or you will be asked to select
+an upload slot (occupied, or not). **Note that an OB cannot contain two finding charts with 
+the same name!**
 
 Case 2a: semi-automatic creation of finding charts via p2 (incl. upload)
 ------------------------------------------------------------------------

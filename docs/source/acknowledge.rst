@@ -26,43 +26,46 @@ Acknowledging fcmaker
    that made fcmaker possible in the first place::
    
     This research has made use of \textsc{fcmaker} (Vogt, 2018a,b), a \textsc{python} module 
-    to create ESO-compliant finding charts. \textsc{fcmaker} relies on \textsc{matplotlib} 
-    (Hunter 2007), \textsc{astropy}, a community-developed core \textsc{python} package 
-    for Astronomy (Astropy Collaboration et al., 2013), \textsc{astroplan} (Morris et al. 
-    2018), \textsc{aplpy}, an open-source plotting package for \textsc{python} (Robitaille 
-    2012), and \textsc{montage}, funded by the National Science Foundation under Grant Number 
-    ACI-1440620 and previously funded by the National Aeronautics and Space Administration’s 
-    Earth Science Technology Office, Computation Technologies Project, under Cooperative 
-    Agreement Number NCC5-626 between NASA and the California Institute of Technology. 
-    \textsc{fcmaker} uses the VizieR catalogue access tool, CDS, Strasbourg, France. The 
-    original description of the VizieR service was published in Ochsenbein (2000). 
-    \textsc{fcmaker} makes use of data from the European Space Agency (ESA) mission 
-    Gaia (\url{https://www.cosmos.esa.int/gaia}), processed by the Gaia Data Processing 
-    and Analysis Consortium (DPAC, \url{https://www.cosmos.esa.int/web/gaia/dpac/consortium}). 
-    Funding for the DPAC has been provided by national institutions, in particular the 
-    institutions participating in the Gaia Multilateral Agreement. In particular, 
-    \textsc{fcmaker} uses data from the Gaia (Gaia Collaboration et al., 2016) Data Release 
-    2 (Gaia Collaboration et al., 2018). \textsc{fcmaker} also uses data from the Second 
-    Digitized Sky Survey (DSS 2). The ``Second Epoch Survey'' of the southern sky was produced 
-    by the Anglo-Australian Observatory (AAO) using the UK Schmidt Telescope. Plates from 
-    this survey have been digitized and compressed by the STScI. The digitized images are 
-    copyright (c) 1993-1995 by the Anglo-Australian Telescope Board. The ``Equatorial Red 
-    Atlas'' of the southern sky was produced using the UK Schmidt Telescope. Plates from 
-    this survey have been digitized and compressedby the STScI. The digitized images are 
-    copyright (c) 1992-1995, jointly bythe UK SERC/PPARC (Particle Physics and Astronomy 
-    Research Council, formerly Science and Engineering Research Council) and the 
-    Anglo-Australian Telescope Board. The compressed files of the ``Palomar Observatory - 
-    Space Telescope Science Institute Digital Sky Survey'' of the northern sky, based on 
-    scans of the Second Palomar Sky Survey, are copyright (c) 1993-1995 by the California 
-    Institute of Technology. All DSS2 material not subject to one of the above copyright 
-    provisions is copyright(c) 1995 by the Association of Universities for Research in 
-    Astronomy, Inc., produced under Contract No. NAS 5-26555 with the National Aeronautics 
-    and Space Administration. 
+    to create ESO-compliant finding charts for OBs on \textit{p2}. \textsc{fcmaker} relies 
+    on \textsc{matplotlib} (Hunter 2007), \textsc{astropy}, a community-developed core 
+    \textsc{python} package for Astronomy (Astropy Collaboration et al., 2013), 
+    \textsc{astroquery}, a package hosted at \url{https://astroquery.readthedocs.io} which 
+    provides a set of tools for querying astronomical web forms and databases (Ginsburg et 
+    al. 2017), \textsc{astroplan} (Morris et al. 2018), \textsc{aplpy}, an open-source 
+    plotting package for \textsc{python} (Robitaille 2012), and \textsc{montage}, funded 
+    by the National Science Foundation under Grant Number ACI-1440620 and previously funded 
+    by the National Aeronautics and Space Administration’s Earth Science Technology Office, 
+    Computation Technologies Project, under Cooperative Agreement Number NCC5-626 between 
+    NASA and the California Institute of Technology. \textsc{fcmaker} uses the VizieR 
+    catalogue access tool, CDS, Strasbourg, France. The original description of the VizieR 
+    service was published in Ochsenbein (2000). \textsc{fcmaker} makes use of data from the 
+    European Space Agency (ESA) mission Gaia (\url{https://www.cosmos.esa.int/gaia}), 
+    processed by the Gaia Data Processing and Analysis Consortium (DPAC, 
+    \url{https://www.cosmos.esa.int/web/gaia/dpac/consortium}). Funding for the DPAC has 
+    been provided by national institutions, in particular the institutions participating 
+    in the Gaia Multilateral Agreement. In particular, \textsc{fcmaker} uses data from the 
+    Gaia (Gaia Collaboration et al., 2016) Data Release 2 (Gaia Collaboration et al., 2018). 
+    \textsc{fcmaker} also uses data from the Second Digitized Sky Survey (DSS 2). The 
+    ``Second Epoch Survey'' of the southern sky was produced by the Anglo-Australian 
+    Observatory (AAO) using the UK Schmidt Telescope. Plates from this survey have been 
+    digitized and compressed by the STScI. The digitized images are copyright (c) 1993-1995 
+    by the Anglo-Australian Telescope Board. The ``Equatorial Red Atlas'' of the southern 
+    sky was produced using the UK Schmidt Telescope. Plates from this survey have been 
+    digitized and compressedby the STScI. The digitized images are copyright (c) 1992-1995, 
+    jointly bythe UK SERC/PPARC (Particle Physics and Astronomy Research Council, formerly 
+    Science and Engineering Research Council) and the Anglo-Australian Telescope Board. 
+    The compressed files of the ``Palomar Observatory - Space Telescope Science Institute 
+    Digital Sky Survey'' of the northern sky, based on scans of the Second Palomar Sky 
+    Survey, are copyright (c) 1993-1995 by the California Institute of Technology. All 
+    DSS2 material not subject to one of the above copyright provisions is copyright(c) 
+    1995 by the Association of Universities for Research in Astronomy, Inc., produced under 
+    Contract No. NAS 5-26555 with the National Aeronautics and Space Administration. 
 
    
     
 - `Astropy Collaboration et al. (2013) <http://cdsads.u-strasbg.fr/abs/2013A%26A...558A..33A>`_ 
 - `Gaia Collaboration et al. (2016) <http://adsabs.harvard.edu/abs/2016A%26A...595A...1G>`_
+- `Ginsburg et al. (2017) <http://adsabs.harvard.edu/abs/2017ascl.soft08004G>`_
 - `Gaia Collaboration et al. (2018) <http://adsabs.harvard.edu/abs/2018arXiv180409365G>`_ 
 - `Hunter (2007) <http://cdsads.u-strasbg.fr/abs/2007CSE.....9...90H>`_  
 - `Morris et al. (2018) <http://adsabs.harvard.edu/abs/2018AJ....155..128M>`_

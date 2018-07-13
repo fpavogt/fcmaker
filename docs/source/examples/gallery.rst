@@ -201,7 +201,7 @@ The fcmaker tags
 fcmaker finding charts will get automatically "tagged" to highlight specific circumstances
 associated with a given OB. The tags are included to the top left of the chart. They are:
 
-  * :math:`\leadsto` : denotes a moving target, either because some proper motion or an ephemeris file was specified.
+  * :math:`\leadsto` : denotes a moving target, when either some proper motion or an ephemeris file was specified.
   * :math:`\measuredangle` : denotes an OB requesting that the observations be taken at the parallactic angle. 
 
 .. figure:: ./fcm_plots/XSHOOTER_OB_pm_DSS2-Red.png

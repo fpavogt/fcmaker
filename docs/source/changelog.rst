@@ -10,7 +10,7 @@ Changelog |last-commit| |issues|
 ================================
 
 .. todo:: 
-   - (!) figure out a way to add est OBs of test-p2 ? 
+   - (!) figure out a way to add test OBs on Demo-p2 ? 
    - (?) include an instrument-free mode
    - (?) add metadata to .jpg 
    - (!) formally validate the parallactic function
@@ -20,7 +20,12 @@ Changelog |last-commit| |issues|
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
 
-v0.3.6 July 2018, Fp.P.A. Vogt
+v0.3.7 July 2018, F.P.A. Vogt
+ - fixed issue `#4 <https://github.com/fpavogt/fcmaker/issues/4>`_
+ - By default, if there are no finding charts associated with an OB, just use the first slot to store the fcmaker one.
+ - for MUSE WFM, only show a purple cross-hair during the acquisition for the "movetopixel" template
+ 
+v0.3.6 July 2018, F.P.A. Vogt
  - fixed a `bad bug <https://github.com/fpavogt/fcmaker/issues/3>`_ for HAWKI and XSHOOTER OBs on p2
  - for MUSE OBs on local mode, tries to display the TTS only if WFM-AO, or NFM.
 

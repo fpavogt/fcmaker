@@ -244,16 +244,13 @@ def make_fc( p2uid = None, pswd = None,
       if no_upload:
          continue
       
-      answer = None
-      while not(answer in ['y','n']):
-         answer = input('%i: attach finding chart to p2 OB (y/n)? ' % (obID))
-      
       # Ok, let's start looking at the finding charts online 
-      if answer == 'y':
-         
-         # List existing finding charts already attached to the OB
-         fcNames, _ = api.getFindingChartNames(obID)
-         
+      # List existing finding charts already attached to the OB
+      fcNames, _ = api.getFindingChartNames(obID)
+      
+      # Are there any finding charts over there ?
+      if len(fcNames)>0:
+      
          print('  Existing finding charts:')
          for i in range(5):
             if i < len(fcNames):
@@ -263,29 +260,31 @@ def make_fc( p2uid = None, pswd = None,
          answer = None
          while not(answer in range(0,6)):
             answer = eval(input('  Which slot to upload to (1-5; 0 = no upload)? '))
-         
-         # Check if the finding chart slot is busy ... do we want to replace it ?
-         if answer == 0:
-            fill = 'n'
-         elif answer <= len(fcNames):
-            fill = None
-            while not(fill in ['y','n']):
-               fill = input('  Finding chart slot occupied: overwrite (y/n)? ')   
-         else:
-            fill = 'y'
-         
-         if fill == 'y':
-            # If I have to delete the existing finding chart
-            if answer <= len(fcNames):
-               api.deleteFindingChart(obID, answer) # p2 finding chart index start at 1
             
-            # And upload the new chart
-            api.addFindingChart(obID, fc_fn)
-            print('  Done.')
-         else:
-            print('  Ok, moving on ...')
+      else:
+         # If no finding charts exist, then just put it in the first spot (no need to ask)
+         print('  No finding chart in the OB (yet): using slot 1 for upload ...')
+         answer = 1
+               
+      # Check if the finding chart slot is busy ... do we want to replace it ?
+      if answer == 0:
+         fill = 'n'
+      elif answer <= len(fcNames):
+         fill = None
+         while not(fill in ['y','n']):
+            fill = input('  Finding chart slot occupied: overwrite (y/n)? ')   
+      else:
+         fill = 'y'
+         
+      if fill == 'y':
+         # If I have to delete the existing finding chart
+         if answer <= len(fcNames):
+            api.deleteFindingChart(obID, answer) # p2 finding chart index start at 1
+            
+         # And upload the new chart
+         api.addFindingChart(obID, fc_fn)
    
-   print('All done in %.1f seconds.' %((datetime.now()-starttime).total_seconds()))
+   print('All finding charts done in %.1f seconds.' %((datetime.now()-starttime).total_seconds()))
    
 # Function to create FC from a local file 
 def make_fc_local(f, 

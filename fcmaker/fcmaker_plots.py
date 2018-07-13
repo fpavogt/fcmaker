@@ -127,7 +127,7 @@ def get_bk_image(bk_image, bk_lam, center, radius, fc_params):
          # Here, make sure the user also provides the wavelength of the image
          if bk_lam in [None,'None']:
             raise Exception('Ouch! Please specify the wavelength of the background image '+ 
-                             'with the bk_lam parameter.')
+                             'with the bk_lam(s) parameter.')
          
       else:
          fn_bk_image = ''
@@ -206,8 +206,12 @@ def get_bk_image_lam(fn_bk_image, fc_params):
    hdu.close()
    
    # Extract the frequency range thanks to SkyView
-   freqs = [l.split(' ')[-2].split('-') for l in header['COMMENT'] if 'Bandpass' in l][0]
+   # Fixes issues #4: https://github.com/fpavogt/fcmaker/issues/4
+   freqs = [ l.split(' THz')[0].split(' ')[-1].split('-') for l in header['COMMENT'] if ('Bandpass' in l) and ('THz' in l)][0]
    # WARNING HERE: I assume the bandpass is in THz in all cases !!!!!
+   if len(freqs) !=2:
+      raise Exception('Ouch! Something went wrong when extracting the frequency of the background image!')
+      
    freqs = [np.int(c.value/(np.float(freq)*1.e12)*1.e9) for freq in freqs]
    bk_lam = r'%i - %i nm' % (freqs[1],freqs[0])
 

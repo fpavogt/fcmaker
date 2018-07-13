@@ -109,6 +109,7 @@ muse_acq_params = {'ins_mode': None, # Instrument mode
                    'tts1': None,     # tts1 coord as SkyCoord
                    'tts2': None,     # tts2 coord as SkyCoord
                    'oatt':None,      # on-axis TTS for NFM
+                   'movetopix':True,# whether it is a movetopixel or preset acquisition. Assume movetopix by default, including for "local" files.
                   }
          
 muse_sci_params = {'noff': 1,        # Number of offsets
@@ -205,6 +206,11 @@ def get_p2fcdata_muse(fc_params, ob, api):
          fc_params['acq'] = copy.deepcopy(muse_acq_params)
          
          tpl,tplVersion = api.getTemplate(obId, t['templateId'])
+         
+         # If this a preset or movetopix template ?
+         if 'preset' in t['templateName']:
+            fc_params['acq']['movetopix'] = False
+         
          for param in tpl['parameters']:
                
             # Instrument mode
@@ -573,16 +579,19 @@ def plot_field(ax1, ax2, fc_params, field):
    this_coords = [field[2].ra, field[2].dec]
    
    for ax in [ax1,ax2]:
-      
+      # Show markers for NFM always, or only for ax1
       if (ax in [ax1]) or (fc_params['ins_mode'] == 'NFM'):
-         # Show the center of the field, without obstructing it to see the blind offset star
-         ax.show_markers(this_coords[0].deg, this_coords[1].deg, 
-                          marker=skins[field[4]]['marker'],
-                          edgecolor=skins[field[4]]['mc'],
-                          s=skins[field[4]]['ms'], 
-                          linewidth=skins[field[4]]['lwm'], 
-                          zorder=skins[field[4]]['zorder'],
-                          ) 
+         # Do not show the marker for "preset" acquisitions
+         if (not(field[4]) is 'Acq') or fc_params['acq']['movetopix']:
+      
+            # Show the center of the field, without obstructing it to see the blind offset star
+            ax.show_markers(this_coords[0].deg, this_coords[1].deg, 
+                            marker=skins[field[4]]['marker'],
+                            edgecolor=skins[field[4]]['mc'],
+                            s=skins[field[4]]['ms'], 
+                            linewidth=skins[field[4]]['lwm'], 
+                            zorder=skins[field[4]]['zorder'],
+                            ) 
    
       # instrument footprint, except for the "target", where the AO loops are closed, but
       # no data is taken
