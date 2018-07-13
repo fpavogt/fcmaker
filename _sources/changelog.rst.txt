@@ -23,6 +23,7 @@ Changelog |last-commit| |issues|
 v0.3.7 July 2018, F.P.A. Vogt
  - fixed issue `#4 <https://github.com/fpavogt/fcmaker/issues/4>`_
  - By default, if there are no finding charts associated with an OB, just use the first slot to store the fcmaker one.
+ - for MUSE WFM, only show a purple cross-hair during the acquisition for the "movetopixel" template
  
 v0.3.6 July 2018, F.P.A. Vogt
  - fixed a `bad bug <https://github.com/fpavogt/fcmaker/issues/3>`_ for HAWKI and XSHOOTER OBs on p2
