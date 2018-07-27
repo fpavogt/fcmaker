@@ -114,7 +114,7 @@ parser.add_argument('-l','--local', action='store_true',
                     help='feed a manual, local OB description')
                                  
 parser.add_argument('--montage', action='store_true',
-                    help='disable the use of Montage to rotate the charts')   
+                    help='enable the use of Montage to rotate the charts')   
                                                   
 parser.add_argument('--systemtex', action='store_true',
                     help='disable the use of the system-wide LaTeX')

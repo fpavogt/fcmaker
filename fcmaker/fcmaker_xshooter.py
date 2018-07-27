@@ -118,8 +118,9 @@ def detector_to_sky(dx,dy,pa):
    '''
    
    # Rotate the offsets in the Ra-Dec frame
-   ddec = np.sin(np.radians(pa)) * dx + np.cos(np.radians(pa)) * dy
-   dra = np.cos(np.radians(pa)) * dx - np.sin(np.radians(pa)) * dy
+   # Issue #7: https://github.com/fpavogt/fcmaker/issues/6
+   ddec = - np.cos(np.radians(pa)) * dx + np.sin(np.radians(pa)) * dy 
+   dra = np.sin(np.radians(pa)) * dx + np.cos(np.radians(pa)) * dy
    
    # Flip the RA axis to increase along East
    dra *= -1.

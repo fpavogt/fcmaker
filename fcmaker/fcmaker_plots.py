@@ -75,7 +75,11 @@ def add_orient(ax, field_center,
    ax.show_arrows([a_west[0], a_south[0]], [a_west[1],a_south[1]], 
                   [arrow_width.to(u.deg).value/np.cos(np.radians(aloc[1])),0], 
                   [0,arrow_width.to(u.deg).value], 
-                  head_length=20,head_width=15, color='k')
+                  #head_length = 562 * arrow_width.to(u.deg).value,
+                  #head_width = 422 * arrow_width.to(u.deg).value, 
+                  color='k')
+   
+   #print(arrow_width.to(u.deg).value)
    
    if usetex:
       lab1 = r'\smaller\textbf{N}'
@@ -522,16 +526,29 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       warnings.warn('Watch out ... no suitable Guide Star found in UCAC2 !')
                 
    # Add orientation arrows to the large view plot
-   add_orient(ax2, right_center, radius = (right_radius*0.8)*u.arcsec, usetex = fcm_m.fcm_usetex)
+   add_orient(ax2, right_center, radius = (right_radius*0.82)*u.arcsec, 
+              arrow_width = (right_radius*0.82)/4.5 * u.arcsec, usetex = fcm_m.fcm_usetex)
+   add_orient(ax1, left_center, radius = (left_radius*0.82)*u.arcsec, 
+              arrow_width = (left_radius*0.82)/4.5 * u.arcsec, usetex = fcm_m.fcm_usetex)
+   
     
    # Add a scale bar
    (scl,scll) = fcm_id.get_scalebar(fc_params['inst'], ins_mode = fc_params['ins_mode'])
    
    ax1.add_scalebar(scl) # Length in degrees
-   ax1.scalebar.show(scl, label=scll, corner = 'bottom right', 
+   ax1.scalebar.show(scl, label=scll, corner = 'bottom left', 
                      color = 'k', frame=1, fontsize=12)
-   ax1.scalebar.set_linewidth(2)
-
+   
+   scl2 = np.floor(right_radius/60/6)/60.
+   scll2 = r'%.0f$^{\prime}$' % (scl2*60)
+   ax2.add_scalebar(scl2)
+   ax2.scalebar.show(scl2, label=scll2, corner = 'bottom left', 
+                     color = 'k', frame=1, fontsize=12)
+   
+   
+   for ax in [ax1,ax2]:
+      ax.scalebar.set_linewidth(2)
+   
    # Fine tune things a bit further, just because I can ...
    for ax in [ax1,ax2]:
       ax.tick_labels.set_xformat('hh:mm:ss')
@@ -571,8 +588,8 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    
    # Add a legend (if warranted) for the left plot
    if len(ax1_legend_items) >0:
-      ax1._ax1.legend(handles=ax1_legend_items, loc='lower left',
-                     bbox_to_anchor=(0.0255, 0.025, 0.4, .1), 
+      ax1._ax1.legend(handles=ax1_legend_items,
+                     bbox_to_anchor=(-0.03, 0.82, 0.4, .1), #loc='lower right',
                      ncol=1, #mode="expand", 
                      borderaxespad=0., fontsize=10, borderpad=0.3, 
                      handletextpad=0., handlelength=2.0)

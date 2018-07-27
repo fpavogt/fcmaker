@@ -36,8 +36,8 @@ noff:       1              #
 filter:     J              #
 obstype:    [O]            #
 coordtype:  SKY            #
-off1:       [0]            #
-off2:       [0]            #
+off1:       [0]            # Offsets must be separated by a single space!
+off2:       [0]            # Offsets must be separated by a single space!
 return:     True           #
 
 ##### Other params #####

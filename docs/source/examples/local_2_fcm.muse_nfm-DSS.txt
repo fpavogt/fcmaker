@@ -35,11 +35,11 @@ oatt_dec: -72d02m20.4919s #
 
 ##### Observation #####
 noff:      3              #
-obstype:   [O O O]        #
+obstype:   [O O O]        # Offsets must be separated by a single space!
 coordtype: SKY            #
 posang:    [0 0 0]        #
-off1:      [0 0.2 -0.4]   #
-off2:      [0 0.2 -0.4]   #
+off1:      [0 0.2 -0.4]   # Offsets must be separated by a single space!
+off2:      [0 0.2 -0.4]   # Offsets must be separated by a single space!
 return:    True           #
 
 ##### Other params #####

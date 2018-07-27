@@ -480,7 +480,14 @@ def get_p2fcdata(obID, api):
    
    # Need to deal with the target coordinates. Ephemeris file, or not ?
    if ephem_fn is None:
-   
+    
+      # Issue #6: https://github.com/fpavogt/fcmaker/issues/6
+      # Make sure the equinox comes with a "J"
+      if not(ob['target']['equinox'][0] == 'J'):
+         warnings.warn('Equinox %s invalid: it should start with a "J". Using %s instead.' 
+                       % (ob['target']['equinox'], 'J'+ob['target']['equinox']) )
+         ob['target']['equinox'] = 'J'+ob['target']['equinox']
+    
       # Ok, just a normal target ... extract the required info
       tc = SkyCoord(ra = ob['target']['ra'],
                     dec = ob['target']['dec'], 
