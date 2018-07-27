@@ -34,10 +34,10 @@ starty:     1              # First row for fats phot window
 ##### Observation #####    
 noff:       3              #
 filter:     J              #
-obstype:    [O S O]        #
+obstype:    [O S O]        # Offsets must be separated by a single space!
 coordtype:  SKY            #
-off1:       [0 480 -485]   #
-off2:       [0 -200 205]   #
+off1:       [0 480 -485]   # Offsets must be separated by a single space!
+off2:       [0 -200 205]   # Offsets must be separated by a single space!
 return:     True           #
 
 ##### Other params #####

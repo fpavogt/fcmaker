@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Gallery &mdash; fcmaker 0.3.7 documentation</title>
+  <title>Gallery &mdash; fcmaker 0.3.8 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="fcmaker 0.3.7 documentation" href="../index.html"/>
+    <link rel="top" title="fcmaker 0.3.8 documentation" href="../index.html"/>
         <link rel="next" title="The functions of fcmaker" href="../modules/modules.html"/>
         <link rel="prev" title="Troubleshooting" href="../troubleshooting.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.7
+                0.3.8
               </div>
             
           
@@ -201,7 +201,7 @@ according to GAIA DR2, set in <code class="docutils literal"><span class="pre">f
 </li>
 <li><strong>a left panel aimed at the night astronomer:</strong> the background image is instrument
 dependant, and can be chosen/provided by the user.<ul>
-<li>The acquisition field is shown in bold purple.</li>
+<li>The acquisition field is shown in bold purple. Its center is traced using a crosshair.</li>
 <li>In case of moving targets (with an ephemeris file), the target position within
 <span class="math">\(\pm\)</span> 2 hours (default, set in <code class="docutils literal"><span class="pre">fcm_m.ephem_range</span></code>) from the <code class="docutils literal"><span class="pre">obsdate</span></code> parameter are
 shown with red stars. Each time entry within the ephemeris file is shown individually.
@@ -225,7 +225,10 @@ along with a brief description of each chart specificities.</p>
 <h3>MUSE WFM-NOAO<a class="headerlink" href="#muse-wfm-noao" title="Permalink to this headline">¶</a></h3>
 <p>The MUSE finding charts in NOAO mode show the location of the <em>target</em> defined in the OB,
 the acquisition field, and the subsequent O and S fields. The minimum valid radius for
-telescope Guide Stars is 120 arcsec from any offset position.</p>
+telescope Guide Stars is 120 arcsec from any offset position. The crosshair marking the
+center of the acquisition field is only drawn for OBs using the
+<code class="docutils literal"><span class="pre">MUSE_wfm-noao_acq_movetopixel</span></code> acquisition template, to highlight the need for a
+fine-centering on the central object (be it the target, or a blind offset star).</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/MUSE_WFM_NOAO_DSS2-Red.png"><img alt="MUSE WFM NOAO" src="../_images/MUSE_WFM_NOAO_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
@@ -408,7 +411,7 @@ associated with a given OB. The tags are included to the top left of the chart. 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.3.7',
+            VERSION:'0.3.8',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

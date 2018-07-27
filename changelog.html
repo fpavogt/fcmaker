@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; fcmaker 0.3.7 documentation</title>
+  <title>Changelog &mdash; fcmaker 0.3.8 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.3.7 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 0.3.8 documentation" href="index.html"/>
         <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html"/>
         <link rel="prev" title="FAQ" href="faq.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.3.7
+                0.3.8
               </div>
             
           
@@ -168,10 +168,11 @@
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <ul class="last simple">
+<li>(!) deal with multiple spaces in the local files, e.g. [O  S O]</li>
 <li>(!) figure out a way to add test OBs on Demo-p2 ?</li>
+<li>(!) formally validate the parallactic function</li>
 <li>(?) include an instrument-free mode</li>
 <li>(?) add metadata to .jpg</li>
-<li>(!) formally validate the parallactic function</li>
 <li>(?) add support for jitter in HAWKI (showing the max jitter area with a circle)</li>
 <li>(?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with
 <code class="docutils literal"><span class="pre">shapley</span></code></li>
@@ -180,6 +181,14 @@
 </ul>
 </div>
 <dl class="docutils">
+<dt>v0.3.8 July 2018, F.P.A. Vogt</dt>
+<dd><ul class="first last simple">
+<li>fixed issue <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues/6">#6</a></li>
+<li>fixed issue <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues/7">#7</a></li>
+<li>added a N-E arrow to the left plot (useful for custom FITS files not aligned NORTH)</li>
+<li>added a scale to the right plot</li>
+</ul>
+</dd>
 <dt>v0.3.7 July 2018, F.P.A. Vogt</dt>
 <dd><ul class="first last simple">
 <li>fixed issue <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues/4">#4</a></li>
@@ -390,7 +399,7 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.3.7',
+            VERSION:'0.3.8',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

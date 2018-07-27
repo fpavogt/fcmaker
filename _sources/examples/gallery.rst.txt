@@ -24,7 +24,7 @@ All the fcmaker finding charts share common elements. They are:
  - **a left panel aimed at the night astronomer:** the background image is instrument  
    dependant, and can be chosen/provided by the user. 
    
-   + The acquisition field is shown in bold purple. 
+   + The acquisition field is shown in bold purple. Its center is traced using a crosshair.
    + In case of moving targets (with an ephemeris file), the target position within
      :math:`\pm` 2 hours (default, set in ``fcm_m.ephem_range``) from the ``obsdate`` parameter are 
      shown with red stars. Each time entry within the ephemeris file is shown individually.
@@ -50,7 +50,10 @@ MUSE WFM-NOAO
 
 The MUSE finding charts in NOAO mode show the location of the *target* defined in the OB, 
 the acquisition field, and the subsequent O and S fields. The minimum valid radius for 
-telescope Guide Stars is 120 arcsec from any offset position. 
+telescope Guide Stars is 120 arcsec from any offset position. The crosshair marking the 
+center of the acquisition field is only drawn for OBs using the 
+``MUSE_wfm-noao_acq_movetopixel`` acquisition template, to highlight the need for a 
+fine-centering on the central object (be it the target, or a blind offset star).
 
 .. figure:: ./fcm_plots/MUSE_WFM_NOAO_DSS2-Red.png
     :width: 750px

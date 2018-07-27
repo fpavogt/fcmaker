@@ -10,15 +10,23 @@ Changelog |last-commit| |issues|
 ================================
 
 .. todo:: 
+   - (!) deal with multiple spaces in the local files, e.g. [O  S O]
    - (!) figure out a way to add test OBs on Demo-p2 ? 
+   - (!) formally validate the parallactic function
    - (?) include an instrument-free mode
    - (?) add metadata to .jpg 
-   - (!) formally validate the parallactic function
    - (?) add support for jitter in HAWKI (showing the max jitter area with a circle) 
    - (?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with 
      ``shapley``
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
+
+
+v0.3.8 July 2018, F.P.A. Vogt
+ - fixed issue `#6 <https://github.com/fpavogt/fcmaker/issues/6>`_ 
+ - fixed issue `#7 <https://github.com/fpavogt/fcmaker/issues/7>`_ 
+ - added a N-E arrow to the left plot (useful for custom FITS files not aligned NORTH)
+ - added a scale to the right plot
 
 v0.3.7 July 2018, F.P.A. Vogt
  - fixed issue `#4 <https://github.com/fpavogt/fcmaker/issues/4>`_
