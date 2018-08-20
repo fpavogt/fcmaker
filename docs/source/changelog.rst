@@ -10,8 +10,6 @@ Changelog |last-commit| |issues|
 ================================
 
 .. todo:: 
-   - (!) deal with multiple spaces in the local files, e.g. [O  S O]
-   - (!) figure out a way to add test OBs on Demo-p2 ? 
    - (!) formally validate the parallactic function
    - (?) include an instrument-free mode
    - (?) add metadata to .jpg 
@@ -21,6 +19,10 @@ Changelog |last-commit| |issues|
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
 
+v0.4.0 August 2018, F.P.A. Vogt
+   - deal with multiple spaces in the local files, e.g. [O  S O]
+   - added test OBs on p2demo, reachable via "--demo" mode in fcmaker
+   - minor tweaks to the docs 
 
 v0.3.8 July 2018, F.P.A. Vogt
  - fixed issue `#6 <https://github.com/fpavogt/fcmaker/issues/6>`_ 

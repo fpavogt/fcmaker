@@ -36,7 +36,7 @@ fcmaker |release| |stars| |watch|
 |pypi| |DOI_latest| |ascl| |astropy| |last-commit| 
 
 
-.. figure:: ./examples/fcm_plots/MUSE_WFM_AO_DSS2-Red.png
+.. figure:: ./examples/fcm_plots/MUSE_WFM-AO_DSS2-Red.png
     :width: 750px
     :align: center
     :alt: fcmaker finding chart example
@@ -51,6 +51,7 @@ Instruments and modes currently supported
    * **HAWKI**: NOAO, AO (including fast photometry)
    * **XSHOOTER**: all modes
    * targets with proper motions, ephemeris files
+   * tutorial OBs on `p2demo <http://www.eso.org/p2demo>`_
 
 Contents
 ---------

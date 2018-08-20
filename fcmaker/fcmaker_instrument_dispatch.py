@@ -366,7 +366,7 @@ def get_target_from_ephem(fc_params, ephemeris):
       
    # Here, let's do some sanity check:
    if (fcm_m.obsdate>times[-1]) or (fcm_m.obsdate<times[0]):
-      raise Exception('Ouch! Specified obstime outside of Ephemeris range: %s - %s' % 
+      raise Exception('Ouch! Specified obsdate outside of Ephemeris range: %s - %s' % 
                        (times[0].strftime('%Y-%m-%d %H:%M:%S %Z'),
                         times[-1].strftime('%Y-%m-%d %H:%M:%S %Z'))) 
       

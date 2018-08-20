@@ -43,7 +43,7 @@ import p2api
 
 '''
  fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
- Copyright (C) 2017,  F.P.A. Vogt
+ Copyright (C) 2017-2018,  F.P.A. Vogt
  --- oOo ---
  This file contains general functions for the fcmaker routines. 
  Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
@@ -147,6 +147,7 @@ def make_fc( p2uid = None, pswd = None,
              clear_SkyView_cache = False,  
              obsdate = None,
              do_parang = False,
+             demo = False,
              ):
    '''
    The main fcmaker function, to create finding charts from p2.
@@ -167,6 +168,7 @@ def make_fc( p2uid = None, pswd = None,
       clear_SkyView_cache: bool. Clear the SkyView cache ?
       obsdate: string. Year (Month, Day, Hour, Minute, ...) of the observation
       do_parang: bool. Show the instrument field-of-view when a parallactic angle is required ?
+      demo: bool. Connect to the demo p2 server to process test OBs ? Will override p2uid and pswd.
    '''
  
    starttime = datetime.now()
@@ -191,10 +193,10 @@ def make_fc( p2uid = None, pswd = None,
   
    # If I need to connect to p2, extract the user ID and obIDs. 
    # If no password or user ID in file, ask for it now.
-   if p2uid is None:
+   if (p2uid is None) and not(demo):
          p2uid = input('p2 user ID: ')
 
-   if pswd is None:
+   if (pswd is None) and not(demo):
          pswd = getpass.getpass('Password: ')
          
    # Did the user specify custom background images ? 
@@ -218,7 +220,12 @@ def make_fc( p2uid = None, pswd = None,
       bk_lams = [None]*len(obids)    
    
    #  Log into p2
-   api = p2api.ApiConnection('production',p2uid,pswd, False) 
+   if demo:
+      # Go into the demo server
+      api = p2api.ApiConnection('demo','52052','tutorial',False)
+   else:
+      # Go into the production area
+      api = p2api.ApiConnection('production',p2uid,pswd, False) 
       
    # Clear the password right away, for security reasons
    pswd = None

@@ -16,9 +16,9 @@ from . import fcmaker_metadata as fcm_m
 
 '''
 fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
-Copyright (C) 2017,  F.P.A. Vogt
+Copyright (C) 2017-2018,  F.P.A. Vogt
 --- oOo ---
-This file contains tools related to the MUSE instrument.
+This file contains tools related to the XSHOOTER instrument.
 Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
@@ -265,7 +265,7 @@ def get_p2fcdata_xshooter(fc_params, ob, api):
                fc_params[temp_name]['noff'] = param['value']
             if param['name'] == 'SEQ.OBS.TYPE':             
                # Warning, here, XSHOOTER differs from MUSE !!!
-               fc_params[temp_name]['obstype'] = [i for i in param['value'].split(' ')]
+               fc_params[temp_name]['obstype'] = [i for i in param['value'].split()]
             if param['name'] == 'SEQ.OFFSET.COORDS':
                # NOTE: XSHOOTER allows for SLIT too, but I just call this DETECTOR as well           
                if param['value'] =='SLIT':
@@ -355,9 +355,9 @@ def get_localfcdata_xshooter(fc_params,inpars):
    fc_params['sci1'] = copy.deepcopy(xshooter_sci_params)
    fc_params['sci1']['noff'] = inpars['noff']
    fc_params['sci1']['ins_mode'] = inpars['ins_mode']
-   fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split(' ')]
-   fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split(' ')]
-   fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split(' ')]
+   fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split()]
+   fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split()]
+   fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split()]
    fc_params['sci1']['return'] = inpars['return']
    if inpars['coordtype'] == 'SLIT':
       fc_params['sci1']['coordtype'] = 'DETECTOR' # In fcmaker, SLIT = DETECTOR

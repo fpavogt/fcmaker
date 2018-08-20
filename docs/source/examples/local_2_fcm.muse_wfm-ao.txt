@@ -2,7 +2,7 @@
 # A list of basic OB parameters to generate a MUSE finding chart from scratch
 #
 ##### OB info #####
-ob_name:   MUSE_WFM_AO   #
+ob_name:   MUSE_WFM-AO   #
 ob_id:     12345678      #
 pi:        jdoe          #
 prog_id:   0100.Z-9999   #

@@ -2,7 +2,7 @@
 # A list of basic OB parameters to generate a MUSE finding chart from scratch
 #
 ##### OB Info #####
-ob_name:   MUSE_WFM_NOAO  # OB name, required to name the output files!
+ob_name:   MUSE_WFM-NOAO  # OB name, required to name the output files!
 ob_id:     12345678       # optional
 pi:        jdoe           # optional
 prog_id:   0100.Z-9999    # optional

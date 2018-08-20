@@ -373,10 +373,12 @@ def get_localfcdata_muse(fc_params,inpars):
    fc_params['n_sci'] = 1
    fc_params['sci1'] = copy.deepcopy(muse_sci_params)
    fc_params['sci1']['noff'] = inpars['noff']
-   fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split(' ')]
-   fc_params['sci1']['posang'] = [float(i) for i in str(inpars['posang'][0]).split(' ')]
-   fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split(' ')]
-   fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split(' ')]
+   fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split()]
+   
+   
+   fc_params['sci1']['posang'] = [float(i) for i in str(inpars['posang'][0]).split()]
+   fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split()]
+   fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split()]
    fc_params['sci1']['return'] = inpars['return']
    fc_params['sci1']['coordtype'] = inpars['coordtype']
 

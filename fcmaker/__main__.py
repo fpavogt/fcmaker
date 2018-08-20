@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 '''
  fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
- Copyright (C) 2017,  F.P.A. Vogt
+ Copyright (C) 2017-2018,  F.P.A. Vogt
  --- oOo ---
  
  This file contains the master fcmaker routines. See the dedicated website for more info:
@@ -57,9 +57,9 @@ import warnings
 #import p2api
 
 # Use argparse to make fcmaker user friendly ---------------------------------------------
-parser = argparse.ArgumentParser(description='''Creates ESO-compliant finding charts from \
-                                                p2 (or locally) from a parameter file. \
-                                                If no parameter file is passed, connect \
+parser = argparse.ArgumentParser(description='''Creates ESO-compliant finding charts from
+                                                OBs on p2 (or locally from a parameter file).
+                                                If no parameter file is passed, connect
                                                 to p2 and select an obId manually. ''',
                                  epilog =' Full documentation: %s \n \n \
                                            Feedback, questions, comments: \
@@ -70,6 +70,9 @@ parser.add_argument('--version', action='version', version=('fcmaker %s'%__versi
 parser.add_argument('--p2uid', action='store', metavar='p2uid', #nargs='+', 
                     default = None,
                     help='p2 user ID')                     
+                    
+parser.add_argument('--demo', action = 'store_true', 
+                    help = 'Connect to the demo p2 server at https://www.eso.org/p2demo (will override p2uid and pswd)',)
 
 parser.add_argument('--obid', action='store', metavar='obid', #nargs='+', 
                     default=None,
@@ -108,7 +111,7 @@ parser.add_argument('--plot-loc', action='store', metavar='plot-loc', #nargs='+'
                     help='Location to store the charts')  
 
 parser.add_argument('--no-upload', action='store_true',
-                    help='disable the uload of finding chart to p2')   
+                    help='disable the upload of finding chart to p2')   
 
 parser.add_argument('-l','--local', action='store_true',
                     help='feed a manual, local OB description')
@@ -194,7 +197,8 @@ if __name__ == "__main__":
          plot_loc = args.plot_loc #os.path.join('.','fcm_plots')
   
       # Launch the main fcmaker routine 
-      fcm.make_fc(p2uid = p2uid, pswd = pswd,  
+      fcm.make_fc(p2uid = p2uid, pswd = pswd, 
+                  demo=args.demo, 
                   obids = obids,
                   bk_images = bk_images,
                   bk_lams = bk_lams,     

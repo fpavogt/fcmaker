@@ -16,7 +16,7 @@ from . import fcmaker_metadata as fcm_m
 
 '''
 fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
-Copyright (C) 2017,  F.P.A. Vogt
+Copyright (C) 2017-2018,  F.P.A. Vogt
 --- oOo ---
 This file contains tools related to the HAWKI instrument.
 Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
@@ -316,9 +316,9 @@ def get_localfcdata_hawki(fc_params, inpars):
    fc_params['n_sci'] = 1
    fc_params['sci1'] = copy.deepcopy(hawki_sci_params)
    fc_params['sci1']['noff'] = inpars['noff']
-   fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split(' ')]
-   fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split(' ')]
-   fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split(' ')]
+   fc_params['sci1']['obstype'] = [i for i in inpars['obstype'][0].split()]
+   fc_params['sci1']['off1'] = [float(i) for i in str(inpars['off1'][0]).split()]
+   fc_params['sci1']['off2'] = [float(i) for i in str(inpars['off2'][0]).split()]
    fc_params['sci1']['return'] = inpars['return']
    fc_params['sci1']['coordtype'] = inpars['coordtype']
 
