@@ -55,7 +55,7 @@ center of the acquisition field is only drawn for OBs using the
 ``MUSE_wfm-noao_acq_movetopixel`` acquisition template, to highlight the need for a 
 fine-centering on the central object (be it the target, or a blind offset star).
 
-.. figure:: ./fcm_plots/MUSE_WFM_NOAO_DSS2-Red.png
+.. figure:: ./fcm_plots/MUSE_WFM-NOAO_DSS2-Red.png
     :width: 750px
     :align: center
     :alt: MUSE WFM NOAO
@@ -74,7 +74,7 @@ area for the Tip-Tilt stars for all OB offsets (incl. the target itself, which i
 AO loop is first closed). If one of the TTS falls outside of the suitable area for any of
 the offset position, it is flagged with ``!``. 
 
-.. figure:: ./fcm_plots/MUSE_WFM_AO_DSS2-Red.png
+.. figure:: ./fcm_plots/MUSE_WFM-AO_DSS2-Red.png
     :width: 750px
     :align: center
     :alt: MUSE WFM AO

@@ -14,7 +14,8 @@ matplotlib, aplpy, and astropy packages are up-to-date, then try again.
 If you still encounter errors after doing that, check the :ref:`faq`.
   
 3. 
-Check if this is one of the known |issues|.
+Check if this is one of the known open |issues|. You can also check the fixed issues 
+`here <https://github.com/fpavogt/fcmaker/issues?utf8=%E2%9C%93&q=is%3Aissue+is%3Aclosed+>`_.
   
 4. 
 If you still can't figure out what's wrong, please `submit a new issue on the Github 
