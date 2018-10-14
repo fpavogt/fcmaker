@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>fcmaker package &mdash; fcmaker 0.4.0 documentation</title>
+  <title>fcmaker package &mdash; fcmaker 103.0.0 documentation</title>
   
 
   
@@ -35,10 +35,10 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="fcmaker 0.4.0 documentation" href="../index.html"/>
-        <link rel="up" title="The modules of fcmaker" href="modules.html"/>
+    <link rel="top" title="fcmaker 103.0.0 documentation" href="../index.html"/>
+        <link rel="up" title="The functions of fcmaker" href="modules.html"/>
         <link rel="next" title="FAQ" href="../faq.html"/>
-        <link rel="prev" title="The modules of fcmaker" href="modules.html"/> 
+        <link rel="prev" title="The functions of fcmaker" href="modules.html"/> 
 
   
   <script src="../_static/js/modernizr.min.js"></script>
@@ -67,7 +67,7 @@
             
             
               <div class="version">
-                0.4.0
+                103.0.0
               </div>
             
           
@@ -97,10 +97,11 @@
 <li class="toctree-l1"><a class="reference internal" href="../running.html">Usage instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../examples/gallery.html">Gallery</a></li>
-<li class="toctree-l1 current"><a class="reference internal" href="modules.html">The modules of fcmaker</a><ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">The functions of fcmaker</a><ul class="current">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">fcmaker package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker">fcmaker.fcmaker module</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_espresso">fcmaker.fcmaker_espresso module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_hawki">fcmaker.fcmaker_hawki module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_instrument_dispatch">fcmaker.fcmaker_instrument_dispatch module</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#module-fcmaker.fcmaker_metadata">fcmaker.fcmaker_metadata module</a></li>
@@ -116,6 +117,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog  </a></li>
 <li class="toctree-l1"><a class="reference internal" href="../acknowledge.html">Acknowledging fcmaker</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/fpavogt/fcmaker">Github</a></li>
 </ul>
 
             
@@ -160,7 +162,7 @@
     
       <li><a href="../index.html">Docs</a> &raquo;</li>
         
-          <li><a href="modules.html">The modules of fcmaker</a> &raquo;</li>
+          <li><a href="modules.html">The functions of fcmaker</a> &raquo;</li>
         
       <li>fcmaker package</li>
     
@@ -292,6 +294,84 @@
 </dd></dl>
 
 </div>
+<div class="section" id="module-fcmaker.fcmaker_espresso">
+<span id="fcmaker-fcmaker-espresso-module"></span><h2>fcmaker.fcmaker_espresso module<a class="headerlink" href="#module-fcmaker.fcmaker_espresso" title="Permalink to this headline">¶</a></h2>
+<dl class="function">
+<dt id="fcmaker.fcmaker_espresso.get_fields_dict">
+<code class="descclassname">fcmaker.fcmaker_espresso.</code><code class="descname">get_fields_dict</code><span class="sig-paren">(</span><em>fc_params</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_espresso.get_fields_dict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a dictionnary with the basic info required to draw the fields, given
+certain OB parameters.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the ESPRESSO OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the plotting parameters for each field.</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_espresso.get_localfcdata_espresso">
+<code class="descclassname">fcmaker.fcmaker_espresso.</code><code class="descname">get_localfcdata_espresso</code><span class="sig-paren">(</span><em>fc_params</em>, <em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_espresso.get_localfcdata_espresso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given ESPRESSO OB defined
+locally.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inpars</strong> – A dictionnary containing the OB parameters</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the ESPRESSO OB parameters</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_espresso.get_p2fcdata_espresso">
+<code class="descclassname">fcmaker.fcmaker_espresso.</code><code class="descname">get_p2fcdata_espresso</code><span class="sig-paren">(</span><em>fc_params</em>, <em>ob</em>, <em>api</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_espresso.get_p2fcdata_espresso" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extracts all the important info to build a finding chart from a given ESPRESSO OB from p2.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>fc_params</strong> – dictionnary of finding chart parameters</li>
+<li><strong>ob</strong> – an api.getOB() object</li>
+<li><strong>api</strong> – a p2api.ApiConnection() object</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body"><p class="first last">A dictionnary containing the OB parameters</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<dl class="function">
+<dt id="fcmaker.fcmaker_espresso.plot_field">
+<code class="descclassname">fcmaker.fcmaker_espresso.</code><code class="descname">plot_field</code><span class="sig-paren">(</span><em>ax1</em>, <em>ax2</em>, <em>fc_params</em>, <em>field</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_espresso.plot_field" title="Permalink to this definition">¶</a></dt>
+<dd><p>The specific ESPRESSO function that draws a specific observation field.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first last simple">
+<li><strong>ax1</strong><strong>,</strong><strong>ax2</strong> – the left and right plots ‘axis’</li>
+<li><strong>fc_params</strong> – the dictionnary of parameters for the OB</li>
+<li><strong>field</strong> – the specific field list of parameters</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
 <div class="section" id="module-fcmaker.fcmaker_hawki">
 <span id="fcmaker-fcmaker-hawki-module"></span><h2>fcmaker.fcmaker_hawki module<a class="headerlink" href="#module-fcmaker.fcmaker_hawki" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
@@ -305,7 +385,7 @@
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
 <li><strong>dx</strong> (<em>float</em>) – offset in arcsec</li>
 <li><strong>dy</strong> (<em>float</em>) – offset in arcsec</li>
-<li><strong>pa</strong> (<em>float</em>) – current position angle in degrees measured East-of-North (MUSE convention)</li>
+<li><strong>pa</strong> (<em>float</em>) – current position angle in degrees measured East-of-North (HAWKI convention)</li>
 </ul>
 </td>
 </tr>
@@ -317,12 +397,6 @@
 </tr>
 </tbody>
 </table>
-<div class="admonition note">
-<p class="first admonition-title">Note</p>
-<p class="last">According to the MUSE User manual, “when in DETECTOR framework, if both telescope
-offsets and PA offsets are provided, the telescope offsets are sent (first) with
-respect to the current PA of the instrument, before applying the PA offset.”</p>
-</div>
 </dd></dl>
 
 <dl class="function">
@@ -334,7 +408,7 @@ certain OB parameters.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the MUSE OB parameters</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the HAWKI OB parameters</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the plotting parameters for each field.</td>
 </tr>
@@ -345,7 +419,7 @@ certain OB parameters.</p>
 <dl class="function">
 <dt id="fcmaker.fcmaker_hawki.get_localfcdata_hawki">
 <code class="descclassname">fcmaker.fcmaker_hawki.</code><code class="descname">get_localfcdata_hawki</code><span class="sig-paren">(</span><em>fc_params</em>, <em>inpars</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_hawki.get_localfcdata_hawki" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extracts all the important info to build a finding chart from a given MUSE OB defined
+<dd><p>Extracts all the important info to build a finding chart from a given HAWKI OB defined
 locally.</p>
 <table class="docutils field-list" frame="void" rules="none">
 <col class="field-name" />
@@ -353,7 +427,7 @@ locally.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inpars</strong> – A dictionnary containing the OB parameters</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the MUSE OB parameters</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the HAWKI OB parameters</td>
 </tr>
 </tbody>
 </table>
@@ -391,7 +465,7 @@ matplotlib down the line.</p>
 <col class="field-body" />
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
-<li><strong>central_coord</strong> – an astropy.SkyCoord entry with the center of the MUSE field</li>
+<li><strong>central_coord</strong> – an astropy.SkyCoord entry with the center of the HAWKI field</li>
 <li><strong>pa</strong> – the position angle of the field (p2 convention)</li>
 <li><strong>startx</strong><strong>, </strong><strong>starty</strong> (<em>nx</em><em>,</em><em>ny</em><em>,</em>) – the Fast Phot windowing parameters</li>
 </ul>
@@ -496,7 +570,7 @@ matplotlib down the line.</p>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">a tuple with the chart radius in arcsec.</td>
 </tr>
-<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(<a class="reference internal" href="#fcmaker.fcmaker_muse.left_radius" title="fcmaker.fcmaker_muse.left_radius">left_radius</a>, right_radius)</td>
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">(left_radius, right_radius)</td>
 </tr>
 </tbody>
 </table>
@@ -843,7 +917,7 @@ matplotlib down the line.</p>
 <span id="fcmaker-fcmaker-plots-module"></span><h2>fcmaker.fcmaker_plots module<a class="headerlink" href="#module-fcmaker.fcmaker_plots" title="Permalink to this headline">¶</a></h2>
 <dl class="function">
 <dt id="fcmaker.fcmaker_plots.add_orient">
-<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">add_orient</code><span class="sig-paren">(</span><em>ax</em>, <em>field_center</em>, <em>radius=&lt;Quantity 540.0 arcsec&gt;</em>, <em>arrow_width=&lt;Quantity 120.0 arcsec&gt;</em>, <em>usetex=True</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.add_orient" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_plots.</code><code class="descname">add_orient</code><span class="sig-paren">(</span><em>ax</em>, <em>field_center</em>, <em>radius=&lt;Quantity 540. arcsec&gt;</em>, <em>arrow_width=&lt;Quantity 120. arcsec&gt;</em>, <em>usetex=True</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_plots.add_orient" title="Permalink to this definition">¶</a></dt>
 <dd><p>Plot some N-E orientation arrows</p>
 <p>Rely on the show_arrow function from aplpy, which should be able to deal with
 any image orientation, even is North /= up.</p>
@@ -1026,7 +1100,7 @@ a smarter way to do this …</p>
 
 <dl class="function">
 <dt id="fcmaker.fcmaker_tools.offset_coord">
-<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">offset_coord</code><span class="sig-paren">(</span><em>coord_start</em>, <em>delta_ra=&lt;Quantity 0.0 arcsec&gt;</em>, <em>delta_dec=&lt;Quantity 0.0 arcsec&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.offset_coord" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">fcmaker.fcmaker_tools.</code><code class="descname">offset_coord</code><span class="sig-paren">(</span><em>coord_start</em>, <em>delta_ra=&lt;Quantity 0. arcsec&gt;</em>, <em>delta_dec=&lt;Quantity 0. arcsec&gt;</em><span class="sig-paren">)</span><a class="headerlink" href="#fcmaker.fcmaker_tools.offset_coord" title="Permalink to this definition">¶</a></dt>
 <dd><p>Compute a new SkyCoord entity given a starting location and offset. This function
 assumes that the sky is flat!</p>
 <table class="docutils field-list" frame="void" rules="none">
@@ -1084,7 +1158,7 @@ certain OB parameters.</p>
 <col class="field-name" />
 <col class="field-body" />
 <tbody valign="top">
-<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the MUSE OB parameters</td>
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>fc_params</strong> – A dictionnary containing the XSHOOTER OB parameters</td>
 </tr>
 <tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionary containing the plotting parameters for each field.</td>
 </tr>
@@ -1103,7 +1177,7 @@ locally.</p>
 <tbody valign="top">
 <tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>inpars</strong> – A dictionnary containing the OB parameters</td>
 </tr>
-<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the MUSE OB parameters</td>
+<tr class="field-even field"><th class="field-name">Returns:</th><td class="field-body">A dictionnary containing the XSHOOTER OB parameters</td>
 </tr>
 </tbody>
 </table>
@@ -1192,7 +1266,7 @@ matplotlib down the line.</p>
         <a href="../faq.html" class="btn btn-neutral float-right" title="FAQ" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="modules.html" class="btn btn-neutral" title="The modules of fcmaker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modules.html" class="btn btn-neutral" title="The functions of fcmaker" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -1223,7 +1297,7 @@ matplotlib down the line.</p>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.4.0',
+            VERSION:'103.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

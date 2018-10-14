@@ -10,7 +10,10 @@ Changelog |last-commit| |issues|
 ================================
 
 .. todo:: 
+   - check l. 149 in fcmaker_instrument_dispatch ...
+   - (!) for XSHOOTER, always place the slit horizontal (i.e. do not put the chart North)
    - (!) formally validate the parallactic function
+   - (?) check connection to the online servers ahead of time, and issue a nice error if needed 
    - (?) include an instrument-free mode
    - (?) add metadata to .jpg 
    - (?) add support for jitter in HAWKI (showing the max jitter area with a circle) 
@@ -18,6 +21,17 @@ Changelog |last-commit| |issues|
      ``shapley``
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
+
+v103.0.0 October 2018, F.P.A. Vogt
+   - changed versioning scheme to highlight the supported Period.
+   - renamed 'O' and 'S' to 'Obj.' and 'Sky' in the legend, for clarity.
+   - for XSHOOTER, show the footprint of the Acq. camera also at the "Target" position.
+   - suppressed all VOTableSpecWarning (they're not my fault!)
+   - added support for ESPRESSO
+   - set astropy logging level to "WARNING" to clean up the prompt
+   - fixed the scalebar fontsize warning from aplpy
+   - added new blind-offset example for XSHOOTER in the doc
+   - fixed tiny bug in calculation of right-plot radius for XSHOOTER and MUSE, in case of blind offsets
 
 v0.4.0 August 2018, F.P.A. Vogt
    - deal with multiple spaces in the local files, e.g. [O  S O]

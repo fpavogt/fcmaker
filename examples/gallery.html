@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Gallery &mdash; fcmaker 0.4.0 documentation</title>
+  <title>Gallery &mdash; fcmaker 103.0.0 documentation</title>
   
 
   
@@ -35,8 +35,8 @@
         <link rel="index" title="Index"
               href="../genindex.html"/>
         <link rel="search" title="Search" href="../search.html"/>
-    <link rel="top" title="fcmaker 0.4.0 documentation" href="../index.html"/>
-        <link rel="next" title="The modules of fcmaker" href="../modules/modules.html"/>
+    <link rel="top" title="fcmaker 103.0.0 documentation" href="../index.html"/>
+        <link rel="next" title="The functions of fcmaker" href="../modules/modules.html"/>
         <link rel="prev" title="Troubleshooting" href="../troubleshooting.html"/> 
 
   
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.4.0
+                103.0.0
               </div>
             
           
@@ -108,13 +108,15 @@
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#xshooter">XSHOOTER</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#espresso">ESPRESSO</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#the-fcmaker-tags">The fcmaker tags</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">The modules of fcmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../modules/modules.html">The functions of fcmaker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../faq.html">FAQ</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../changelog.html">Changelog  </a></li>
 <li class="toctree-l1"><a class="reference internal" href="../acknowledge.html">Acknowledging fcmaker</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/fpavogt/fcmaker">Github</a></li>
 </ul>
 
             
@@ -194,21 +196,21 @@ compatible with all the OB offsets are tagged.</li>
 <li>If specified, the user-selected Guide Star is shown, and flagged accordingly if it
 is unsuitable for any of the offset positions.</li>
 <li>Any star with large proper motion (where large is by default greater than 100 mas/year
-according to GAIA DR2, set in <code class="docutils literal"><span class="pre">fcm_m.min_abs_GAIA_pm</span></code>) is drawn, together with a
-20 year look-back track (set in <code class="docutils literal"><span class="pre">fcm_m.pm_track_time</span></code>) derived with the
-<code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine.</li>
+according to GAIA DR2, set in <code class="docutils literal notranslate"><span class="pre">fcm_m.min_abs_GAIA_pm</span></code>) is drawn, together with a
+20 year look-back track (set in <code class="docutils literal notranslate"><span class="pre">fcm_m.pm_track_time</span></code>) derived with the
+<code class="docutils literal notranslate"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine.</li>
 </ul>
 </li>
 <li><strong>a left panel aimed at the night astronomer:</strong> the background image is instrument
 dependant, and can be chosen/provided by the user.<ul>
 <li>The acquisition field is shown in bold purple. Its center is traced using a crosshair.</li>
 <li>In case of moving targets (with an ephemeris file), the target position within
-<span class="math">\(\pm\)</span> 2 hours (default, set in <code class="docutils literal"><span class="pre">fcm_m.ephem_range</span></code>) from the <code class="docutils literal"><span class="pre">obsdate</span></code> parameter are
+<span class="math notranslate nohighlight">\(\pm\)</span> 2 hours (default, set in <code class="docutils literal notranslate"><span class="pre">fcm_m.ephem_range</span></code>) from the <code class="docutils literal notranslate"><span class="pre">obsdate</span></code> parameter are
 shown with red stars. Each time entry within the ephemeris file is shown individually.
-The target position at the chosen <code class="docutils literal"><span class="pre">obsdate</span></code> is propagated from the closest ephemeris
-point in time using the <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine.</li>
+The target position at the chosen <code class="docutils literal notranslate"><span class="pre">obsdate</span></code> is propagated from the closest ephemeris
+point in time using the <code class="docutils literal notranslate"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine.</li>
 <li>In case of moving targets (with proper motions in arcsec/year), the target coordinates
-at <code class="docutils literal"><span class="pre">obsdate</span></code> are also derived with the <code class="docutils literal"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code>
+at <code class="docutils literal notranslate"><span class="pre">obsdate</span></code> are also derived with the <code class="docutils literal notranslate"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code>
 routine. <strong>This is not how the VLT will compute the target coordinates, instead
 assuming that it moves along a Great Circle on the sky</strong>. The implied error should
 however remain negligible for most cases, and even more so if the epoch of the target
@@ -227,14 +229,14 @@ along with a brief description of each chart specificities.</p>
 the acquisition field, and the subsequent O and S fields. The minimum valid radius for
 telescope Guide Stars is 120 arcsec from any offset position. The crosshair marking the
 center of the acquisition field is only drawn for OBs using the
-<code class="docutils literal"><span class="pre">MUSE_wfm-noao_acq_movetopixel</span></code> acquisition template, to highlight the need for a
+<code class="docutils literal notranslate"><span class="pre">MUSE_wfm-noao_acq_movetopixel</span></code> acquisition template, to highlight the need for a
 fine-centering on the central object (be it the target, or a blind offset star).</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/MUSE_WFM-NOAO_DSS2-Red.png"><img alt="MUSE WFM NOAO" src="../_images/MUSE_WFM-NOAO_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.muse_wfm-noao.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_wfm-noao.txt</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">noao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" download="" href="../_downloads/fb94ec83395e27b667a38580f66b0722/local_2_fcm.muse_wfm-noao.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.muse_wfm-noao.txt</span></code></a> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">noao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -243,13 +245,13 @@ fine-centering on the central object (be it the target, or a blind offset star).
 <p>In addition to the elements of the MUSE NOAO charts, the AO charts display the validity
 area for the Tip-Tilt stars for all OB offsets (incl. the target itself, which is when the
 AO loop is first closed). If one of the TTS falls outside of the suitable area for any of
-the offset position, it is flagged with <code class="docutils literal"><span class="pre">!</span></code>.</p>
+the offset position, it is flagged with <code class="docutils literal notranslate"><span class="pre">!</span></code>.</p>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/MUSE_WFM-AO_DSS2-Red.png"><img alt="MUSE WFM AO" src="../_images/MUSE_WFM-AO_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.muse_wfm-ao.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_wfm-ao.txt</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">ao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" download="" href="../_downloads/9789275bfb451d09778d67a5f24e6fe0/local_2_fcm.muse_wfm-ao.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.muse_wfm-ao.txt</span></code></a> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_wfm</span><span class="o">-</span><span class="n">ao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -258,7 +260,7 @@ the offset position, it is flagged with <code class="docutils literal"><span cla
 <p>In addition to the elements of the MUSE WFM-NOAO charts, the NFM charts display the
 validity area for the on-axis Tip-Tilt star for all OB offsets (incl. the target itself,
 which is when the AO loop is first closed). If the on-axis TT star falls outside of the
-suitable area for any of the offset position, it is flagged with <code class="docutils literal"><span class="pre">!</span></code>.</p>
+suitable area for any of the offset position, it is flagged with <code class="docutils literal notranslate"><span class="pre">!</span></code>.</p>
 <p>By default, the background image for the MUSE NFM finding charts is a mock image of the sky
 reconstructed from the Gaia catalogue (see <a class="reference internal" href="../running.html#gaia-images"><span class="std std-ref">Mock Gaia images for MUSE NFM</span></a>). The two finding charts
 below illustrate the benefit of this approach, in comparison with using a DSS2 Red image.</p>
@@ -269,10 +271,10 @@ below illustrate the benefit of this approach, in comparison with using a DSS2 R
 <a class="reference internal image-reference" href="../_images/MUSE_NFM_Gaia.png"><img alt="MUSE NFM" src="../_images/MUSE_NFM_Gaia.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate these example finding charts, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.muse_nfm-DSS.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_nfm-DSS.txt</span></code></a> and/or
-<a class="reference download internal" href="../_downloads/local_2_fcm.muse_nfm-Gaia.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_nfm-Gaia.txt</span></code></a> and
+<a class="reference download internal" download="" href="../_downloads/c587e79ea84500edbe126bc68218362e/local_2_fcm.muse_nfm-DSS.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.muse_nfm-DSS.txt</span></code></a> and/or
+<a class="reference download internal" download="" href="../_downloads/3e342ab1b7666e49a1523c0e204bd09e/local_2_fcm.muse_nfm-Gaia.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.muse_nfm-Gaia.txt</span></code></a> and
 run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_nfm</span><span class="o">-</span><span class="n">DSS</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_nfm</span><span class="o">-</span><span class="n">DSS</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 <span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_nfm</span><span class="o">-</span><span class="n">Gaia</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
@@ -283,9 +285,9 @@ left-hand-side finding chart, provided that it comes with proper WCS information
 <a class="reference internal image-reference" href="../_images/MUSE_NFM_from-user.png"><img alt="MUSE NFM HST" src="../_images/MUSE_NFM_from-user.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.muse_nfm-HST.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.muse_nfm-HST.txt</span></code></a> and run
+<a class="reference download internal" download="" href="../_downloads/5274f2e03ae5c9963625caf605d5d04f/local_2_fcm.muse_nfm-HST.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.muse_nfm-HST.txt</span></code></a> and run
 (FITS file  not included!):</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_nfm</span><span class="o">-</span><span class="n">HST</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">muse_nfm</span><span class="o">-</span><span class="n">HST</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -295,7 +297,7 @@ left-hand-side finding chart, provided that it comes with proper WCS information
 <div class="section" id="hawki-noao-ao">
 <h3>HAWKI NOAO &amp; AO<a class="headerlink" href="#hawki-noao-ao" title="Permalink to this headline">¶</a></h3>
 <p>The HAWKI finding charts in NOAO mode show the acquisition field, and the subsequent O and
-S fields if the <code class="docutils literal"><span class="pre">HAWKI_img_obs_GenericOffset</span></code> template is used. All other templates,
+S fields if the <code class="docutils literal notranslate"><span class="pre">HAWKI_img_obs_GenericOffset</span></code> template is used. All other templates,
 relying on unpredictable jitter offsets, will be simply ignored by fcmaker. The minimum
 valid radius for telescope Guide Stars is 240 arcsec from any offset position. HAWKI AO
 is currently offered in tip-tilt-free mode only, so that AO finding charts are
@@ -304,8 +306,8 @@ undistinguishable from NOAO ones.</p>
 <a class="reference internal image-reference" href="../_images/HAWKI_NOAO_2MASS-K.png"><img alt="HAWKI NOAO" src="../_images/HAWKI_NOAO_2MASS-K.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.hawki_noao.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.hawki_noao.txt</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_noao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" download="" href="../_downloads/5aa6c2f85a372c2f764f7d7a156a60ae/local_2_fcm.hawki_noao.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.hawki_noao.txt</span></code></a> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_noao</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -317,8 +319,8 @@ detector windowed area.</p>
 <a class="reference internal image-reference" href="../_images/HAWKI_NOAO_FPH_2MASS-K.png"><img alt="HAWKI NOAO FastPhot" src="../_images/HAWKI_NOAO_FPH_2MASS-K.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.hawki_fph.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.hawki_fph.txt</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_fph</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" download="" href="../_downloads/d140fad9081f3b266f27b38643860280/local_2_fcm.hawki_fph.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.hawki_fph.txt</span></code></a> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">hawki_fph</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -326,23 +328,54 @@ detector windowed area.</p>
 <div class="section" id="xshooter">
 <h2>XSHOOTER<a class="headerlink" href="#xshooter" title="Permalink to this headline">¶</a></h2>
 <p>The XSHOOTER finding charts show the field-of-view of the acquisition camera in bold purple.
-Slit, IFU or acquisition camera field-of-views are then shown for each offset position,
-according to the selected observing templates. The minimum valid radius for telescope
-Guide Stars is 120 arcsec from any offset position. fcmaker will draw the XSHOOTER slit/IFU
-at the parallactic angle (if set as such in the OB) <strong>at the time specified by</strong> <code class="docutils literal"><span class="pre">obsdate</span></code>
-, only if requested with the <code class="docutils literal"><span class="pre">--do-parang</span></code> flag. Any finding chart associated with
-parallactic angles is tagged with the symbol <span class="math">\(\measuredangle\)</span>. The “Target” location
+In case of blind offsets, the field-of-view of the acquisition camera is also shown for the
+Target position, in orange. Slit, IFU or acquisition camera field-of-views are then shown
+for each offset position, according to the selected observing templates. The minimum valid
+radius for telescope Guide Stars is 120 arcsec from any offset position. fcmaker will draw the XSHOOTER slit/IFU
+at the parallactic angle (if set as such in the OB) <strong>at the time specified by</strong> <code class="docutils literal notranslate"><span class="pre">obsdate</span></code>
+, only if requested with the <code class="docutils literal notranslate"><span class="pre">--do-parang</span></code> flag. Any finding chart associated with
+parallactic angles is tagged with the symbol <span class="math notranslate nohighlight">\(\measuredangle\)</span>. The “Target” location
 shown by fcmaker is the “target+blind-offset” location derived from the OB. This means that
 if the OB contains blind-offsets (to use e.g. a reference star for the acquisition), the
 finding chart will show the actual target, and <strong>not</strong> the blind-offset star. Finally,
 for slit observations, the requested position angle (p.a.) is clearly indicated in the top
 right corner of the left-hand-side plot.</p>
 <div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/XSHOOTER_OB_BO_DSS2-Red.png"><img alt="XSHOOTER BO" src="../_images/XSHOOTER_OB_BO_DSS2-Red.png" style="width: 750px;" /></a>
+</div>
+<div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/XSHOOTER_OB_EPHEM_DSS2-Red.png"><img alt="XSHOOTER EPHEM" src="../_images/XSHOOTER_OB_EPHEM_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.xshooter_ephem.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.xshooter_ephem.txt</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_ephem</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">15</span> <span class="mi">08</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span>
+<a class="reference download internal" download="" href="../_downloads/3552be2c094f8e072d735ee000f80fbb/local_2_fcm.xshooter_bo.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.xshooter_bo.txt</span></code></a> or
+<a class="reference download internal" download="" href="../_downloads/f0636868fcf0890bebb6ef596e911384/local_2_fcm.xshooter_ephem.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.xshooter_ephem.txt</span></code></a> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_bo</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_ephem</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span> <span class="o">--</span><span class="n">obsdate</span> <span class="mi">2018</span><span class="o">-</span><span class="mi">05</span><span class="o">-</span><span class="mi">15</span> <span class="mi">08</span><span class="p">:</span><span class="mi">23</span><span class="p">:</span><span class="mi">00</span> <span class="n">UTC</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="espresso">
+<h2>ESPRESSO<a class="headerlink" href="#espresso" title="Permalink to this headline">¶</a></h2>
+<p>The ESPRESSO finding charts show the field-of-view of the acquisition camera in
+bold purple (17 arcsec in radius). In case of blind offsets, the field-of-view of the
+acquisition camera is also shown for the Target position, with a dashed orange. The fiber
+is shown at the Target location, with a size of 1 arcsec (HR, MR modes) or 0.5 arcsec (UHR)
+in diameter.</p>
+<p>For Science templates requiring the fibre B to be on SKY, a dotted circle shows the possible
+locations of Fibre B (7.5 arcsec away from fiber A; the exact location is time dependent).
+The minimum valid radius for telescope guide stars is 120 arcsec from the target and the
+acquisition position.</p>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/ESPRESSO_HR_Gaia.png"><img alt="ESPRESSO HR" src="../_images/ESPRESSO_HR_Gaia.png" style="width: 750px;" /></a>
+</div>
+<div class="figure align-center">
+<a class="reference internal image-reference" href="../_images/ESPRESSO_UHR_Gaia.png"><img alt="ESPRESSO UHR" src="../_images/ESPRESSO_UHR_Gaia.png" style="width: 750px;" /></a>
+</div>
+<p>To recreate these example finding charts, download
+<a class="reference download internal" download="" href="../_downloads/923d0899a09db509e4cf0839dd54618b/local_2_fcm.espresso_HR.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.espresso_HR.txt</span></code></a> or
+<a class="reference download internal" download="" href="../_downloads/f6243c4f2fd7f0ad63d07b34ef75d0c5/local_2_fcm.espresso_UHR.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.espresso_UHR.txt</span></code></a> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">espresso_HR</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">espresso_UHR</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -352,16 +385,16 @@ right corner of the left-hand-side plot.</p>
 associated with a given OB. The tags are included to the top left of the chart. They are:</p>
 <blockquote>
 <div><ul class="simple">
-<li><span class="math">\(\leadsto\)</span> : denotes a moving target, when either some proper motion or an ephemeris file was specified.</li>
-<li><span class="math">\(\measuredangle\)</span> : denotes an OB requesting that the observations be taken at the parallactic angle.</li>
+<li><span class="math notranslate nohighlight">\(\leadsto\)</span> : denotes a moving target, when either some proper motion or an ephemeris file was specified.</li>
+<li><span class="math notranslate nohighlight">\(\measuredangle\)</span> : denotes an OB requesting that the observations be taken at the parallactic angle.</li>
 </ul>
 </div></blockquote>
 <div class="figure align-center">
 <a class="reference internal image-reference" href="../_images/XSHOOTER_OB_pm_DSS2-Red.png"><img alt="XSHOOTER EPHEM" src="../_images/XSHOOTER_OB_pm_DSS2-Red.png" style="width: 750px;" /></a>
 </div>
 <p>To recreate this example finding chart, download
-<a class="reference download internal" href="../_downloads/local_2_fcm.xshooter_pm.txt" download=""><code class="xref download docutils literal"><span class="pre">local_2_fcm.xshooter_pm.txt</span></code></a> and run:</p>
-<div class="highlight-default"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_pm</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
+<a class="reference download internal" download="" href="../_downloads/1ef756fd3e3e31b38a9d7cd04086b992/local_2_fcm.xshooter_pm.txt"><code class="xref download docutils literal notranslate"><span class="pre">local_2_fcm.xshooter_pm.txt</span></code></a> and run:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">python</span> <span class="o">-</span><span class="n">m</span> <span class="n">fcmaker</span> <span class="o">-</span><span class="n">l</span> <span class="o">-</span><span class="n">f</span> <span class="n">local_2_fcm</span><span class="o">.</span><span class="n">xshooter_pm</span><span class="o">.</span><span class="n">txt</span> <span class="o">--</span><span class="n">do</span><span class="o">-</span><span class="n">png</span> <span class="o">--</span><span class="n">systemtex</span>
 </pre></div>
 </div>
 </div>
@@ -377,7 +410,7 @@ associated with a given OB. The tags are included to the top left of the chart. 
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="../modules/modules.html" class="btn btn-neutral float-right" title="The modules of fcmaker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="../modules/modules.html" class="btn btn-neutral float-right" title="The functions of fcmaker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
         <a href="../troubleshooting.html" class="btn btn-neutral" title="Troubleshooting" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
@@ -411,7 +444,7 @@ associated with a given OB. The tags are included to the top left of the chart. 
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'../',
-            VERSION:'0.4.0',
+            VERSION:'103.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,

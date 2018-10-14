@@ -20,7 +20,7 @@ Acknowledging fcmaker
    reach the publication stage!), please cite:
    
     Vogt, *fcmaker: automating the creation of ESO-compliant finding charts for Observing 
-    Blocks on p2*, Astronomy & Computing, 2018, submitted. `ADS entry <http://adsabs.harvard.edu/abs/2018arXiv180702114V>`_
+    Blocks on p2*, Astronomy & Computing, 2018, 25, 81. `ADS entry <http://adsabs.harvard.edu/abs/2018A%26C....25...81V>`_
    
    In fact, a friendly nudge along the following blurb will give due credits to all those
    that made fcmaker possible in the first place::
@@ -28,7 +28,7 @@ Acknowledging fcmaker
     This research has made use of \textsc{fcmaker} (Vogt, 2018a,b), a \textsc{python} module 
     to create ESO-compliant finding charts for OBs on \textit{p2}. \textsc{fcmaker} relies 
     on \textsc{matplotlib} (Hunter 2007), \textsc{astropy}, a community-developed core 
-    \textsc{python} package for Astronomy (Astropy Collaboration et al., 2013), 
+    \textsc{python} package for Astronomy (Astropy Collaboration et al., 2013, 2018), 
     \textsc{astroquery}, a package hosted at \url{https://astroquery.readthedocs.io} which 
     provides a set of tools for querying astronomical web forms and databases (Ginsburg et 
     al. 2017), \textsc{astroplan} (Morris et al. 2018), \textsc{aplpy}, an open-source 
@@ -64,6 +64,7 @@ Acknowledging fcmaker
    
     
 - `Astropy Collaboration et al. (2013) <http://cdsads.u-strasbg.fr/abs/2013A%26A...558A..33A>`_ 
+- `Astropy Collaboration et al. (2018) <http://adsabs.harvard.edu/abs/2018arXiv180102634T>`_
 - `Gaia Collaboration et al. (2016) <http://adsabs.harvard.edu/abs/2016A%26A...595A...1G>`_
 - `Ginsburg et al. (2017) <http://adsabs.harvard.edu/abs/2017ascl.soft08004G>`_
 - `Gaia Collaboration et al. (2018) <http://adsabs.harvard.edu/abs/2018arXiv180409365G>`_ 
@@ -71,6 +72,6 @@ Acknowledging fcmaker
 - `Morris et al. (2018) <http://adsabs.harvard.edu/abs/2018AJ....155..128M>`_
 - `Ochsenbein (2000) <http://cdsads.u-strasbg.fr/abs/2000A%26AS..143...23O>`_  
 - `Robitaille (2012) <http://adsabs.harvard.edu/abs/2012ascl.soft08017R>`_
-- `Vogt (2018a) <http://adsabs.harvard.edu/abs/2018arXiv180702114V>`_
-- `Vogt (2018b) < >`_
+- `Vogt (2018a) <http://adsabs.harvard.edu/abs/2018A%26C....25...81V>`_
+- `Vogt (2018b) <http://adsabs.harvard.edu/abs/2018ascl.soft06027V>`_
 

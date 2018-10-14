@@ -47,9 +47,10 @@ fcmaker |release| |stars| |watch|
 Instruments and modes currently supported
 -----------------------------------------
 
-   * **MUSE**: WFM NOAO, WFM AO, NFM
-   * **HAWKI**: NOAO, AO (including fast photometry)
+   * **MUSE**: all modes
+   * **HAWKI**: NOAO, TT-free AO, including fast photometry
    * **XSHOOTER**: all modes
+   * **ESPRESSO**: all modes
    * targets with proper motions, ephemeris files
    * tutorial OBs on `p2demo <http://www.eso.org/p2demo>`_
 
@@ -67,6 +68,7 @@ Contents
    faq
    changelog
    acknowledge
+   Github <https://github.com/fpavogt/fcmaker>
    
 
 fcmaker is a Python3 module that offers a rapid, easy and automated way to generate 

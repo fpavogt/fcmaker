@@ -12,6 +12,14 @@ fcmaker\.fcmaker module
     :undoc-members:
     :show-inheritance:
 
+fcmaker\.fcmaker\_espresso module
+---------------------------------
+
+.. automodule:: fcmaker.fcmaker_espresso
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 fcmaker\.fcmaker\_hawki module
 ------------------------------
 

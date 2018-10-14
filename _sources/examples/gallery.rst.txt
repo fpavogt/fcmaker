@@ -176,9 +176,10 @@ To recreate this example finding chart, download
 XSHOOTER
 --------
 The XSHOOTER finding charts show the field-of-view of the acquisition camera in bold purple.
-Slit, IFU or acquisition camera field-of-views are then shown for each offset position, 
-according to the selected observing templates. The minimum valid radius for telescope 
-Guide Stars is 120 arcsec from any offset position. fcmaker will draw the XSHOOTER slit/IFU 
+In case of blind offsets, the field-of-view of the acquisition camera is also shown for the 
+Target position, in orange. Slit, IFU or acquisition camera field-of-views are then shown 
+for each offset position, according to the selected observing templates. The minimum valid 
+radius for telescope Guide Stars is 120 arcsec from any offset position. fcmaker will draw the XSHOOTER slit/IFU 
 at the parallactic angle (if set as such in the OB) **at the time specified by** ``obsdate``
 , only if requested with the ``--do-parang`` flag. Any finding chart associated with 
 parallactic angles is tagged with the symbol :math:`\measuredangle`. The "Target" location 
@@ -188,15 +189,56 @@ finding chart will show the actual target, and **not** the blind-offset star. Fi
 for slit observations, the requested position angle (p.a.) is clearly indicated in the top
 right corner of the left-hand-side plot.
 
+.. figure:: ./fcm_plots/XSHOOTER_OB_BO_DSS2-Red.png
+    :width: 750px
+    :align: center
+    :alt: XSHOOTER BO
+
 .. figure:: ./fcm_plots/XSHOOTER_OB_EPHEM_DSS2-Red.png
     :width: 750px
     :align: center
     :alt: XSHOOTER EPHEM
 
 To recreate this example finding chart, download 
+:download:`local_2_fcm.xshooter_bo.txt <./local_2_fcm.xshooter_bo.txt>` or
 :download:`local_2_fcm.xshooter_ephem.txt <./local_2_fcm.xshooter_ephem.txt>` and run::
 
+   python -m fcmaker -l -f local_2_fcm.xshooter_bo.txt --do-png --systemtex
    python -m fcmaker -l -f local_2_fcm.xshooter_ephem.txt --do-png --systemtex --obsdate 2018-05-15 08:23:00 UTC
+
+
+ESPRESSO
+--------
+The ESPRESSO finding charts show the field-of-view of the acquisition camera in 
+bold purple (17 arcsec in radius). In case of blind offsets, the field-of-view of the 
+acquisition camera is also shown for the Target position, with a dashed orange. The fiber 
+is shown at the Target location, with a size of 1 arcsec (HR, MR modes) or 0.5 arcsec (UHR) 
+in diameter.
+
+For Science templates requiring the fibre B to be on SKY, a dotted circle shows the possible
+locations of Fibre B (7.5 arcsec away from fiber A; the exact location is time dependent).
+The minimum valid radius for telescope guide stars is 120 arcsec from the target and the 
+acquisition position.
+
+.. figure:: ./fcm_plots/ESPRESSO_HR_Gaia.png
+    :width: 750px
+    :align: center
+    :alt: ESPRESSO HR
+    
+.. figure:: ./fcm_plots/ESPRESSO_UHR_Gaia.png
+    :width: 750px
+    :align: center
+    :alt: ESPRESSO UHR
+    
+
+To recreate these example finding charts, download 
+:download:`local_2_fcm.espresso_HR.txt <./local_2_fcm.espresso_HR.txt>` or 
+:download:`local_2_fcm.espresso_UHR.txt <./local_2_fcm.espresso_UHR.txt>` and run::
+
+   python -m fcmaker -l -f local_2_fcm.espresso_HR.txt --do-png --systemtex
+   python -m fcmaker -l -f local_2_fcm.espresso_UHR.txt --do-png --systemtex
+
+
 
 The fcmaker tags
 ----------------

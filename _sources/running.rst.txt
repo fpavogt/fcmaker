@@ -13,7 +13,7 @@ or you can import the module and execute it within a script, i.e.::
    >>> import fcmaker
    >>> fcmaker.make_fc( ... ) # or fcmaker.make_fc_local ( ... )
    
-When running fcmaker as a script, any arguments you feed it is pretty much sent to the 
+When running fcmaker as a script, any argument you feed it is pretty much sent to the 
 underlying functions ``make_fc()`` and ``make_fc_local()``. For simplicity, this page
 only discusses how to run the entire module as a script, which ought to be slightly more 
 friendly to users not (yet!) familiar with Python. Still, the hope is that after reading 
@@ -99,6 +99,7 @@ flag. This also works for OBs that have Ephemeris files. For example::
    
 Finding charts for moving targets get automatically tagged with the symbol :math:`\leadsto`.
    
+   
 7: creation of finding charts locally (without p2)
 -------------------------------------------------------
 
@@ -111,6 +112,7 @@ templates for all supported instruments:
    - :download:`local_2_fcm.muse.txt  <./examples/local_2_fcm.muse.txt>`
    - :download:`local_2_fcm.hawki.txt <./examples/local_2_fcm.hawki.txt>`
    - :download:`local_2_fcm.xshooter.txt <./examples/local_2_fcm.xshooter.txt>`
+   - :download:`local_2_fcm.espresso.txt <./examples/local_2_fcm.espresso.txt>`
    
 The file is then fed to fcmaker with the ``-f`` flag, together with the ``--local`` flag to 
 indicate that it is a *local run*::
@@ -118,15 +120,15 @@ indicate that it is a *local run*::
    python -m fcmaker --local -f local_2_fcm.muse.txt
    python -m fcmaker --local -f local_2_fcm.hawki.txt
    python -m fcmaker --local -f local_2_fcm.xshooter.txt
+   python -m fcmaker --local -f local_2_fcm.espresso.txt
    
 fcmaker will create the associated finding chart, store it where specified, and exit.
-
 
 
 8: the background images
 ------------------------
 
-With the exception of MUSE NFM finding charts (see :ref:`gaia-images`), fcmaker relies on 
+With the exception of MUSE NFM and ESPRESSO finding charts (see :ref:`gaia-images`), fcmaker relies on 
 ``astroquery.skyview`` to download background images for the finding charts (unless a local 
 FITS file is provided by the user, see :ref:`local-FITS`). To display the full list of 
 surveys available, type in a Python shell::
@@ -169,11 +171,12 @@ Mock Gaia images for MUSE NFM
 +++++++++++++++++++++++++++++
 
 ``DSS2 Red`` background images are not well suited for MUSE NFM finding charts, given the small
-field-of-view of 7.5x7.5 square arcsec of this mode. To circumvent this issue, fcmaker 
-creates pseudo sky images from the Gaia catalogue, via the 
-``fcmaker_plots.make_gaia_image()`` function. By default, the image is created with a 
-pixel size of 25 mas (the pixel size of MUSE NFM). Each star is plotted as a 2D gaussian 
-with a FWHM of 80 mas (typical to the image quality achieved in normal operations), and 
+field-of-view of 7.5x7.5 square arcsec of this mode, or for ESPRESSO finding charts, given the 
+brightness of the targets. To circumvent this issue, fcmaker can create pseudo sky images 
+from the Gaia catalogue, via the ``fcmaker_plots.make_gaia_image()`` function. By default, 
+the image is created with a pixel size of 25 mas for MUSE NFM (the pixel size) and 50 mas for ESPRESSO. 
+Each star is plotted as a 2D gaussian with a FWHM of 80 mas for MUSE NFM (typical to the image 
+quality achieved in normal operations) or 0.6 arcsec for ESPRESSO (typical V-band seeing), and 
 scaled in intensity as a function of its Gaia flux. The proper motion of each star is 
 propagated up to the OB observing date (requested by the user with the ``--obsdate`` parameter; default = chart 
 creation time). The resulting image is saved as a fully-fledged FITS file at the 

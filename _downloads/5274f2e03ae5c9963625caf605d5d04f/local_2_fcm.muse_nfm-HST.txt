@@ -1,0 +1,50 @@
+#
+# A list of basic OB parameters to generate a MUSE finding chart from scratch
+#
+##### OB Info #####
+ob_name:   MUSE_NFM       # OB name, required to name the output files!
+ob_id:     12345678       # optional
+pi:        jdoe           # optional
+prog_id:   0100.Z-9999    # optional
+inst:      MUSE           # optional
+ins_mode:  NFM            #
+
+##### Target #####
+equinox:   J2000          #
+epoch:     2000.0         #
+ra:        01h04m01.5539s #
+dec:       -72d02m21.669s #
+pmra:      0              # proper motion in arcsec/year
+pmdec:     0              # propers motion in arcsec/year
+ephemeris:                # relative path+filename of an ephemeris file, optional
+
+##### Acquisition #####
+bos_ra:    0              # Blind-offset (RA)
+bos_dec:   0              # Blind offset (Dec)
+acq_pa:    0              # Acquisition Position Angle (degrees)
+is_gs:     False          # User-defined Guide Star ?
+gs_ra:                    #
+gs_dec:                   #
+is_tts:    False          # User-defined tip-tilt stars ?
+tts1_ra:                  #
+tts1_dec:                 #
+tts2_ra:                  #
+tts2_dec:                 #
+oatt_ra:  01h04m01.8049s  # On-axis TT star, for NFM.
+oatt_dec: -72d02m20.4919s #
+
+##### Observation #####
+noff:      3              #
+obstype:   [O O O]        #
+coordtype: SKY            #
+posang:    [0 0 0]        #
+off1:      [0 0.2 -0.4]   #
+off2:      [0 0.2 -0.4]   #
+return:    True           #
+
+##### Other params #####
+bk_image:  F673N_drc.fits # None, Bk images to download from SkyView, Gaia, or local fits file
+bk_lam:    HST-WFC3 673nm # None, or else overrides SkyView default.
+data_loc:  fcm_data       # Relative path to the bk images 
+plot_loc:  fcm_plots      # Relative path to store the finding charts 
+                    

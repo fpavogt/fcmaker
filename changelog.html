@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; fcmaker 0.4.0 documentation</title>
+  <title>Changelog &mdash; fcmaker 103.0.0 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 0.4.0 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 103.0.0 documentation" href="index.html"/>
         <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html"/>
         <link rel="prev" title="FAQ" href="faq.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                0.4.0
+                103.0.0
               </div>
             
           
@@ -96,10 +96,11 @@
 <li class="toctree-l1"><a class="reference internal" href="running.html">Usage instructions</a></li>
 <li class="toctree-l1"><a class="reference internal" href="troubleshooting.html">Troubleshooting</a></li>
 <li class="toctree-l1"><a class="reference internal" href="examples/gallery.html">Gallery</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">The modules of fcmaker</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modules/modules.html">The functions of fcmaker</a></li>
 <li class="toctree-l1"><a class="reference internal" href="faq.html">FAQ</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Changelog  </a></li>
 <li class="toctree-l1"><a class="reference internal" href="acknowledge.html">Acknowledging fcmaker</a></li>
+<li class="toctree-l1"><a class="reference external" href="https://github.com/fpavogt/fcmaker">Github</a></li>
 </ul>
 
             
@@ -163,22 +164,38 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <span class="target" id="changelog"></span><div class="section" id="changelog-last-commit-issues">
-<h1>Changelog <a class="reference external" href="https://github.com/fpavogt/fcmaker"><img alt="last-commit" src="https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000" /></a> <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues"><img alt="issues" src="https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e" /></a><a class="headerlink" href="#changelog-last-commit-issues" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="changelog-last-commit-issues">
+<span id="changelog"></span><h1>Changelog <a class="reference external" href="https://github.com/fpavogt/fcmaker"><img alt="last-commit" src="https://img.shields.io/github/last-commit/fpavogt/fcmaker.svg?colorB=e6c000" /></a> <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues"><img alt="issues" src="https://img.shields.io/github/issues/fpavogt/fcmaker.svg?colorB=b4001e" /></a><a class="headerlink" href="#changelog-last-commit-issues" title="Permalink to this headline">¶</a></h1>
 <div class="admonition-todo admonition" id="index-0">
 <p class="first admonition-title">Todo</p>
 <ul class="last simple">
+<li>check l. 149 in fcmaker_instrument_dispatch …</li>
+<li>(!) for XSHOOTER, always place the slit horizontal (i.e. do not put the chart North)</li>
 <li>(!) formally validate the parallactic function</li>
+<li>(?) check connection to the online servers ahead of time, and issue a nice error if needed</li>
 <li>(?) include an instrument-free mode</li>
 <li>(?) add metadata to .jpg</li>
 <li>(?) add support for jitter in HAWKI (showing the max jitter area with a circle)</li>
 <li>(?) find a better way to display the allowed TT area for MUSE, e.g. shaded area with
-<code class="docutils literal"><span class="pre">shapley</span></code></li>
-<li>(?) make the obsdate an <code class="docutils literal"><span class="pre">fc_params</span></code> entry rather than a global variable</li>
+<code class="docutils literal notranslate"><span class="pre">shapley</span></code></li>
+<li>(?) make the obsdate an <code class="docutils literal notranslate"><span class="pre">fc_params</span></code> entry rather than a global variable</li>
 <li>(?) for time critical OBs, get the time from the OB</li>
 </ul>
 </div>
 <dl class="docutils">
+<dt>v103.0.0 October 2018, F.P.A. Vogt</dt>
+<dd><ul class="first last simple">
+<li>changed versioning scheme to highlight the supported Period.</li>
+<li>renamed ‘O’ and ‘S’ to ‘Obj.’ and ‘Sky’ in the legend, for clarity.</li>
+<li>for XSHOOTER, show the footprint of the Acq. camera also at the “Target” position.</li>
+<li>suppressed all VOTableSpecWarning (they’re not my fault!)</li>
+<li>added support for ESPRESSO</li>
+<li>set astropy logging level to “WARNING” to clean up the prompt</li>
+<li>fixed the scalebar fontsize warning from aplpy</li>
+<li>added new blind-offset example for XSHOOTER in the doc</li>
+<li>fixed tiny bug in calculation of right-plot radius for XSHOOTER and MUSE, in case of blind offsets</li>
+</ul>
+</dd>
 <dt>v0.4.0 August 2018, F.P.A. Vogt</dt>
 <dd><ul class="first last simple">
 <li>deal with multiple spaces in the local files, e.g. [O  S O]</li>
@@ -209,7 +226,7 @@
 </dd>
 <dt>v0.3.5 June 2018, F.P.A. Vogt</dt>
 <dd><ul class="first last simple">
-<li>fixed bad bug when feeding no <code class="docutils literal"><span class="pre">obid</span></code></li>
+<li>fixed bad bug when feeding no <code class="docutils literal notranslate"><span class="pre">obid</span></code></li>
 </ul>
 </dd>
 <dt>v0.3.4 June 2018, F.P.A. Vogt</dt>
@@ -218,8 +235,8 @@
 <li>added a check to make sure the user provides the wavelength of custom fits files</li>
 <li>added section about custom FITS file to the doc.</li>
 <li>fixed lack of <cite>ins_mode</cite> in new NFM OBs</li>
-<li>added new keywords for command line option, including <code class="docutils literal"><span class="pre">--p2uid</span></code>, <code class="docutils literal"><span class="pre">--obsid</span></code>,
-<code class="docutils literal"><span class="pre">--plot-loc</span></code>, <code class="docutils literal"><span class="pre">--data-loc</span></code>, <code class="docutils literal"><span class="pre">--bk-image</span></code> and <code class="docutils literal"><span class="pre">--bk-lam</span></code>.</li>
+<li>added new keywords for command line option, including <code class="docutils literal notranslate"><span class="pre">--p2uid</span></code>, <code class="docutils literal notranslate"><span class="pre">--obsid</span></code>,
+<code class="docutils literal notranslate"><span class="pre">--plot-loc</span></code>, <code class="docutils literal notranslate"><span class="pre">--data-loc</span></code>, <code class="docutils literal notranslate"><span class="pre">--bk-image</span></code> and <code class="docutils literal notranslate"><span class="pre">--bk-lam</span></code>.</li>
 </ul>
 </dd>
 <dt>v0.3.3 June 2018, F.P.A. Vogt:</dt>
@@ -303,9 +320,9 @@ large ones</li>
 </dd>
 <dt>v0.1.46 November 2017, F.P.A. Vogt:</dt>
 <dd><ul class="first last simple">
-<li>fixed a bug when the length of offsets in smaller than <code class="docutils literal"><span class="pre">noff</span></code></li>
+<li>fixed a bug when the length of offsets in smaller than <code class="docutils literal notranslate"><span class="pre">noff</span></code></li>
 <li>fixed a bug when there is only one AO TTS defined.</li>
-<li>added support for <code class="docutils literal"><span class="pre">MUSE_wfm_cal_astrom</span></code> and <code class="docutils literal"><span class="pre">MUSE_wfm_cal_specphot</span></code></li>
+<li>added support for <code class="docutils literal notranslate"><span class="pre">MUSE_wfm_cal_astrom</span></code> and <code class="docutils literal notranslate"><span class="pre">MUSE_wfm_cal_specphot</span></code></li>
 </ul>
 </dd>
 <dt>v0.1.45 November 2017, F.P.A. Vogt:</dt>
@@ -315,10 +332,10 @@ large ones</li>
 </dd>
 <dt>v0.1.43 November 2017, F.P.A. Vogt:</dt>
 <dd><ul class="first last simple">
-<li>added <code class="docutils literal"><span class="pre">Intended</span> <span class="pre">audience</span></code>, <code class="docutils literal"><span class="pre">Topic</span></code> and <code class="docutils literal"><span class="pre">License</span></code> flags to pypi release</li>
+<li>added <code class="docutils literal notranslate"><span class="pre">Intended</span> <span class="pre">audience</span></code>, <code class="docutils literal notranslate"><span class="pre">Topic</span></code> and <code class="docutils literal notranslate"><span class="pre">License</span></code> flags to pypi release</li>
 <li>implemented support for DETECTOR offsets in MUSE</li>
-<li>added the <code class="docutils literal"><span class="pre">--obsdate</span></code> flag, to feed the date of the observation to fcmaker</li>
-<li>added the <code class="docutils literal"><span class="pre">--obsdate</span></code> and <code class="docutils literal"><span class="pre">__version__</span></code> to the finding charts</li>
+<li>added the <code class="docutils literal notranslate"><span class="pre">--obsdate</span></code> flag, to feed the date of the observation to fcmaker</li>
+<li>added the <code class="docutils literal notranslate"><span class="pre">--obsdate</span></code> and <code class="docutils literal notranslate"><span class="pre">__version__</span></code> to the finding charts</li>
 <li>added support of target proper motion of 1st order (assuming flat sky)</li>
 <li>updated doc</li>
 </ul>
@@ -404,7 +421,7 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'0.4.0',
+            VERSION:'103.0.0',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
