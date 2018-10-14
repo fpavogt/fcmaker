@@ -143,7 +143,7 @@ def get_bk_image(bk_image, bk_lam, center, radius, fc_params):
    
    # Clear the Skyview cache ?
    if fcm_m.clear_SkyView_cache:
-      print('Clearing SkyView cache...')
+      print('   Clearing SkyView cache...')
       cache_loc = SkyView.cache_location
       items  = os.listdir(cache_loc)
       
@@ -537,14 +537,15 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    
    ax1.add_scalebar(scl) # Length in degrees
    ax1.scalebar.show(scl, label=scll, corner = 'bottom left', 
-                     color = 'k', frame=1, fontsize=12)
+                     color = 'k', frame=1)
+   ax1.scalebar.set_font_size(12)
    
    scl2 = np.floor(right_radius/60/6)/60.
    scll2 = r'%.0f$^{\prime}$' % (scl2*60)
    ax2.add_scalebar(scl2)
    ax2.scalebar.show(scl2, label=scll2, corner = 'bottom left', 
-                     color = 'k', frame=1, fontsize=12)
-   
+                     color = 'k', frame=1)
+   ax2.scalebar.set_font_size(12)
    
    for ax in [ax1,ax2]:
       ax.scalebar.set_linewidth(2)

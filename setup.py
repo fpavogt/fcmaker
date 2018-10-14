@@ -2,7 +2,7 @@ from setuptools import setup, find_packages  # Always prefer setuptools over dis
 
 setup(
    name='fcmaker',
-   version='0.4.0',
+   version='103.0.0',
    author='F.P.A. Vogt',
    author_email='frederic.vogt@alumni.anu.edu.au',
    packages=['fcmaker',],
@@ -13,9 +13,9 @@ setup(
    long_description=open('README').read(),
    python_requires='>=3',
    install_requires=[
-      "numpy >= 1.12",
-      "scipy >= 0.19.0",
-      "matplotlib >= 2.0.2",
+      "numpy >= 1.14.3",
+      "scipy >= 1.1.0",
+      "matplotlib >= 3.0.0",
       "astropy >=3.0",
       "aplpy >=1.1.1",
       "astroquery >= 0.3.4",
@@ -23,7 +23,7 @@ setup(
       "PyYAML >=3.12",
       "pytz >= 2018",
       "astroplan",
-      "pillow >=4.2.1",
+      "pillow >=5.2.0",
       #"montage-wrapper >= 0.9.9",
    ],
     

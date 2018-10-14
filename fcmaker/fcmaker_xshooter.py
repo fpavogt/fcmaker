@@ -43,7 +43,7 @@ right_radius = 540. # in arcsec
 left_radius = 65. # in arcsec
       
 inner_GS_search = 120. # inner limit to find Guide Stars # TO BE VALIDATED!
-# List the supported MUSE observing templates
+# List the supported XSHOOTER observing templates
 xshooter_templates = [# SLT
                       'XSHOOTER_slt_acq',
                       'XSHOOTER_slt_acq_rrm',
@@ -315,7 +315,7 @@ def get_localfcdata_xshooter(fc_params,inpars):
    Args:
       inpars: A dictionnary containing the OB parameters
    Returns:
-       A dictionnary containing the MUSE OB parameters
+       A dictionnary containing the XSHOOTER OB parameters
    '''                                    
          
    # Acquisition
@@ -388,7 +388,7 @@ def get_fields_dict(fc_params):
    certain OB parameters.
    
    Args:
-      fc_params: A dictionnary containing the MUSE OB parameters
+      fc_params: A dictionnary containing the XSHOOTER OB parameters
    Returns:
        A dictionary containing the plotting parameters for each field.
    
@@ -423,11 +423,11 @@ def get_fields_dict(fc_params):
    # Include the Target as a "field"
    counter+=1
    fields[counter] = [fc_params['inst'], # Instrument first
-                      None,
+                      'img', # Show the Acq camera footprint also for the target position
                       target, # Field central coordinates
                       fc_params['acq']['acq_pa'], # Position Angle
                       'Target', # Nature of the field ('Acq', 'Target', 'O', 'S')
-                      None, # The ins_mode
+                      xshooter_acqcam, # Show the Acq camera footprint also for the target position
                       ]  
 
    # Now, loop through all the Science templates I have
@@ -569,14 +569,13 @@ def plot_field(ax1, ax2, fc_params, field):
    
    skins = {'Acq':{'c':'darkorchid', 'lwm':2, 'zorder':10, 'marker':fcm_t.crosshair(pa=45), 
                    'lw':1.5, 'ms':500, 'ls':'-', 'mc':'darkorchid'},
-            'Target': {'c':'None', 'lwm':1, 'zorder':5, 'marker':'D', 
-                       'lw':1.5, 'ms':250, 'ls':'None', 'mc':'darkorange'},
+            'Target': {'c':'darkorange', 'lwm':1, 'zorder':5, 'marker':'D', 
+                       'lw':1.5, 'ms':250, 'ls':'--', 'mc':'darkorange'},
             'O':{'c':'royalblue', 'lwm':1, 'zorder':5, 'marker':'o', 
                  'lw':0.75, 'ms':50, 'ls':':', 'mc':'royalblue'},
             'S':{'c':'darkcyan', 'lwm':1, 'zorder':5, 'marker':'s', 
                  'lw':0.75, 'ms':50, 'ls':':', 'mc':'darkcyan'},
             }
-   
    
    this_coords = [field[2].ra, field[2].dec]
    
@@ -592,8 +591,8 @@ def plot_field(ax1, ax2, fc_params, field):
                          ) 
       
       # instrument footprint, except for the "target"
-      if field[4] != 'Target':
-         ax.show_polygons(get_polygon(field[2],field[3],field[5],), 
+      # if field[4] != 'Target':
+      ax.show_polygons(get_polygon(field[2],field[3],field[5],), 
                            edgecolor = skins[field[4]]['c'],
                            linewidth = skins[field[4]]['lw'],
                            zorder = skins[field[4]]['zorder'],
@@ -647,7 +646,8 @@ def plot_field(ax1, ax2, fc_params, field):
          #              rotation = 90+field[3], color=skins['Acq']['mc'])
          ax1.add_label(0.9,0.9, '--- p.a. ---', relative=True, horizontalalignment='center', size=10,
                        verticalalignment='center', 
-                       rotation = 90+field[3], color=skins['Acq']['mc'],
+                       rotation = 90+field[3],
+                       color=skins['Acq']['mc'],
                        bbox=dict(boxstyle="round4,pad=0.05", facecolor='w',ec='w', alpha=1))
                        
       
@@ -679,7 +679,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['O']['ls'],
                                linewidth=skins['O']['lw'],
                                marker=skins['O']['marker'],
-                               markersize=10, label='O')                                                           
+                               markersize=10, label='Obj.')                                                           
       S_legend = mlines.Line2D([], [], 
                                color=skins['S']['c'],
                                markerfacecolor='None',
@@ -687,7 +687,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['S']['ls'],
                                linewidth=skins['S']['lw'],
                                marker=skins['S']['marker'],
-                               markersize=10, label='S') 
+                               markersize=10, label='Sky') 
                                
       ucac2_legend = mlines.Line2D([], [],
                                     color='crimson',

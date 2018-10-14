@@ -112,15 +112,11 @@ def detector_to_sky(dx,dy,pa):
    Args:
       dx (float): offset in arcsec
       dy (float): offset in arcsec
-      pa (float): current position angle in degrees measured East-of-North (MUSE convention)
+      pa (float): current position angle in degrees measured East-of-North (HAWKI convention)
         
    Returns:
       tuple of floats: the (dra,ddec) offsets in SKY convention.
       
-   Note:
-      According to the MUSE User manual, "when in DETECTOR framework, if both telescope
-      offsets and PA offsets are provided, the telescope offsets are sent (first) with 
-      respect to the current PA of the instrument, before applying the PA offset."
    '''
    
    # Rotate the offsets in the Ra-Dec frame
@@ -279,13 +275,13 @@ def get_p2fcdata_hawki(fc_params, ob, api):
 # ------------------------------------------------------------------------------
 def get_localfcdata_hawki(fc_params, inpars):
    '''
-   Extracts all the important info to build a finding chart from a given MUSE OB defined
+   Extracts all the important info to build a finding chart from a given HAWKI OB defined
    locally.
    
    Args:
       inpars: A dictionnary containing the OB parameters
    Returns:
-       A dictionnary containing the MUSE OB parameters
+       A dictionnary containing the HAWKI OB parameters
    ''' 
    
    # Acquisition
@@ -331,7 +327,7 @@ def get_fields_dict(fc_params):
    certain OB parameters.
    
    Args:
-      fc_params: A dictionnary containing the MUSE OB parameters
+      fc_params: A dictionnary containing the HAWKI OB parameters
    Returns:
        A dictionary containing the plotting parameters for each field.
    
@@ -467,7 +463,7 @@ def get_polygon(central_coord, pa, nx, ny, startx, starty):
    matplotlib down the line.
    
    Args:
-      central_coord: an astropy.SkyCoord entry with the center of the MUSE field
+      central_coord: an astropy.SkyCoord entry with the center of the HAWKI field
       pa: the position angle of the field (p2 convention)
       nx,ny, startx, starty: the Fast Phot windowing parameters
    Returns:
@@ -672,7 +668,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linewidth=skins['O']['lw'],
                                #marker=skins['O']['marker'],
                                #markersize=10, 
-                               label='O') 
+                               label='Obj.') 
                                                                                          
       S_legend = mlines.Line2D([], [], 
                                color=skins['S']['c'],
@@ -682,7 +678,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linewidth=skins['S']['lw'],
                                #marker=skins['S']['marker'],
                                #markersize=10, 
-                               label='S') 
+                               label='Sky') 
       
       ucac2_legend = mlines.Line2D([], [],
                                     color='crimson',

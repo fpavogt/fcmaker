@@ -16,7 +16,7 @@ Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 # Define the version of fcmaker
-__version__ = '0.4.0'
+__version__ = '103.0.0'
 
 # Where are we located ?
 fcm_dir = os.path.dirname(__file__)

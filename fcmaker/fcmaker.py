@@ -6,6 +6,8 @@ import warnings
 
 from astropy.coordinates.sky_coordinate import SkyCoord
 from astropy import units as u
+from astropy import log
+log.setLevel('WARNING') # Disable pesky INFO flags from aplpy
 
 # Import the sub-routines
 from . import fcmaker_metadata as fcm_m
@@ -30,6 +32,8 @@ import warnings
 # Some astrostuff
 from astropy.coordinates.sky_coordinate import SkyCoord
 from astropy import units as u
+from astropy.io.votable.exceptions import VOTableSpecWarning
+from astropy.utils.exceptions import AstropyDeprecationWarning
 
 # Import matplotlib to set the proper style file here already
 from matplotlib import pylab as plt
@@ -37,9 +41,13 @@ from matplotlib import pylab as plt
 # Import some p2 magic 
 import p2api
 
+# Silence those pesky warnings from astropy VOTable
+warnings.filterwarnings("ignore", category=VOTableSpecWarning)
+                                   #module=user_ns.get("__name__"))
 
+# For debugging purposes: turn all warnings into errors
+#warnings.filterwarnings("error", category=AstropyDeprecationWarning)
 
-#from . import fcmaker_muse as fcm_muse
 
 '''
  fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
@@ -258,19 +266,19 @@ def make_fc( p2uid = None, pswd = None,
       # Are there any finding charts over there ?
       if len(fcNames)>0:
       
-         print('  Existing finding charts:')
+         print('   Existing finding charts:')
          for i in range(5):
             if i < len(fcNames):
-               print('  %i: %s' % ((i+1),fcNames[i]) )
+               print('    %i: %s' % ((i+1),fcNames[i]) )
             else:
-               print('  %i: empty' % ((i+1)) )
+               print('    %i: empty' % ((i+1)) )
          answer = None
          while not(answer in range(0,6)):
-            answer = eval(input('  Which slot to upload to (1-5; 0 = no upload)? '))
+            answer = eval(input('   Which slot to upload to (1-5; 0 = no upload)? '))
             
       else:
          # If no finding charts exist, then just put it in the first spot (no need to ask)
-         print('  No finding chart in the OB (yet): using slot 1 for upload ...')
+         print('   No finding chart in the OB (yet): using slot 1 for upload ...')
          answer = 1
                
       # Check if the finding chart slot is busy ... do we want to replace it ?
@@ -279,7 +287,7 @@ def make_fc( p2uid = None, pswd = None,
       elif answer <= len(fcNames):
          fill = None
          while not(fill in ['y','n']):
-            fill = input('  Finding chart slot occupied: overwrite (y/n)? ')   
+            fill = input('   Finding chart slot occupied: overwrite (y/n)? ')   
       else:
          fill = 'y'
          

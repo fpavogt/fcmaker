@@ -19,6 +19,8 @@ from . import fcmaker_tools as fcm_t
 from . import fcmaker_muse as fcm_muse
 from . import fcmaker_hawki as fcm_hawki
 from . import fcmaker_xshooter as fcm_xshooter
+from . import fcmaker_espresso as fcm_espresso
+
 
 
 '''
@@ -61,6 +63,9 @@ def get_bk_image(fc_params):
          
    elif fc_params['inst'] =='XSHOOTER':
       return fcm_xshooter.bk_image
+      
+   elif fc_params['inst'] == 'ESPRESSO':
+      return fcm_espresso.bk_image
    
    else:
       raise Exception('Ouch! Instrument unknown ...') 
@@ -85,6 +90,10 @@ def get_fields_dict(fc_params):
    elif fc_params['inst'] == 'XSHOOTER':
       return fcm_xshooter.get_fields_dict(fc_params)
       
+   elif fc_params['inst'] == 'ESPRESSO':
+      return fcm_espresso.get_fields_dict(fc_params)
+      
+      
    else:
       raise Exception('Ouch! Instrument unknown ...')   
 
@@ -107,7 +116,10 @@ def plot_field(ax1, ax2, fc_params, field):
       
    elif fc_params['inst'] == 'XSHOOTER':
       fcm_xshooter.plot_field(ax1,ax2,fc_params,field)
-      
+   
+   elif fc_params['inst'] == 'ESPRESSO':
+      fcm_espresso.plot_field(ax1,ax2,fc_params,field)
+   
    else:
       raise Exception('Ouch! Instrument unknown ...')   
 
@@ -126,14 +138,16 @@ def get_total_right_radius(fc_params, right_radius):
    # loop through all the Science template, and find the largest offset
    for n in range(fc_params['n_sci']):
       off1 = fc_params['sci%i'%(n+1)]['off1']
-      off2 = fc_params['sci%i'%(n+1)]['off1']
+      off2 = fc_params['sci%i'%(n+1)]['off2']
       offs_abs = [ np.array([np.sum(off1[:i]) for i in range(len(off1))]) + fc_params['acq']['bos_ra'], 
                    np.array([np.sum(off2[:i]) for i in range(len(off2))]) + fc_params['acq']['bos_dec'],
                   ]
       # Radius of all steps
       rad_obs = np.sqrt( (offs_abs[0])**2 + (offs_abs[1])**2)
-      # Select the largets one
-      right_radius = np.max([right_radius,np.max(rad_obs)+fcm_xshooter.right_radius])
+      # Select the largest one
+      # WARNING: why do I use xshooter.right_radius in all cases ???
+      #right_radius = np.max([right_radius,np.max(rad_obs)+fcm_xshooter.right_radius])
+      right_radius = np.max(rad_obs) + right_radius
    
    return right_radius
 
@@ -159,9 +173,9 @@ def get_chart_radius(fc_params):
          right_radius = copy.deepcopy(fcm_muse.right_radius)
          # Account for the OB offsets
          right_radius = get_total_right_radius(fc_params, right_radius)
-   
-      left_radius = fcm_muse.left_radius(fc_params['ins_mode']) + 0.5* np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
-                                     (fc_params['acq']['bos_dec']/2.)**2)
+      # Left chart centered between Acq and Target
+      left_radius = fcm_muse.left_radius(fc_params['ins_mode']) + 0.5* np.sqrt( (fc_params['acq']['bos_ra'])**2 + 
+                                     (fc_params['acq']['bos_dec'])**2)
       
    elif fc_params['inst'] == 'HAWKI':
       
@@ -186,8 +200,14 @@ def get_chart_radius(fc_params):
          # Account for the OB offsets
          right_radius = get_total_right_radius(fc_params, right_radius)
 
-      # Keep Left hand-side focused on acq field
-      left_radius = fcm_xshooter.left_radius + 0.5* np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
+      # Left chart centered between Acq and Target
+      left_radius = fcm_xshooter.left_radius + 0.5* np.sqrt( (fc_params['acq']['bos_ra'])**2 + 
+                                     (fc_params['acq']['bos_dec'])**2)
+   
+   elif fc_params['inst'] == 'ESPRESSO':
+      right_radius = fcm_espresso.right_radius
+      # Left chart centered between Acq and Target
+      left_radius = fcm_espresso.left_radius + 0.5* np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
                                      (fc_params['acq']['bos_dec']/2.)**2)
    
    else:
@@ -206,7 +226,7 @@ def get_GS_outer_radius(fc_params):
       radius: the radius in arcsec.
    '''
    
-   if fc_params['inst'] in ['MUSE', 'HAWKI']:
+   if fc_params['inst'] in ['MUSE', 'HAWKI', 'ESPRESSO']:
       return fcm_m.outer_GS_Nas
    elif fc_params['inst'] in ['XSHOOTER']:
       return fcm_m.outer_GS_Cas
@@ -235,6 +255,9 @@ def get_gaia_image_params(fc_params):
       
    elif fc_params['inst'] == 'XSHOOTER':
       return (0.3*u.arcsec, 1.0*u.arcsec)
+     
+   elif fc_params['inst'] == 'ESPRESSO':  
+      return (0.05*u.arcsec, 0.6*u.arcsec)
       
    else:
       raise Exception('Ouch! Instrument unknown ...')
@@ -273,7 +296,16 @@ def get_chart_center(fc_params):
                                   delta_ra=-fc_params['acq']['bos_ra']/2.*u.arcsec, 
                                   delta_dec=-fc_params['acq']['bos_dec']/2.*u.arcsec)  
                                   
-      return (center, center)                             
+      return (center, center) 
+      
+   elif fc_params['inst'] == 'ESPRESSO':
+      # Place the field center between the target and the acquisiton
+      center = fcm_t.offset_coord(fc_params['target'], 
+                                  delta_ra = fc_params['acq']['bos_ra']/2.*u.arcsec, 
+                                  delta_dec = fc_params['acq']['bos_dec']/2.*u.arcsec)  
+                                  
+      return (center, center) 
+                               
    
    else:
       raise Exception('Ouch! Instrument unknown ...')
@@ -300,6 +332,9 @@ def get_scalebar(inst, ins_mode = None):
       return (60./3600, '1$^{\prime}$')
    elif inst == 'XSHOOTER':
       return (20./3600, '20$^{\prime\prime}$')
+   elif inst == 'ESPRESSO':
+      return (5./3600, '5$^{\prime\prime}$')
+      
    else:
       raise Exception('Ouch! Instrument unknown ...')
 
@@ -339,7 +374,10 @@ def get_inner_GS_search(fc_params):
       
    elif fc_params['inst'] == 'XSHOOTER':
       return fcm_xshooter.inner_GS_search
-      
+   
+   elif fc_params['inst'] == 'ESPRESSO':
+      return fcm_espresso.inner_GS_search
+   
    else:
       raise Exception('Ouch! Instrument unknown ...')
 # ----------------------------------------------------------------------------------------
@@ -526,6 +564,9 @@ def get_p2fcdata(obID, api):
    
    elif ob['instrument'] == 'XSHOOTER':
       return fcm_xshooter.get_p2fcdata_xshooter(fc_params, ob, api)
+     
+   elif ob['instrument'] == 'ESPRESSO':
+      return fcm_espresso.get_p2fcdata_espresso(fc_params, ob, api)
       
    else:
       raise Exception('%s finding charts not (yet?) supported.' % (inst))
@@ -612,6 +653,9 @@ def get_localfcdata(inpars):
       return fcm_hawki.get_localfcdata_hawki(fc_params, inpars) 
    elif inpars['inst'] == 'XSHOOTER':
       return fcm_xshooter.get_localfcdata_xshooter(fc_params, inpars)
+   elif inpars['inst'] == 'ESPRESSO':
+      return fcm_espresso.get_localfcdata_espresso(fc_params, inpars)
+      
    else:
       raise Exception('%s finding charts not (yet?) supported.' % (inpars['inst']))
      

@@ -771,7 +771,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['O']['ls'],
                                linewidth=skins['O']['lw'],
                                marker=skins['O']['marker'],
-                               markersize=10, label='O')                                                           
+                               markersize=10, label='Obj.')                                                           
    S_legend = mlines.Line2D([], [], 
                                color=skins['S']['c'],
                                markerfacecolor='None',
@@ -779,7 +779,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                linestyle=skins['S']['ls'],
                                linewidth=skins['S']['lw'],
                                marker=skins['S']['marker'],
-                               markersize=10, label='S') 
+                               markersize=10, label='Sky') 
                                
    ucac2_legend = mlines.Line2D([], [],
                                     color='crimson',
