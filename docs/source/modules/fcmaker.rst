@@ -4,72 +4,72 @@ fcmaker package
 Submodules
 ----------
 
-fcmaker\.fcmaker module
------------------------
+fcmaker.fcmaker module
+----------------------
 
 .. automodule:: fcmaker.fcmaker
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_espresso module
----------------------------------
+fcmaker.fcmaker\_espresso module
+--------------------------------
 
 .. automodule:: fcmaker.fcmaker_espresso
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_hawki module
-------------------------------
+fcmaker.fcmaker\_hawki module
+-----------------------------
 
 .. automodule:: fcmaker.fcmaker_hawki
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_instrument\_dispatch module
----------------------------------------------
+fcmaker.fcmaker\_instrument\_dispatch module
+--------------------------------------------
 
 .. automodule:: fcmaker.fcmaker_instrument_dispatch
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_metadata module
----------------------------------
+fcmaker.fcmaker\_metadata module
+--------------------------------
 
 .. automodule:: fcmaker.fcmaker_metadata
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_muse module
------------------------------
+fcmaker.fcmaker\_muse module
+----------------------------
 
 .. automodule:: fcmaker.fcmaker_muse
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_plots module
-------------------------------
+fcmaker.fcmaker\_plots module
+-----------------------------
 
 .. automodule:: fcmaker.fcmaker_plots
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_tools module
-------------------------------
+fcmaker.fcmaker\_tools module
+-----------------------------
 
 .. automodule:: fcmaker.fcmaker_tools
     :members:
     :undoc-members:
     :show-inheritance:
 
-fcmaker\.fcmaker\_xshooter module
----------------------------------
+fcmaker.fcmaker\_xshooter module
+--------------------------------
 
 .. automodule:: fcmaker.fcmaker_xshooter
     :members:

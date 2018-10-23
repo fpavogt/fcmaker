@@ -207,8 +207,8 @@ def get_chart_radius(fc_params):
    elif fc_params['inst'] == 'ESPRESSO':
       right_radius = fcm_espresso.right_radius
       # Left chart centered between Acq and Target
-      left_radius = fcm_espresso.left_radius + 0.5* np.sqrt( (fc_params['acq']['bos_ra']/2.)**2 + 
-                                     (fc_params['acq']['bos_dec']/2.)**2)
+      left_radius = fcm_espresso.left_radius + 0.5* np.sqrt( (fc_params['acq']['bos_ra'])**2 + 
+                                     (fc_params['acq']['bos_dec'])**2)
    
    else:
       raise Exception('Ouch! Instrument unknown ...')
@@ -350,8 +350,7 @@ def get_pmin(survey):
    '''
    
    if survey in ['2MASS-J', '2MASS-H', '2MASS-K']:
-      return 30.
-   
+      return 30.      
    else:
       return 10.
 

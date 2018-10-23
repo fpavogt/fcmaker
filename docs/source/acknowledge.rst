@@ -51,7 +51,7 @@ Acknowledging fcmaker
     digitized and compressed by the STScI. The digitized images are copyright (c) 1993-1995 
     by the Anglo-Australian Telescope Board. The ``Equatorial Red Atlas'' of the southern 
     sky was produced using the UK Schmidt Telescope. Plates from this survey have been 
-    digitized and compressedby the STScI. The digitized images are copyright (c) 1992-1995, 
+    digitized and compressed by the STScI. The digitized images are copyright (c) 1992-1995, 
     jointly bythe UK SERC/PPARC (Particle Physics and Astronomy Research Council, formerly 
     Science and Engineering Research Council) and the Anglo-Australian Telescope Board. 
     The compressed files of the ``Palomar Observatory - Space Telescope Science Institute 

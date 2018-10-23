@@ -119,11 +119,11 @@ def detector_to_sky(dx,dy,pa):
    
    # Rotate the offsets in the Ra-Dec frame
    # Issue #7: https://github.com/fpavogt/fcmaker/issues/6
-   ddec = - np.cos(np.radians(pa)) * dx + np.sin(np.radians(pa)) * dy 
+   ddec = np.cos(np.radians(pa)) * dx - np.sin(np.radians(pa)) * dy 
    dra = np.sin(np.radians(pa)) * dx + np.cos(np.radians(pa)) * dy
    
    # Flip the RA axis to increase along East
-   dra *= -1.
+   #dra *= -1.
    
    return (dra, ddec)
 
@@ -291,9 +291,9 @@ def get_p2fcdata_xshooter(fc_params, ob, api):
             fc_params[temp_name]['noff'] = 2
             fc_params[temp_name]['obstype'] = ['O','O']
             fc_params[temp_name]['coordtype'] = 'DETECTOR'
-            fc_params[temp_name]['off1'] = [0,0]
-            fc_params[temp_name]['off2'] = [-fc_params[temp_name]['slt_throw'].to(u.arcsec).value/2.,    
+            fc_params[temp_name]['off1'] = [-fc_params[temp_name]['slt_throw'].to(u.arcsec).value/2.,    
                                             +fc_params[temp_name]['slt_throw'].to(u.arcsec).value]
+            fc_params[temp_name]['off2'] = [0,0]
          
          # Now, deal with the FixedSkyOffset templates.
          # Basically "converts them to a normal GenericOffset, and ignore any jitter
@@ -375,9 +375,10 @@ def get_localfcdata_xshooter(fc_params,inpars):
       fc_params['sci1']['noff'] = 2
       fc_params['sci1']['obstype'] = ['O','O']
       fc_params['sci1']['coordtype'] = 'DETECTOR'
-      fc_params['sci1']['off1'] = [0,0]
-      fc_params['sci1']['off2'] = [-fc_params['sci1']['slt_throw'].to(u.arcsec).value/2.,    
-                                            +fc_params['sci1']['slt_throw'].to(u.arcsec).value]
+      fc_params['sci1']['off1'] = [-fc_params['sci1']['slt_throw'].to(u.arcsec).value/2.,    
+                                   +fc_params['sci1']['slt_throw'].to(u.arcsec).value]
+      fc_params['sci1']['off2'] = [0,0]
+
 
    return fc_params
 
@@ -572,9 +573,9 @@ def plot_field(ax1, ax2, fc_params, field):
             'Target': {'c':'darkorange', 'lwm':1, 'zorder':5, 'marker':'D', 
                        'lw':1.5, 'ms':250, 'ls':'--', 'mc':'darkorange'},
             'O':{'c':'royalblue', 'lwm':1, 'zorder':5, 'marker':'o', 
-                 'lw':0.75, 'ms':50, 'ls':':', 'mc':'royalblue'},
+                 'lw':0.75, 'ms':50, 'ls':'-', 'mc':'royalblue'},
             'S':{'c':'darkcyan', 'lwm':1, 'zorder':5, 'marker':'s', 
-                 'lw':0.75, 'ms':50, 'ls':':', 'mc':'darkcyan'},
+                 'lw':0.75, 'ms':50, 'ls':'-', 'mc':'darkcyan'},
             }
    
    this_coords = [field[2].ra, field[2].dec]
@@ -646,13 +647,12 @@ def plot_field(ax1, ax2, fc_params, field):
          #              rotation = 90+field[3], color=skins['Acq']['mc'])
          ax1.add_label(0.9,0.9, '--- p.a. ---', relative=True, horizontalalignment='center', size=10,
                        verticalalignment='center', 
-                       rotation = 90+field[3],
+                       rotation = field[3]-90, # To match the UT2 screen
                        color=skins['Acq']['mc'],
                        bbox=dict(boxstyle="round4,pad=0.05", facecolor='w',ec='w', alpha=1))
                        
-      
-          
-       
+         # NOTE: the Acq. image on the UT2 screen has "y" up and "x" to the RIGHT, 
+         # where "y" and "x" are the axis defined in the manual in Fig. 42, 43, 44.
           
    
       # Finally, also add a legend for clarity
