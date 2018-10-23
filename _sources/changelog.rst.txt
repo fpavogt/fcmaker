@@ -10,7 +10,6 @@ Changelog |last-commit| |issues|
 ================================
 
 .. todo:: 
-   - check l. 149 in fcmaker_instrument_dispatch ...
    - (!) for XSHOOTER, always place the slit horizontal (i.e. do not put the chart North)
    - (!) formally validate the parallactic function
    - (?) check connection to the online servers ahead of time, and issue a nice error if needed 
@@ -21,6 +20,13 @@ Changelog |last-commit| |issues|
      ``shapley``
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
+
+v103.1.0 October 2018, F.P.A. Vogt
+   - fixed a bug in the calculation of ESPRESSO left chart radius.
+   - fixed the axis of the nodding for XSHOOTER AutoNod templates.
+   - properly fixed issue `#7 <https://github.com/fpavogt/fcmaker/issues/7>`_ 
+   - draw the XSHOOTER slits in full lines to improve clarity
+   - rotated the slit "P.A." name by 180deg for XSHOOTER to match the UT2 screen
 
 v103.0.0 October 2018, F.P.A. Vogt
    - changed versioning scheme to highlight the supported Period.
