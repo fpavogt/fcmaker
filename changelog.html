@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; fcmaker 103.1.0 documentation</title>
+  <title>Changelog &mdash; fcmaker 103.1.1 documentation</title>
   
 
   
@@ -35,7 +35,7 @@
         <link rel="index" title="Index"
               href="genindex.html"/>
         <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 103.1.0 documentation" href="index.html"/>
+    <link rel="top" title="fcmaker 103.1.1 documentation" href="index.html"/>
         <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html"/>
         <link rel="prev" title="FAQ" href="faq.html"/> 
 
@@ -66,7 +66,7 @@
             
             
               <div class="version">
-                103.1.0
+                103.1.1
               </div>
             
           
@@ -182,6 +182,12 @@
 </ul>
 </div>
 <dl class="docutils">
+<dt>v103.1.1 October 2018, F.P.A. Vogt</dt>
+<dd><ul class="first last simple">
+<li>fixed <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues/10">#10</a>: added 180deg to the parallactic
+angle derived by the <code class="docutils literal notranslate"><span class="pre">UT2.parallactic_angle()</span></code> routine, to match the screen orientation at UT2.</li>
+</ul>
+</dd>
 <dt>v103.1.0 October 2018, F.P.A. Vogt</dt>
 <dd><ul class="first last simple">
 <li>fixed a bug in the calculation of ESPRESSO left chart radius.</li>
@@ -195,7 +201,7 @@
 <dd><ul class="first last simple">
 <li>changed versioning scheme to highlight the supported Period.</li>
 <li>renamed ‘O’ and ‘S’ to ‘Obj.’ and ‘Sky’ in the legend, for clarity.</li>
-<li>for XSHOOTER, show the footprint of the Acq. camera also at the “Target” position.</li>
+<li>for XSHOOTER, show the footprint of the Acq. camera also at the <code class="docutils literal notranslate"><span class="pre">Target</span></code> position.</li>
 <li>suppressed all VOTableSpecWarning (they’re not my fault!)</li>
 <li>added support for ESPRESSO</li>
 <li>set astropy logging level to “WARNING” to clean up the prompt</li>
@@ -207,7 +213,7 @@
 <dt>v0.4.0 August 2018, F.P.A. Vogt</dt>
 <dd><ul class="first last simple">
 <li>deal with multiple spaces in the local files, e.g. [O  S O]</li>
-<li>added test OBs on p2demo, reachable via “–demo” mode in fcmaker</li>
+<li>added test OBs on p2demo, reachable via <code class="docutils literal notranslate"><span class="pre">--demo</span></code> mode in fcmaker</li>
 <li>minor tweaks to the docs</li>
 </ul>
 </dd>
@@ -228,7 +234,7 @@
 </dd>
 <dt>v0.3.6 July 2018, F.P.A. Vogt</dt>
 <dd><ul class="first last simple">
-<li>fixed a <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues/3">bad bug</a> for HAWKI and XSHOOTER OBs on p2</li>
+<li>fixed <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues/3">#3</a> for HAWKI and XSHOOTER OBs on p2</li>
 <li>for MUSE OBs on local mode, tries to display the TTS only if WFM-AO, or NFM.</li>
 </ul>
 </dd>
@@ -429,7 +435,7 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
     <script type="text/javascript">
         var DOCUMENTATION_OPTIONS = {
             URL_ROOT:'./',
-            VERSION:'103.1.0',
+            VERSION:'103.1.1',
             COLLAPSE_INDEX:false,
             FILE_SUFFIX:'.html',
             HAS_SOURCE:  true,
