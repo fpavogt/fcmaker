@@ -21,6 +21,10 @@ Changelog |last-commit| |issues|
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
 
+v103.1.1 October 2018, F.P.A. Vogt
+   - fixed `#10 <https://github.com/fpavogt/fcmaker/issues/10>`_: added 180deg to the parallactic 
+     angle derived by the ``UT2.parallactic_angle()`` routine, to match the screen orientation at UT2. 
+
 v103.1.0 October 2018, F.P.A. Vogt
    - fixed a bug in the calculation of ESPRESSO left chart radius.
    - fixed the axis of the nodding for XSHOOTER AutoNod templates.
@@ -31,7 +35,7 @@ v103.1.0 October 2018, F.P.A. Vogt
 v103.0.0 October 2018, F.P.A. Vogt
    - changed versioning scheme to highlight the supported Period.
    - renamed 'O' and 'S' to 'Obj.' and 'Sky' in the legend, for clarity.
-   - for XSHOOTER, show the footprint of the Acq. camera also at the "Target" position.
+   - for XSHOOTER, show the footprint of the Acq. camera also at the ``Target`` position.
    - suppressed all VOTableSpecWarning (they're not my fault!)
    - added support for ESPRESSO
    - set astropy logging level to "WARNING" to clean up the prompt
@@ -41,7 +45,7 @@ v103.0.0 October 2018, F.P.A. Vogt
 
 v0.4.0 August 2018, F.P.A. Vogt
    - deal with multiple spaces in the local files, e.g. [O  S O]
-   - added test OBs on p2demo, reachable via "--demo" mode in fcmaker
+   - added test OBs on p2demo, reachable via ``--demo`` mode in fcmaker
    - minor tweaks to the docs 
 
 v0.3.8 July 2018, F.P.A. Vogt
@@ -56,7 +60,7 @@ v0.3.7 July 2018, F.P.A. Vogt
  - for MUSE WFM, only show a purple cross-hair during the acquisition for the "movetopixel" template
  
 v0.3.6 July 2018, F.P.A. Vogt
- - fixed a `bad bug <https://github.com/fpavogt/fcmaker/issues/3>`_ for HAWKI and XSHOOTER OBs on p2
+ - fixed `#3 <https://github.com/fpavogt/fcmaker/issues/3>`_ for HAWKI and XSHOOTER OBs on p2
  - for MUSE OBs on local mode, tries to display the TTS only if WFM-AO, or NFM.
 
 v0.3.5 June 2018, F.P.A. Vogt

@@ -227,7 +227,11 @@ def get_p2fcdata_xshooter(fc_params, ob, api):
                # Ok, I need to compute the parallactic angle !
                # Use astroplan to do that
                UT2 = Observer(location=fcm_m.UT2_loc)
-               fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
+               fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value + 180
+               
+               # Note 2: need to add 180deg, so that the orientation of the slit matches the screen on UT2 !
+
+      
       
       elif t['type'] in ['science','calib']:
          
@@ -345,10 +349,12 @@ def get_localfcdata_xshooter(fc_params,inpars):
          # Ok, I need to compute the parallactic angle !
          # Use astroplan to do that
          UT2 = Observer(location=fcm_m.UT2_loc)
-         fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value 
+         fc_params['acq']['acq_pa'] = UT2.parallactic_angle(fcm_m.obsdate, fc_params['target']).to(u.deg).value + 180
       
          # Note: if I don't want to show the FoV when parang = 9999, I leave it as is, and 
          # deal with it get_polygon().
+         
+         # Note 2: need to add 180deg, so that the orientation of the slit matches the screen on UT2 !
 
    # Observation
    fc_params['n_sci'] = 1
