@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Changelog &mdash; fcmaker 103.1.1 documentation</title>
+  <title>Changelog &mdash; fcmaker 104.0.0 documentation</title>
   
 
   
@@ -17,42 +17,37 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
-  
-  
-    <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
-  
-
-  
-
-  
-        <link rel="index" title="Index"
-              href="genindex.html"/>
-        <link rel="search" title="Search" href="search.html"/>
-    <link rel="top" title="fcmaker 103.1.1 documentation" href="index.html"/>
-        <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html"/>
-        <link rel="prev" title="FAQ" href="faq.html"/> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Acknowledging fcmaker" href="acknowledge.html" />
+    <link rel="prev" title="FAQ" href="faq.html" /> 
 </head>
 
-<body class="wy-body-for-nav" role="document">
+<body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -66,7 +61,7 @@
             
             
               <div class="version">
-                103.1.1
+                104.0.0
               </div>
             
           
@@ -112,7 +107,7 @@
     <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
 
       
-      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+      <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
           <a href="index.html">fcmaker</a>
@@ -120,9 +115,10 @@
       </nav>
 
 
-      
       <div class="wy-nav-content">
+        
         <div class="rst-content">
+        
           
 
 
@@ -182,10 +178,24 @@
 </ul>
 </div>
 <dl class="docutils">
+<dt>v104.0.0 July 2019, F.P.A. Vogt</dt>
+<dd><ul class="first last simple">
+<li>ported to P104 (checked MUSE only!)</li>
+<li>froze official development in favor of <code class="docutils literal notranslate"><span class="pre">p2api.generateFindingChart()</span></code></li>
+<li>updated docs accordingly</li>
+<li>fixed bug in aplpy legend call (<code class="docutils literal notranslate"><span class="pre">_ax1</span></code> -&gt; <code class="docutils literal notranslate"><span class="pre">ax</span></code>)</li>
+<li>fixed YAML deprecation warning (by using <code class="docutils literal notranslate"><span class="pre">Loader=yaml.SafeLoader</span></code>)</li>
+</ul>
+</dd>
+<dt>v103.2.0 January 2019, F.P.A. Vogt</dt>
+<dd><ul class="first last simple">
+<li>fixed a bug with new version of <cite>astroquery.skyview.SkyView.survey_dict()</cite></li>
+</ul>
+</dd>
 <dt>v103.1.1 October 2018, F.P.A. Vogt</dt>
 <dd><ul class="first last simple">
 <li>fixed <a class="reference external" href="https://github.com/fpavogt/fcmaker/issues/10">#10</a>: added 180deg to the parallactic
-angle derived by the <code class="docutils literal notranslate"><span class="pre">UT2.parallactic_angle()</span></code> routine, to match the screen orientation at UT2.</li>
+angle derived by the <code class="docutils literal notranslate"><span class="pre">UT2.parallactic_angle()</span></code> routine, to match the screen orientation at UT2</li>
 </ul>
 </dd>
 <dt>v103.1.0 October 2018, F.P.A. Vogt</dt>
@@ -393,9 +403,7 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
 
 
            </div>
-           <div class="articleComments">
-            
-           </div>
+           
           </div>
           <footer>
   
@@ -404,7 +412,7 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
         <a href="acknowledge.html" class="btn btn-neutral float-right" title="Acknowledging fcmaker" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="faq.html" class="btn btn-neutral" title="FAQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="faq.html" class="btn btn-neutral float-left" title="FAQ" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -413,11 +421,11 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
 
   <div role="contentinfo">
     <p>
-        &copy; Copyright 2017-2018, Frédéric P.A. Vogt.
+        &copy; Copyright 2017-2019, Frédéric P.A. Vogt
 
     </p>
   </div>
-  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/snide/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
 
 </footer>
 
@@ -430,37 +438,15 @@ ones. Created fcmaker_instrument_dispatch.py to that effect.</li>
   
 
 
-  
-
-    <script type="text/javascript">
-        var DOCUMENTATION_OPTIONS = {
-            URL_ROOT:'./',
-            VERSION:'103.1.1',
-            COLLAPSE_INDEX:false,
-            FILE_SUFFIX:'.html',
-            HAS_SOURCE:  true,
-            SOURCELINK_SUFFIX: '.txt'
-        };
-    </script>
-      <script type="text/javascript" src="_static/jquery.js"></script>
-      <script type="text/javascript" src="_static/underscore.js"></script>
-      <script type="text/javascript" src="_static/doctools.js"></script>
-      <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
-
-  
-
-  
-  
-    <script type="text/javascript" src="_static/js/theme.js"></script>
-  
-
-  
-  
   <script type="text/javascript">
       jQuery(function () {
-          SphinxRtdTheme.StickyNav.enable();
+          SphinxRtdTheme.Navigation.enable(true);
       });
   </script>
+
+  
+  
+    
    
 
 </body>
