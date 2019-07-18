@@ -8,7 +8,7 @@ from astropy.coordinates import EarthLocation
 
 '''
 fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
-Copyright (C) 2017-2018,  F.P.A. Vogt
+Copyright (C) 2017-2019,  F.P.A. Vogt
 --- oOo ---
 This file contains some generic metadata used throughout the fcmaker module, including 
 the version number, etc ...
@@ -16,7 +16,7 @@ Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
 
 # Define the version of fcmaker
-__version__ = '103.1.1'
+__version__ = '104.0.0'
 
 # Where are we located ?
 fcm_dir = os.path.dirname(__file__)
@@ -42,7 +42,7 @@ clear_SkyView_cache = False
 set_North = True
 
 # Default date (and time) at which the observations will take place.
-obsdate = dup.parse("2018 07 01 00:00:00 UTC")
+obsdate = dup.parse("2019 12 01 00:00:00 UTC")
 
 # VLT Guide star nominal magnitude range (in UCAC2 UCmag system)
 gs_mag = [11.,14.]

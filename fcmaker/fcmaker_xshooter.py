@@ -713,7 +713,7 @@ def plot_field(ax1, ax2, fc_params, field):
                                  #markersize=10, 
                                  label='PM* (track:$-$%.1f yr)' % (fcm_m.pm_track_time.to(u.yr).value))
                                                           
-      ax2._ax1.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend, PM_legend],
+      ax2.ax.legend(handles=[acq_legend, target_legend,O_legend,S_legend,ucac2_legend, PM_legend],
                  bbox_to_anchor=(0., 1.02, 1., .102), loc=3,
                  ncol=6, mode="expand", borderaxespad=0., fontsize=10, borderpad=0.7,
                  handletextpad=0.2, handlelength=2.0)          

@@ -51,7 +51,7 @@ warnings.filterwarnings("ignore", category=VOTableSpecWarning)
 
 '''
  fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
- Copyright (C) 2017-2018,  F.P.A. Vogt
+ Copyright (C) 2017-2019,  F.P.A. Vogt
  --- oOo ---
  This file contains general functions for the fcmaker routines. 
  Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
@@ -330,7 +330,7 @@ def make_fc_local(f,
       raise Exception('Ouch! unknown file: %s' % (fn))
    
    # Load the parameter file
-   inpars = yaml.load(f)
+   inpars = yaml.load(f, Loader=yaml.SafeLoader)
    
    # Set the observing date (and time)
    set_obsdate(obsdate)

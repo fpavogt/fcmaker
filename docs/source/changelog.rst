@@ -21,9 +21,19 @@ Changelog |last-commit| |issues|
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
 
+v104.0.0 July 2019, F.P.A. Vogt
+   - ported to P104 (checked MUSE only!)
+   - froze official development in favor of ``p2api.generateFindingChart()``
+   - updated docs accordingly
+   - fixed bug in aplpy legend call (``_ax1`` -> ``ax``)
+   - fixed YAML deprecation warning (by using ``Loader=yaml.SafeLoader``)
+   
+v103.2.0 January 2019, F.P.A. Vogt
+   - fixed a bug with new version of `astroquery.skyview.SkyView.survey_dict()`
+
 v103.1.1 October 2018, F.P.A. Vogt
    - fixed `#10 <https://github.com/fpavogt/fcmaker/issues/10>`_: added 180deg to the parallactic 
-     angle derived by the ``UT2.parallactic_angle()`` routine, to match the screen orientation at UT2. 
+     angle derived by the ``UT2.parallactic_angle()`` routine, to match the screen orientation at UT2
 
 v103.1.0 October 2018, F.P.A. Vogt
    - fixed a bug in the calculation of ESPRESSO left chart radius.

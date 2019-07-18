@@ -122,7 +122,7 @@ def get_bk_image(bk_image, bk_lam, center, radius, fc_params):
    
    if not(bk_image in [None,'None']):
       # Has the user provided his/her own FITS file ?  
-      if not(bk_image in SkyView.survey_dict['overlay_blue']) and not(bk_image=='Gaia'):
+      if not(bk_image in fcm_t.all_surveys()) and not(bk_image=='Gaia'):
          # Very well, I guess I have a custom FITS file.
          fn_bk_image = os.path.join(fcm_m.data_loc, bk_image)
          
@@ -359,7 +359,8 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
 
    ax1 = aplpy.FITSFigure(fn_bk_image_L, figure=fig1, north=fcm_m.set_North,
                           subplot=[0.12,0.12,0.35,0.76])
-   ax1.show_grayscale(invert = True, stretch='linear', pmin = fcm_id.get_pmin(survey_L))
+   ax1.show_grayscale(invert = True, stretch='linear', pmin = fcm_id.get_pmin(survey_L),
+                      pmax=99.9)
 
    ax2 = aplpy.FITSFigure(fn_bk_image_R, figure=fig1, north=fcm_m.set_North, 
                           subplot=[0.59,0.12,0.38,0.8])
@@ -555,12 +556,12 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       ax.tick_labels.set_xformat('hh:mm:ss')
       ax.axis_labels.set_xpad(10)
       ax.ticks.set_linewidth(1.5)
-      ax.set_tick_size(10)
-      ax.set_tick_color('k')
+      ax.ticks.set_length(10)
+      ax.ticks.set_color('k')
       ax.axis_labels.set_xtext('R.A. [J2000]')
 
    ax1.axis_labels.set_ytext('Dec. [J2000]')
-   ax1.axis_labels.set_ypad(-10)
+   #ax1.axis_labels.set_ypad(-10)
    ax2.axis_labels.set_ytext('')
 
    # Add the required OB information to comply with ESO requirements ...
@@ -589,7 +590,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    
    # Add a legend (if warranted) for the left plot
    if len(ax1_legend_items) >0:
-      ax1._ax1.legend(handles=ax1_legend_items,
+      ax1.ax.legend(handles=ax1_legend_items,
                      bbox_to_anchor=(-0.03, 0.82, 0.4, .1), #loc='lower right',
                      ncol=1, #mode="expand", 
                      borderaxespad=0., fontsize=10, borderpad=0.3, 

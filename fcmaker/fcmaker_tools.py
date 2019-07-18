@@ -7,6 +7,7 @@ import warnings
 from astropy.coordinates.sky_coordinate import SkyCoord
 from astropy import units as u
 from astropy.time import Time
+from astroquery.skyview import SkyView
 
 import matplotlib as mpl
 
@@ -19,6 +20,17 @@ from datetime import datetime, timedelta
  This file contains general tools for the fcmaker routines.
  Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
+# ----------------------------------------------------------------------------------------
+# Gets me all the surveys that I support from SkyView
+def all_surveys():
+
+   surv = SkyView.survey_dict['IR:2MASS class=']
+   surv += SkyView.survey_dict['IR:UKIDSS class=']
+   surv += SkyView.survey_dict['Optical:DSS class=']
+   surv += SkyView.survey_dict['Optical:SDSS']
+   surv += SkyView.survey_dict['OtherOptical']
+
+   return surv
 
 # ----------------------------------------------------------------------------------------
 # Design a crosshair custom marker that is sadly missing from maplotlib

@@ -58,7 +58,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'fcmaker'
-copyright = u'2017-2018, Frédéric P.A. Vogt'
+copyright = u'2017-2019, Frédéric P.A. Vogt'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the

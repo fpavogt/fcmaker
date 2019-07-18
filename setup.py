@@ -2,7 +2,7 @@ from setuptools import setup, find_packages  # Always prefer setuptools over dis
 
 setup(
    name='fcmaker',
-   version='103.1.1',
+   version='104.0.0',
    author='F.P.A. Vogt',
    author_email='frederic.vogt@alumni.anu.edu.au',
    packages=['fcmaker',],
@@ -13,17 +13,17 @@ setup(
    long_description=open('README').read(),
    python_requires='>=3',
    install_requires=[
-      "numpy >= 1.14.3",
-      "scipy >= 1.1.0",
-      "matplotlib >= 3.0.0",
-      "astropy >=3.0",
-      "aplpy >=1.1.1",
-      "astroquery >= 0.3.4",
-      "p2api >= 0.92",
-      "PyYAML >=3.12",
-      "pytz >= 2018",
-      "astroplan",
-      "pillow >=5.2.0",
+      "numpy >= 1.16.2",
+      "scipy >= 1.2.1",
+      "matplotlib >= 3.0.3",
+      "astropy >=3.1.2",
+      "aplpy >=2.0.3",
+      "astroquery >= 0.3.9",
+      "p2api >= 0.94",
+      "PyYAML >=5.1",
+      "pytz >= 2018.9",
+      "astroplan >=0.4",
+      "pillow >=5.4.1",
       #"montage-wrapper >= 0.9.9",
    ],
     
@@ -32,7 +32,7 @@ setup(
    #   3 - Alpha
    #   4 - Beta
    #   5 - Production/Stable
-   'Development Status :: 3 - Alpha',
+   'Development Status :: 4 - Beta',
 
    # Indicate who your project is intended for
    'Intended Audience :: Science/Research',
@@ -43,7 +43,7 @@ setup(
     
    # Specify the Python versions you support here. In particular, ensure
    # that you indicate whether you support Python 2, Python 3 or both.
-   'Programming Language :: Python :: 3.6',
+   'Programming Language :: Python :: 3.7',
    ],
     
    include_package_data=True, # So that non .py files make it onto pypi, and then back !
