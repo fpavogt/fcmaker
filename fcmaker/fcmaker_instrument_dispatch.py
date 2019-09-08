@@ -568,7 +568,7 @@ def get_p2fcdata(obID, api):
       return fcm_espresso.get_p2fcdata_espresso(fc_params, ob, api)
       
    else:
-      raise Exception('%s finding charts not (yet?) supported.' % (inst))
+      raise Exception('%s finding charts not (yet?) supported.' % (fc_params['inst']))
    
 # ----------------------------------------------------------------------------------------
 def get_localfcdata(inpars):
