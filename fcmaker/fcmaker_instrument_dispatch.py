@@ -478,6 +478,22 @@ def get_p2fcdata(obID, api):
    
    # Fetch the OB
    ob, obVersion = api.getOB(obID)
+
+   # Extract the acquisition and observations parameters for the support instruments
+   if ob['instrument'] == 'MUSE':
+      return fcm_muse.get_p2fcdata_muse(fc_params, ob, api)
+      
+   elif ob['instrument'] == 'HAWKI':
+      return fcm_hawki.get_p2fcdata_hawki(fc_params, ob, api)
+   
+   elif ob['instrument'] == 'XSHOOTER':
+      return fcm_xshooter.get_p2fcdata_xshooter(fc_params, ob, api)
+     
+   elif ob['instrument'] == 'ESPRESSO':
+      return fcm_espresso.get_p2fcdata_espresso(fc_params, ob, api)
+      
+   else:
+      raise Exception('%s finding charts not (yet?) supported.' % (ob['instrument']))
    
    # Check for an ephemeris file ...
    # This will download a file, even if there is no ephemeris file upload by the user
@@ -514,7 +530,7 @@ def get_p2fcdata(obID, api):
    # Also create a list where I keep track of anything special about the OB
    # possible flag include 'moving_target', 'parallactic_angle'
    fc_params['tags'] = []
-   
+
    # Need to deal with the target coordinates. Ephemeris file, or not ?
    if ephem_fn is None:
     
@@ -554,21 +570,7 @@ def get_p2fcdata(obID, api):
       fc_params['tags'] += ['moving_target']
    
      
-   # Extract the acquisition and observations parameters for the support instruments
-   if ob['instrument'] == 'MUSE':
-      return fcm_muse.get_p2fcdata_muse(fc_params, ob, api)
-      
-   elif ob['instrument'] == 'HAWKI':
-      return fcm_hawki.get_p2fcdata_hawki(fc_params, ob, api)
-   
-   elif ob['instrument'] == 'XSHOOTER':
-      return fcm_xshooter.get_p2fcdata_xshooter(fc_params, ob, api)
-     
-   elif ob['instrument'] == 'ESPRESSO':
-      return fcm_espresso.get_p2fcdata_espresso(fc_params, ob, api)
-      
-   else:
-      raise Exception('%s finding charts not (yet?) supported.' % (fc_params['inst']))
+
    
 # ----------------------------------------------------------------------------------------
 def get_localfcdata(inpars):
