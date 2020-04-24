@@ -4,9 +4,10 @@
 Usage instructions
 ==================
 
-There are two main ways to use fcmaker. You can either execute the module as a script, i.e.::
+There are two main ways to use fcmaker. You can either execute the module as a script using the 
+following entry point::
 
-   python -m fcmaker
+   fcmaker
    
 or you can import the module and execute it within a script, i.e.::
 
@@ -30,7 +31,7 @@ too mysterious. Also, don't forget the built-in help::
 In its most basic mode, fcmaker connects to `p2 <http://www.eso.org/p2>`_ and creates the 
 finding chart for a given OB Id. To do so, simply type in a  terminal::
 
-   python -m fcmaker
+   fcmaker
    
 You will be prompted for your `p2 <http://www.eso.org/p2>`_ username, password, and the 
 ID of the observing block to process. fcmaker will create two folders ``fcm_data`` and 
@@ -43,7 +44,7 @@ the same name!**
 If you get fed up with typing your p2 username and/or the OB id repeatedly, you can 
 specify them directly when calling fcmaker::
 
-   python -m fcmaker --p2uid jdoe --obid 12345678 
+   fcmaker --p2uid jdoe --obid 12345678 
 
 
 2: creation of a finding chart for a single OB on p2demo
@@ -53,7 +54,7 @@ If you simply want to experiment with p2 and/or fcmaker, you can use the `p2demo
 server to create mock OBs. In that case, simply use the ``--demo`` flag to tell fcmaker that 
 you want to connect to the tutorial account on the demo server::
 
-   python -m fcmaker --demo
+   fcmaker --demo
 
    
 You will only be prompted for the ID of the observing block to process.
@@ -69,7 +70,7 @@ First, create a text file :download:`p2_2_fcm.params.txt <./examples/p2_2_fcm.pa
 
 Then, feed it to fcmaker with the ``-f`` flag::
 
-   python -m fcmaker -f p2_2_fcm.params.txt
+   fcmaker -f p2_2_fcm.params.txt
 
 In doing so, fcmaker will connect to `p2 <http://www.eso.org/p2>`_ and process all the 
 OBs listed. Note that for each finding chart, you will still need to manually specify 
@@ -83,7 +84,7 @@ You can fully automate the creation of many finding charts if you include the
 ``--no-upload`` flag. In that case, fcmaker will never attempt to upload anything to 
 `p2 <http://www.eso.org/p2>`_, and only save the image files locally::
 
-   python -m fcmaker --no-upload -f p2_2_fcm.params.txt
+   fcmaker --no-upload -f p2_2_fcm.params.txt
 
 
 6: specifying observing dates and times
@@ -93,9 +94,9 @@ For targets with large proper motions, one can provide the expected year, (month
 day, ...!) of the observation to create an accurate finding chart, using the ``--obsdate`` 
 flag. This also works for OBs that have Ephemeris files. For example::
 
-   python -m fcmaker -f --obsdate 2018
-   python -m fcmaker -f --obsdate 2018-05
-   python -m fcmaker -f --obsdate 2018-05-17 14:34:57 UTC
+   fcmaker -f --obsdate 2018
+   fcmaker -f --obsdate 2018-05
+   fcmaker -f --obsdate 2018-05-17 14:34:57 UTC
    
 Finding charts for moving targets get automatically tagged with the symbol :math:`\leadsto`.
    
@@ -117,10 +118,10 @@ templates for all supported instruments:
 The file is then fed to fcmaker with the ``-f`` flag, together with the ``--local`` flag to 
 indicate that it is a *local run*::
 
-   python -m fcmaker --local -f local_2_fcm.muse.txt
-   python -m fcmaker --local -f local_2_fcm.hawki.txt
-   python -m fcmaker --local -f local_2_fcm.xshooter.txt
-   python -m fcmaker --local -f local_2_fcm.espresso.txt
+   fcmaker --local -f local_2_fcm.muse.txt
+   fcmaker --local -f local_2_fcm.hawki.txt
+   fcmaker --local -f local_2_fcm.xshooter.txt
+   fcmaker --local -f local_2_fcm.espresso.txt
    
 fcmaker will create the associated finding chart, store it where specified, and exit.
 
@@ -160,7 +161,7 @@ assuming that the FITS file is placed in the ``--data-loc`` directory (default: 
 The latter allows the user to specify the text to be displayed on the chart. To meet ESO's 
 requirements, this text should specify the wavelength of the image::
 
-   python -m fcmaker --p2uid joe --obid 12345678 --bk-image my-file.fits --bk-lam 450-550nm (HST)
+   fcmaker --p2uid joe --obid 12345678 --bk-image my-file.fits --bk-lam 450-550nm (HST)
 
 See the Gallery (:ref:`examples-NFM`) for an illustration of this approach.
 
@@ -217,5 +218,5 @@ Here are all the flags that allow to fine-tune the way fcmaker works. They are:
 For example, if you want to boost the aesthetic appeal of your finding charts with the 
 exquisite Computer Modern Bright sans-serif font (why wouldn't you?), try::
 
-   python -m fcmaker --systemtex
+   fcmaker --systemtex
 

@@ -10,6 +10,7 @@ Changelog |last-commit| |issues|
 ================================
 
 .. todo:: 
+   - (!) figure out why the Gaia.cone_search() fails with 'Cannot parse query: Encountered "TOP". Was expecting: "SELECT" '. See fcmaker_plots, l.408 + 251
    - (!) for XSHOOTER, always place the slit horizontal (i.e. do not put the chart North)
    - (!) formally validate the parallactic function
    - (?) check connection to the online servers ahead of time, and issue a nice error if needed 
@@ -21,6 +22,20 @@ Changelog |last-commit| |issues|
    - (?) make the obsdate an ``fc_params`` entry rather than a global variable
    - (?) for time critical OBs, get the time from the OB
 
+v105.0.0 September 2019, F.P.A. Vogt
+   - fixed `#17 <https://github.com/fpavogt/fcmaker/issues/17>`_
+   - implemented PR `#15 <https://github.com/fpavogt/fcmaker/pull/15>`_
+   - fixed bug `#16 <https://github.com/fpavogt/fcmaker/issues/16>`_
+   - created linked setup.py to a unique version file.
+   - added a proper "fcmaker" entry point
+   - started using pylint ... ouch!
+   - minor tweaks
+
+v104.0.1 July 2019, F.P.A. Vogt
+   - changed "Obs. date" to "date" in plots, reduced to fontsize 10
+   - for MUSE NFM, renamed "TT" to "TTS" in the plots
+   - fixed YAML deprecation warning in ``__main__.py``
+   
 v104.0.0 July 2019, F.P.A. Vogt
    - ported to P104 (checked MUSE only!)
    - froze official development in favor of ``p2api.generateFindingChart()``

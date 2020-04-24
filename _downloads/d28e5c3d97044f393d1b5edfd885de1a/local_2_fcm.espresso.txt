@@ -1,0 +1,36 @@
+#
+# A list of basic OB parameters to generate an ESPRESSO finding chart from scratch
+#
+##### OB Info #####
+ob_name:   ESPRESSO_OB     # OB name, required to name the output files!
+ob_id:                     # optional
+pi:                        # optional
+prog_id:                   # optional
+inst:      ESPRESSO        # optional
+ins_mode:  HR              # HR, UHR, MR
+
+##### Target #####
+equinox:   J2000           #
+epoch:     2000.0          #
+ra:        01h44m04.090s   #
+dec:       -15d56m14.900s  #
+pmra:      -1.73           # proper motion in arcsec/year
+pmdec:     0.855           # proper motion in arcsec/year
+ephemeris:                 # relative path+filename of an ephemeris file, optional
+
+###### Acquisition #####
+bos_ra:    0               # Blind-offset (RA), ESPRESSO convention!
+bos_dec:   0               # Blind offset (Dec), ESPRESSO convention!
+is_gs:     False           # User-defined Guide Star ?
+gs_ra:     21h49m22.147s   #
+gs_dec:    +00d27m53.336s  #
+
+###### Observation #####
+calsource_B:      SKY      # if SKY, draw the possible location of fiber B.
+
+##### Other params #####
+bk_image:  Gaia            # None, bk_images to download from SkyView, Gaia, or local fits file
+bk_lam:    None            # None, or else overrides SkyView default.
+data_loc:  fcm_data        # Relative path to the background images (local FITS file or SkyView images)
+plot_loc:  fcm_plots       # Relative path to store the finding charts 
+                    

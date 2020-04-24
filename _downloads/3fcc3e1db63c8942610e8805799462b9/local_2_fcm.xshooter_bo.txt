@@ -1,0 +1,46 @@
+#
+# A list of basic OB parameters to generate an XSHOOTER finding chart from scratch
+#
+##### OB Info #####
+ob_name:   XSHOOTER_OB_BO # OB name, required to name the output files!
+ob_id:     12345678       # optional
+pi:        jdoe           # optional
+prog_id:   0100.Z-9999    # optional
+inst:      XSHOOTER       # Required!
+                          
+##### Target #####        
+equinox:   J2000          #
+epoch:     2000.0         #
+ra:        13h48m09.180s  # E.g.: 21h49m07.290s
+dec:       -62d28m34.000s # E.g.: +00d26m55.000s
+pmra:      0.0000         # proper motion in arcsec/year
+pmdec:     0.0000         # proper motion in arcsec/year
+ephemeris:                # relative path+filename of an ephemeris file, optional
+                          
+##### Acquisition #####   
+bos_ra:    46             # Blind-offset (RA), XSHOOTER convention!
+bos_dec:   5              # Blind offset (Dec), XSHOOTER convention!
+acq_pa:    0              # Acquisition Position Angle (degrees), XSHOOTER convention!
+is_gs:     False          # User-defined Guide Star ?
+gs_ra:     21h49m22.147s  #
+gs_dec:    +00d27m53.336s #
+
+##### Observation #####
+ins_mode:  slt            # Can be slt, img or ifu
+uvb_slt:   1.0            #
+vis_slt:   1.0            #
+nir_slt:   1.0            #
+slt_throw: 0.0            # The Nodding Throw along the slit
+noff:      2              #
+obstype:   [O S]          # Offsets must be separated by a single space!
+coordtype: SKY            # DETECTOR = SLIT, or SKY
+off1:      [0 5]          # Offsets must be separated by a single space!
+off2:      [0 -20]        # Offsets must be separated by a single space!
+return:    True           
+
+##### Other params #####
+bk_image:  DSS2 Red       # None, bk_images to download from SkyView, or local fits file
+bk_lam:    None           # None, or else overrides SkyView default
+data_loc:  fcm_data       # Relative path to the background images (local FITS file or SkyView images)
+plot_loc:  fcm_plots      # Relative path to store the finding charts 
+                    

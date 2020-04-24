@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>FAQ &mdash; fcmaker 104.0.0 documentation</title>
+  <title>FAQ &mdash; fcmaker 105.0.0 documentation</title>
   
 
   
@@ -21,11 +21,11 @@
   
     
       <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-        <script type="text/javascript" src="_static/language_data.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/language_data.js"></script>
+        <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
     <script type="text/javascript" src="_static/js/theme.js"></script>
 
@@ -61,7 +61,7 @@
             
             
               <div class="version">
-                104.0.0
+                105.0.0
               </div>
             
           
@@ -164,21 +164,23 @@
 <span id="id1"></span><h1>FAQ<a class="headerlink" href="#faq" title="Permalink to this headline">¶</a></h1>
 <p><strong>Q</strong>: What’s with the versioning scheme ?</p>
 <blockquote>
-<div><strong>A</strong>: Each version of fcmaker is flagged as <code class="docutils literal notranslate"><span class="pre">vXXX.Y.Z</span></code>, starting from <code class="docutils literal notranslate"><span class="pre">v103.0.0</span></code>.
+<div><p><strong>A</strong>: Each version of fcmaker is flagged as <code class="docutils literal notranslate"><span class="pre">vXXX.Y.Z</span></code>, starting from <code class="docutils literal notranslate"><span class="pre">v103.0.0</span></code>.
 <code class="docutils literal notranslate"><span class="pre">XXX</span></code> designs the observing period (in ESO convention) that fcmaker has been tuned to.
 <code class="docutils literal notranslate"><span class="pre">Y</span></code> and <code class="docutils literal notranslate"><span class="pre">Z</span></code> indicate major and minor subversions, respectively. As a rule of thumb,
 important updates that can justify to have users upgrade their version of the code will
 increase <code class="docutils literal notranslate"><span class="pre">Y</span></code>. In turn, minor upgrades (e.g. cosmetic changes with no impact on the
-scientific content of the chart) will lead to an increase in <code class="docutils literal notranslate"><span class="pre">Z</span></code>.</div></blockquote>
+scientific content of the chart) will lead to an increase in <code class="docutils literal notranslate"><span class="pre">Z</span></code>.</p>
+</div></blockquote>
 <p><strong>Q: How does fcmaker deal with proper motions?</strong></p>
 <blockquote>
-<div><strong>A</strong>: fcmaker relies on <code class="docutils literal notranslate"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine to
+<div><p><strong>A</strong>: fcmaker relies on <code class="docutils literal notranslate"><span class="pre">astropy.coordinates.SkyCoord.appl_space_motion()</span></code> routine to
 propagate proper motion between epochs. This routine assumes that the target is moving
 in a straight line (in space). It also requires the distance along the-line-of sight to
 the target. In comparison, the VLT propagates proper motions by assuming that the
 target moves along a Great Circle on the sky. The error associated with this mismatch
 will be negligible in most cases, particularly if user-provided coordinates are at
-recent epochs.</div></blockquote>
+recent epochs.</p>
+</div></blockquote>
 </div>
 
 
