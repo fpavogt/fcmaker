@@ -639,9 +639,9 @@ def plot_field(ax1, ax2, fc_params, field):
          
          # Only add their name to the zoom-in plot
          if fcm_m.fcm_usetex:
-            lab = r'\textbf{TT}'
+            lab = r'\textbf{TTS}'
          else:
-            lab = r'TT'
+            lab = r'TTS'
          if ax == ax1 and (field[4] == 'Acq'):
             ax.add_label(tts.ra.deg,tts.dec.deg+0.75/3600,lab, 
                          verticalalignment='center', 

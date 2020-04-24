@@ -12,7 +12,7 @@ log.setLevel('WARNING') # Disable pesky INFO flags from aplpy
 # Import the sub-routines
 from . import fcmaker_metadata as fcm_m
 from . import fcmaker_instrument_dispatch as fcm_id
-from .fcmaker_metadata import __version__
+from .fcmaker_version import __version__
 from . import fcmaker_tools as fcm_t
 from . import fcmaker_plots as fcm_p
 

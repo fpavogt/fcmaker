@@ -109,10 +109,10 @@ def plot_field(ax1, ax2, fc_params, field):
    '''
    
    if fc_params['inst'] == 'MUSE':
-      fcm_muse.plot_field(ax1,ax2,fc_params,field)
+      fcm_muse.plot_field(ax1, ax2, fc_params,field)
    
    elif fc_params['inst'] == 'HAWKI':
-      fcm_hawki.plot_field(ax1,ax2,fc_params,field)
+      fcm_hawki.plot_field(ax1, ax2, fc_params,field)
       
    elif fc_params['inst'] == 'XSHOOTER':
       fcm_xshooter.plot_field(ax1,ax2,fc_params,field)
@@ -399,7 +399,14 @@ def get_target_from_ephem(fc_params, ephemeris):
             for line in ephemeris if line[:16]=='INS.EPHEM.RECORD'] 
       
    # Extract all the times, convert them to datetime values. UTC = PAF default!
-   times = [ dup.parse(point[0]+' UTC') for point in ephem]
+   times = [dup.parse(point[0]+' UTC') for point in ephem]
+   
+   # Create an error if I don't have at least 2 times ... else the next line will crash.
+   # Issue 17: https://github.com/fpavogt/fcmaker/issues/17
+   # This will not fix the bug at 100% (because I still don't formally check that the
+   # ephemeris file is valid), but it will help a lot.
+   if len(times)<2:
+      raise Exception('Ouch! Something is wrong with the ephemeris file...')
       
    # Here, let's do some sanity check:
    if (fcm_m.obsdate>times[-1]) or (fcm_m.obsdate<times[0]):
@@ -568,7 +575,8 @@ def get_p2fcdata(obID, api):
       return fcm_espresso.get_p2fcdata_espresso(fc_params, ob, api)
       
    else:
-      raise Exception('%s finding charts not (yet?) supported.' % (inst))
+      # PR #15
+      raise Exception('%s finding charts not (yet?) supported.' % (fc_params['inst']))
    
 # ----------------------------------------------------------------------------------------
 def get_localfcdata(inpars):

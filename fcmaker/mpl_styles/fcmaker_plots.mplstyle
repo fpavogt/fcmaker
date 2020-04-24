@@ -3,7 +3,7 @@ font.family: sans-serif
 font.serif: Computer Modern Serif
 font.sans-serif: Arial
 font.size: 16 
-font.weight: 500
+font.weight: medium
 font.variant: normal
 
 axes.labelweight: normal
@@ -21,5 +21,5 @@ mathtext.fontset: cm
 mathtext.bf: monospace:bold
 
 text.usetex: True
-text.latex.preamble: \usepackage{cmbright},\usepackage{amsmath},\usepackage{amssymb},\usepackage{relsize}
+text.latex.preamble: \usepackage{cmbright} \usepackage{amsmath} \usepackage{amssymb} \usepackage{relsize}
 contour.negative_linestyle: solid

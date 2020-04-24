@@ -10,13 +10,10 @@ from astropy.coordinates import EarthLocation
 fcmaker: a Python module to automatically create finding charts for ESO OBs in p2.\n
 Copyright (C) 2017-2019,  F.P.A. Vogt
 --- oOo ---
-This file contains some generic metadata used throughout the fcmaker module, including 
-the version number, etc ...
+This file contains some generic metadata used throughout the fcmaker module.
+
 Created October 2017, F.P.A. Vogt - frederic.vogt@alumni.anu.edu.au
 '''
-
-# Define the version of fcmaker
-__version__ = '104.0.0'
 
 # Where are we located ?
 fcm_dir = os.path.dirname(__file__)

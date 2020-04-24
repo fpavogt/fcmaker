@@ -1,8 +1,13 @@
 from setuptools import setup, find_packages  # Always prefer setuptools over distutils
+import os
+
+# Run the version file
+v = open(os.path.join('.','fcmaker','fcmaker_version.py'))
+version = [l.split("'")[1] for l in v.readlines() if '__version__' in l][0]
 
 setup(
    name='fcmaker',
-   version='104.0.0',
+   version=version,
    author='F.P.A. Vogt',
    author_email='frederic.vogt@alumni.anu.edu.au',
    packages=['fcmaker',],
@@ -26,7 +31,9 @@ setup(
       "pillow >=5.4.1",
       #"montage-wrapper >= 0.9.9",
    ],
-    
+   
+   entry_points={'console_scripts': ['fcmaker=fcmaker.__main__:main']},
+
    classifiers=[
    # How mature is this project? Common values are
    #   3 - Alpha

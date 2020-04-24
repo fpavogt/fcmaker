@@ -35,6 +35,7 @@ from astropy.wcs import WCS
 from . import fcmaker_metadata as fcm_m
 from . import fcmaker_tools as fcm_t
 from . import fcmaker_instrument_dispatch as fcm_id
+from . import fcmaker_version as fcm_v
 
 # Set the fcmaker plot style
 plt.style.use(fcm_m.fcm_plotstyle)
@@ -246,8 +247,8 @@ def make_gaia_image(skycoord, fov, sampling, fwhm,
    # Query GAIA
    print('   Querying GAIA to create a pseudo-image of the sky ...')
    # Make it a sync search, because I don't think I need more than 2000 targets ...
-   
-   j = Gaia.cone_search(skycoord, fov, verbose=False)
+   # TODO: figure out why cone_search fails ... and fix it ! Swap to async for now...
+   j = Gaia.cone_search_async(skycoord, fov, verbose=False)
    r = j.get_results()
    nstars = len(r)
    
@@ -274,7 +275,7 @@ def make_gaia_image(skycoord, fov, sampling, fwhm,
    hdr['COMMENT'] = 'Bandpass:    285.5-908 THz '
    hdr['COMMENT'] = 'Epoch: %s' % (obsdate.strftime('%Y-%h-%d %H:%M:%S UTC'))
    hdr['COMMENT'] = 'Created %s with fcmaker v%s' % (datetime.utcnow().strftime('%Y-%h-%d %H:%M:%S UTC'),
-                                                        fcm_m.__version__)
+                                                        fcm_v.__version__)
    hdr['COMMENT'] = 'See http://fpavogt.github.io/fcmaker for details.'
    
    # Save the empty FITS file for now
@@ -403,7 +404,8 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
       print('   Querying GAIA DR2 to look for high proper motion stars in the area ...')
    
       # Make it a sync search, because I don't think I need more than 2000 targets ...
-      j = Gaia.cone_search(left_center, right_radius*u.arcsec, verbose=False)
+      # 2020-04: for some reason the sync search fails ... run an async one for now.
+      j = Gaia.cone_search_async(left_center, right_radius*u.arcsec, verbose=False)
       r = j.get_results()
    
       selected = np.sqrt(r['pmra']**2+r['pmdec']**2)*u.mas/u.yr > fcm_m.min_abs_GAIA_pm
@@ -562,7 +564,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
 
    ax1.axis_labels.set_ytext('Dec. [J2000]')
    #ax1.axis_labels.set_ypad(-10)
-   ax2.axis_labels.set_ytext('')
+   ax2.axis_labels.set_ytext(' ')
 
    # Add the required OB information to comply with ESO requirements ...
    # ... and make the life of the night astronomer a lot easier !
@@ -600,9 +602,9 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
    tag_string = r' '
    
    # Show the obsdate
-   ax1.add_label(1.0,1.02, r'Obs. date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d %H:%M %Z'), 
+   ax1.add_label(1.0,1.02, r'Date: '+datetime.strftime(fcm_m.obsdate, '%Y-%m-%d %H:%M %Z'), 
                  relative=True, color='k',
-                 horizontalalignment='right', fontsize=11) 
+                 horizontalalignment='right', fontsize=10) 
 
    # Show the OB tags
    if 'moving_target' in fc_params['tags']:
@@ -620,7 +622,7 @@ def draw_fc(fc_params, bk_image = None, bk_lam = None, do_pdf = False, do_png = 
                     ) 
 
    # Finally include the version of fcmaker in there
-   ax1.add_label(1.01,0.00, r'Created with fcmaker v%s'%(fcm_m.__version__), 
+   ax1.add_label(1.01,0.00, r'Created with fcmaker v%s'%(fcm_v.__version__), 
                  relative=True, 
                  horizontalalignment='left',verticalalignment='bottom',
                  fontsize=10, rotation=90)          
